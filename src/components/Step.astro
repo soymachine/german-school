@@ -1,0 +1,21 @@
+---
+interface Props {
+	step: string;
+}
+
+const { step } = Astro.props;
+
+const extraStep = (step == "2")? "stepOrange" : ""
+---
+<div class=`step ${extraStep}`>
+    <header>Step numero {step}</header>
+    <button class="next-step-btn" id=`button-next-step-${step}`>Next Slide</button>
+    <slot />
+
+</div>
+<style>
+	.button{
+        
+    }
+	
+</style>

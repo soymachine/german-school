@@ -1,0 +1,53 @@
+---
+interface Props {
+	step: string;
+}
+
+const { step } = Astro.props;
+---
+
+<div class="button-holder">
+    <div class=`btn-step-option` id=`btn-step-${step}-option-1`>
+        <a href="#">Option 1</a>
+    </div>
+    <div class=`btn-step-option` id=`btn-step-${step}-option-2`>
+        <a href="#">Option 2</a>
+    </div>
+    <div class=`btn-step-option` id=`btn-step-${step}-option-3`>
+        <a href="#">Option 3</a>
+    </div>
+    <div class=`btn-step-option` id=`btn-step-${step}-option-4`>
+        <a class="btn-step-option-selected" href="#">Option 4</a>
+    </div>
+</div>
+<style>
+
+    .button-holder {
+        display:flex;
+        gap:10px;
+        width:100%;
+    }
+
+    .btn-step-option  {
+        display:flex;
+        width:100%;
+    }
+
+    .btn-step-option > a {
+        text-decoration: none;
+        color:red;
+        text-align: center;
+        background-color: rgb(255, 255, 255);
+        height: 100%;
+        margin: auto;
+        padding:10px;
+        border-radius:var(--marginGeneral)
+        vertical-align: middle;
+    }
+
+    .btn-step-option-selected{
+        background-color: red !important;
+        color: white  !important;
+    }
+
+</style>
