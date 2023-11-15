@@ -45,6 +45,18 @@ class Controller {
         this.content["content-2"] = new Content2()
 
         /* 3.- RESULT */
+
+
+        /* MUSIC */
+        var sound = new Howl({
+            src: ['sound/song.mp3'],
+            autoplay: true,
+            loop: true,
+            volume: 0.5,
+            onend: function() {
+                console.log('Finished!');
+            }
+        });
     }
 
     onClickNext(content){

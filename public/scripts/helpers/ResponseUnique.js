@@ -36,6 +36,12 @@ class ResponseUnique {
         anchor.classList.add("btn-step-option-selected");
 
         this.currentButtonSelected = id
+
+        // Audio, mejor que lo gestione el controller
+        var sound = new Howl({
+            src: ['sound/click.mp3']
+        });
+        sound.play();
     }
 }
 
