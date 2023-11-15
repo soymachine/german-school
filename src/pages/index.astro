@@ -8,9 +8,15 @@ import QuestionSet from '../components/QuestionSet.astro';
 	<div class="container">
 		<div class="holder">
 			<div id="content" class="content">
-				<Step step="1"><QuestionSet step="1" /></Step>
-				<Step step="2"></Step>
-				<Step step="3">Content 3 here</Step>
+				<Step step="0">
+					<div>Select one:</div>
+					<QuestionSet step="0" />
+				</Step>
+				<Step step="1">
+					<div>Select the correct ones:</div>
+					<QuestionSet step="1" />
+				</Step>
+				<Step step="2">Content 3 here</Step>
 			</div>
 			
 		</div>

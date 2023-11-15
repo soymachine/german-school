@@ -1,6 +1,7 @@
 
 import Content from './content/Content.js'
 import Content1 from './content/Content1.js'
+import Content2 from './content/Content2.js'
 import Settings from './helpers/Settings.js'
 class Controller {
     constructor(){
@@ -13,12 +14,22 @@ class Controller {
         // La sección actual
         this.currentSection = 1
         
-        const list = document.querySelectorAll(".next-step-btn")
+        // Scope
         const that = this
-        list.forEach(button => {
+
+        // Lista de botones de next
+        document.querySelectorAll(".next-step-btn").forEach(button => {
             const id = button.getAttribute("id").split("-")[3]
             button.onclick = function(e){
-                that.onClick(id)
+                that.onClickNext(id)
+            }
+        })
+
+        // Lista de botones de prev
+        document.querySelectorAll(".prev-step-btn").forEach(button => {
+            const id = Number(button.getAttribute("id").split("-")[3])
+            button.onclick = function(e){
+                that.onClickPrev(id)
             }
         })
 
@@ -27,15 +38,28 @@ class Controller {
 
         // Agregamos segun el contenido
 
-        /* 1.- IMAGE + TEXT + NEXT */
+        /* 1.- UNIQUE RESPONSE */
         this.content["content-1"] = new Content1()
-        /* 2.- FORM (UNIQUE) */
+
+        /* 2.- MULTIPLE RESPONSE */
+        this.content["content-2"] = new Content2()
+
         /* 3.- RESULT */
     }
 
-    onClick(id){
-        const idNum = Number(id)
-        const xDest = -this.contentWidth * idNum
+    onClickNext(content){
+        console.log(`next es ${content}`)
+
+        this.showContent(content)
+    }
+
+    onClickPrev(content){
+        console.log(`prev es ${content}`)
+        this.showContent(content)
+    }
+
+    showContent(content){
+        const xDest = -this.contentWidth * content
         anime({
             targets: '#content',
             translateX: xDest,
@@ -43,7 +67,7 @@ class Controller {
             duration:Settings.duration
           });
 
-          this.currentSection = idNum
+        this.currentSection = content
     }
 }
 export default Controller
