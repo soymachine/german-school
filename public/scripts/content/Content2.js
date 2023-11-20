@@ -4,9 +4,14 @@ import Content from './Content.js'
 
 class Content2 extends Content {
     constructor(){
-        super()
+        super(1)
         
-        this.resoponseMultiple = new ResponseMultiple(1, 4) 
+        this.responseMultiple = new ResponseMultiple(1, 4) 
+    }
+
+
+    deactivateContent(){
+        console.log("Deactivate content 2")
     }
 }
 

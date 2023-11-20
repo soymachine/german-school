@@ -1,7 +1,13 @@
+import GlobalEvents from './GlobalEvents.js'
+import Settings from './Settings.js'
+
 class ResponseUnique {
     constructor(step){
         this.step = step
         
+        // events
+        this.events = GlobalEvents.getInstance()
+
         // Data
         this.buttons = {}
 
@@ -36,6 +42,14 @@ class ResponseUnique {
         anchor.classList.add("btn-step-option-selected");
 
         this.currentButtonSelected = id
+
+        // notificamos de la respuesta
+        this.events.notify(GlobalEvents.ON_RESPONSE_UPDATE, {
+            responseID: this.step,
+            responseType: Settings.SINGLE_RESPONSE,
+            response: this.currentButtonSelected
+        })
+        
 
         // Audio, mejor que lo gestione el controller
         var sound = new Howl({

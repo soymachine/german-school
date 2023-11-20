@@ -3,9 +3,9 @@ import Content from './Content.js'
 
 class Content1 extends Content {
     constructor(){
-        super()
+        super(0)
         
-        this.resoponseMultiple = new ResponseUnique(0)
+        this.responseUnique = new ResponseUnique(0)
     }
 }
 

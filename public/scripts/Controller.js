@@ -2,9 +2,16 @@
 import Content from './content/Content.js'
 import Content1 from './content/Content1.js'
 import Content2 from './content/Content2.js'
+import Content3 from './content/Content3.js'
 import Settings from './helpers/Settings.js'
+import GlobalEvents from './helpers/GlobalEvents.js'
+import QuestionaireController from './questionaire/QuestionaireController.js'
 class Controller {
     constructor(){
+
+        // Eventos
+        this.events = GlobalEvents.getInstance()
+
         // Valores generales del contenedor
         this.$content = document.querySelector("#content")
         
@@ -12,7 +19,7 @@ class Controller {
         this.contentWidth = this.$content.getBoundingClientRect().width
 
         // La sección actual
-        this.currentSection = 1
+        this.currentSection = 0
         
         // Scope
         const that = this
@@ -44,10 +51,14 @@ class Controller {
         /* 2.- MULTIPLE RESPONSE */
         this.content["content-2"] = new Content2()
 
-        /* 3.- RESULT */
+        /* 3.- FORM */
+        this.content["content-3"] = new Content3()
 
+        // El controlador del questionario
+        this.questionaireController = new QuestionaireController()
 
         /* MUSIC */
+        /*
         var sound = new Howl({
             src: ['sound/song.mp3'],
             autoplay: true,
@@ -57,6 +68,10 @@ class Controller {
                 console.log('Finished!');
             }
         });
+        */
+
+        /* TESTING */
+        //this.showContent(2)
     }
 
     onClickNext(content){
@@ -77,9 +92,15 @@ class Controller {
             translateX: xDest,
             easing: Settings.ease,
             duration:Settings.duration
-          });
+        });
+
+        // Si hay contenido previo notificamos que desaparece
+        this.events.notify(GlobalEvents.ON_CONTENT_HIDE, this.currentSection)
 
         this.currentSection = content
+
+        // notificamos el contenido que entra
+        this.events.notify(GlobalEvents.ON_CONTENT_SHOWN, content) 
     }
 }
 export default Controller

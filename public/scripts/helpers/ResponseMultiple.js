@@ -1,8 +1,14 @@
+import GlobalEvents from './GlobalEvents.js'
+import Settings from './Settings.js'
+
 class ResponseMultiple {
     constructor(step, maxResponses){
         this.step = step
         this.maxResponses = maxResponses
         
+        // events
+        this.events = GlobalEvents.getInstance()
+
         // Data
         this.buttons = {}
 
@@ -39,8 +45,7 @@ class ResponseMultiple {
                 this.buttons[id].anchor.classList.add("btn-step-option-selected");
                 this.currentButtonsSelected.push(id)
             }
-
-            console.log(this.currentButtonsSelected)
+            //console.log(this.currentButtonsSelected)
         }else{
             // Está marcada, la desmarcamos
             this.buttons[id].anchor.classList.remove("btn-step-option-selected");
@@ -50,6 +55,12 @@ class ResponseMultiple {
             console.log(this.currentButtonsSelected)
         }
 
+        // notificamos de la respuesta
+        this.events.notify(GlobalEvents.ON_RESPONSE_UPDATE, {
+            responseID: this.step,
+            responseType: Settings.MULTIPLE_RESPONSE,
+            response: this.currentButtonsSelected
+        })
     }
 }
 

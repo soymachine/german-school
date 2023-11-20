@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Step from '../components/Step.astro';
 import QuestionSet from '../components/QuestionSet.astro';
+import Form from '../components/Form.astro';
 ---
 
 <Layout title="German School">
@@ -16,7 +17,9 @@ import QuestionSet from '../components/QuestionSet.astro';
 					<div>Select the correct ones:</div>
 					<QuestionSet step="1" />
 				</Step>
-				<Step step="2">Content 3 here</Step>
+				<Step step="2">
+					<Form />
+				</Step>
 			</div>
 			
 		</div>
