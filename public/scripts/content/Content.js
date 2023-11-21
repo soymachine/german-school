@@ -1,11 +1,10 @@
-import GlobalEvents from '../helpers/GlobalEvents.js'
+import {eventSystem, Events} from '../helpers/EventSystem.js'
 
 class Content{
     constructor(contentID){
         this.contentID = contentID
-        this.events = GlobalEvents.getInstance()
-        this.events.subscribe(GlobalEvents.ON_CONTENT_SHOWN, (content)=>{ this.onContentShown(content)})
-        this.events.subscribe(GlobalEvents.ON_CONTENT_HIDE, (content)=>{ this.onContentHide(content)})
+        eventSystem.subscribe(Events.ON_CONTENT_SHOWN, (content)=>{ this.onContentShown(content)})
+        eventSystem.subscribe(Events.ON_CONTENT_HIDE, (content)=>{ this.onContentHide(content)})
     }
 
     onContentShown(content){

@@ -4,13 +4,10 @@ import Content1 from './content/Content1.js'
 import Content2 from './content/Content2.js'
 import Content3 from './content/Content3.js'
 import Settings from './helpers/Settings.js'
-import GlobalEvents from './helpers/GlobalEvents.js'
+import {eventSystem, Events} from './helpers/EventSystem.js'
 import QuestionaireController from './questionaire/QuestionaireController.js'
 class Controller {
     constructor(){
-
-        // Eventos
-        this.events = GlobalEvents.getInstance()
 
         // Valores generales del contenedor
         this.$content = document.querySelector("#content")
@@ -95,12 +92,12 @@ class Controller {
         });
 
         // Si hay contenido previo notificamos que desaparece
-        this.events.notify(GlobalEvents.ON_CONTENT_HIDE, this.currentSection)
+        eventSystem.publish(Events.ON_CONTENT_HIDE, this.currentSection)
 
         this.currentSection = content
 
         // notificamos el contenido que entra
-        this.events.notify(GlobalEvents.ON_CONTENT_SHOWN, content) 
+        eventSystem.publish(Events.ON_CONTENT_SHOWN, content) 
     }
 }
 export default Controller

@@ -1,13 +1,10 @@
-import GlobalEvents from './GlobalEvents.js'
+import {eventSystem, Events} from './EventSystem.js'
 import Settings from './Settings.js'
 
 class ResponseUnique {
     constructor(step){
         this.step = step
         
-        // events
-        this.events = GlobalEvents.getInstance()
-
         // Data
         this.buttons = {}
 
@@ -44,7 +41,7 @@ class ResponseUnique {
         this.currentButtonSelected = id
 
         // notificamos de la respuesta
-        this.events.notify(GlobalEvents.ON_RESPONSE_UPDATE, {
+        eventSystem.publish(Events.ON_RESPONSE_UPDATE, {
             responseID: this.step,
             responseType: Settings.SINGLE_RESPONSE,
             response: this.currentButtonSelected

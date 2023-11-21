@@ -1,5 +1,5 @@
 import Content from './Content.js'
-import GlobalEvents from '../helpers/GlobalEvents.js'
+import {eventSystem, Events} from '../helpers/EventSystem.js'
 
 class Content3 extends Content {
     constructor(){
@@ -12,17 +12,14 @@ class Content3 extends Content {
         const that = this
 
         // sistema de eventos        
-        this.events.subscribe(GlobalEvents.ON_DATA_UPDATED, (data)=>{ this.onDataUpdated(data)})
+        eventSystem.subscribe(Events.ON_DATA_UPDATED, (data)=>{ this.onDataUpdated(data)})
+
+        this.$form = document.querySelector("#formulario")
+
+        this.$emailInput = document.getElementById("email-input")
 
         //  Formulario
-        this.$sendButton = document.querySelector("#send-form-btn")
-        this.$sendButton.addEventListener("click", () => {
-            that.onSubmit()
-          });
-        
-        let loginForm = document.getElementById("formulario");
-        
-        loginForm.addEventListener("submit", (e) => {
+        this.$form.addEventListener("submit", (e) => {
             console.log("submit del form")
             e.preventDefault()
             
@@ -32,7 +29,6 @@ class Content3 extends Content {
     }
 
     activateContent(){
-        console.log("Activate content 3")
     }
 
     onDataUpdated(data){
@@ -40,7 +36,7 @@ class Content3 extends Content {
     }
 
     onSubmit(){
-        let email = document.getElementById("email-input").value;
+        let email = this.$emailInput.value;
         
         if (email.value == "") {
           // throw error
@@ -56,10 +52,9 @@ class Content3 extends Content {
     }
 
     sendData(data) {
-        console.log("Sending data");
-      
+        console.error("enviando formulario")  
+
         const XHR = new XMLHttpRequest();
-      
         const urlEncodedDataPairs = [];
       
         // Turn the data object into an array of URL-encoded key/value pairs.
@@ -77,11 +72,16 @@ class Content3 extends Content {
         XHR.addEventListener("load", (event) => {
             console.log("form regresa con éxito")
             console.log(event.target.responseText);
+            
+            this.$emailInput.value = ""
+            this.$form.classList.remove("hide")
         });
       
         // Define what happens in case of an error
         XHR.addEventListener("error", (event) => {
             console.log("Oops! Something went wrong.");
+            this.$emailInput.value = ""
+            this.$form.classList.remove("hide")
         });
       
         // Set up our request
@@ -92,6 +92,9 @@ class Content3 extends Content {
       
         // Finally, send our data.
         XHR.send(urlEncodedData);
+
+        // Hide form
+        this.$form.classList.add("hide")
       }
 }
 

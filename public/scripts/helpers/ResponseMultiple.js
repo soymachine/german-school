@@ -1,4 +1,4 @@
-import GlobalEvents from './GlobalEvents.js'
+import {eventSystem, Events}  from './EventSystem.js'
 import Settings from './Settings.js'
 
 class ResponseMultiple {
@@ -6,9 +6,6 @@ class ResponseMultiple {
         this.step = step
         this.maxResponses = maxResponses
         
-        // events
-        this.events = GlobalEvents.getInstance()
-
         // Data
         this.buttons = {}
 
@@ -56,7 +53,7 @@ class ResponseMultiple {
         }
 
         // notificamos de la respuesta
-        this.events.notify(GlobalEvents.ON_RESPONSE_UPDATE, {
+        eventSystem.publish(Events.ON_RESPONSE_UPDATE, {
             responseID: this.step,
             responseType: Settings.MULTIPLE_RESPONSE,
             response: this.currentButtonsSelected
