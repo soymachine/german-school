@@ -1,6 +1,6 @@
 
 import Content from './content/Content.js'
-import Content1 from './content/Content1.js'
+import ContentDraggable from './content/ContentDraggable.js'
 import Content2 from './content/Content2.js'
 import Content3 from './content/Content3.js'
 import Settings from './helpers/Settings.js'
@@ -43,7 +43,8 @@ class Controller {
         // Agregamos segun el contenido
 
         /* 1.- UNIQUE RESPONSE */
-        this.content["content-1"] = new Content1()
+        this.contentDraggable = new ContentDraggable()
+        // this.content["content-1"] = new ContentDraggable()
 
         /* 2.- MULTIPLE RESPONSE */
         this.content["content-2"] = new Content2()
@@ -68,7 +69,7 @@ class Controller {
         */
 
         /* TESTING */
-        //this.showContent(2)
+        // this.showContent(2)
     }
 
     onClickNext(content){

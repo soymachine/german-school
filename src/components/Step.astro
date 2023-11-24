@@ -9,19 +9,32 @@ const extraStep = (step == "1")? "stepOrange" : ""
 const notFirst = (step !== "0")
 const stepNum = Number(step)
 ---
-<div class=`step ${extraStep}`>
+<div class=`step`>
     <!-- Back button -->
     {
         notFirst && (
             <button class="prev-step-btn" id=`button-prev-step-${stepNum - 1}`>Prev Slide</button>
         )
     }
-    <header>Step numero {stepNum + 1}</header>
-    <button class="next-step-btn" id=`button-next-step-${stepNum + 1}`>Next Slide</button>
-    <slot />
-
+    <div class="step-header">
+        <header>Step numero {stepNum + 1}</header>
+        <button class="next-step-btn" id=`button-next-step-${stepNum + 1}`>Next Slide</button>
+    </div>
+    <div class="step-content">
+        <slot />
+    </div>
 </div>
 <style>
+    .step-header{
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .step-content{
+        /*position: absolute;*/
+    }
+
 	.button{
         
     }

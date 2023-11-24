@@ -1,6 +1,7 @@
 import Content from './Content.js'
 import {eventSystem, Events} from '../helpers/EventSystem.js'
 
+const ACCESS_TOKEN = "1234567890"
 class Content3 extends Content {
     constructor(){
         super(2)
@@ -54,7 +55,10 @@ class Content3 extends Content {
     sendData(data) {
         console.error("enviando formulario")  
 
-        const XHR = new XMLHttpRequest();
+        const xhr = new XMLHttpRequest();
+
+        
+
         const urlEncodedDataPairs = [];
       
         // Turn the data object into an array of URL-encoded key/value pairs.
@@ -69,7 +73,7 @@ class Content3 extends Content {
         const urlEncodedData = urlEncodedDataPairs.join("&").replace(/%20/g, "+");
       
         // Define what happens on successful data submission
-        XHR.addEventListener("load", (event) => {
+        xhr.addEventListener("load", (event) => {
             console.log("form regresa con éxito")
             console.log(event.target.responseText);
             
@@ -78,20 +82,22 @@ class Content3 extends Content {
         });
       
         // Define what happens in case of an error
-        XHR.addEventListener("error", (event) => {
+        xhr.addEventListener("error", (event) => {
             console.log("Oops! Something went wrong.");
             this.$emailInput.value = ""
             this.$form.classList.remove("hide")
         });
       
         // Set up our request
-        XHR.open("POST", "https://www.appnormals.com/german_school/save_user.php");
+        xhr.open("POST", "https://www.appnormals.com/german_school/save_user.php");
       
         // Add the required HTTP header for form data POST requests
-        XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader('Authorization', 'Bearer ' + ACCESS_TOKEN);
+        //xhr.setRequestHeader('Custom-Header', 'custom-value');
       
         // Finally, send our data.
-        XHR.send(urlEncodedData);
+        xhr.send(urlEncodedData);
 
         // Hide form
         this.$form.classList.add("hide")

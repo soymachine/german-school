@@ -1,0 +1,106 @@
+---
+interface Props {
+	step: string;
+}
+
+const { step } = Astro.props;
+
+---
+<div class=`draggable-holder`>
+    <h1>Welcome <span class="name">Iñaki</span> and <span class="name">Ariana</span>! You two now have to design how the basic <strong>functioning of AI:</strong></h1>
+    <div class="dropzone-content">
+        <div>
+            <div id="dropzone-predictiveanalysis" class="dropzone">Option 1</div>
+        </div>
+        <div class="dropzone-row-zone">
+            <div id="dropzone-datamonitoring" class="dropzone">Option 2</div>
+            <div id="dropzone-imagerecognition" class="dropzone">Option 3</div>
+        </div>
+        <div>
+            <div id="dropzone-realtimealert" class="dropzone">Option 4</div>
+        </div>
+    </div>
+    <div class="draggable-zone">
+        <div id="realtimealert" class="draggable-item noselect">Real-time alerts</div>
+        <div id="datamonitoring" class="draggable-item noselect">Data monitoring</div>
+        <div id="predictiveanalysis" class="draggable-item noselect">Predictive analysis</div>
+        <div id="imagerecognition" class="draggable-item noselect">Image recognition</div>
+    </div>
+</div>
+<style>
+    .draggable-holder {
+        /*position:absolute;*/
+        color:darkblue;
+        text-align: center;
+        font-size: 18px;
+        margin:20px 20px;
+    }
+
+    .draggable-holder h1 {
+        font-size: 16px;
+        margin-bottom: 50px;
+    }
+
+	.name{
+        color:orange;
+    }
+
+    .dropzone {
+        vertical-align: middle;
+        display: inline-block;
+        height: 100%;
+        min-width: 150px;
+        min-height: 50px;
+        line-height: 50px;
+        border:2px grey;
+        border-style: dashed;
+        border-radius:8px;
+    }
+
+    .dropzone-content{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap:40px;
+        margin-bottom: 50px;
+    }
+
+    .dropzone-row-zone {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        margin-bottom:20px;
+    }
+
+    .draggable-zone {
+        margin-top:15px;
+        display: grid;
+        border-radius: 8px;
+        background-color: grey;
+        min-height: 150px;
+    }
+
+    .draggable-item {
+        vertical-align: middle;
+        position: absolute;
+        top:0px;
+        left:0px;
+        width:150px;
+        height:50px;
+        line-height:50px;
+        border-radius: 8px;
+        border:2px solid blue;
+        background-color: white;        
+    }
+
+    .draggable-zone .correct{
+        background-color: blue; 
+        color:white;
+    }
+
+    .draggable-zone .incorrect{
+        border-color: orange !important; 
+        color:orange !important;
+    }
+	
+</style>
