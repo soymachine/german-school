@@ -26,6 +26,16 @@ const { step } = Astro.props;
         <div id="predictiveanalysis" class="draggable-item noselect">Predictive analysis</div>
         <div id="imagerecognition" class="draggable-item noselect">Image recognition</div>
     </div>
+    <div id="draggable-content-correct" class="draggable-content-final">
+        <img src="./imgs/correct.png">
+        <div>The flow diagaram of this AI model is:</div>
+        <div>APPROVED!</div>
+    </div>
+    <div id="draggable-content-incorrect" class="draggable-content-final">
+        <img src="./imgs/incorrect.png">
+        <div>The flow diagaram of this AI model has issues:</div>
+        <div>Please review it before is approved!</div>
+    </div>
 </div>
 <style>
     .draggable-holder {
@@ -101,6 +111,12 @@ const { step } = Astro.props;
     .draggable-zone .incorrect{
         border-color: orange !important; 
         color:orange !important;
+    }
+
+    .draggable-content-final{
+        position: relative;
+        top:0px;
+        left:0px;
     }
 	
 </style>
