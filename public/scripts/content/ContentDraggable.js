@@ -26,6 +26,7 @@ class ContentDraggable extends Content {
         this.distanceThreshold = 40
         this.draggerX = 0
         this.draggerY = 0
+        this.itemsDragged = []
 
         // Evento general para el release
         document.onmouseup = document.touchend = function() { //asign a function
@@ -33,12 +34,14 @@ class ContentDraggable extends Content {
         }
 
         // Zonas de Drag y de Drop
+        this.draggableCorrectElement = document.querySelector("#draggable-content-correct")
+        this.draggableIncorrectElement = document.querySelector("#draggable-content-incorrect")
         const draggableItems = document.querySelectorAll(".draggable-item")
         const droppableItems = document.querySelectorAll(".dropzone")
-        const draggableZone = document.querySelector(".draggable-zone")
+        this.draggableZone = document.querySelector(".draggable-zone")
         const content = document.querySelector("#content")
         const dropZone = document.querySelector(".dropzone-content")
-        this.draggableZoneBoundingRect  = draggableZone.getBoundingClientRect()
+        this.draggableZoneBoundingRect  = this.draggableZone.getBoundingClientRect()
         this.dropZoneBoundingRect  = dropZone.getBoundingClientRect()
         this.contentBoundingRect  = content.getBoundingClientRect()
 
@@ -73,19 +76,23 @@ class ContentDraggable extends Content {
         this.dropElementsData = [
             {
                 id: "realtimealert",
-                pos: {x:0, y:0}
+                pos: {x:0, y:0},
+                droppedID: undefined
             },
             {
                 id: "datamonitoring",
-                pos: {x:0, y:0}
+                pos: {x:0, y:0},
+                droppedID: undefined
             },
             {
                 id: "predictiveanalysis",
-                pos: {x:0, y:0}
+                pos: {x:0, y:0},
+                droppedID: undefined
             },
             {
                 id: "imagerecognition",
-                pos: {x:0, y:0}
+                pos: {x:0, y:0},
+                droppedID: undefined
             },
         ]
 
@@ -140,6 +147,14 @@ class ContentDraggable extends Content {
                     x: dataElement.currentPos.x,
                     y: dataElement.currentPos.y
                 }
+
+                // Lo quitamos de la lista (está en nuestra mano!)
+                self.itemsDragged = self.itemsDragged.filter(item => item != elementID)
+
+                // Quitamos los mensajes que pudiera haber
+                self.draggableCorrectElement.style.display = "none"
+                self.draggableIncorrectElement.style.display = "none"
+                self.showDraggableZone()
 
                 // Incrementaoms el z-index del drageable
                 self.draggingElement.style.zIndex = 999
@@ -226,12 +241,14 @@ class ContentDraggable extends Content {
             this.draggingElement.style.zIndex = 1
 
            
-
+            const dragID = this.dragElementsData[this.draggingElementPos].id
             if(nearestDrop != null){
                 // Está bien puesto o mal puesto?
-                const dragID = this.dragElementsData[this.draggingElementPos].id
+                
                 const dropID = this.dropElementsData[nearestDrop].id
-                // console.log(dragID, dropID)
+                
+                // Ocupamos el lugar en el elemento que le toque del drop
+                this.dropElementsData[nearestDrop].droppedID = dragID
                 
                 if(dragID == dropID){
                     // Add class "correct" to draggingElement
@@ -242,16 +259,51 @@ class ContentDraggable extends Content {
                     this.draggingElement.classList.add("incorrect")   
                     this.draggingElement.classList.remove("correct")     
                 }
+
+                this.itemsDragged.push(dragID)
             }else{
                 this.draggingElement.classList.remove("incorrect")     
-                this.draggingElement.classList.remove("correct")     
+                this.draggingElement.classList.remove("correct")    
+                
+                this.itemsDragged = this.itemsDragged.filter(item => item != dragID)
             }
             
+            if(this.itemsDragged.length == 4){
+                // Bien o mal?
+                this.hideDraggableZone()
+                
+                const correctOrder = this.isOrderCorrect()
+
+                if(correctOrder){
+                    this.draggableCorrectElement.style.display = "block"
+                }else{
+                    this.draggableIncorrectElement.style.display = "block"
+                }
+            }
         }
         
         this.isDragging = false
         this.draggingElement = undefined
         this.draggingElementData = undefined
+    }
+
+    hideDraggableZone(){
+        // Add "draggable-zone-hidden" to this.draggableCorrectElement
+        this.draggableZone.classList.add("draggable-zone-hidden")
+    }
+
+    showDraggableZone(){
+        // Remove "draggable-zone-hidden" to this.draggableCorrectElement
+        this.draggableZone.classList.remove("draggable-zone-hidden")
+    }
+
+    isOrderCorrect(){
+        //Find if fields id and dropppedID from dropElementsData array are the same using reduce function
+        const correct = this.dropElementsData.reduce((acc, drop) => {
+            return acc && drop.id == drop.droppedID
+        }, true)
+        
+        return correct
     }
 
     startLoop() {

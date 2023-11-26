@@ -69,7 +69,7 @@ class Controller {
         */
 
         /* TESTING */
-        // this.showContent(2)
+        this.showContent(1)
     }
 
     onClickNext(content){

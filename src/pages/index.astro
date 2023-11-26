@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Step from '../components/Step.astro';
 import QuestionSet from '../components/QuestionSet.astro';
 import ContentDraggable from '../components/ContentDraggable.astro';
+import ContentMultiple from '../components/ContentMultiple.astro'
 import Form from '../components/Form.astro';
 ---
 
@@ -14,8 +15,7 @@ import Form from '../components/Form.astro';
 					<ContentDraggable step='0'/>
 				</Step>
 				<Step step="1">
-					<div>Select the correct ones:</div>
-					<QuestionSet step="1" />
+					<ContentMultiple step="1"/>
 				</Step>
 				<Step step="2">
 					<Form />
@@ -30,6 +30,8 @@ import Form from '../components/Form.astro';
 	:root {
     	--radius: 15px;
     	--marginGeneral: 10%;
+    	--color-alternate: orange;
+    	--color-correct: green;
 	}
 
 	.hide {
@@ -40,6 +42,15 @@ import Form from '../components/Form.astro';
 		margin: 0;
 		padding:0;
 	}
+
+	@font-face {
+		font-family: 'Roboto';
+		src: url('/fonts/Roboto-Regular.ttf') format('ttf');
+		font-weight: normal;
+		font-style: normal;
+		font-display: swap;
+	}
+
 
 	.noselect {
 		-webkit-touch-callout: none; /* iOS Safari */

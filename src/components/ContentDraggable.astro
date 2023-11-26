@@ -20,22 +20,30 @@ const { step } = Astro.props;
             <div id="dropzone-realtimealert" class="dropzone">Option 4</div>
         </div>
     </div>
-    <div class="draggable-zone">
-        <div id="realtimealert" class="draggable-item noselect">Real-time alerts</div>
-        <div id="datamonitoring" class="draggable-item noselect">Data monitoring</div>
-        <div id="predictiveanalysis" class="draggable-item noselect">Predictive analysis</div>
-        <div id="imagerecognition" class="draggable-item noselect">Image recognition</div>
+    <div class="multi-zone">
+        <div class="draggable-zone">
+            <div id="realtimealert" class="draggable-item noselect">Real-time alerts</div>
+            <div id="datamonitoring" class="draggable-item noselect">Data monitoring</div>
+            <div id="predictiveanalysis" class="draggable-item noselect">Predictive analysis</div>
+            <div id="imagerecognition" class="draggable-item noselect">Image recognition</div>
+            <div id="draggable-content-correct" class="draggable-content-final">
+                <img src="./imgs/correct.png">
+                <div>The <strong>flow diagaram of this AI model</strong> is:</div>
+                <div><span class="correct-color">APPROVED!</span></div>
+            </div>
+            <div id="draggable-content-incorrect" class="draggable-content-final">
+                <img src="./imgs/incorrect.png">
+                <div>The flow diagaram of this AI model <span class="alternate-color">has issues</span>:</div>
+                <div><strong>Please review it before is approved!</strong></div>
+            </div>
+        </div>
     </div>
-    <div id="draggable-content-correct" class="draggable-content-final">
-        <img src="./imgs/correct.png">
-        <div>The flow diagaram of this AI model is:</div>
-        <div>APPROVED!</div>
+    <div>
+        <a href="#">
+            <img src="/imgs/nextButton.png" />
+        </a>
     </div>
-    <div id="draggable-content-incorrect" class="draggable-content-final">
-        <img src="./imgs/incorrect.png">
-        <div>The flow diagaram of this AI model has issues:</div>
-        <div>Please review it before is approved!</div>
-    </div>
+    
 </div>
 <style>
     .draggable-holder {
@@ -44,11 +52,13 @@ const { step } = Astro.props;
         text-align: center;
         font-size: 18px;
         margin:20px 20px;
+        font-family: 'Roboto', sans-serif;
     }
 
     .draggable-holder h1 {
         font-size: 16px;
         margin-bottom: 50px;
+        font-weight: 400;
     }
 
 	.name{
@@ -82,12 +92,20 @@ const { step } = Astro.props;
         margin-bottom:20px;
     }
 
+    .multi-zone {
+        margin-bottom: 50px;
+    }
+
     .draggable-zone {
         margin-top:15px;
         display: grid;
         border-radius: 8px;
         background-color: grey;
         min-height: 150px;
+    }
+
+    .draggable-zone-hidden {
+        background: none;
     }
 
     .draggable-item {
@@ -109,14 +127,27 @@ const { step } = Astro.props;
     }
 
     .draggable-zone .incorrect{
-        border-color: orange !important; 
-        color:orange !important;
+        border-color: var(--color-alternate)  !important; 
+        color:var(--color-alternate) !important;
+    }
+
+    .alternate-color {
+        color: var(--color-alternate);
+    }
+
+    .correct-color {
+        color: var(--color-correct);
     }
 
     .draggable-content-final{
         position: relative;
         top:0px;
         left:0px;
+        display: none;
+    }
+
+    .draggable-content-final > img{
+        margin-bottom: 25px;
     }
 	
 </style>

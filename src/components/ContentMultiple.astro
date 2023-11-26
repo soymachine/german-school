@@ -1,0 +1,41 @@
+---
+interface Props {
+	step: string;
+}
+
+const { step } = Astro.props;
+
+---
+<div class=`content-holder`>
+    <div class="title">
+        <h1>Networking is also very important. Several WHU alumni founded 6 of these succsseful start-up</h1>
+        <h1><strong>Can you GUESS who they are?</strong></h1>
+    </div>
+    <div class="companies-grid"></div>
+    <div>
+        <a href="#">
+            <img src="/imgs/nextButton.png" />
+        </a>
+    </div>
+    
+</div>
+<style>
+    .content-holder {
+        /*position:absolute;*/
+        color:darkblue;
+        text-align: center;
+        font-size: 18px;
+        margin:20px 20px;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .title{
+        margin-bottom: 50px;
+    }
+
+    h1 {
+        font-size: 16px;
+        font-weight: 400;
+    }
+	
+</style>
