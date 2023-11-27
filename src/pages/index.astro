@@ -8,7 +8,7 @@ import Form from '../components/Form.astro';
 ---
 
 <Layout title="German School">
-	<div class="container">
+	<div class="container" draggable="false">
 		<div id="root" class="holder">
 			<div id="content" class="content">
 				<Step step="0">
@@ -27,9 +27,7 @@ import Form from '../components/Form.astro';
 	</div>
 </Layout>
 <style is:global>
-	html {
-		height: -webkit-fill-available;
-	}
+	
 	:root {
     	--radius: 15px;
     	--marginGeneral: 10%;
@@ -44,7 +42,6 @@ import Form from '../components/Form.astro';
 	body {
 		margin: 0;
 		padding:0;
-		height: -webkit-fill-available;
 	}
 
 	@font-face {
@@ -71,7 +68,7 @@ import Form from '../components/Form.astro';
 		justify-content: center;
 		align-items: center;
 		height: 100vh;
-		height: -webkit-fill-available;
+		height: 100svh;
 		width: 100vw;
 		background-color: black;
 		overflow:hidden;

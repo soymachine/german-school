@@ -7,47 +7,47 @@ const { step } = Astro.props;
 const items = [
     {
         id:"company-1",
-        src:"/imgs/companies/company-1.png",
+        src:"./imgs/companies/company-1.png",
         isGood:true
     },
     {
         id:"company-2",
-        src:"/imgs/companies/company-2.png",
+        src:"./imgs/companies/company-2.png",
         isGood:true
     },
     {
         id:"company-3",
-        src:"/imgs/companies/company-3.png",
+        src:"./imgs/companies/company-3.png",
         isGood:true
     },
     {
         id:"company-4",
-        src:"/imgs/companies/company-4.png",
+        src:"./imgs/companies/company-4.png",
         isGood:true
     },
     {
         id:"company-5",
-        src:"/imgs/companies/company-5.png",
+        src:"./imgs/companies/company-5.png",
         isGood:true
     },
     {
         id:"company-6",
-        src:"/imgs/companies/company-6.png",
+        src:"./imgs/companies/company-6.png",
         isGood:true
     },
     {
         id:"company-7",
-        src:"/imgs/companies/company-7.png",
+        src:"./imgs/companies/company-7.png",
         isGood:true
     },
     {
         id:"company-8",
-        src:"/imgs/companies/company-8.png",
+        src:"./imgs/companies/company-8.png",
         isGood:true
     },
     {
         id:"company-9",
-        src:"/imgs/companies/company-9.png",
+        src:"./imgs/companies/company-9.png",
         isGood:true
     },
 ]
@@ -78,7 +78,7 @@ const items = [
     </div>
     <div>
         <a id=`next-button-step-${step}` href="#">
-            <img src="/imgs/nextButton.png" />
+            <img src="./imgs/nextButton.png" />
         </a>
     </div>
     
@@ -118,7 +118,7 @@ const items = [
     }
 
     .company-item{
-        background-image: url(/imgs/companies/border/companies-border.png);
+        background-image: url("http://www.appnormals.com/german_school/imgs/companies/border/companies-border.png");
         background-repeat: repeat-y;
         background-position-x: right;
         margin: 5px 0px 0px 5px;
@@ -130,7 +130,7 @@ const items = [
     }
 
     .company-item::after {
-        background-image: url(/imgs/companies/border/companies-border-horizontal.png);
+        background-image: url(http://www.appnormals.com/german_school/imgs/companies/border/companies-border-horizontal.png);
         width: 100%;
         content: "";
         display: block;
