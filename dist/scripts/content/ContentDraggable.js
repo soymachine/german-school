@@ -1,4 +1,3 @@
-import ResponseMultiple from '../helpers/ResponseMultiple.js'
 import Content from './Content.js'
 
 class ContentDraggable extends Content {
@@ -26,21 +25,33 @@ class ContentDraggable extends Content {
         this.distanceThreshold = 40
         this.draggerX = 0
         this.draggerY = 0
+        this.itemsDragged = []
 
         // Evento general para el release
-        document.onmouseup = document.touchend = function() { //asign a function
+        document.onmouseup = function() { //asign a function
             self.onMouseUp()
         }
 
+        document.addEventListener('touchend', function(e){
+            self.onMouseUp()
+        }, false);
+
+
+
+        
+
         // Zonas de Drag y de Drop
+        this.draggableCorrectElement = document.querySelector("#draggable-content-correct")
+        this.draggableIncorrectElement = document.querySelector("#draggable-content-incorrect")
         const draggableItems = document.querySelectorAll(".draggable-item")
         const droppableItems = document.querySelectorAll(".dropzone")
-        const draggableZone = document.querySelector(".draggable-zone")
+        this.draggableZone = document.querySelector(".draggable-zone")
         const content = document.querySelector("#content")
         const dropZone = document.querySelector(".dropzone-content")
-        this.draggableZoneBoundingRect  = draggableZone.getBoundingClientRect()
+        this.draggableZoneBoundingRect  = this.draggableZone.getBoundingClientRect()
         this.dropZoneBoundingRect  = dropZone.getBoundingClientRect()
         this.contentBoundingRect  = content.getBoundingClientRect()
+        
 
         // Estructura de datos de los elementos
         this.dragElementsData = [
@@ -73,19 +84,23 @@ class ContentDraggable extends Content {
         this.dropElementsData = [
             {
                 id: "realtimealert",
-                pos: {x:0, y:0}
+                pos: {x:0, y:0},
+                droppedID: undefined
             },
             {
                 id: "datamonitoring",
-                pos: {x:0, y:0}
+                pos: {x:0, y:0},
+                droppedID: undefined
             },
             {
                 id: "predictiveanalysis",
-                pos: {x:0, y:0}
+                pos: {x:0, y:0},
+                droppedID: undefined
             },
             {
                 id: "imagerecognition",
-                pos: {x:0, y:0}
+                pos: {x:0, y:0},
+                droppedID: undefined
             },
         ]
 
@@ -93,23 +108,35 @@ class ContentDraggable extends Content {
         let col = 0
         let row = 0
         let maxCol = 2
-        const colMargin = 20
-        const rowMargin = 20
-        const colWidth = 200
+        
+        // Estos valores han de ser dinámicos
+        const W = document.querySelector("#root").offsetWidth
+        const marginExterior = 20
+        const marginInterior = 10
+        const colMargin = 8
+        const rowMargin = 10
+        const extraWSpace = 20
+
+        const itemWidth = (W - (marginExterior * 2) - (marginInterior * 3)) / 2
         const rowWidth = 60
         // Elementos de drageo
         draggableItems.forEach((item, i) => {
+            // Adjust width of the element as itemWidth
+            item.style.width = `${itemWidth}px`
+
             // Data element
             const dataElement = this.dragElementsData[i]
             const elementID = dataElement.id
             
             // Punto 0,0
-            let x = (this.draggableZoneBoundingRect.x - this.contentBoundingRect.x) + colMargin
+            let x = (this.draggableZoneBoundingRect.x - this.contentBoundingRect.x) + marginInterior
             let y = (this.draggableZoneBoundingRect.y - this.contentBoundingRect.y) + rowMargin
-
+            
             // Posición según fila y columna
-            x += col * colWidth
+            x += col * (itemWidth + marginInterior)
             y += row * rowWidth
+
+            // console.log(x, y)
             
             // Actualizamos las posiciones en la data
             dataElement.initialPos = {x, y}
@@ -124,53 +151,103 @@ class ContentDraggable extends Content {
                 col = 0
                 row += 1
             }
-
+            
             item.onmousedown = function(e) { //asign a function
-                self.draggingElementPos = i
-                self.isDragging = true
-                self.draggingElement = item
-                self.draggingElementData = dataElement
-                self.mouseOriginalPos = {
-                    x: self.mouseX,
-                    y: self.mouseY
-                }
-
-                // NOTA: Esto no siempre será initialPos, porque igual estamos en la parte de drop!!!!
-                self.draggingElementOriginalPos = {
-                    x: dataElement.currentPos.x,
-                    y: dataElement.currentPos.y
-                }
-
-                // Incrementaoms el z-index del drageable
-                self.draggingElement.style.zIndex = 999
+                self.onMouseDownItem(item, i)
             }
 
             item.touchstart = function(e) {
                 console.log("touchstart")
             }
 
+            item.addEventListener('touchstart', function(e){
+
+                var x = e.touches[0].clientX;
+                var y = e.touches[0].clientY;
+                console.log(x, y)
+                self.setMousePosition(x, y)
+
+                self.onMouseDownItem(item, i)
+            }, false);
 
         })
 
+
+        document.addEventListener('touchmove', function(e){
+            var x = e.touches[0].clientX;
+            var y = e.touches[0].clientY;
+            self.setMousePosition(x, y)
+        }, false)
+
+        //console.log(itemWidth)
         // Elementos de dropeo
         droppableItems.forEach((item, i) => {
-            const dropBoundingRect = item.getBoundingClientRect()
-            const id = item.id.split("-")[1]
-            const x = dropBoundingRect.x - self.contentBoundingRect.x
-            const y = dropBoundingRect.y - self.contentBoundingRect.y
-
-            const dropData = this.findDropElement(id)
-            dropData.pos = {x,y}
+            // Adjust width of the element as itemWidth
+            item.style.width = `${itemWidth}px`
         })
+
+        // Para que el cambio del width surja efecto en los getBoundingClientRect de los drop zone
+        setTimeout(() => {
+            droppableItems.forEach((item, i) => {
+                // Adjust width of the element as itemWidth
+                item.style.width = `${itemWidth}px`
+                const dropBoundingRect = item.getBoundingClientRect()
+                const id = item.id.split("-")[1]
+                const x = dropBoundingRect.x - self.contentBoundingRect.x
+                const y = dropBoundingRect.y - self.contentBoundingRect.y
+    
+                const dropData = this.findDropElement(id)
+                dropData.pos = {x,y}
+            })
+        }, 100)
 
         // Track de la posición del mouse
         document.addEventListener('mousemove', (event) => {
+            console.log("mouse move")
             self.mouseX = event.clientX
             self.mouseY = event.clientY
         });
 
         // Empezamos el loop
         this.startLoop()
+    }
+
+    onMouseDownItem(item, i){
+        const dataElement = this.dragElementsData[i]
+        const elementID = dataElement.id
+
+        this.draggingElementPos = i
+        this.isDragging = true
+        this.draggingElement = item
+        this.draggingElementData = dataElement
+        this.mouseOriginalPos = {
+            x: this.mouseX,
+            y: this.mouseY
+        }
+
+        console.log(this.mouseX, this.mouseY)
+
+        // NOTA: Esto no siempre será initialPos, porque igual estamos en la parte de drop!!!!
+        this.draggingElementOriginalPos = {
+            x: dataElement.currentPos.x,
+            y: dataElement.currentPos.y
+        }
+
+        // Lo quitamos de la lista (está en nuestra mano!)
+        this.itemsDragged = this.itemsDragged.filter(item => item != elementID)
+
+        // Quitamos los mensajes que pudiera haber
+        this.draggableCorrectElement.style.display = "none"
+        this.draggableIncorrectElement.style.display = "none"
+        this.showDraggableZone()
+
+        // Incrementaoms el z-index del drageable
+        this.draggingElement.style.zIndex = 999
+    }
+
+    setMousePosition(x, y){
+        this.mouseX = x
+        this.mouseY = y
     }
 
     findDropElement(dropID){
@@ -226,12 +303,14 @@ class ContentDraggable extends Content {
             this.draggingElement.style.zIndex = 1
 
            
-
+            const dragID = this.dragElementsData[this.draggingElementPos].id
             if(nearestDrop != null){
                 // Está bien puesto o mal puesto?
-                const dragID = this.dragElementsData[this.draggingElementPos].id
+                
                 const dropID = this.dropElementsData[nearestDrop].id
-                // console.log(dragID, dropID)
+                
+                // Ocupamos el lugar en el elemento que le toque del drop
+                this.dropElementsData[nearestDrop].droppedID = dragID
                 
                 if(dragID == dropID){
                     // Add class "correct" to draggingElement
@@ -242,16 +321,51 @@ class ContentDraggable extends Content {
                     this.draggingElement.classList.add("incorrect")   
                     this.draggingElement.classList.remove("correct")     
                 }
+
+                this.itemsDragged.push(dragID)
             }else{
                 this.draggingElement.classList.remove("incorrect")     
-                this.draggingElement.classList.remove("correct")     
+                this.draggingElement.classList.remove("correct")    
+                
+                this.itemsDragged = this.itemsDragged.filter(item => item != dragID)
             }
             
+            if(this.itemsDragged.length == 4){
+                // Bien o mal?
+                this.hideDraggableZone()
+                
+                const correctOrder = this.isOrderCorrect()
+
+                if(correctOrder){
+                    this.draggableCorrectElement.style.display = "block"
+                }else{
+                    this.draggableIncorrectElement.style.display = "block"
+                }
+            }
         }
         
         this.isDragging = false
         this.draggingElement = undefined
         this.draggingElementData = undefined
+    }
+
+    hideDraggableZone(){
+        // Add "draggable-zone-hidden" to this.draggableCorrectElement
+        this.draggableZone.classList.add("draggable-zone-hidden")
+    }
+
+    showDraggableZone(){
+        // Remove "draggable-zone-hidden" to this.draggableCorrectElement
+        this.draggableZone.classList.remove("draggable-zone-hidden")
+    }
+
+    isOrderCorrect(){
+        //Find if fields id and dropppedID from dropElementsData array are the same using reduce function
+        const correct = this.dropElementsData.reduce((acc, drop) => {
+            return acc && drop.id == drop.droppedID
+        }, true)
+        
+        return correct
     }
 
     startLoop() {

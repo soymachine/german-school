@@ -1,11 +1,12 @@
 
-import Content from './content/Content.js'
 import ContentDraggable from './content/ContentDraggable.js'
+import ContentMultiple from './content/ContentMultiple.js'
 import Content2 from './content/Content2.js'
 import Content3 from './content/Content3.js'
 import Settings from './helpers/Settings.js'
 import {eventSystem, Events} from './helpers/EventSystem.js'
 import QuestionaireController from './questionaire/QuestionaireController.js'
+
 class Controller {
     constructor(){
 
@@ -47,7 +48,8 @@ class Controller {
         // this.content["content-1"] = new ContentDraggable()
 
         /* 2.- MULTIPLE RESPONSE */
-        this.content["content-2"] = new Content2()
+        this.contentMultiple = new ContentMultiple()
+        //this.content["content-2"] = new Content2()
 
         /* 3.- FORM */
         this.content["content-3"] = new Content3()
@@ -69,7 +71,7 @@ class Controller {
         */
 
         /* TESTING */
-        this.showContent(1)
+        // this.showContent(1)
     }
 
     onClickNext(content){

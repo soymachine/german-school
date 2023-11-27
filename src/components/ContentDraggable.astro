@@ -50,14 +50,17 @@ const { step } = Astro.props;
         /*position:absolute;*/
         color:darkblue;
         text-align: center;
-        font-size: 18px;
+        font-size: 14px;
         margin:20px 20px;
         font-family: 'Roboto', sans-serif;
+        --item-width: 0px; /* 130*/ /* 183 */
+        --item-height: 40px;
+        --color-blue:#054696;
     }
 
     .draggable-holder h1 {
         font-size: 16px;
-        margin-bottom: 50px;
+        margin-bottom: 20px;
         font-weight: 400;
     }
 
@@ -69,9 +72,9 @@ const { step } = Astro.props;
         vertical-align: middle;
         display: inline-block;
         height: 100%;
-        min-width: 150px;
-        min-height: 50px;
-        line-height: 50px;
+        width: var(--item-width);
+        height: var(--item-height);
+        line-height: var(--item-height);
         border:2px grey;
         border-style: dashed;
         border-radius:8px;
@@ -81,8 +84,8 @@ const { step } = Astro.props;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap:40px;
-        margin-bottom: 50px;
+        gap:20px;
+        margin-bottom: 30px;
     }
 
     .dropzone-row-zone {
@@ -93,15 +96,15 @@ const { step } = Astro.props;
     }
 
     .multi-zone {
-        margin-bottom: 50px;
+        margin-bottom: 15px;
     }
 
     .draggable-zone {
         margin-top:15px;
         display: grid;
         border-radius: 8px;
-        background-color: grey;
-        min-height: 150px;
+        background-color: #E7EFF2;
+        height: 125px; /* este valor dinamico */
     }
 
     .draggable-zone-hidden {
@@ -113,16 +116,16 @@ const { step } = Astro.props;
         position: absolute;
         top:0px;
         left:0px;
-        width:150px;
-        height:50px;
-        line-height:50px;
+        width:var(--item-width);
+        height:var(--item-height);
+        line-height:var(--item-height);
         border-radius: 8px;
-        border:2px solid blue;
+        border:2px solid var(--color-blue);
         background-color: white;        
     }
 
     .draggable-zone .correct{
-        background-color: blue; 
+        background-color: var(--color-blue); 
         color:white;
     }
 

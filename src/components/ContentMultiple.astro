@@ -4,16 +4,80 @@ interface Props {
 }
 
 const { step } = Astro.props;
-
+const items = [
+    {
+        id:"company-1",
+        src:"/imgs/companies/company-1.png",
+        isGood:true
+    },
+    {
+        id:"company-2",
+        src:"/imgs/companies/company-2.png",
+        isGood:true
+    },
+    {
+        id:"company-3",
+        src:"/imgs/companies/company-3.png",
+        isGood:true
+    },
+    {
+        id:"company-4",
+        src:"/imgs/companies/company-4.png",
+        isGood:true
+    },
+    {
+        id:"company-5",
+        src:"/imgs/companies/company-5.png",
+        isGood:true
+    },
+    {
+        id:"company-6",
+        src:"/imgs/companies/company-6.png",
+        isGood:true
+    },
+    {
+        id:"company-7",
+        src:"/imgs/companies/company-7.png",
+        isGood:true
+    },
+    {
+        id:"company-8",
+        src:"/imgs/companies/company-8.png",
+        isGood:true
+    },
+    {
+        id:"company-9",
+        src:"/imgs/companies/company-9.png",
+        isGood:true
+    },
+]
 ---
 <div class=`content-holder`>
-    <div class="title">
-        <h1>Networking is also very important. Several WHU alumni founded 6 of these succsseful start-up</h1>
-        <h1><strong>Can you GUESS who they are?</strong></h1>
+    <div class="info">
+        <div class=`title-step-${step}`>
+            <h1>Networking is also very important. Several WHU alumni founded 6 of these succsseful start-up</h1>
+            <h1><strong>Can you GUESS who they are?</strong></h1>
+        </div>
+        <div class=`score-step-${step}`>
+            <h1>Your guessing score: <span class="score-result">6/6</span></h1>
+            <h1><strong>PERFECT!</strong></h1>
+            <div>Don't hesitate to reach these companies and ask for business advice, they have a lot of expertise</div>
+        </div>
+        
     </div>
-    <div class="companies-grid"></div>
+    <div class="companies-grid">
+        {items.map((item, i) => (
+            <div class="company-holder">
+                <div class=`company-item btn-multsel-step-${step}-option` id=`btn-step-${step}-option-${i+1}`>
+                    <img src={item.src}>
+                </div>    
+            </div>
+            
+        ))}
+        
+    </div>
     <div>
-        <a href="#">
+        <a id=`next-button-step-${step}` href="#">
             <img src="/imgs/nextButton.png" />
         </a>
     </div>
@@ -24,18 +88,81 @@ const { step } = Astro.props;
         /*position:absolute;*/
         color:darkblue;
         text-align: center;
-        font-size: 18px;
-        margin:20px 20px;
+        font-size: 15px;
+        margin:20px 10px;
         font-family: 'Roboto', sans-serif;
     }
 
-    .title{
-        margin-bottom: 50px;
+    .info {
+        position: relative;
+        height: 125px;
+    }
+
+    .title-step-1{
+        position: absolute;        
+    }
+
+    .result-step-1{
+        position: absolute;   
     }
 
     h1 {
-        font-size: 16px;
+        font-size: 15px;
         font-weight: 400;
     }
-	
+
+    .companies-grid{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        /*margin: 10px 10px 50px 10px;*/
+    }
+
+    .company-item{
+        background-image: url(/imgs/companies/border/companies-border.png);
+        background-repeat: repeat-y;
+        background-position-x: right;
+        margin: 5px 0px 0px 5px;
+        padding-right: 5px;
+    }
+
+    .company-holder:nth-child(3n) > .company-item {
+        background:none !important;
+    }
+
+    .company-item::after {
+        background-image: url(/imgs/companies/border/companies-border-horizontal.png);
+        width: 100%;
+        content: "";
+        display: block;
+        background-repeat: repeat;
+        height: 2px;
+    }
+
+    /* selector para items # 7, 8 y 9 inclusives */
+    .company-holder:nth-child(n+7):nth-child(-n+9) .company-item::after {
+        background:none !important;
+    }
+
+    .btn-step-option-selected img{
+        border:1px solid #7B9FAF !important;
+        border-radius:10px;
+        background-color: #F2F5F7;
+    }
+
+    .company-item img{
+        border:1px solid white;
+    }
+    
+    .button-enabled {
+        opacity: 1;
+    }
+
+    .button-disabled {
+        opacity: .25;
+    }
+
+    .score-result {
+        color:#00A5DC;
+    }
+
 </style>
