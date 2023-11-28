@@ -1,0 +1,27 @@
+---
+const { step } = Astro.props;
+---
+<div class="button-holder">
+	<a id=`next-button-${step}` class="next-button-link" href="#">Next</a>
+</div>
+<style>
+
+	.button-holder {
+		max-width:200px;
+		text-align:center;
+		margin: 0 auto;
+	}
+	.next-button-link{
+		text-decoration: none;
+		background-color:#00A5DC;
+		color:white;
+		padding:13px 30px;
+		margin:10px 10px;
+		border-radius: 8px;
+		font-size:22px;
+		font-weight:bold;
+		display:block;
+	}
+
+	
+</style>

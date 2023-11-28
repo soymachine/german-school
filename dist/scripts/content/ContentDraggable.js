@@ -203,7 +203,7 @@ class ContentDraggable extends Content {
 
         // Track de la posición del mouse
         document.addEventListener('mousemove', (event) => {
-            console.log("mouse move")
+            
             self.mouseX = event.clientX
             self.mouseY = event.clientY
         });

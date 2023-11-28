@@ -71,7 +71,7 @@ class Controller {
         */
 
         /* TESTING */
-        // this.showContent(1)
+        this.showContent(1)
     }
 
     onClickNext(content){

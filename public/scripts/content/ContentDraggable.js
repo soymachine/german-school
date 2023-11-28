@@ -1,4 +1,5 @@
 import Content from './Content.js'
+import {eventSystem, Events} from '../helpers/EventSystem.js'
 
 class ContentDraggable extends Content {
     constructor(){
@@ -22,7 +23,7 @@ class ContentDraggable extends Content {
             x: undefined,
             y: undefined
         }
-        this.distanceThreshold = 40
+        this.distanceThreshold = 60
         this.draggerX = 0
         this.draggerY = 0
         this.itemsDragged = []
@@ -32,13 +33,22 @@ class ContentDraggable extends Content {
             self.onMouseUp()
         }
 
-        document.addEventListener('touchend', function(e){
+        document.addEventListener('touchend', function(event){
+            event.preventDefault();
+
             self.onMouseUp()
         }, false);
 
-
-
-        
+        // El botón de NEXT
+        this.$nextButton = document.querySelector(`#next-button-${this.contentID}`)
+        this.$nextButton.onmousedown = function(e) { //asign a function
+            self.onClickNext()
+        }
+        this.$nextButton.addEventListener('touchend', function(event){
+            event.preventDefault();
+            self.onClickNext()
+        }, false);
+        this.disableNextButton()
 
         // Zonas de Drag y de Drop
         this.draggableCorrectElement = document.querySelector("#draggable-content-correct")
@@ -156,14 +166,11 @@ class ContentDraggable extends Content {
                 self.onMouseDownItem(item, i)
             }
 
-            item.touchstart = function(e) {
-                console.log("touchstart")
-            }
+            item.addEventListener('touchstart', function(event){
+                event.preventDefault();
 
-            item.addEventListener('touchstart', function(e){
-
-                var x = e.touches[0].clientX;
-                var y = e.touches[0].clientY;
+                var x = event.touches[0].clientX;
+                var y = event.touches[0].clientY;
                 console.log(x, y)
                 self.setMousePosition(x, y)
 
@@ -173,9 +180,10 @@ class ContentDraggable extends Content {
         })
 
 
-        document.addEventListener('touchmove', function(e){
-            var x = e.touches[0].clientX;
-            var y = e.touches[0].clientY;
+        document.addEventListener('touchmove', function(event){
+            event.preventDefault();
+            var x = event.touches[0].clientX;
+            var y = event.touches[0].clientY;
             self.setMousePosition(x, y)
         }, false)
 
@@ -203,7 +211,7 @@ class ContentDraggable extends Content {
 
         // Track de la posición del mouse
         document.addEventListener('mousemove', (event) => {
-            console.log("mouse move")
+            event.preventDefault();
             self.mouseX = event.clientX
             self.mouseY = event.clientY
         });
@@ -225,8 +233,6 @@ class ContentDraggable extends Content {
             y: this.mouseY
         }
 
-        console.log(this.mouseX, this.mouseY)
-
         // NOTA: Esto no siempre será initialPos, porque igual estamos en la parte de drop!!!!
         this.draggingElementOriginalPos = {
             x: dataElement.currentPos.x,
@@ -243,6 +249,8 @@ class ContentDraggable extends Content {
 
         // Incrementaoms el z-index del drageable
         this.draggingElement.style.zIndex = 999
+
+        this.disableNextButton()
     }
 
     setMousePosition(x, y){
@@ -268,17 +276,19 @@ class ContentDraggable extends Content {
         // Si no, lo dejamos en su posición original
         if(this.isDragging){
             const id = this.draggingElementID 
+            console.log(this.draggingElement.id)
 
             // Qué drop está más cerca?
             let x;
             let y;
             let nearestDrop = null
-            let minDistance = 0
+            let minDistance = this.distance(this.draggerX, this.draggerY, this.draggingElementData.initialPos.x, this.draggingElementData.initialPos.y)
             this.dropElementsData.forEach((drop, i) => {
                 // Calcular la distancia
                 const distance = this.distance(this.draggerX, this.draggerY, drop.pos.x, drop.pos.y)
                 if(distance < this.distanceThreshold){
                     nearestDrop = i
+                    minDistance = distance
                 }
             })
 
@@ -292,8 +302,19 @@ class ContentDraggable extends Content {
             }
            
             // Idealmente que se muevan a sitio de forma smoooooth
-            this.draggingElement.style.left = `${x}px`
-            this.draggingElement.style.top = `${y}px`
+            //this.draggingElement.style.left = `${x}px`
+            //this.draggingElement.style.top = `${y}px`
+
+            let duration = minDistance * 5
+            duration > 500 ? duration = 500 : duration
+
+            anime({
+                targets: `#${this.draggingElement.id}`,
+                left: x,
+                top: y,
+                duration: duration,
+                easing:'easeOutQuad'
+            });
 
             // Actualizamos la posición actual
             const dataElement = this.dragElementsData[this.draggingElementPos]
@@ -338,8 +359,10 @@ class ContentDraggable extends Content {
 
                 if(correctOrder){
                     this.draggableCorrectElement.style.display = "block"
+                    this.enableNextButton()
                 }else{
                     this.draggableIncorrectElement.style.display = "block"
+                    this.disableNextButton()
                 }
             }
         }
@@ -401,6 +424,16 @@ class ContentDraggable extends Content {
     distance(x1, y1, x2, y2) {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
     }
+
+    onClickNext(){
+        if(!this.isNextEnabled){
+            return
+        }
+        
+        this.gotoNextStep()
+    }
+
+    
 }
 
 export default ContentDraggable

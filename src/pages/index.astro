@@ -1,9 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Step from '../components/Step.astro';
-import QuestionSet from '../components/QuestionSet.astro';
-import ContentDraggable from '../components/ContentDraggable.astro';
-import ContentMultiple from '../components/ContentMultiple.astro'
+import FlowDiagramStep from './FlowDiagramStep.astro';
+import StartupsStep from './StartupsStep.astro'
+import FinancialMetric from './FinancialMetric.astro'
 import Form from '../components/Form.astro';
 ---
 
@@ -12,12 +12,15 @@ import Form from '../components/Form.astro';
 		<div id="root" class="holder">
 			<div id="content" class="content">
 				<Step step="0">
-					<ContentDraggable step='0'/>
+					<FlowDiagramStep step='0'/>
 				</Step>
 				<Step step="1">
-					<ContentMultiple step="1"/>
+					<StartupsStep step="1"/>
 				</Step>
 				<Step step="2">
+					<FinancialMetric step="2" />
+				</Step>
+				<Step step="3">
 					<Form />
 				</Step>
 			</div>
@@ -40,6 +43,7 @@ import Form from '../components/Form.astro';
 	}
 
 	body {
+		touch-action: none;
 		margin: 0;
 		padding:0;
 	}

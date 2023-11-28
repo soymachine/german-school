@@ -1,0 +1,175 @@
+---
+import NextButton from '../components/buttons/NextButton.astro';
+
+interface Props {
+	step: string;
+}
+import { imageURL } from '../../public/scripts/helpers/ImageURL';
+// const companiesBorderURL = imageURL("imgs/companies/border/companies-border.png")
+
+
+const { step } = Astro.props;
+
+---
+<div class=`content-holder`>
+    <div class="info-holder">
+        <div id="question-holder">
+            <div class="info-grid">
+                <div class="info-picture">
+                    <img src="./imgs/financial-metrics/financial-metrics-person.png">
+                </div>
+                <div class="info-wedge">
+                    <img src="./imgs/financial-metrics/financial-metrics-wedge.png">
+                </div>
+                <div class="info-text">Before you officially launch, you need to make assestment of how well you can <strong>transform investments into profits.</strong></div>                        
+            </div>
+            <div class="info-question">
+                <div class="question-text">What is the financial metric that tracks profit relative to shareholder's equity?</div>
+                <div class="answers">
+                    <a class=`answer btn-step-${step}-option` id=`step-${step}-answer-button-1` href="#">ROE</a>
+                    <a class=`answer btn-step-${step}-option` id=`step-${step}-answer-button-2` href="#">P/E</a>
+                    <a class=`answer btn-step-${step}-option` id=`step-${step}-answer-button-3` href="#">ROI</a>
+                </div>
+            </div>
+        </div>
+        <div id="result-holder">
+            <div class="result-holder">
+                <div class="result-first-sentence">Well done, Iñaki.</div>
+                <div class="result-second-sentence">That is correct</div>
+                <div class="visual-result">
+                    <div class="visual-result-left">
+
+                    </div>
+                    <div class="visual-result-center">
+                        <img src="./imgs/financial-metrics/icon-result.png">
+                    </div>
+                    <div class="visual-result-right">
+                        <img src="./imgs/correct.png">
+                    </div>
+                </div>
+                <div class="result-title"></div>
+                <div class="result-description"></div>
+            </div>
+        </div>
+    </div>
+    <NextButton step={step}/>
+    
+</div>
+<style>
+    .content-holder {
+        /*position:absolute;*/
+        --text-blue:#14519C; 
+        --color-blue:#044596;
+        color:darkblue;
+        text-align: center;
+        font-size: 14px;
+        margin:20px 10px;
+        font-family: 'Roboto', sans-serif;
+
+    }
+
+    h1 {
+        font-size: 15px;
+        font-weight: 400;
+    }
+
+    .info-holder {
+        display: grid;
+        grid-template-columns: 100% 100%;
+        gap:10px;
+        transform: translateX(-328px);
+    }   
+
+    .info-holder > div{
+        border:1px solid red;
+    }
+
+    .info-grid{
+        display: grid;
+        grid-template-columns: 1fr auto 1.5fr;
+        grid-template-areas: 'picture wedge text';
+        margin-bottom: 20px;
+    }
+
+    .info-picture{
+        grid-area: picture;
+        display: flex;
+    }
+
+    .info-picture img{
+        align-self: flex-end;
+    }
+
+    .info-wedge{
+        grid-area: wedge;
+    }
+
+    .info-wedge img{
+       position: relative;
+       top: 50%;
+       left:2px;
+    }
+
+    .info-text{
+        grid-area: text;
+        border: 2px solid #C1D1E5;
+        border-radius: 2px;
+        padding: 15px;
+    }
+
+    .info-question{
+        grid-area: question;
+    }
+
+    .question-text {
+        padding:10px;
+    }
+
+    .answers {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .answers .btn-step-option-selected{
+        background-color:var(--color-blue);
+        color:white;
+    }
+
+    .answer {
+        background-color: white;
+        border:2px solid var(--color-blue);
+        border-radius: 8px;
+        color:var(--color-blue);
+        font-size: 20px;
+        padding:10px;
+        text-decoration: none;
+    }
+
+    .result-holder {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .visual-result {
+        display: flex;
+        flex-direction: row;
+        justify-content:center;
+    }
+
+    .visual-result-left{
+        width: 20%;
+    }
+
+    .visual-result-center{
+        width: auto;
+        padding: 10px 0px;
+    }
+
+    .visual-result-right{
+        width: 20%;
+        align-self: flex-end;
+    }
+
+
+</style>

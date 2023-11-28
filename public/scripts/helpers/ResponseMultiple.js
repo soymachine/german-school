@@ -26,15 +26,20 @@ class ResponseMultiple {
             button.onclick = function(e){
                 that.onClickSelection(id)
             }
+
+            button.addEventListener('touchstart', function(event){
+                event.preventDefault();
+                that.onClickSelection(id)
+            }, false);
         })
+
     }
 
     onClickSelection(id){
         if(!this.isEnabled){
             return
         }
-        
-        console.log(id)
+
         // Está marcada?
         if(this.currentButtonsSelected.indexOf(id) == -1){
             // No está marcada
@@ -44,7 +49,7 @@ class ResponseMultiple {
                 // Sí, la podemos togglear
                 this.buttons[id].div.classList.add("btn-step-option-selected");
                 this.currentButtonsSelected.push(id)
-                console.log(this.buttons[id].div)
+                
             }
             //console.log(this.currentButtonsSelected)
         }else{
@@ -52,8 +57,6 @@ class ResponseMultiple {
             this.buttons[id].div.classList.remove("btn-step-option-selected");
             // La quitamos del array
             this.currentButtonsSelected = this.currentButtonsSelected.filter(currentID => currentID !=id)
-
-            console.log("lo quitamos")
         }
 
         // notificamos de la respuesta

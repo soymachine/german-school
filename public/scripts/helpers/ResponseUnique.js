@@ -4,7 +4,6 @@ import Settings from './Settings.js'
 class ResponseUnique {
     constructor(step){
         this.step = step
-        
         // Data
         this.buttons = {}
 
@@ -14,22 +13,30 @@ class ResponseUnique {
         const that = this
 
         // Lista de botones de selección
-        document.querySelectorAll(`.btn-multsel-step-${step}-option`).forEach(button => {
+        console.log(step)
+
+        document.querySelectorAll(`.btn-step-${step}-option`).forEach(button => {
             const id = Number(button.getAttribute("id").split("-")[4])
             const anchor = button.querySelector("a")
-            
             that.buttons[id] = {
-                anchor: anchor,
+                anchor: button,
                 div: button
             }
 
             button.onclick = function(e){
                 that.onClickSelection(id)
             }
+
+            button.addEventListener('touchstart', function(event){
+                event.preventDefault();
+                that.onClickSelection(id)
+            }, false);
         })
     }
 
     onClickSelection(id){
+        console.log(id)
+
         // Remove previous current class
         if(this.currentButtonSelected != null){
             this.buttons[this.currentButtonSelected].anchor.classList.remove("btn-step-option-selected");

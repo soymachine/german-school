@@ -1,9 +1,12 @@
 ---
+import NextButton from '../components/buttons/NextButton.astro';
 interface Props {
 	step: string;
 }
 
 const { step } = Astro.props;
+const baseURL = import.meta.env.PUBLIC_URL
+
 
 ---
 <div class=`draggable-holder`>
@@ -38,14 +41,10 @@ const { step } = Astro.props;
             </div>
         </div>
     </div>
-    <div>
-        <a href="#">
-            <img src="./imgs/nextButton.png" />
-        </a>
-    </div>
+    <NextButton step={step}/>
     
 </div>
-<style>
+<style define:vars={{ baseURL}}>
     .draggable-holder {
         /*position:absolute;*/
         color:darkblue;

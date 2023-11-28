@@ -1,54 +1,71 @@
 ---
+import NextButton from '../components/buttons/NextButton.astro';
+
 interface Props {
 	step: string;
 }
+import { imageURL } from '../../public/scripts/helpers/ImageURL';
+
+const baseURL = import.meta.env.PUBLIC_URL
+
+const companiesBorderURL = imageURL("imgs/companies/border/companies-border.png") //"url(" + baseURL + "/imgs/companies/border/companies-border.png)"
+const companiesBorderHorizontalURL =  imageURL("imgs/companies/border/companies-border-horizontal.png")
 
 const { step } = Astro.props;
 const items = [
     {
         id:"company-1",
         src:"./imgs/companies/company-1.png",
-        isGood:true
+        isGood:true,
+        label:"audibene"
     },
     {
         id:"company-2",
         src:"./imgs/companies/company-2.png",
-        isGood:true
+        isGood:true,
+        label:""
     },
     {
         id:"company-3",
         src:"./imgs/companies/company-3.png",
-        isGood:true
+        isGood:true,
+        label:"HelloFresh"
     },
     {
         id:"company-4",
         src:"./imgs/companies/company-4.png",
-        isGood:true
+        isGood:true,
+        label:""
     },
     {
         id:"company-5",
         src:"./imgs/companies/company-5.png",
-        isGood:true
+        isGood:true,
+        label:"KitchenStories"
     },
     {
         id:"company-6",
         src:"./imgs/companies/company-6.png",
-        isGood:true
+        isGood:true,
+        label:"Zalando"
     },
     {
         id:"company-7",
         src:"./imgs/companies/company-7.png",
-        isGood:true
+        isGood:true,
+        label:"Home24"
     },
     {
         id:"company-8",
         src:"./imgs/companies/company-8.png",
-        isGood:true
+        isGood:true,
+        label:""
     },
     {
         id:"company-9",
         src:"./imgs/companies/company-9.png",
-        isGood:true
+        isGood:true,
+        label:"Flixbus"
     },
 ]
 ---
@@ -70,32 +87,30 @@ const items = [
             <div class="company-holder">
                 <div class=`company-item btn-multsel-step-${step}-option` id=`btn-step-${step}-option-${i+1}`>
                     <img src={item.src}>
+                    <div class="company-label hide-label">{item.label}</div>
                 </div>    
             </div>
             
         ))}
         
     </div>
-    <div>
-        <a id=`next-button-step-${step}` href="#">
-            <img src="./imgs/nextButton.png" />
-        </a>
-    </div>
+    <NextButton step={step}/>
     
 </div>
-<style>
+<style define:vars={{ companiesBorderURL, companiesBorderHorizontalURL}}>
     .content-holder {
         /*position:absolute;*/
+        --text-blue:#14519C;
         color:darkblue;
         text-align: center;
-        font-size: 15px;
+        font-size: 14px;
         margin:20px 10px;
         font-family: 'Roboto', sans-serif;
     }
 
     .info {
         position: relative;
-        height: 125px;
+        height: 100px;
     }
 
     .title-step-1{
@@ -114,23 +129,45 @@ const items = [
     .companies-grid{
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
-        /*margin: 10px 10px 50px 10px;*/
+        grid-template-rows: 1fr 1fr 1fr;
+        margin-bottom: 5px;
     }
 
     .company-item{
-        background-image: url("http://www.appnormals.com/german_school/imgs/companies/border/companies-border.png");
+        background-image: var(--companiesBorderURL);
         background-repeat: repeat-y;
         background-position-x: right;
-        margin: 5px 0px 0px 5px;
-        padding-right: 5px;
+        padding: 10px;
+        /*margin: 5px 0px 0px 5px;*/
+        /*padding-right: 5px;*/
+    }
+
+    .company-label{
+        position: absolute;
+        /* top: 69px; */
+        /* left: 0px; */
+        margin-top: -13px;
+        text-align: center;
+        /* border: 1px solid red; */
+        width: 27.5%;
+        font-size: 12px;
+        color:var(--text-blue);        
+    }
+
+    .show-label {
+        display: block;
+    }
+
+    .hide-label {
+        display: none;
     }
 
     .company-holder:nth-child(3n) > .company-item {
         background:none !important;
     }
 
-    .company-item::after {
-        background-image: url(http://www.appnormals.com/german_school/imgs/companies/border/companies-border-horizontal.png);
+    .company-holder::after { /* .item */
+        background-image: var(--companiesBorderHorizontalURL); 
         width: 100%;
         content: "";
         display: block;
@@ -139,7 +176,7 @@ const items = [
     }
 
     /* selector para items # 7, 8 y 9 inclusives */
-    .company-holder:nth-child(n+7):nth-child(-n+9) .company-item::after {
+    .company-holder:nth-child(n+7):nth-child(-n+9)::after {
         background:none !important;
     }
 
@@ -147,10 +184,14 @@ const items = [
         border:1px solid #7B9FAF !important;
         border-radius:10px;
         background-color: #F2F5F7;
+
     }
 
     .company-item img{
         border:1px solid white;
+        width: 100%; /* Make the image fill the available space */
+        height: auto; /* Maintain aspect ratio */
+        display: block; /* Remove any extra spacing around images */
     }
     
     .button-enabled {
