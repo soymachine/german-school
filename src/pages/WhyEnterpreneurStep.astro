@@ -1,0 +1,86 @@
+---
+import NextButton from '../components/buttons/NextButton.astro';
+interface Props {
+	step: string;
+}
+
+const { step } = Astro.props;
+---
+<div class=`holder-why-enterpreneur`>
+    <div class="why-intro-text">
+		<p><span class="user-name">Laura</span></p>
+		<p><strong>WHY</strong> do you want to become an <strong>entepreneur?</strong>
+	</div>
+    <div class="answers">
+        <div class="answers-group">
+            <a class=`btn-step-${step}-option answer answer-selected` id=`step-${step}-answer-button-1` href="#"><img src="./imgs/why-enterpreneur/option-1.png"></a>
+            <a class=`btn-step-${step}-option answer` id=`step-${step}-answer-button-2` href="#"><img src="./imgs/why-enterpreneur/option-2.png"></a>
+        </div>
+        <div id="avatar"><img src="./imgs/why-enterpreneur/avatar-test.png"></div>
+        <div class="answers-group">
+            <a class=`btn-step-${step}-option answer` id=`step-${step}-answer-button-3` href="#"><img src="./imgs/why-enterpreneur/option-3.png"></a>
+            <a class=`btn-step-${step}-option answer` id=`step-${step}-answer-button-4` href="#"><img src="./imgs/why-enterpreneur/option-4.png"></a>
+        </div>
+        
+    </div>
+    <div class="answer-description"></div>
+    <NextButton step={step}/>
+</div>
+<style >
+
+    .holder-why-enterpreneur {
+        --text-blue:#14519C; 
+        --color-blue:#044596;
+        color:darkblue;
+        text-align: center;
+        font-size: 14px;
+        margin:20px 10px;
+        font-family: 'Roboto', sans-serif;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .why-intro-text {
+
+    }
+    
+    .answers {
+        display: flex;
+        flex-direction: column;
+        max-width: 400px;
+        margin: 0 auto;
+        gap:10px;
+    }
+
+    .answers-group {
+        display:flex;
+        flex-direction: row;
+        gap: 50px;
+    }
+
+    .answer {
+        border-radius:8px;
+        background-color: #E5EAF0;
+        border:4px solid #E5EAF0;
+        padding:10px;
+        width: 100px;
+    }
+	
+    .btn-step-option-selected {
+        border:4px solid #FFDC93;
+        background-color: #FFF2D8;
+    }
+
+    #avatar {
+        width: 100%;
+        height: 50px;
+        position: relative;
+    }
+
+    #avatar img {
+        margin-top: -60px;
+    }
+
+</style>
