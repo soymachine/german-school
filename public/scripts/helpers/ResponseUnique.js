@@ -59,7 +59,7 @@ class ResponseUnique {
         var sound = new Howl({
             src: ['sound/click.mp3']
         });
-        sound.play();
+        // sound.play();
     }
 }
 

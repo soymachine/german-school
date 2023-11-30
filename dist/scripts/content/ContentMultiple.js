@@ -10,17 +10,27 @@ class ContentMultiple extends Content {
         // Scope
         const self = this
 
+        // Correct elements
+        this.correctElements = [1,3, 5, 6, 7, 9]
+
         // Estamos eligiendo elementos o viendo el score?
         this.isScoreShown = false
 
         // Controlador de respuestas múltiples
         this.minCompaniesToSelect = 6
         this.responsesEnabled = true
-        this.responseMultiple = new ResponseMultiple(1, 6)
+        this.responseMultiple = new ResponseMultiple(this.contentID, 6)
 
-        // Botón de avanzar
-        this.nextButton = document.querySelector(`#next-button-step-${this.contentID}`)
-        this.isNextButtonEnabled = false
+        // El botón de NEXT
+        this.$nextButton = document.querySelector(`#next-button-${this.contentID}`)
+        this.$nextButton.onmousedown = function(e) { //asign a function
+            self.onClickNext()
+        }
+        this.$nextButton.addEventListener('touchend', function(event){
+            event.preventDefault();
+            self.onClickNext()
+        }, false);
+        this.disableNextButton()
 
         // Textos
         // Titulo
@@ -29,16 +39,23 @@ class ContentMultiple extends Content {
         this.$score = document.querySelector(`.score-step-${this.contentID}`)
         this.hideScore()
 
-        this.nextButton.onmousedown = function(e) {
-            self.onClickNext()
-        }
+        this.$finalScore = document.querySelector(".score-result")
 
         eventSystem.subscribe(Events.ON_RESPONSE_UPDATE, (responseObj)=>{
             this.onResponseUpdate(responseObj)
         })
 
-        this.disableNextButton()
+        // Labels
+        this.$labels = document.querySelectorAll(`.company-label`)
        
+    }
+
+    showAllLabels(){
+        this.$labels.forEach(label => {
+            // Add ".show-label" class to label item
+            label.classList.remove("hide-label")
+            label.classList.add("show-label")
+        })
     }
 
     hideTitle(){
@@ -77,8 +94,13 @@ class ContentMultiple extends Content {
         }
     }
 
+    
+
     onClickNext(){
-        console.log("next")
+        if(!this.isNextEnabled){
+            return
+        }
+        
         if(!this.isScoreShown){
             this.isScoreShown = true
             this.responseMultiple.isEnabled = false
@@ -88,31 +110,47 @@ class ContentMultiple extends Content {
 
             this.showScore()
             this.hideTitle()
+            this.showAllLabels()
+            // TODO Ocultar las empresas no elegidas
+            this.freezeCompanies()
+
         }else{
             // Vamos a la siguiente sección
+            this.gotoNextStep()
         }
+    }
+
+    freezeCompanies(){
+        
+        document.querySelectorAll(".company-item").forEach(item => {
+            console.log(item)
+            // Get if item has class "btn-step-option-selected"
+            if(!item.classList.contains("btn-step-option-selected")){
+                item.style.opacity = 0.25
+            }else{
+                // Remove "btn-step-option-selected" class from item
+                item.classList.remove("btn-step-option-selected")
+            }
+        })
+
     }
 
     getScore(){
         const currentButtonsSelected =this.responseMultiple.currentButtonsSelected
-
-    }
-
-    enableNextButton(){
-        this.isNextButtonEnabled = true
         
-        // Add class "enabled" to nextButton element
-        this.nextButton.classList.remove("button-disabled")
-        this.nextButton.classList.add("button-enabled")
+        // Calculate if elements inside currentButtonsSelected are in the correct elements array correctElements
+        const acertadas = currentButtonsSelected.reduce((acc, id) => {
+            if(this.correctElements.includes(id)){
+                acc++
+            }
+            return acc
+        }, 0)
+
+        console.log(currentButtonsSelected)
+        console.log(acertadas)
+
+        this.$finalScore.innerHTML = acertadas + "/6"
     }
-
-    disableNextButton(){
-        this.isNextButtonEnabled = false
-
-        this.nextButton.classList.remove("button-enabled")
-        this.nextButton.classList.add("button-disabled")
-    }
-
     
 }
 

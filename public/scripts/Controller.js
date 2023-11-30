@@ -82,7 +82,7 @@ class Controller {
         */
 
         /* TESTING */
-        this.showContent(2)
+        // this.showContent(2)
 
         eventSystem.subscribe(Events.ON_REQUEST_STEP, (content)=>{ this.showContent(content) }) // this.showContent(this.currentSection)
     }

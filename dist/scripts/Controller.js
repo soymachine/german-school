@@ -1,7 +1,7 @@
 
 import ContentDraggable from './content/ContentDraggable.js'
 import ContentMultiple from './content/ContentMultiple.js'
-import Content2 from './content/Content2.js'
+import ContentFinancial from './content/ContentFinancial.js'
 import Content3 from './content/Content3.js'
 import Settings from './helpers/Settings.js'
 import {eventSystem, Events} from './helpers/EventSystem.js'
@@ -28,6 +28,10 @@ class Controller {
             button.onclick = function(e){
                 that.onClickNext(id)
             }
+            button.addEventListener('touchend', function(event){
+                event.preventDefault();
+                that.onClickNext(id)
+            }, false);
         })
 
         // Lista de botones de prev
@@ -36,6 +40,10 @@ class Controller {
             button.onclick = function(e){
                 that.onClickPrev(id)
             }
+            button.addEventListener('touchend', function(event){
+                event.preventDefault();
+                that.onClickPrev(id)
+            }, false);
         })
 
         // Los diferentes contenidos
@@ -43,16 +51,19 @@ class Controller {
 
         // Agregamos segun el contenido
 
-        /* 1.- UNIQUE RESPONSE */
+        /* 1.- FLOW DIAGRAM */
         this.contentDraggable = new ContentDraggable()
         // this.content["content-1"] = new ContentDraggable()
 
-        /* 2.- MULTIPLE RESPONSE */
+        /* 2.- STARTUPS QUESTION */
         this.contentMultiple = new ContentMultiple()
         //this.content["content-2"] = new Content2()
 
-        /* 3.- FORM */
-        this.content["content-3"] = new Content3()
+        /* 3.- FINANCIAL METRIC QUESTION */
+        this.contentFinancial = new ContentFinancial()
+
+        /* 4.- FORM */
+        //this.content["content-3"] = new Content3()
 
         // El controlador del questionario
         this.questionaireController = new QuestionaireController()
@@ -71,12 +82,13 @@ class Controller {
         */
 
         /* TESTING */
-        this.showContent(1)
+        // this.showContent(2)
+
+        eventSystem.subscribe(Events.ON_REQUEST_STEP, (content)=>{ this.showContent(content) }) // this.showContent(this.currentSection)
     }
 
     onClickNext(content){
         console.log(`next es ${content}`)
-
         this.showContent(content)
     }
 

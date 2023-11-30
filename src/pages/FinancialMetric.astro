@@ -34,25 +34,37 @@ const { step } = Astro.props;
         </div>
         <div id="result-holder">
             <div class="result-holder">
-                <div class="result-first-sentence">Well done, Iñaki.</div>
-                <div class="result-second-sentence">That is correct</div>
+                <div class="result-sentence">
+                    <div id="result-sentence-correct">
+                        <p class="result-paragraph">Well done, <span class="user-name">Iñaki.</span></p>
+                        <p class="result-paragraph"><strong>That is correct!</strong></p>
+                    </div>
+                    <div id="result-sentence-incorrect">
+                        <p class="result-paragraph"><strong>That is not correct,</strong> <span class="user-name">Iñaki.</span></p>
+                        <p class="result-paragraph">The right answer was <strong>ROE</strong></p>
+                    </div>
+                </div>
+                
                 <div class="visual-result">
                     <div class="visual-result-left">
 
                     </div>
                     <div class="visual-result-center">
-                        <img src="./imgs/financial-metrics/icon-result.png">
+                        <img id="visual-result-image" src="./imgs/financial-metrics/icon-result.png">
                     </div>
                     <div class="visual-result-right">
-                        <img src="./imgs/correct.png">
+                        <img id="visual-result-mark" src="./imgs/correct.png">
                     </div>
                 </div>
-                <div class="result-title"></div>
-                <div class="result-description"></div>
+                <div class="result-title">ROE</div>
+                <div class="result-description">The <strong>Return on Equity</strong> metric tracks profit relative to shareholder's equity, as opposed to Price-to-earning ratio (P/E) or Return on investment (ROI)</div>
             </div>
         </div>
     </div>
     <NextButton step={step}/>
+    <div>
+        <div class="user-name"></div>
+    </div>
     
 </div>
 <style>
@@ -77,11 +89,11 @@ const { step } = Astro.props;
         display: grid;
         grid-template-columns: 100% 100%;
         gap:10px;
-        transform: translateX(-328px);
+        /*transform: translateX(-328px);*/
     }   
 
     .info-holder > div{
-        border:1px solid red;
+        /*border:1px solid red;*/
     }
 
     .info-grid{
@@ -106,7 +118,7 @@ const { step } = Astro.props;
 
     .info-wedge img{
        position: relative;
-       top: 50%;
+       top: 40%;
        left:2px;
     }
 
@@ -155,6 +167,7 @@ const { step } = Astro.props;
         display: flex;
         flex-direction: row;
         justify-content:center;
+        margin-bottom: 10px;
     }
 
     .visual-result-left{
@@ -171,5 +184,37 @@ const { step } = Astro.props;
         align-self: flex-end;
     }
 
+    .result-title {
+        background-color: #C3D3E6;
+        font-size:20px;
+        font-color:var(--color-blue);
+        border-radius:4px;
+        padding:10px 0px;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .result-title-wrong {
+        background-color: #FFD8DB !important;
+    }
+
+    .result-sentence {
+        font-size:17px;
+        margin-bottom: 30px;
+    }
+
+    /* In Css how are all the paragraphs that descend from .result-sentence? */
+    .result-paragraph  {
+        padding:0px;
+        margin:0px;
+    }
+
+    .user-name {
+        color:#EB590A;
+    }
+
+    .result-description{
+        text-align: left;
+    }
 
 </style>
