@@ -1,6 +1,6 @@
 ---
 interface Props {
-	step: string;
+	step: string
 }
 
 const { step } = Astro.props;
@@ -8,8 +8,9 @@ const { step } = Astro.props;
 const extraStep = (step == "1")? "stepOrange" : ""
 const notFirst = (step !== "0")
 const stepNum = Number(step)
+const isTravel = (step == "3") ? true: false
 ---
-<div class=`step`>
+<div class=`step` id=`step-${step}` class:list={[{ bgTravel: isTravel }]}>
     <!-- Back button -->
     {
         notFirst && (
@@ -25,6 +26,10 @@ const stepNum = Number(step)
     </div>
 </div>
 <style>
+    .bgTravel {
+        background-color: #BFE8F6;
+    }
+
     .step-header{
         position: relative;
         display: flex;
