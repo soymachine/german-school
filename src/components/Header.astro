@@ -1,0 +1,54 @@
+---
+interface Props {
+	step: string,
+    act:string
+}
+const { step,act } = Astro.props;
+---
+<div class="header">
+    <div class="info">
+        <div class="header-title">Guardians of the Rainforest</div>
+        <div class="header-act">ACT {act}</div>
+    </div>
+    <div class="settings"><img src="./imgs/settingsButton.png"></div>
+</div>
+
+<style>
+    .header {
+        --color-blue:#064796;
+        width: 100%;
+        display: grid;
+        grid-template-areas: 'info settings';
+        grid-template-columns: auto 34px;
+        grid-template-rows: 34px;
+        margin: 10px 15px;
+        gap: 7px;
+        font-family: 'Roboto', sans-serif;
+        color:var(--color-blue);
+    }
+
+    .info{
+        grid-area: info;
+        border:1px solid var(--color-blue);
+        padding:10px;
+        display: block;
+        /*width: 100%;*/
+    }
+
+    .header-title {
+        float:left;
+        margin-top: -2px;
+        font-size: 14px;
+    }
+
+    .header-act {
+        float: right;
+        margin-top: -4px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .settings{
+        grid-area: settings;
+    }
+</style>

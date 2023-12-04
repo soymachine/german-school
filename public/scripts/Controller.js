@@ -86,7 +86,7 @@ class Controller {
         */
 
         /* TESTING */
-        this.showContent(4)
+        this.showContent(5)
 
         eventSystem.subscribe(Events.ON_REQUEST_STEP, (content)=>{ this.showContent(content) }) // this.showContent(this.currentSection)
     }
@@ -107,16 +107,17 @@ class Controller {
             targets: '#content',
             translateX: xDest,
             easing: Settings.ease,
-            duration:Settings.duration
+            duration:Settings.duration,
+            complete: function(anim) {
+                 // notificamos el contenido que entra
+                eventSystem.publish(Events.ON_CONTENT_SHOWN, content) 
+            }
         });
 
         // Si hay contenido previo notificamos que desaparece
         eventSystem.publish(Events.ON_CONTENT_HIDE, this.currentSection)
 
         this.currentSection = content
-
-        // notificamos el contenido que entra
-        eventSystem.publish(Events.ON_CONTENT_SHOWN, content) 
     }
 }
 export default Controller

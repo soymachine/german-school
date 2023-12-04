@@ -12,6 +12,7 @@ const { step } = Astro.props;
 
 ---
 <div class=`content-holder`>
+    
     <div class="info-holder">
         <div id="question-holder">
             <div class="info-grid">
@@ -60,7 +61,9 @@ const { step } = Astro.props;
                 <div class="result-description">The <strong>Return on Equity</strong> metric tracks profit relative to shareholder's equity, as opposed to Price-to-earning ratio (P/E) or Return on investment (ROI)</div>
             </div>
         </div>
+        
     </div>
+    
     <NextButton step={step}/>
     <div>
         <div class="user-name"></div>
@@ -161,6 +164,7 @@ const { step } = Astro.props;
     .result-holder {
         display: flex;
         flex-direction: column;
+        
     }
 
     .visual-result {
@@ -209,9 +213,11 @@ const { step } = Astro.props;
         margin:0px;
     }
 
+    /*
     .user-name {
         color:#EB590A;
     }
+    */
 
     .result-description{
         text-align: left;

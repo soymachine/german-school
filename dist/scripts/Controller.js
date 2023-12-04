@@ -6,6 +6,7 @@ import Content3 from './content/Content3.js'
 import Settings from './helpers/Settings.js'
 import {eventSystem, Events} from './helpers/EventSystem.js'
 import QuestionaireController from './questionaire/QuestionaireController.js'
+import ContentWhyEnterpreuner from './content/ContentWhyEnterpreuner.js'
 
 class Controller {
     constructor(){
@@ -62,6 +63,9 @@ class Controller {
         /* 3.- FINANCIAL METRIC QUESTION */
         this.contentFinancial = new ContentFinancial()
 
+        /* 4.- WHY ENTERPRENEUR */
+        this.contentWhyEnterpreuner = new ContentWhyEnterpreuner()
+
         /* 4.- FORM */
         //this.content["content-3"] = new Content3()
 
@@ -82,7 +86,7 @@ class Controller {
         */
 
         /* TESTING */
-        this.showContent(3)
+        // this.showContent(2)
 
         eventSystem.subscribe(Events.ON_REQUEST_STEP, (content)=>{ this.showContent(content) }) // this.showContent(this.currentSection)
     }
@@ -103,16 +107,17 @@ class Controller {
             targets: '#content',
             translateX: xDest,
             easing: Settings.ease,
-            duration:Settings.duration
+            duration:Settings.duration,
+            complete: function(anim) {
+                 // notificamos el contenido que entra
+                eventSystem.publish(Events.ON_CONTENT_SHOWN, content) 
+            }
         });
 
         // Si hay contenido previo notificamos que desaparece
         eventSystem.publish(Events.ON_CONTENT_HIDE, this.currentSection)
 
         this.currentSection = content
-
-        // notificamos el contenido que entra
-        eventSystem.publish(Events.ON_CONTENT_SHOWN, content) 
     }
 }
 export default Controller

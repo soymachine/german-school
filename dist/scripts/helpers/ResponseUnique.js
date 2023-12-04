@@ -17,7 +17,7 @@ class ResponseUnique {
 
         document.querySelectorAll(`.btn-step-${step}-option`).forEach(button => {
             const id = Number(button.getAttribute("id").split("-")[4])
-            const anchor = button.querySelector("a")
+            // const anchor = button.querySelector("a")
             that.buttons[id] = {
                 anchor: button,
                 div: button

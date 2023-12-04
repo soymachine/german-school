@@ -1,26 +1,54 @@
 ---
 import NextButton from '../components/buttons/NextButton.astro';
+import { imageURL } from '../../public/scripts/helpers/ImageURL';
+
 interface Props {
 	step: string;
 }
 
 const { step } = Astro.props;
 const baseURL = import.meta.env.PUBLIC_URL
+const array = new Array(6)
+array.push(50)
+array.push(50)
+array.push(65)
+array.push(65)
+array.push(50)
+array.push(50)
+let idx = 0
+
+const datamonitoringURL = imageURL("imgs/flow-diagram/datamonitoring.png") 
+const imagerecognitionURL = imageURL("imgs/flow-diagram/imagerecognition.png")
+const predictiveanalysisURL = imageURL("imgs/flow-diagram/predictiveanalysis.png")
+const realtimealertURL = imageURL("imgs/flow-diagram/realtimealert.png")
 
 
 ---
 <div class=`draggable-holder`>
-    <h1>Welcome <span class="name">Iñaki</span> and <span class="name">Ariana</span>! You two now have to design how the basic <strong>functioning of AI:</strong></h1>
+    <h1>Welcome <span class="user-name">Iñaki</span> and <span class="name">Ariana</span>! You two now have to design how the basic <strong>functioning of AI:</strong></h1>
     <div class="dropzone-content">
+        {
+            
+            array.map((data, i) => {
+                idx++
+                return(<svg class="lines" id=`line-${idx}` width=`${data}px` height="5px" version="1.1">
+                    <path id=`path-${idx}` fill="transparent" stroke="#044596" stroke-width="5" d=`M0,0,${data},0` class="path" data-astro-cid-ugx7r32e=""></path>
+                </svg>)
+            })
+        }
+
+        <img id="wedge-1" class="wedge" src="./imgs/flow-diagram/wedge.png">
+        <img id="wedge-2" class="wedge" src="./imgs/flow-diagram/wedge.png">
         <div>
-            <div id="dropzone-predictiveanalysis" class="dropzone">Option 1</div>
+            <div id="dropzone-predictiveanalysis" class="dropzone"></div>
+            
         </div>
         <div class="dropzone-row-zone">
-            <div id="dropzone-datamonitoring" class="dropzone">Option 2</div>
-            <div id="dropzone-imagerecognition" class="dropzone">Option 3</div>
+            <div id="dropzone-datamonitoring" class="dropzone"></div>
+            <div id="dropzone-imagerecognition" class="dropzone"></div>
         </div>
         <div>
-            <div id="dropzone-realtimealert" class="dropzone">Option 4</div>
+            <div id="dropzone-realtimealert" class="dropzone"></div>
         </div>
     </div>
     <div class="multi-zone">
@@ -44,27 +72,24 @@ const baseURL = import.meta.env.PUBLIC_URL
     <NextButton step={step}/>
     
 </div>
-<style >
+<style define:vars={{ datamonitoringURL, imagerecognitionURL, predictiveanalysisURL, realtimealertURL}}>
     .draggable-holder {
         /*position:absolute;*/
         color:darkblue;
         text-align: center;
-        font-size: 14px;
-        margin:20px 20px;
+        font-size: 13px;
+        margin:10px 20px;
         font-family: 'Roboto', sans-serif;
         --item-width: 0px; /* 130*/ /* 183 */
         --item-height: 40px;
         --color-blue:#054696;
+        --marginVertical:calc(5 * 3);
     }
 
     .draggable-holder h1 {
-        font-size: 16px;
-        margin-bottom: 20px;
+        font-size: 14px;
+        margin-bottom: 35px;
         font-weight: 400;
-    }
-
-	.name{
-        color:orange;
     }
 
     .dropzone {
@@ -77,13 +102,15 @@ const baseURL = import.meta.env.PUBLIC_URL
         border:2px grey;
         border-style: dashed;
         border-radius:8px;
+        background-position: center;
+        background-repeat: no-repeat;
     }
 
     .dropzone-content{
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap:20px;
+        gap:40px;
         margin-bottom: 30px;
     }
 
@@ -91,7 +118,6 @@ const baseURL = import.meta.env.PUBLIC_URL
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
-        margin-bottom:20px;
     }
 
     .multi-zone {
@@ -103,7 +129,7 @@ const baseURL = import.meta.env.PUBLIC_URL
         display: grid;
         border-radius: 8px;
         background-color: #E7EFF2;
-        height: 125px; /* este valor dinamico */
+        height: 118px;
     }
 
     .draggable-zone-hidden {
@@ -152,4 +178,34 @@ const baseURL = import.meta.env.PUBLIC_URL
         margin-bottom: 25px;
     }
 	
+    .lines {
+        position: absolute;
+        top:0;
+        left:0;        
+    }
+
+    .wedge {
+        position: absolute;
+        top:0;
+        left:0;   
+    }
+
+    #dropzone-predictiveanalysis {
+        background-image: var(--predictiveanalysisURL);
+    }
+
+    #dropzone-datamonitoring {
+        background-image: var(--datamonitoringURL);
+    }
+
+    #dropzone-imagerecognition{
+        background-image: var(--imagerecognitionURL);
+    }
+    
+    #dropzone-realtimealert{
+        background-image: var(--predictiveanalysisURL);
+
+    }
+    
+
 </style>

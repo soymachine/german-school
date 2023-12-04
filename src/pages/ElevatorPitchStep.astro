@@ -1,0 +1,45 @@
+---
+import NextButton from '../components/buttons/NextButton.astro';
+interface Props {
+	step: string;
+}
+
+const { step } = Astro.props;
+---
+<div class=`holder-elevator-pitch`>
+    <div class="elevator-intro-text">
+		<p><strong>An elevetor pitch</strong> is a way to convey information about your business</p>
+		<p><span class="user-name">Laura,</span> how long should it be?</p>
+	</div>
+    <div class="watch">
+        <div class="watch-image"><img src="./imgs/elevator-pitch/watch.png"></div>
+    </div>
+    
+    <NextButton step={step}/>
+</div>
+<style >
+
+    .holder-elevator-pitch {
+        --text-blue:#14519C; 
+        --color-blue:#044596;
+        color:darkblue;
+        text-align: center;
+        font-size: 14px;
+        margin:20px 10px;
+        font-family: 'Roboto', sans-serif;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+       
+    }
+
+    .elevator-intro-text p{
+        margin:0;
+    }
+
+    .elevator-intro-text{
+        padding-bottom: 20px;
+    }
+
+</style>

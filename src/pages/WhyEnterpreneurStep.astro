@@ -21,9 +21,12 @@ const { step } = Astro.props;
             <a class=`btn-step-${step}-option answer` id=`step-${step}-answer-button-3` href="#"><img src="./imgs/why-enterpreneur/option-3.png"></a>
             <a class=`btn-step-${step}-option answer` id=`step-${step}-answer-button-4` href="#"><img src="./imgs/why-enterpreneur/option-4.png"></a>
         </div>
+        <div id="answer-correct-icon"><img src="./imgs/correct.png"></div>
         
     </div>
-    <div class="answer-description"></div>
+    <div class="answer-description">
+        To solve an existing problem in the market
+    </div>
     <NextButton step={step}/>
 </div>
 <style >
@@ -40,10 +43,15 @@ const { step } = Astro.props;
         position: relative;
         display: flex;
         flex-direction: column;
+       
     }
 
-    .why-intro-text {
+    .why-intro-text p{
+        margin:0;
+    }
 
+    .why-intro-text{
+        padding-bottom: 20px;
     }
     
     .answers {
@@ -66,6 +74,7 @@ const { step } = Astro.props;
         border:4px solid #E5EAF0;
         padding:10px;
         width: 100px;
+        transition: all 1s ease-out;
     }
 	
     .btn-step-option-selected {
@@ -81,6 +90,21 @@ const { step } = Astro.props;
 
     #avatar img {
         margin-top: -60px;
+        pointer-events: none;
+    }
+
+    .answer-description {
+        border:1px solid #15519D;
+        border-radius:8px;
+        padding:10px 10px;
+        margin:30px 10px 30px 10px;
+    }
+
+    #answer-correct-icon{
+        position: absolute;
+        top:0;
+        left:0;
+        opacity: 0;
     }
 
 </style>

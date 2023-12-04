@@ -53,15 +53,26 @@ class ContentDraggable extends Content {
         // Zonas de Drag y de Drop
         this.draggableCorrectElement = document.querySelector("#draggable-content-correct")
         this.draggableIncorrectElement = document.querySelector("#draggable-content-incorrect")
-        const draggableItems = document.querySelectorAll(".draggable-item")
-        const droppableItems = document.querySelectorAll(".dropzone")
+        this.draggableItems = document.querySelectorAll(".draggable-item")
+        this.droppableItems = document.querySelectorAll(".dropzone")
         this.draggableZone = document.querySelector(".draggable-zone")
-        const content = document.querySelector("#content")
-        const dropZone = document.querySelector(".dropzone-content")
-        this.draggableZoneBoundingRect  = this.draggableZone.getBoundingClientRect()
-        this.dropZoneBoundingRect  = dropZone.getBoundingClientRect()
-        this.contentBoundingRect  = content.getBoundingClientRect()
+        this.linesList = document.querySelectorAll(".lines")
         
+        // const content = document.querySelector("#content")
+        this.content = document.querySelector(`#step-${this.contentID}`)
+        this.dropZone = document.querySelector(".dropzone-content")
+
+        /*
+        console.log("Draggable Zone Element:")
+        console.log(this.draggableZone)
+        console.log("Draggable zone bounding rect:")
+        console.log(this.draggableZoneBoundingRect)
+        
+        console.log("content Element:")
+        console.log(content)
+        console.log("content bounding Rect:")
+        console.log(this.contentBoundingRect)
+        */
 
         // Estructura de datos de los elementos
         this.dragElementsData = [
@@ -114,37 +125,94 @@ class ContentDraggable extends Content {
             },
         ]
 
+        document.addEventListener('touchmove', function(event){
+            event.preventDefault();
+            var x = event.touches[0].clientX;
+            var y = event.touches[0].clientY;
+            self.setMousePosition(x, y)
+        }, false)
+
+        //console.log(itemWidth)
+        
+
+        // Para que el cambio del width surja efecto en los getBoundingClientRect de los drop zone
+        setTimeout(() => {
+            this.getBoundingRects()
+            this.positionDraggableElements()
+
+            this.droppableItems.forEach((item, i) => {
+                // Adjust width of the element as itemWidth
+                item.style.width = `${this.itemWidth}px`
+                const dropBoundingRect = item.getBoundingClientRect()
+                const id = item.id.split("-")[1]
+                const x = dropBoundingRect.x - self.contentBoundingRect.x
+                const y = dropBoundingRect.y - self.contentBoundingRect.y
+    
+                const dropData = this.findDropElement(id)
+                dropData.pos = {x,y}
+                dropData.width = dropBoundingRect.width
+                dropData.height = dropBoundingRect.height
+            })
+
+            this.setupLines()
+
+        }, 100)
+
+        // Track de la posición del mouse
+        document.addEventListener('mousemove', (event) => {
+            event.preventDefault();
+            self.mouseX = event.clientX
+            self.mouseY = event.clientY
+        });
+
+        // Empezamos el loop
+        this.startLoop()
+    }
+
+    
+
+    getBoundingRects(){
+        this.draggableZoneBoundingRect  = this.draggableZone.getBoundingClientRect()
+        this.dropZoneBoundingRect  = this.dropZone.getBoundingClientRect()
+        this.contentBoundingRect  = this.content.getBoundingClientRect()
+    }
+
+    positionDraggableElements(){
+        const self = this
         // Reposicionar los elementos
         let col = 0
         let row = 0
         let maxCol = 2
-        
+
         // Estos valores han de ser dinámicos
         const W = document.querySelector("#root").offsetWidth
         const marginExterior = 20
         const marginInterior = 10
-        const colMargin = 8
+        const marginVertical = 10
         const rowMargin = 10
         const extraWSpace = 20
 
-        const itemWidth = (W - (marginExterior * 2) - (marginInterior * 3)) / 2
+        this.itemWidth = (W - (marginExterior * 2) - (marginInterior * 3)) / 2
+        this.itemHeight = 44
         const rowWidth = 60
+
+
         // Elementos de drageo
-        draggableItems.forEach((item, i) => {
+        this.draggableItems.forEach((item, i) => {
             // Adjust width of the element as itemWidth
-            item.style.width = `${itemWidth}px`
+            item.style.width = `${this.itemWidth}px`
 
             // Data element
             const dataElement = this.dragElementsData[i]
             const elementID = dataElement.id
             
             // Punto 0,0
-            let x = (this.draggableZoneBoundingRect.x - this.contentBoundingRect.x) + marginInterior
-            let y = (this.draggableZoneBoundingRect.y - this.contentBoundingRect.y) + rowMargin
+            let x = this.draggableZoneBoundingRect.x - this.contentBoundingRect.x + marginInterior
+            let y = this.draggableZoneBoundingRect.y - this.contentBoundingRect.y + marginVertical
             
             // Posición según fila y columna
-            x += col * (itemWidth + marginInterior)
-            y += row * rowWidth
+            x += col * (this.itemWidth + marginInterior)
+            y += row * (this.itemHeight + marginVertical)
 
             // console.log(x, y)
             
@@ -179,45 +247,11 @@ class ContentDraggable extends Content {
 
         })
 
-
-        document.addEventListener('touchmove', function(event){
-            event.preventDefault();
-            var x = event.touches[0].clientX;
-            var y = event.touches[0].clientY;
-            self.setMousePosition(x, y)
-        }, false)
-
-        //console.log(itemWidth)
         // Elementos de dropeo
-        droppableItems.forEach((item, i) => {
+        this.droppableItems.forEach((item, i) => {
             // Adjust width of the element as itemWidth
-            item.style.width = `${itemWidth}px`
+            item.style.width = `${this.itemWidth}px`
         })
-
-        // Para que el cambio del width surja efecto en los getBoundingClientRect de los drop zone
-        setTimeout(() => {
-            droppableItems.forEach((item, i) => {
-                // Adjust width of the element as itemWidth
-                item.style.width = `${itemWidth}px`
-                const dropBoundingRect = item.getBoundingClientRect()
-                const id = item.id.split("-")[1]
-                const x = dropBoundingRect.x - self.contentBoundingRect.x
-                const y = dropBoundingRect.y - self.contentBoundingRect.y
-    
-                const dropData = this.findDropElement(id)
-                dropData.pos = {x,y}
-            })
-        }, 100)
-
-        // Track de la posición del mouse
-        document.addEventListener('mousemove', (event) => {
-            event.preventDefault();
-            self.mouseX = event.clientX
-            self.mouseY = event.clientY
-        });
-
-        // Empezamos el loop
-        this.startLoop()
     }
 
     onMouseDownItem(item, i){
@@ -250,6 +284,13 @@ class ContentDraggable extends Content {
         // Incrementaoms el z-index del drageable
         this.draggingElement.style.zIndex = 999
 
+        console.log("quitamos a dragID:" + elementID + " de la lista")
+        this.dropElementsData.forEach(item => {
+            if(item.droppedID == elementID){
+                item.droppedID = undefined
+            }
+        })
+
         this.disableNextButton()
     }
 
@@ -276,7 +317,7 @@ class ContentDraggable extends Content {
         // Si no, lo dejamos en su posición original
         if(this.isDragging){
             const id = this.draggingElementID 
-            console.log(this.draggingElement.id)
+            
 
             // Qué drop está más cerca?
             let x;
@@ -286,13 +327,15 @@ class ContentDraggable extends Content {
             this.dropElementsData.forEach((drop, i) => {
                 // Calcular la distancia
                 const distance = this.distance(this.draggerX, this.draggerY, drop.pos.x, drop.pos.y)
-                if(distance < this.distanceThreshold){
+                if(distance < this.distanceThreshold && this.dropElementsData[i].droppedID == undefined){
                     nearestDrop = i
+                    // Si el neareast drop está ya ocupado qué pasa?
                     minDistance = distance
                 }
             })
 
             if(nearestDrop != null){
+
                 x = this.dropElementsData[nearestDrop].pos.x
                 y = this.dropElementsData[nearestDrop].pos.y
             }else{
@@ -348,7 +391,15 @@ class ContentDraggable extends Content {
                 this.draggingElement.classList.remove("incorrect")     
                 this.draggingElement.classList.remove("correct")    
                 
-                this.itemsDragged = this.itemsDragged.filter(item => item != dragID)
+                
+
+                //Quitamos el droppedID de donde estuviere
+                // Find droppedID from this.dropElementsDat that equals dragID and remove it
+                this.dropElementsData.forEach((drop, i) => {
+                    if(drop.droppedID == dragID){
+                        this.dropElementsData[i].droppedID = undefined
+                    }
+                })
             }
             
             if(this.itemsDragged.length == 4){
@@ -433,7 +484,103 @@ class ContentDraggable extends Content {
         this.gotoNextStep()
     }
 
-    
+    setupLines(){
+        {
+            // linea 1
+            this.line1 = document.querySelector(`#line-1`)
+            const dropData1 = this.findDropElement("predictiveanalysis")
+            this.line1.style.transform = "rotate(45deg)"
+            const line1Rect = this.line1.getBoundingClientRect()
+            const x = dropData1.pos.x + (dropData1.width * .5)
+            const y = dropData1.pos.y + (dropData1.height) + (line1Rect.height * .5)
+            this.line1.style.left = x + "px"
+            this.line1.style.top = y + "px"
+        }
+
+        {
+            // linea 2
+            this.line2 = document.querySelector(`#line-2`)
+            const dropData2 = this.findDropElement("predictiveanalysis")
+            this.line2.style.transform = "rotate(135deg)"
+            const line2Rect = this.line2.getBoundingClientRect()
+            const x = dropData2.pos.x + (dropData2.width * .5) - line2Rect.width - 10
+            const y = dropData2.pos.y + (dropData2.height) + (line2Rect.height * .5) - 2
+            this.line2.style.left = x + "px"
+            this.line2.style.top = y + "px"
+        }
+
+        {
+            // linea 3
+            const line = document.querySelector(`#line-3`)
+            const dropData = this.findDropElement("datamonitoring")
+            line.style.transform = "rotate(90deg)"
+            const lineRect = line.getBoundingClientRect()
+            const x = dropData.pos.x + 5
+            const y = dropData.pos.y + (dropData.height) + (lineRect.height * .5) - 2
+            line.style.left = x + "px"
+            line.style.top = y + "px"
+        }
+
+        {
+            // linea 4
+            const line = document.querySelector(`#line-4`)
+            const dropData = this.findDropElement("imagerecognition")
+            line.style.transform = "rotate(90deg)"
+            const lineRect = line.getBoundingClientRect()
+            const x = dropData.pos.x + dropData.width - 70
+            const y = dropData.pos.y + (dropData.height) + (lineRect.height * .5) - 2
+            line.style.left = x + "px"
+            line.style.top = y + "px"
+        }
+
+        {
+            // linea 5
+            const line = document.querySelector(`#line-5`)
+            const dropData = this.findDropElement("datamonitoring")
+            const dropDataRealtime = this.findDropElement("realtimealert")
+            const lineRect = line.getBoundingClientRect()
+            const x = dropData.pos.x + 38
+            const y = dropData.pos.y + (dropData.height) + 64
+            const w = (dropDataRealtime.pos.x) - (dropData.pos.x) - 42
+            const path = document.querySelector(`#path-5`)
+            line.style.left = x + "px"
+            line.style.top = y + "px"
+            line.style.width = w + "px"
+            path.setAttribute("d", `M0,0,${w},0`)
+
+            // Wedge-1
+            const wedge = document.querySelector(`#wedge-1`)
+            wedge.style.left = (x + w - 9) + "px"
+            wedge.style.top = (y - 5) + "px"
+        }
+
+        {
+            // linea 6
+            const line = document.querySelector(`#line-6`)
+            const dropData = this.findDropElement("realtimealert")
+            const dropDataImageRecognition = this.findDropElement("imagerecognition")
+            console.log(dropData)
+            const lineRect = line.getBoundingClientRect()
+            const x = dropData.pos.x + dropData.width + 5
+            const y = dropData.pos.y + (dropData.height * .5) + 2
+            const w = (dropDataImageRecognition.pos.x + dropDataImageRecognition.width) - (dropData.pos.x + dropData.width) - 40
+           
+            const path = document.querySelector(`#path-6`)
+
+            line.style.left = x + "px"
+            line.style.top = y + "px"
+            line.style.width = w + "px"
+            // Change attribute d of path
+            path.setAttribute("d", `M0,0,${w},0`)
+
+            // Wedge-2
+            const wedge = document.querySelector(`#wedge-2`)
+            wedge.style.left = (x - 2) + "px"
+            wedge.style.top = (y - 5) + "px"
+            wedge.style.transform = "rotate(180deg)"
+        }
+        
+    }
 }
 
 export default ContentDraggable

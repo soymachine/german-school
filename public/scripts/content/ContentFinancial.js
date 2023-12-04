@@ -1,4 +1,5 @@
 import Content from './Content.js'
+import Settings from '../helpers/Settings.js'
 import {eventSystem, Events} from '../helpers/EventSystem.js'
 import ResponseUnique from '../helpers/ResponseUnique.js'
 
@@ -16,6 +17,10 @@ class ContentFinancial extends Content {
         this.$resultSentence = document.querySelector(`.result-sentence`) 
         this.$resultTitle = document.querySelector(`.result-title`) 
         this.$resultDescription = document.querySelector(`.result-description`) 
+        this.$infoHolder = document.querySelector(`.info-holder`)
+
+        const stepWidth = document.querySelector(`#step-${this.contentID}`).offsetWidth
+        this.$infoHolder.style.width = (stepWidth - (Settings.margin * 2)) + "px"
 
         // Check path images
         this.correctMarkImage = "./imgs/correct.png"
