@@ -52,6 +52,10 @@ class Content{
         this.mouseY = y
     }
 
+    getDistance(x1, y1, x2, y2) {
+        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
+    }
+
     addEvent(el, type, fn){
         switch(type){
             case Content.ON_PRESS:

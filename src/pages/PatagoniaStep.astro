@@ -1,0 +1,118 @@
+---
+import NextButton from '../components/buttons/NextButton.astro';
+interface Props {
+	step: string;
+}
+
+const { step } = Astro.props;
+const logos = ["google", "snapchat", "patagonia", "twitter"]
+---
+<div class=`holder-patagonia-pitch`>
+    <div class="patagonia-intro-text">
+		<p class="first-sentence" id="patagonia-first-sentence"><span class="user-name">Laura,</span> how about your own <strong>role models</strong> and <strong>mentors?</strong></p>
+		<p class="second-sentence" id="patagonia-second-sentence"><strong>Yvon Chouinard</strong> is an enterpreneur who actively engages in environmental activism and advocacy. He founded...</p>
+	</div>
+    <div class="founder founder-dropzone">
+        <img id="founder-image" src="./imgs/patagonia/patagonia-founder.png">
+        {
+            logos.map((logo, index) => (
+                <a class="logo-anchor" id={`logo-${index}`} href="#">
+                    <img  id={`image-logo-${index}`} src={`./imgs/patagonia/${logo}.png`} />
+                </a> 
+            ))
+        }
+        <img class="indicator-images" id="patagonia-drop-indicator" src="./imgs/patagonia/patagonia-drop-indicator.png">
+        <img class="indicator-images" id="patagonia-dashed-line" src="./imgs/patagonia/patagonia-dashed-line.png">
+        
+        <img class="images-final" id="image-correct" src="./imgs/correct.png">
+        <img class="images-final" id="image-incorrect" src="./imgs/incorrect.png" >
+        <!--
+        <img class="indicator-images" id="test-image" src="./imgs/correct.png" width="5px">
+        <img class="indicator-images" id="test-image2" src="./imgs/incorrect.png" width="5px">
+         -->
+    </div>
+    <div class="logo-holder draggable-zone-patagonia">
+        <img id="image-patagonia" src="./imgs/patagonia/patagonia-text.png">
+    </div>
+    <NextButton step={step}/>
+</div>
+<style >
+
+    .holder-patagonia-pitch {
+        --text-blue:#14519C; 
+        --color-blue:#044596;
+        color:darkblue;
+        text-align: center;
+        font-size: 14px;
+        font-family: 'Roboto', sans-serif;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+       
+    }
+
+    .patagonia-intro-text p{
+        margin:0;
+    }
+
+    .patagonia-intro-text{
+        padding-bottom: 5px;
+    }
+
+    .first-sentence{
+        font-size:16px;
+        margin:0px 20px 10px 20px !important;
+    }
+
+    .second-sentence{
+        margin:0px 20px 0px 20px !important;
+    }
+
+    .founder {
+        margin: 5px 0px;
+        position: relative;
+    }
+
+    .logo-anchor {
+        text-decoration: none;
+        position:absolute;
+    }
+
+    .indicator-images{
+        left:calc(50% - 81px);
+        top:calc(50% - 78px);
+        position:absolute;
+    }
+
+    .images-final {
+        position:absolute;
+        top:0px;
+        left:0px;
+        opacity:0;
+    }
+
+    #patagonia-drop-indicator {
+        opacity: 0;
+    }
+
+    .draggable-zone-patagonia {
+        height:125px;
+        position:relative;
+        pointer-events: none;
+    }
+
+    #test-image, #test-image2 {
+        position:absolute;
+        z-index:1000;
+    }
+
+    #image-patagonia {
+        margin:60px 0px 0px 0px;
+    }
+
+    #image-patagonia {
+        opacity: 0;
+    }
+
+</style>

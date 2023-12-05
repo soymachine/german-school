@@ -8,8 +8,6 @@ class ContentElevatorPitch extends Content {
     constructor(){
         super(5)
 
-        console.log("Elevator Pitch")
-        
         // Scope
         const self = this
         this.isNextEnabled = false
@@ -36,7 +34,6 @@ class ContentElevatorPitch extends Content {
         this.previousTimeImageSelected = undefined
         document.querySelectorAll(`.watch-timer`).forEach(timer => {
             const rect = timer.getBoundingClientRect()
-            console.log(rect)
             timer.style.left = -(rect.width * .5) + "px"
             timer.style.top = -(rect.height * .5) - 2 + "px"
             self.timeImages.push(timer)
@@ -92,7 +89,6 @@ class ContentElevatorPitch extends Content {
 
     processAngle(){
         const tramo = Math.floor(this.angle / this.angleTramo)
-        console.log(tramo)
 
         this.$timeSelected.innerText = this.timeData[tramo]
 

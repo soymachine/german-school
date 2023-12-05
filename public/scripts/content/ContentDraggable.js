@@ -147,7 +147,6 @@ class ContentDraggable extends Content {
                 const id = item.id.split("-")[1]
                 const x = dropBoundingRect.x - self.contentBoundingRect.x
                 const y = dropBoundingRect.y - self.contentBoundingRect.y
-    
                 const dropData = this.findDropElement(id)
                 dropData.pos = {x,y}
                 dropData.width = dropBoundingRect.width

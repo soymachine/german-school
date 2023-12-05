@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Step from '../components/Step.astro';
+import CleanStep from '../components/CleanStep.astro';
 import FlowDiagramStep from './FlowDiagramStep.astro';
 import StartupsStep from './StartupsStep.astro'
 import FinancialMetric from './FinancialMetric.astro'
@@ -8,6 +9,7 @@ import TravelToManausStep from './TravelToManausStep.astro'
 import WhyEnterpreneurStep from './WhyEnterpreneurStep.astro'
 import Form from '../components/Form.astro';
 import ElevatorPitchStep from './ElevatorPitchStep.astro';
+import PatagoniaStep from './PatagoniaStep.astro';
 ---
 
 <Layout title="German School">
@@ -23,16 +25,19 @@ import ElevatorPitchStep from './ElevatorPitchStep.astro';
 				<Step step="2" act="II">
 					<FinancialMetric step="2" />
 				</Step>
-				<Step step="3" act="III">
+				<CleanStep step="3" act="III">
 					<TravelToManausStep step="3" />
-				</Step>
+				</CleanStep>
 				<Step step="4" act="III">
 					<WhyEnterpreneurStep step="4" />
 				</Step>
 				<Step step="5" act="III">
 					<ElevatorPitchStep step="5" />
 				</Step>
-				<Step step="6" act="IV">
+				<Step step="6" act="III">
+					<PatagoniaStep step="6" />
+				</Step>
+				<Step step="7" act="IV">
 					<Form />
 				</Step>
 			</div>
