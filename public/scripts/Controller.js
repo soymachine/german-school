@@ -7,6 +7,7 @@ import Settings from './helpers/Settings.js'
 import {eventSystem, Events} from './helpers/EventSystem.js'
 import QuestionaireController from './questionaire/QuestionaireController.js'
 import ContentWhyEnterpreuner from './content/ContentWhyEnterpreuner.js'
+import ContentElevatorPitch from './content/ContentElevatorPitch.js'
 
 class Controller {
     constructor(){
@@ -65,6 +66,9 @@ class Controller {
 
         /* 4.- WHY ENTERPRENEUR */
         this.contentWhyEnterpreuner = new ContentWhyEnterpreuner()
+
+        /* 5.- WHY ENTERPRENEUR */
+        this.contentElevatorPitch = new ContentElevatorPitch()
 
         /* 4.- FORM */
         //this.content["content-3"] = new Content3()

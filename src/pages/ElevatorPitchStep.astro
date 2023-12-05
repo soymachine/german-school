@@ -5,14 +5,36 @@ interface Props {
 }
 
 const { step } = Astro.props;
+const timersURL = [
+    "watch-timer-1.png",
+    "watch-timer-2.png",
+    "watch-timer-3.png",
+    "watch-timer-4.png",
+    "watch-timer-5.png",
+    "watch-timer-6.png",
+    "watch-timer-7.png",
+    "watch-timer-8.png",
+]
 ---
 <div class=`holder-elevator-pitch`>
     <div class="elevator-intro-text">
-		<p><strong>An elevetor pitch</strong> is a way to convey information about your business</p>
-		<p><span class="user-name">Laura,</span> how long should it be?</p>
+		<p class="first-sentence"><strong>An elevetor pitch</strong> is a way to convey information about your business</p>
+		<p class="second-sentence"><span class="user-name">Laura,</span> how long should it be?</p>
 	</div>
     <div class="watch">
-        <div class="watch-image"><img src="./imgs/elevator-pitch/watch.png"></div>
+        <a href="#" class="watch-anchor">
+            <img id="watch-image" src="./imgs/elevator-pitch/watch.png">
+            <div id="watch-images-container">
+            {
+                timersURL.map((timer, index) => (
+                    <img class="watch-timer" id={`watch-timer-${index}`} src={`./imgs/elevator-pitch/${timer}`}> </img>
+                ))
+            }
+            </div>
+        </a>
+        <img id="watch-center-piece" src="./imgs/elevator-pitch/watch-center-piece.png">
+        <div class="time-selected-text"> 30''</div>
+        
     </div>
     
     <NextButton step={step}/>
@@ -40,6 +62,59 @@ const { step } = Astro.props;
 
     .elevator-intro-text{
         padding-bottom: 20px;
+    }
+
+    .first-sentence{
+        margin:0px 20px 10px 20px !important;
+    }
+
+    .second-sentence{
+        font-size:16px;
+    }
+
+    .watch {
+        margin: 20px 0px;
+        position: relative;
+    }
+
+    .watch-anchor {
+        display:block;
+    }
+
+    .time-selected-text {
+        position: absolute;
+        top: 34%;
+        left: 0%;
+        color: #054696;
+        font-size: 28px;
+        width: 100%;
+        text-align: center;     
+        font-weight: bold;  
+        z-index:3;   
+        pointer-events: none;
+
+    }
+
+    #watch-center-piece {
+        position: absolute;
+        top: calc(50% - 9px);
+        left: calc(50% - 7px);
+        z-index:2;
+    }
+
+    .watch-timer{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        opacity:0;
+        z-index:1;
+        pointer-events: none;
+    }
+
+    #watch-images-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
     }
 
 </style>

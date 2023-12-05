@@ -46,7 +46,51 @@ class Content{
     gotoPrevStep(){
         eventSystem.publish(Events.ON_REQUEST_STEP, this.contentID - 1)
     }
+
+    setMousePosition(x, y){
+        this.mouseX = x
+        this.mouseY = y
+    }
+
+    addEvent(el, type, fn){
+        switch(type){
+            case Content.ON_PRESS:
+                el.onmousedown = function(event) { //asign a function
+                    fn(event)
+                }
+        
+                el.addEventListener('touchstart', function(event){
+                    event.preventDefault();
+                    fn(event.touches[0])
+                }, false);        
+                break
+            case Content.ON_MOVE:
+                el.onmousemove = function(event) { //asign a function
+                    fn(event)
+                }
+        
+                el.addEventListener('touchmove', function(event){
+                    event.preventDefault();
+                    fn(event.touches[0])
+                }, false);        
+                break
+            case Content.ON_RELEASE:
+                el.onmouseup = function(event) { //asign a function
+                    fn(event)
+                }
+        
+                el.addEventListener('touchend', function(event){
+                    event.preventDefault();
+                    fn(event.touches[0])
+                }, false);        
+                break
+        }
+        
+    }
 }
 
+Content.ON_PRESS = "ON_PRESS"
+Content.ON_MOVE = "ON_MOVE"
+Content.ON_RELEASE = "ON_RELEASE"
 
 export default Content
