@@ -15,11 +15,7 @@ const isTravel = (step == "3") ? true: false
 
 ---
 <script>
-    const headerHeight = 54
-    const footerHeight = 39
-    const stepHeight = document.querySelector(".step").getBoundingClientRect().height
-    const $stepContent = document.querySelector(".step-content") as HTMLElement
-    $stepContent.style.height = `${(stepHeight - headerHeight - footerHeight)}px`
+    
 </script>
 <div class=`step` id=`step-${step}` class:list={[{ bgTravel: isTravel }]}>
     <div class="step-content">
@@ -42,6 +38,7 @@ const isTravel = (step == "3") ? true: false
         grid-area: content;
         /*width: 100%;*/
         max-height: 507px; /* Esto ha de cambiar de forma dinámica */
+        display:grid;
     }
     
 </style>

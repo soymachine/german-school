@@ -15,19 +15,26 @@ const isTravel = (step == "3") ? true: false
 
 ---
 <script>
-    const headerHeight = 54
-    const footerHeight = 39
-
-    const stepHeight = document.querySelector(".step").getBoundingClientRect().height
+    const headerHeight = 65
+    const footerHeight = 35
+    const marginLateral= 0
+    const rect = document.querySelector(".step").getBoundingClientRect()
+    const stepHeight = rect.height
+    const stepWidth = rect.width
 
     // change .step-content height based on stepHeight
-    const $stepContent = document.querySelector(".step-content") as HTMLElement
-    $stepContent.style.height = `${(stepHeight - headerHeight - footerHeight)}px`
+    document.querySelectorAll(".step-content").forEach(element => {
+        const height = (stepHeight - headerHeight - footerHeight)
+        const width = (stepWidth - marginLateral - marginLateral)
+        element.style.width = `${width}px`
+        element.style.height = `${height}px`
+    });
+
 </script>
 <div class=`step` id=`step-${step}` class:list={[{ bgTravel: isTravel }]}>
     
     <div class="step-header">
-        <Header step={step} act={act}/>
+        <!--<Header step={step} act={act}/>-->
     </div>
     <div class="step-content">
         <slot />
@@ -44,7 +51,7 @@ const isTravel = (step == "3") ? true: false
         'header'
         'content'
         'footer';
-        grid-template-rows: auto auto auto;
+        grid-template-rows: 65px auto 35px;
     }
 
     .bgTravel {
@@ -61,7 +68,8 @@ const isTravel = (step == "3") ? true: false
     .step-content{
         grid-area: content;
         /*width: 100%;*/
-        max-height: 507; /* Esto ha de cambiar de forma dinámica */
+        max-height: 500px; /* Esto ha de cambiar de forma dinámica */
+        
     }
 
     .step-footer{

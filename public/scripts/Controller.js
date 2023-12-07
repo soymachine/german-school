@@ -1,4 +1,5 @@
 
+import Header from './header/Header.js'
 import ContentDraggable from './content/ContentDraggable.js'
 import ContentMultiple from './content/ContentMultiple.js'
 import ContentFinancial from './content/ContentFinancial.js'
@@ -77,6 +78,9 @@ class Controller {
         /* TRAVEL TO MANAUS */
         this.travelToManaus = new ContentTravelToManaus() 
 
+        /* HEADER */
+        this.header = new Header()
+
         /* 4.- FORM */
         //this.content["content-3"] = new Content3()
 
@@ -98,9 +102,24 @@ class Controller {
 
         /* TESTING */
         this.showContent(3)
+        document.addEventListener("keydown", (event) => {
+            that.onkeydown(event)
+        });
+
+        
 
         eventSystem.subscribe(Events.ON_REQUEST_STEP, (content)=>{ this.showContent(content) }) // this.showContent(this.currentSection)
+        eventSystem.subscribe(Events.ON_REQUEST_NEXT_STEP, ()=>{ this.onNextContentRequested() }) // this.showContent(this.currentSection)
     }
+
+    onkeydown = (event) => {
+        if (event.key === "ArrowRight") {
+            this.showContent(this.currentSection + 1)
+        }
+        if (event.key === "ArrowLeft") {
+            this.showContent(this.currentSection - 1)
+        }
+    };
 
     onClickNext(content){
         console.log(`next es ${content}`)
@@ -112,7 +131,15 @@ class Controller {
         this.showContent(content)
     }
 
+    onNextContentRequested(){
+        this.showContent(this.currentSection + 1)
+    }
+
     showContent(content){
+
+        // Limite izquierda
+        if(content < 0) content = 0
+
         const xDest = -this.contentWidth * content
         anime({
             targets: '#content',

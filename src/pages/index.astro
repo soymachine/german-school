@@ -10,11 +10,15 @@ import WhyEnterpreneurStep from './WhyEnterpreneurStep.astro'
 import Form from '../components/Form.astro';
 import ElevatorPitchStep from './ElevatorPitchStep.astro';
 import PatagoniaStep from './PatagoniaStep.astro';
+import Header from '../components/Header.astro';
 ---
 
 <Layout title="German School">
 	<div class="container" draggable="false">
 		<div id="root" class="holder">
+			<div class="sticky-header">
+				<Header step={"0"} act={"I"}/>
+			</div>
 			<div id="content" class="content">
 				<Step step="0" act="I">
 					<FlowDiagramStep step='0'/>
@@ -104,7 +108,7 @@ import PatagoniaStep from './PatagoniaStep.astro';
 		max-width: 448px;
 		max-height: 800px;
 		overflow:hidden;
-		
+		background-color: white;
 	}
 
 	.content {
@@ -134,6 +138,14 @@ import PatagoniaStep from './PatagoniaStep.astro';
         color:#EB590A;
 		font-weight: bold;
     }
+
+	.sticky-header {
+		position: absolute;
+		top: 0;
+		z-index:1;
+		width: 100%;
+		display:grid;
+	}
 
 </style>
 
