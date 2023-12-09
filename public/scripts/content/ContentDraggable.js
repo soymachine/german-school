@@ -29,15 +29,22 @@ class ContentDraggable extends Content {
         this.itemsDragged = []
 
         // Evento general para el release
-        document.onmouseup = function() { //asign a function
+        const stepElement = document.getElementById(`step-${this.contentID}`)
+        this.addEvent(stepElement, Content.ON_RELEASE, (event)=>{
+            self.onMouseUp()
+        })
+        /*
+        document.onmouseup = function(event) { //asign a function
+            event.preventDefault();
+            console.log("onMouseUP primro")
             self.onMouseUp()
         }
 
         document.addEventListener('touchend', function(event){
             event.preventDefault();
-
             self.onMouseUp()
         }, false);
+        */
 
         // El botón de NEXT
         this.$nextButton = document.querySelector(`#next-button-${this.contentID}`)
@@ -311,6 +318,7 @@ class ContentDraggable extends Content {
     }
 
     onMouseUp(){
+        console.log("onMouseUp")
         // Hemos de calcular dónde hemos soltado el elemento
         // Si lo hemos soltado en una zona de drop, mirar el item de esa zona
         // Si no, lo dejamos en su posición original
@@ -410,6 +418,12 @@ class ContentDraggable extends Content {
                 if(correctOrder){
                     this.draggableCorrectElement.style.display = "block"
                     this.enableNextButton()
+
+                    // Enviamos la respuesta
+                    eventSystem.publish(Events.ON_RESPONSE_UPDATE, {
+                        responseID:this.contentID,
+                        response:true
+                    })
                 }else{
                     this.draggableIncorrectElement.style.display = "block"
                     this.disableNextButton()

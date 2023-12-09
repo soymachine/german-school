@@ -185,15 +185,15 @@ class ContentPatagonia extends Content {
         let col = 0
         let row = 0
         let maxCol = 4
-
-        // Estos valores han de ser dinámicos
-        const W = document.querySelector("#root").offsetWidth
-        const marginExterior = 20
         const marginInterior = 5
         const marginVertical = 10
-        const rowMargin = 10
-        const extraWSpace = 20        
-        const rowWidth = 60
+
+        // Estos valores han de ser dinámicos
+        const W = document.querySelector(`#step-${this.contentID}`).offsetWidth
+        const allItemsWidth = (4 * this.itemWidth) + (3 * marginInterior)
+        const xStart = (W - allItemsWidth) * .5
+        
+        
 
         // Elementos de drageo
         this.draggableItems.forEach((item, i) => {
@@ -205,11 +205,11 @@ class ContentPatagonia extends Content {
             const elementID = dataElement.id
             
             // Punto 0,0
-            let x = marginInterior // this.draggableZoneBoundingRect.x 
+            let x = xStart // this.draggableZoneBoundingRect.x 
             let y =  this.founderImageHeight + marginVertical // this.draggableZoneBoundingRect.y
             
             // Posición según fila y columna
-            x += col * (this.itemWidth + marginInterior)
+            x += i * (this.itemWidth + marginInterior)
             // console.log(x, y)
             
             // Actualizamos las posiciones en la data

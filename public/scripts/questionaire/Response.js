@@ -2,7 +2,7 @@ class Response {
     constructor(type, response, correct) {
       this.type = type;
       this.response = response;
-      this.correct = response;
+      this.correct = correct;
     }
 }
 

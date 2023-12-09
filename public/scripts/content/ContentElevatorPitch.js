@@ -58,7 +58,8 @@ class ContentElevatorPitch extends Content {
             self.onReleaseWatch(event)
         })
 
-        this.addEvent(document, Content.ON_MOVE, function(event){
+        const stepElement = document.getElementById(`step-${this.contentID}`)
+        this.addEvent(stepElement, Content.ON_MOVE, function(event){
             self.setMousePosition(event.clientX, event.clientY)
             self.processMovement()
         })

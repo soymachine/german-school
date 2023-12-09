@@ -8,22 +8,25 @@ class QuestionaireController{
         eventSystem.subscribe(Events.ON_CONTENT_SHOWN, (content)=>{ this.onContentShown(content)})
         eventSystem.subscribe(Events.ON_RESPONSE_UPDATE, (responseObj)=>{ this.onResponseUpdate(responseObj)})
 
+
+        // Tener en cuenta que el 0 de "response-0" es el step, no el numero de la pregunta!
+        // habrá que dejar espacios vacios? "response-3" por ejemplo ahora es el step del viaje a Manaus
         this.responses = {
-            "response-0": new Response(Settings.MULTIPLE_RESPONSE, 0, [0, 1, 2]),
-            "response-1": new Response(Settings.SINGLE_RESPONSE, 0, 1),
-            "response-2": new Response(Settings.SINGLE_RESPONSE, 0, 1),
-            "response-3": new Response(Settings.MULTIPLE_RESPONSE, 0, [0, 1, 2]),
-            "response-4": new Response(Settings.SINGLE_RESPONSE, 0, 1),
-            "response-5": new Response(Settings.SINGLE_RESPONSE, 0, 1),
-            "response-6": new Response(Settings.SINGLE_RESPONSE, 0, 1),
-            "response-7": new Response(Settings.SINGLE_RESPONSE, 0, 1),
-            "response-8": new Response(Settings.SINGLE_RESPONSE, 0, 1),
-            "response-9": new Response(Settings.SINGLE_RESPONSE, 0, 1),
-            "response-10": new Response(Settings.SINGLE_RESPONSE, 0, 1),
-            "response-11": new Response(Settings.SINGLE_RESPONSE, 0, 1),
-            "response-12": new Response(Settings.SINGLE_RESPONSE, 0, 1),
-            "response-13": new Response(Settings.SINGLE_RESPONSE, 0, 1),
-            "response-14": new Response(Settings.SINGLE_RESPONSE, 0, 1)
+            "response-0": new Response(Settings.MULTIPLE_RESPONSE, null, [0, 1, 2]),
+            "response-1": new Response(Settings.SINGLE_RESPONSE, null, [1,3,5,6,7,9]),
+            "response-2": new Response(Settings.SINGLE_RESPONSE, null, 1),
+            "response-3": new Response(Settings.MULTIPLE_RESPONSE, null, [0, 1, 2]),
+            "response-4": new Response(Settings.SINGLE_RESPONSE, null, 1),
+            "response-5": new Response(Settings.SINGLE_RESPONSE, null, 1),
+            "response-6": new Response(Settings.SINGLE_RESPONSE, null, 1),
+            "response-7": new Response(Settings.SINGLE_RESPONSE, null, 1),
+            "response-8": new Response(Settings.SINGLE_RESPONSE, null, 1),
+            "response-9": new Response(Settings.SINGLE_RESPONSE, null, 1),
+            "response-10": new Response(Settings.SINGLE_RESPONSE, null, 1),
+            "response-11": new Response(Settings.SINGLE_RESPONSE, null, 1),
+            "response-12": new Response(Settings.SINGLE_RESPONSE, null, 1),
+            "response-13": new Response(Settings.SINGLE_RESPONSE, null, 1),
+            "response-14": new Response(Settings.SINGLE_RESPONSE, null, 1)
         }
 
         // TODO gestión de la logica de resultado por aqui
@@ -33,9 +36,9 @@ class QuestionaireController{
         
     }
 
-    onResponseUpdate(responseObj){
-        const response = this.responses[`response-${responseObj.responseID}`]
-        response.response = responseObj.response
+    onResponseUpdate({responseID, response}){
+        const responseObj = this.responses[`response-${responseID}`]
+        responseObj.response = response
     }
     
 }
