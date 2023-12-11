@@ -2,11 +2,13 @@ import Content from './Content.js'
 import {eventSystem, Events} from '../helpers/EventSystem.js'
 import ResponseUnique from '../helpers/ResponseUnique.js'
 import Settings from '../helpers/Settings.js'
+import Steps from '../helpers/Steps.js'
+
 
 
 class ContentElevatorPitch extends Content {
     constructor(){
-        super(5)
+        super(Steps.ELEVATOR_PITCH)
 
         // Scope
         const self = this
@@ -32,12 +34,7 @@ class ContentElevatorPitch extends Content {
         
         this.timeImages = []
         this.previousTimeImageSelected = undefined
-        document.querySelectorAll(`.watch-timer`).forEach(timer => {
-            const rect = timer.getBoundingClientRect()
-            timer.style.left = -(rect.width * .5) + "px"
-            timer.style.top = -(rect.height * .5) - 2 + "px"
-            self.timeImages.push(timer)
-        })
+        
 
         this.$watchAnchor = document.querySelector(`.watch-anchor`)
         this.$timeSelected = document.querySelector(`.time-selected-text`)
@@ -133,6 +130,15 @@ class ContentElevatorPitch extends Content {
         
         // 0.684 es el pòrcentaje de la imagen del círculo respecto del total de la imagen
         this.radius = (this.watchRect.width * 0.684) / 2
+
+        const self = this
+        document.querySelectorAll(`.watch-timer`).forEach(timer => {
+            const rect = timer.getBoundingClientRect()
+            console.log(rect)
+            timer.style.left = -(rect.width * .5) + "px"
+            timer.style.top = -(rect.height * .5) - 2 + "px"
+            self.timeImages.push(timer)
+        })
     }
     
 

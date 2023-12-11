@@ -1,11 +1,12 @@
 import ResponseMultiple from '../helpers/ResponseMultiple.js'
 import Content from './Content.js'
 import {eventSystem, Events}  from '../helpers/EventSystem.js'
+import Steps from '../helpers/Steps.js'
 
 
 class ContentMultiple extends Content {
     constructor(){
-        super(1)
+        super(Steps.STARTUPS)
         
         // Scope
         const self = this

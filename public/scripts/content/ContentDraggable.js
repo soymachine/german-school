@@ -1,9 +1,10 @@
 import Content from './Content.js'
 import {eventSystem, Events} from '../helpers/EventSystem.js'
+import Steps from '../helpers/Steps.js'
 
 class ContentDraggable extends Content {
     constructor(){
-        super(0)
+        super(Steps.FLOW_DIAGRAM)
         
         // Scope
         const self = this
@@ -152,8 +153,12 @@ class ContentDraggable extends Content {
                 item.style.width = `${this.itemWidth}px`
                 const dropBoundingRect = item.getBoundingClientRect()
                 const id = item.id.split("-")[1]
-                const x = dropBoundingRect.x - self.contentBoundingRect.x
+
+                
+                const x = dropBoundingRect.x - this.rootRect.x//+ this.contentBoundingRect.width // - self.contentBoundingRect.x
                 const y = dropBoundingRect.y - self.contentBoundingRect.y
+
+
                 const dropData = this.findDropElement(id)
                 dropData.pos = {x,y}
                 dropData.width = dropBoundingRect.width
@@ -175,12 +180,18 @@ class ContentDraggable extends Content {
         this.startLoop()
     }
 
-    
+
+  
 
     getBoundingRects(){
         this.draggableZoneBoundingRect  = this.draggableZone.getBoundingClientRect()
         this.dropZoneBoundingRect  = this.dropZone.getBoundingClientRect()
         this.contentBoundingRect  = this.content.getBoundingClientRect()
+        this.rootRect = document.getElementById("root").getBoundingClientRect()
+        console.log("rootBoundingRect")
+        console.log(this.rootRect)
+        console.log("contentBoundingRect")
+        console.log(this.contentBoundingRect)
     }
 
     positionDraggableElements(){
@@ -213,8 +224,8 @@ class ContentDraggable extends Content {
             const elementID = dataElement.id
             
             // Punto 0,0
-            let x = this.draggableZoneBoundingRect.x - this.contentBoundingRect.x + marginInterior
-            let y = this.draggableZoneBoundingRect.y - this.contentBoundingRect.y + marginVertical
+            let x = this.draggableZoneBoundingRect.x - this.rootRect.x + marginInterior //+ this.draggableZoneBoundingRect.x  + marginInterior // - this.contentBoundingRect.x
+            let y = this.draggableZoneBoundingRect.y - this.rootRect.y + marginVertical // - this.contentBoundingRect.y
             
             // Posición según fila y columna
             x += col * (this.itemWidth + marginInterior)

@@ -2,11 +2,12 @@ import Content from './Content.js'
 import Settings from '../helpers/Settings.js'
 import {eventSystem, Events} from '../helpers/EventSystem.js'
 import ResponseUnique from '../helpers/ResponseUnique.js'
+import Steps from '../helpers/Steps.js'
 
 
 class ContentFinancial extends Content {
     constructor(){
-        super(2)
+        super(Steps.FINANCIAL_METRICS)
 
 
         // Scope

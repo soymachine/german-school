@@ -11,6 +11,7 @@ class Content{
 
     onContentShown(content){
         if(content == this.contentID){
+            console.log("Activamos content de " + content)
             this.activateContent()
         }
     }
@@ -90,6 +91,23 @@ class Content{
                 break
         }
         
+    }
+
+    positionElement(id, x, y){
+        const el = document.getElementById(id)
+        el.style.left = x + "px"
+        el.style.top = y + "px"
+    }
+
+    calculateAngle(x1, y1, x2, y2) {
+        var dx = x2 - x1;
+        var dy = y2 - y1;
+        var theta = Math.atan2(dy, dx); // range (-PI, PI]
+        theta *= 180 / Math.PI; // rads to degs, range (-180, 180]
+        theta += 90; 
+        if (theta < 0) theta = 360 + theta; // range [0, 360)
+        if (theta < 0) theta = 360 + theta; // range [0, 360)
+        return theta;
     }
 }
 

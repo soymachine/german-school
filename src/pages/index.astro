@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Step from '../components/Step.astro';
 import CleanStep from '../components/CleanStep.astro';
+import AvatarStep from './AvatarStep.astro';
 import FlowDiagramStep from './FlowDiagramStep.astro';
 import StartupsStep from './StartupsStep.astro'
 import FinancialMetric from './FinancialMetric.astro'
@@ -10,9 +11,9 @@ import WhyEnterpreneurStep from './WhyEnterpreneurStep.astro'
 import Form from '../components/Form.astro';
 import ElevatorPitchStep from './ElevatorPitchStep.astro';
 import PatagoniaStep from './PatagoniaStep.astro';
+import Intro from './Intro.astro';
 import Header from '../components/Header.astro';
 ---
-
 <Layout title="German School">
 	<div class="container" draggable="false">
 		<div id="root" class="holder">
@@ -20,28 +21,34 @@ import Header from '../components/Header.astro';
 				<Header step={"0"} act={"I"}/>
 			</div>
 			<div id="content" class="content">
-				<Step step="0" act="I">
-					<FlowDiagramStep step='0'/>
+				<Step step="0" act="0">
+					<Intro step='0'/>
 				</Step>
 				<Step step="1" act="I">
-					<StartupsStep step="1"/>
+					<AvatarStep step='1'/>
 				</Step>
-				<Step step="2" act="II">
-					<FinancialMetric step="2" />
+				<Step step="2" act="I">
+					<FlowDiagramStep step='2'/>
 				</Step>
-				<CleanStep step="3" act="III">
-					<TravelToManausStep step="3" />
+				<Step step="3" act="I">
+					<StartupsStep step="3"/>
+				</Step>
+				<Step step="4" act="II">
+					<FinancialMetric step="4" />
+				</Step>
+				<CleanStep step="5" act="III">
+					<TravelToManausStep step="5" />
 				</CleanStep>
-				<Step step="4" act="III">
-					<WhyEnterpreneurStep step="4" />
-				</Step>
-				<Step step="5" act="III">
-					<ElevatorPitchStep step="5" />
-				</Step>
 				<Step step="6" act="III">
-					<PatagoniaStep step="6" />
+					<WhyEnterpreneurStep step="6" />
 				</Step>
-				<Step step="7" act="IV">
+				<Step step="7" act="III">
+					<ElevatorPitchStep step="7" />
+				</Step>
+				<Step step="8" act="III">
+					<PatagoniaStep step="8" />
+				</Step>
+				<Step step="9" act="IV">
 					<Form />
 				</Step>
 			</div>
@@ -54,7 +61,7 @@ import Header from '../components/Header.astro';
 	
 	:root {
     	--radius: 15px;
-    	--marginGeneral: 10%;
+    	--marginGeneral: 0%;
     	--color-alternate: orange;
     	--color-correct: green;
 	}
@@ -102,7 +109,7 @@ import Header from '../components/Header.astro';
 
 	.holder {
 		position: relative;
-		border-radius:var(--radius);
+		/*border-radius:var(--radius);*/
 		height: calc(100% - var(--marginGeneral));
 		width: calc(100% - var(--marginGeneral));
 		max-width: 448px;

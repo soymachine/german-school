@@ -8,13 +8,13 @@ interface Props {
 
 const { step, act } = Astro.props;
 
-const extraStep = (step == "1")? "stepOrange" : ""
 const notFirst = (step !== "0")
 const stepNum = Number(step)
-const isTravel = (step == "3") ? true: false
+
 
 ---
 <script>
+    
     const headerHeight = 65
     const footerHeight = 35
     const marginLateral= 0
@@ -31,10 +31,8 @@ const isTravel = (step == "3") ? true: false
     });
 
 </script>
-<div class=`step` id=`step-${step}` class:list={[{ bgTravel: isTravel }]}>
-    
+<div class=`step` id=`step-${step}`>
     <div class="step-header">
-        <!--<Header step={step} act={act}/>-->
     </div>
     <div class="step-content">
         <slot />
@@ -46,6 +44,7 @@ const isTravel = (step == "3") ? true: false
 <style>
 
     .step {
+        opacity:0;
         display: grid;
         grid-template-areas: 
         'header'

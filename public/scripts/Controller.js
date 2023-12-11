@@ -10,6 +10,8 @@ import ContentWhyEnterpreuner from './content/ContentWhyEnterpreuner.js'
 import ContentElevatorPitch from './content/ContentElevatorPitch.js'
 import ContentPatagonia from './content/ContentPatagonia.js'
 import ContentTravelToManaus from './content/ContentTravelToManaus.js'
+import Avatar from './content/ContentAvatar.js'
+import Intro from './content/Intro.js'
 
 class Controller {
     constructor(){
@@ -54,6 +56,12 @@ class Controller {
         this.content = {}
 
         // Agregamos segun el contenido
+
+        /* 0.- INTRO */
+        this.intro = new Intro()
+
+        /* 0.- AVATAR */
+        this.avatar = new Avatar()
 
         /* 1.- FLOW DIAGRAM */
         this.contentDraggable = new ContentDraggable()
@@ -101,7 +109,7 @@ class Controller {
         */
 
         /* TESTING */
-        this.showContent(6)
+        this.showContent(1)
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event)
         });
@@ -140,6 +148,11 @@ class Controller {
         // Limite izquierda
         if(content < 0) content = 0
 
+        const el = document.getElementById(`step-${content}`)
+        // opacity to 1
+        el.style.opacity = 1
+
+
         const xDest = -this.contentWidth * content
         anime({
             targets: '#content',
@@ -151,6 +164,8 @@ class Controller {
                 eventSystem.publish(Events.ON_CONTENT_SHOWN, content) 
             }
         });
+
+        eventSystem.publish(Events.ON_CONTENT_BEGIN_SHOWN, content) 
 
         // Si hay contenido previo notificamos que desaparece
         eventSystem.publish(Events.ON_CONTENT_HIDE, this.currentSection)

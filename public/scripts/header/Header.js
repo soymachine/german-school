@@ -9,11 +9,13 @@ class ContentTravelToManaus  {
         this.acto_2 = {start:2, finish:4}
         this.acto_3 = {start:4, finish:6}
         this.acto_4 = {start:6, finish:8}
-        eventSystem.subscribe(Events.ON_CONTENT_SHOWN, (content)=>{ this.onContentShown(content) })
+        eventSystem.subscribe(Events.ON_CONTENT_BEGIN_SHOWN, (content)=>{ this.onContentBeginShown(content) })
+
+        this.$header.style.opacity = 0
     }
 
 
-    onContentShown(content){
+    onContentBeginShown(content){
 
         if(content >= this.acto_1.start && content < this.acto_1.finish){        
             this.$headerAct.innerHTML = "ACT I"
@@ -26,7 +28,7 @@ class ContentTravelToManaus  {
         }
 
         let opacity = 1
-        if(content == 3){
+        if(content == 5 || content == 0){
             opacity = 0
         }
 

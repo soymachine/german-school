@@ -1,12 +1,12 @@
 
 import Content from './Content.js'
 import {eventSystem, Events} from '../helpers/EventSystem.js'
-
+import Steps from '../helpers/Steps.js'
 
 class ContentTravelToManaus extends Content {
     
     constructor(){
-        super(3)
+        super(Steps.TRAVEL_TO_MANAUS)
         const $plane = document.getElementById("travel-manaus-plane-img")
         // Escale $plane to .5 
         $plane.style.transform = "scale(.5)"

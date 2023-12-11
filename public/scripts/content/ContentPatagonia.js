@@ -1,9 +1,11 @@
 import Content from './Content.js'
 import {eventSystem, Events} from '../helpers/EventSystem.js'
+import Steps from '../helpers/Steps.js'
+
 
 class ContentPatagonia extends Content {
     constructor(){
-        super(6)
+        super(Steps.PATAGONIA)
         
         // Scope
         const self = this
@@ -192,8 +194,6 @@ class ContentPatagonia extends Content {
         const W = document.querySelector(`#step-${this.contentID}`).offsetWidth
         const allItemsWidth = (4 * this.itemWidth) + (3 * marginInterior)
         const xStart = (W - allItemsWidth) * .5
-        
-        
 
         // Elementos de drageo
         this.draggableItems.forEach((item, i) => {

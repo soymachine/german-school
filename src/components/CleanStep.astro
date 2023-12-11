@@ -8,10 +8,8 @@ interface Props {
 
 const { step, act } = Astro.props;
 
-const extraStep = (step == "1")? "stepOrange" : ""
-const notFirst = (step !== "0")
 const stepNum = Number(step)
-const isTravel = (step == "3") ? true: false
+const isTravel = (step == "5") ? true: false
 
 ---
 <script>
