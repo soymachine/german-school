@@ -28,7 +28,7 @@ class ContentTravelToManaus  {
         }
 
         let opacity = 1
-        if(content == 5 || content == 0){
+        if(content == 5 || content == 0 || content == 1){
             opacity = 0
         }
 

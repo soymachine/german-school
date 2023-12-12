@@ -4,6 +4,7 @@ import ResponseUnique from '../helpers/ResponseUnique.js'
 import Settings from '../helpers/Settings.js'
 import Steps from '../helpers/Steps.js'
 import AvatarMovement from './avatar/AvatarMovement.js'
+import AvatarPicker from './avatar/AvatarPicker.js'
 
 class ContentAvatar extends Content {
     constructor(){
@@ -31,7 +32,7 @@ class ContentAvatar extends Content {
             {
                 id:"haircolor",
                 label:"Hair color",
-                total:4,
+                total:5,
                 current:0
             },
             {
@@ -64,6 +65,8 @@ class ContentAvatar extends Content {
                 x:30, y:-50
             },
         }       
+
+        this.avatarRatio = 1.3
 
         // Cambiar las secciones
         this.prevSectionButton = document.querySelector(`#avatar-controller-left`)
@@ -113,24 +116,33 @@ class ContentAvatar extends Content {
             self.onClickNext()
         }, false);
 
-        this.disableNextButton()
-
-        /*
-        eventSystem.subscribe(Events.ON_RESPONSE_UPDATE, (responseObj)=>{
-            this.onResponseUpdate(responseObj)
-        })
-        */
+        // this.disableNextButton()
 
         this.addEvent(document.getElementById(`step-${this.contentID}`), Content.ON_MOVE, (event)=>{
             self.onMouseMove(event)
         })
 
+        /* AVATAR PICKER */
+        this.pickers = [
+            {
+                id:"0",
+                picker: new AvatarPicker("1", 8, "grid")
+            },
+            {
+                id:"3",
+                picker: new AvatarPicker("2", 5, "flex")
+            },
+            {
+                id:"2",
+                picker: new AvatarPicker("3", 5, "flex")
+            },
+        ]
 
         /* STARTUP */
         this.updateSection()
         this.updateCurrentDisplay()
 
-        /* MOVIMIENTO DEL AVATAR */
+        /* MOVIMIENTO DEL AVATAR */        
         this.avatarMovement = new AvatarMovement({
             eyebrows:this.eyebrows,
             mouth:this.mouth,
@@ -138,6 +150,33 @@ class ContentAvatar extends Content {
             eyes:this.$eyes,
             contentID:this.contentID
         })
+
+        
+
+        eventSystem.subscribe(Events.ON_PICKER_UPDATE, (pickerResponseObj)=>{
+            this.onPickerUpdate(pickerResponseObj)
+        })
+    }
+
+    onPickerUpdate({parent, id}){
+        console.log(parent)
+        console.log(this.currentDisplay)
+
+        //picker-1-color-1
+        const prev = document.getElementById(`picker-${parent}-color-${(this.currentDisplay + 1)}`)
+        // Remove class current-picker
+        prev.classList.remove("current-picker")
+
+        let nextDisplay = id.split("-")[3]
+        nextDisplay = Number(nextDisplay) - 1
+        console.log(nextDisplay)
+        this.currentDisplay = nextDisplay
+
+        const current = document.getElementById(`picker-${parent}-color-${(this.currentDisplay + 1)}`)
+        // Remove class current-picker
+        current.classList.add("current-picker")
+
+        this.updateCurrentDisplay()
     }
 
     activateContent(){
@@ -145,7 +184,7 @@ class ContentAvatar extends Content {
         //console.log(this.contentRect)
         this.eyesRect = this.$eyes.getBoundingClientRect();
         //console.log(this.eyesRect)
-        
+        this.updateAvatarBasedOnSection()
 
     }
 
@@ -175,7 +214,7 @@ class ContentAvatar extends Content {
     updateCurrentDisplay(){
 
         const currentSectionID = this.sections[this.currentSection].id
-        this.sections[this.currentSection].current =this.currentDisplay
+        this.sections[this.currentSection].current = this.currentDisplay
 
         this.updateDisplayNumber()
         this.updateAvatarBasedOnSection()
@@ -187,6 +226,7 @@ class ContentAvatar extends Content {
             case "hairstyle":
                 break;
             case "haircolor":
+                this.updateHairColor()
                 break;
             case "bodycolor":
                 this.updateBodyColor()
@@ -200,43 +240,62 @@ class ContentAvatar extends Content {
         const currentSectionID = this.sections[this.currentSection].id
         switch(currentSectionID){
             case "skin":
-                this.updateAvatarSize(this.adjustments["small"])
+                this.updateAvatarSize("small")
                 break;
             case "hairstyle":
-                this.updateAvatarSize(this.adjustments["big"])
+                this.updateAvatarSize("big")
                 break;
             case "haircolor":
-                this.updateAvatarSize(this.adjustments["small"])
+                this.updateAvatarSize("small")
                 break;
             case "bodycolor":
-                this.updateAvatarSize(this.adjustments["small"])
+                this.updateAvatarSize("small")
                 break;
             case "extras":
-                this.updateAvatarSize(this.adjustments["small"])
+                this.updateAvatarSize("small")
                 break;
         }
     }
 
-    updateAvatarSize({size, x, y}){
-        const duration = 500
+    updateAvatarSize(sizeType, duration = 500){
+        const {size, x, y} = this.adjustments[sizeType]
+
         const self = this
         anime({
-            targets: `.avatar-body-part`,
+            targets: `.avatar-body-part, #avatar-eyes-image, #avatar-ref`,
             width: size,
             duration: duration,
             easing:'easeOutQuad',
             complete: function(anim) {
-                self.avatarMovement.updateImgRect()
+                self.avatarMovement.updateAvatarSize(size)
             }
         })
 
         anime({
-            targets: `.avatar-image`,
-            left:x,
-            top:y,
+            targets: `#avatar-ref`,
+            height: (size * this.avatarRatio) + y,
             duration: duration,
             easing:'easeOutQuad',            
         })
+
+        anime({
+            targets: `.avatar-image, #avatar-ref`,
+            translateX:x,
+            translateY:y,
+            duration: duration,
+            easing:'easeOutQuad',            
+        })
+        
+        if(sizeType == "big"){
+            document.getElementById("avatar-part-number").style.display = "block" // mostramos el avatar-part-number
+            document.getElementById("color-picker-wrapper").style.display = "none" 
+            document.querySelectorAll(".avatar-display-button").forEach(button => button.style.opacity = 1) // mostramos los avatar-display-button
+        }else{
+            document.getElementById("avatar-part-number").style.display = "none" // ocultamos el avatar-part-number
+            document.getElementById("color-picker-wrapper").style.display = "block"
+            document.querySelectorAll(".avatar-display-button").forEach(button => button.style.opacity = 0) // mostramos los avatar-display-button
+        }
+        
     }
 
     
@@ -250,6 +309,12 @@ class ContentAvatar extends Content {
         this.body.src = `./imgs/avatar/parts/body-${(this.currentDisplay + 1)}.svg`
     }
 
+
+    updateHairColor(){
+        this.hair.src = `./imgs/avatar/parts/hair-style-1-color-${(this.currentDisplay + 1)}.svg`
+
+        
+    }
     updateSkin(){
         this.head.src = `./imgs/avatar/parts/skin-${(this.currentDisplay + 1)}.svg` 
         this.eyebrows.src = `./imgs/avatar/parts/eyebrows-skin-${(this.currentDisplay + 1)}.svg` 
@@ -290,7 +355,21 @@ class ContentAvatar extends Content {
         this.currentDisplay = this.sections[this.currentSection].current
         //console.log("updateSection this.currentSection " + this.currentSection, this.sections[this.currentSection])
         this.avatarCurrentLabel.innerHTML = this.sections[this.currentSection].label
+        
         this.updateAvatarBasedOnSection()
+        this.updatePicker()
+    }
+
+    updatePicker(){
+        this.pickers.forEach(pickerElement => {
+            if(pickerElement.id == this.currentSection){
+                pickerElement.picker.show()
+            }else{
+                pickerElement.picker.hide()
+            }
+        })
+
+        // Iterate
     }
 
     onMouseMove(event){
@@ -323,10 +402,6 @@ class ContentAvatar extends Content {
     
 
     onClickNext(){
-        if(!this.isNextEnabled){
-            return
-        }
-        
         this.gotoNextStep()
     }
     
