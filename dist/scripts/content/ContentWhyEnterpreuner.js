@@ -2,11 +2,13 @@ import Content from './Content.js'
 import {eventSystem, Events} from '../helpers/EventSystem.js'
 import ResponseUnique from '../helpers/ResponseUnique.js'
 import Settings from '../helpers/Settings.js'
+import Steps from '../helpers/Steps.js'
+
 
 
 class ContentWhyEnterpreuner extends Content {
     constructor(){
-        super(4)
+        super(Steps.WHY_ENTERPRENEUR)
 
         console.log("Enterpreneur")
         

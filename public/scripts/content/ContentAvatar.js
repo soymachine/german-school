@@ -3,6 +3,7 @@ import {eventSystem, Events} from '../helpers/EventSystem.js'
 import ResponseUnique from '../helpers/ResponseUnique.js'
 import Settings from '../helpers/Settings.js'
 import Steps from '../helpers/Steps.js'
+import AvatarMovement from './avatar/AvatarMovement.js'
 
 class ContentAvatar extends Content {
     constructor(){
@@ -16,41 +17,88 @@ class ContentAvatar extends Content {
         // Sections
         this.sections = [
             {
+                id:"skin",
+                label:"Skin color",
+                total:8,
+                current:0
+            },
+            {
                 id:"hairstyle",
-                label:"Hair style"
+                label:"Hair style",
+                total:12,
+                current:0
             },
             {
                 id:"haircolor",
-                label:"Hair color"
+                label:"Hair color",
+                total:4,
+                current:0
             },
             {
-                id:"skin",
-                label:"Skin color"
+                id:"bodycolor",
+                label:"Body color",
+                total:5,
+                current:0
             },
             {
                 id:"extras",
-                label:"Extras"
+                label:"Extras",
+                total:3,
+                current:0
             },            
         ]
 
         this.currentSection = 0
         this.maxSections = this.sections.length
 
-        // Cambiar las secciones
-        this.prevSectionArrow = document.querySelector(`#avatar-controller-left`)
-        this.nextSectionArrow = document.querySelector(`#avatar-controller-right`)
+        this.currentDisplay = 0
+        this.maxDisplays = this.sections[this.currentSection].total
 
+        this.adjustments = {
+            "big":{
+                size:350,
+                x:0, y:0
+            },
+            "small":{
+                size:300,
+                x:30, y:-50
+            },
+        }       
+
+        // Cambiar las secciones
+        this.prevSectionButton = document.querySelector(`#avatar-controller-left`)
+        this.nextSectionButton = document.querySelector(`#avatar-controller-right`)
         this.avatarCurrentLabel = document.getElementById(`avatar-current-label`)
 
-        console.log(this.nextSectionArrow)
-        this.addEvent(this.nextSectionArrow, Content.ON_PRESS, (e)=>{this.onNextSectionArrowClicked(e)})
-        this.addEvent(this.prevSectionArrow, Content.ON_PRESS, (e)=>{this.onPrevSectionArrowClicked(e)})
+        // Cambiar de type
+        this.prevDisplayButton = document.getElementById("avatar-display-left")
+        this.nextDisplayButton = document.getElementById("avatar-display-right")
+
+        /* EVENTS */
+        this.addEvent(this.nextSectionButton, Content.ON_PRESS, (e)=>{this.onNextSectionButtonClicked(e)})
+        this.addEvent(this.prevSectionButton, Content.ON_PRESS, (e)=>{this.onPrevSectionButtonClicked(e)})
+        this.addEvent(this.prevDisplayButton, Content.ON_PRESS, (e)=>{this.onPrevDisplayButtonClicked(e)})
+        this.addEvent(this.nextDisplayButton, Content.ON_PRESS, (e)=>{this.onNextDisplayButtonClicked(e)})
 
         // Los ojos
         this.$eyes = document.getElementById("avatar-eyes-preview");
         this.eyesRect = this.$eyes.getBoundingClientRect();
-        this.avatarImgRect = document.querySelector(".avatar-image").getBoundingClientRect()
+        
         this.contentRect = document.querySelector("#content").getBoundingClientRect()
+
+        /* BODY PARTS */
+        this.hair = document.getElementById("avatar-hair-preview")
+        this.head = document.getElementById("avatar-head-preview")
+        this.eyebrows = document.getElementById("avatar-eyebrows-preview")
+        this.mouth = document.getElementById("avatar-mouth-preview")
+        this.neck = document.getElementById("avatar-neck-preview")
+        this.nose = document.getElementById("avatar-nose-preview")
+        this.body = document.getElementById("avatar-body-preview")
+
+        // Toda la imaen
+        this.avatarImage = document.querySelector(".avatar-image")
+
+        this.avatarNumberPart = document.getElementById("avatar-part-number")
        
         
         // El botón de NEXT
@@ -76,22 +124,181 @@ class ContentAvatar extends Content {
         this.addEvent(document.getElementById(`step-${this.contentID}`), Content.ON_MOVE, (event)=>{
             self.onMouseMove(event)
         })
+
+
+        /* STARTUP */
+        this.updateSection()
+        this.updateCurrentDisplay()
+
+        /* MOVIMIENTO DEL AVATAR */
+        this.avatarMovement = new AvatarMovement({
+            eyebrows:this.eyebrows,
+            mouth:this.mouth,
+            nose:this.nose,
+            eyes:this.$eyes,
+            contentID:this.contentID
+        })
     }
 
     activateContent(){
         this.contentRect = document.querySelector("#content").getBoundingClientRect()
-        console.log(this.contentRect)
+        //console.log(this.contentRect)
         this.eyesRect = this.$eyes.getBoundingClientRect();
-        console.log(this.eyesRect)
-        this.avatarImgRect = document.querySelector(".avatar-image").getBoundingClientRect()
+        //console.log(this.eyesRect)
+        
 
     }
 
+    onNextDisplayButtonClicked(event){
+        let nextDisplay = this.currentDisplay + 1
+        if(nextDisplay >= this.maxDisplays){
+            nextDisplay = 0
+        }
+        console.log(this.maxDisplays)
+        this.currentDisplay = nextDisplay
+
+        this.updateCurrentDisplay()
+        
+    }
+
+    onPrevDisplayButtonClicked(event){
+        let nextDisplay = this.currentDisplay - 1
+        if(nextDisplay < 0){
+            nextDisplay = this.maxDisplays - 1
+        }
+
+        this.currentDisplay = nextDisplay
+
+        this.updateCurrentDisplay()
+    }
+
+    updateCurrentDisplay(){
+
+        const currentSectionID = this.sections[this.currentSection].id
+        this.sections[this.currentSection].current =this.currentDisplay
+
+        this.updateDisplayNumber()
+        this.updateAvatarBasedOnSection()
+
+        switch(currentSectionID){
+            case "skin":
+                this.updateSkin()
+                break;
+            case "hairstyle":
+                break;
+            case "haircolor":
+                break;
+            case "bodycolor":
+                this.updateBodyColor()
+                break;
+            case "extras":
+                break;
+        }
+    }
+
+    updateAvatarBasedOnSection(){
+        const currentSectionID = this.sections[this.currentSection].id
+        switch(currentSectionID){
+            case "skin":
+                this.updateAvatarSize(this.adjustments["small"])
+                break;
+            case "hairstyle":
+                this.updateAvatarSize(this.adjustments["big"])
+                break;
+            case "haircolor":
+                this.updateAvatarSize(this.adjustments["small"])
+                break;
+            case "bodycolor":
+                this.updateAvatarSize(this.adjustments["small"])
+                break;
+            case "extras":
+                this.updateAvatarSize(this.adjustments["small"])
+                break;
+        }
+    }
+
+    updateAvatarSize({size, x, y}){
+        const duration = 500
+        const self = this
+        anime({
+            targets: `.avatar-body-part`,
+            width: size,
+            duration: duration,
+            easing:'easeOutQuad',
+            complete: function(anim) {
+                self.avatarMovement.updateImgRect()
+            }
+        })
+
+        anime({
+            targets: `.avatar-image`,
+            left:x,
+            top:y,
+            duration: duration,
+            easing:'easeOutQuad',            
+        })
+    }
+
+    
+
+    updateDisplayNumber(){
+        // Actualizamos el numero
+        this.avatarNumberPart.innerHTML = `${this.currentDisplay + 1}/${this.maxDisplays}`
+    }
+
+    updateBodyColor(){
+        this.body.src = `./imgs/avatar/parts/body-${(this.currentDisplay + 1)}.svg`
+    }
+
+    updateSkin(){
+        this.head.src = `./imgs/avatar/parts/skin-${(this.currentDisplay + 1)}.svg` 
+        this.eyebrows.src = `./imgs/avatar/parts/eyebrows-skin-${(this.currentDisplay + 1)}.svg` 
+        this.mouth.src = `./imgs/avatar/parts/mouth-skin-${(this.currentDisplay + 1)}.svg` 
+        this.neck.src = `./imgs/avatar/parts/neck-${(this.currentDisplay + 1)}.svg` 
+        this.nose.src = `./imgs/avatar/parts/nose-skin-${(this.currentDisplay + 1)}.svg` 
+    }
+
+    onNextSectionButtonClicked(event){
+        let nextSection = this.currentSection + 1
+
+        if(nextSection >= this.maxSections){
+            nextSection = 0
+        }
+        
+        this.currentSection = nextSection
+        this.maxDisplays = this.sections[this.currentSection].total
+
+        this.updateSection()
+        this.updateDisplayNumber()
+    }
+
+    onPrevSectionButtonClicked(event){
+        let nextSection = this.currentSection - 1
+        if(nextSection < 0){
+            nextSection = this.maxSections - 1
+        }
+
+        this.currentSection = nextSection
+        this.maxDisplays = this.sections[this.currentSection].total
+
+        this.updateSection()
+        this.updateDisplayNumber()
+    }
+    
+    updateSection(){
+
+        this.currentDisplay = this.sections[this.currentSection].current
+        //console.log("updateSection this.currentSection " + this.currentSection, this.sections[this.currentSection])
+        this.avatarCurrentLabel.innerHTML = this.sections[this.currentSection].label
+        this.updateAvatarBasedOnSection()
+    }
+
     onMouseMove(event){
+        /*
         let x = event.clientX
         let y = event.clientY
 
-        const correccionX = 195
+        const correccionX = 195 // estos números en base a las dimensiones de la imagen!
         const correccionY = 131
         const avatarX = (this.avatarImgRect.x + correccionX)
         const avatarY = (this.avatarImgRect.y + correccionY)
@@ -109,42 +316,8 @@ class ContentAvatar extends Content {
         this.$eyes.style.top = `${eyeY}px`;
 
         // console.log(`angle ${angle}, eyeX ${eyeX}, eyeY ${eyeY}`)
+        */
     }
-
-    getAngle(x1, y1, x2, y2) {
-        var dx = x2 - x1;
-        var dy = y2 - y1;
-        return Math.atan2(dy, dx);
-    }
-
-    onNextSectionArrowClicked(event){
-        let nextSection = this.currentSection + 1
-
-        if(nextSection >= this.maxSections){
-            nextSection = 0
-        }
-        
-        this.currentSection = nextSection
-
-        this.updateSection()
-    }
-
-    onPrevSectionArrowClicked(event){
-        let nextSection = this.currentSection - 1
-        if(nextSection < 0){
-            nextSection = this.maxSections - 1
-        }
-
-        this.currentSection = nextSection
-
-        this.updateSection()
-    }
-    
-    updateSection(){
-        console.log("updateSection this.currentSection " + this.currentSection, this.sections[this.currentSection])
-        this.avatarCurrentLabel.innerHTML = this.sections[this.currentSection].label
-    }
-    
 
     
     

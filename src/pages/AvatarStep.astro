@@ -18,19 +18,22 @@ const { step } = Astro.props;
     <div class="avatar-display">
         <a id="avatar-display-left" class="avatar-display-button" href="#"><img src="./imgs/avatar/controllers/avatar-slider-left.png"></a>
         <div class="avatar-display-wrapper">
-            <img class="avatar-ref" id="avatar-ref" width="350px" src="./imgs/avatar/ref-demo.svg">
+            <img class="avatar-ref" id="avatar-ref" width="350px" src="./imgs/avatar/parts/neck-1.svg">
             <div class="avatar-image">
-                <img class="avatar-body-part" id="avatar-neck-preview" width="350px" src="./imgs/avatar/neck-demo.svg">
-                <img class="avatar-body-part" id="avatar-head-preview" width="350px" src="./imgs/avatar/head-demo.svg">
-                <img class="avatar-body-part" id="avatar-eyebrows-preview" width="350px" src="./imgs/avatar/eyebrows-demo.svg">
-                <img class="avatar-body-part" id="avatar-eyes-preview" width="350px" src="./imgs/avatar/eyes-demo.svg">
-                <img class="avatar-body-part" id="avatar-hair-preview" width="350px" src="./imgs/avatar/hair-demo.svg">
-                <img class="avatar-body-part" id="avatar-mouth-preview" width="350px" src="./imgs/avatar/mouth-demo.svg">
-                <img class="avatar-body-part" id="avatar-nose-preview" width="350px" src="./imgs/avatar/nose-demo.svg">
-                <img class="avatar-body-part" id="avatar-body-preview" width="350px" src="./imgs/avatar/body-demo.svg">
+                <img class="avatar-body-part" id="avatar-neck-preview" width="350px" src="./imgs/avatar/parts/neck-1.svg">
+                <img class="avatar-body-part" id="avatar-head-preview" width="350px" src="./imgs/avatar/parts/skin-1.svg">
+                <img class="avatar-body-part" id="avatar-eyebrows-preview" width="350px" src="./imgs/avatar/parts/eyebrows-skin-1.svg">
+                <div class="avatar-body-part" id="avatar-eyes-preview" width="350px" src="./imgs/avatar/parts/eyes.svg">
+                    <img id="avatar-eyes-image" width="350px" src="./imgs/avatar/parts/eyes.svg">
+                </div>
+                <img class="avatar-body-part" id="avatar-hair-preview" width="350px" src="./imgs/avatar/parts/hair-style-1-black.svg">
+                <img class="avatar-body-part" id="avatar-mouth-preview" width="350px" src="./imgs/avatar/parts/mouth-skin-1.svg">
+                <img class="avatar-body-part" id="avatar-nose-preview" width="350px" src="./imgs/avatar/parts/nose-skin-1.svg">
+                <img class="avatar-body-part" id="avatar-body-preview" width="350px" src="./imgs/avatar/parts/body-1.svg">
+                <img class="avatar-body-part" id="avatar-extras-preview" width="350px" src="./imgs/avatar/parts/glasses.svg">
             </div>
             
-            <div>1/12</div>
+            <div id="avatar-part-number">1/12</div>
         </div>
         <a id="avatar-display-right" class="avatar-display-button" href="#"><img src="./imgs/avatar/controllers/avatar-slider-right.png"></a>
     </div>
@@ -54,6 +57,7 @@ const { step } = Astro.props;
 
     .avatar-body-part {
         position: absolute;
+        pointer-events: none;
     }
 
     .avatar-image {
@@ -63,7 +67,7 @@ const { step } = Astro.props;
     }
 
     .avatar-ref {
-        opacity:0.5;
+        opacity:0.0;
     }
 
     .avatar-controllers {
@@ -104,6 +108,10 @@ const { step } = Astro.props;
 
     .avatar-display-button {
         margin: auto 0;
+    }
+    
+    #avatar-part-number {
+        font-size:20px;
     }
 
 </style>

@@ -2,12 +2,14 @@ import Content from './Content.js'
 import Settings from '../helpers/Settings.js'
 import {eventSystem, Events} from '../helpers/EventSystem.js'
 import ResponseUnique from '../helpers/ResponseUnique.js'
+import Steps from '../helpers/Steps.js'
 
 
 class ContentFinancial extends Content {
     constructor(){
-        super(2)
-        
+        super(Steps.FINANCIAL_METRICS)
+
+
         // Scope
         const self = this
         this.isScoreShown = false
@@ -20,7 +22,9 @@ class ContentFinancial extends Content {
         this.$infoHolder = document.querySelector(`.info-holder`)
 
         const stepWidth = document.querySelector(`#step-${this.contentID}`).offsetWidth
+        const stepHeight = this.$infoHolder.offsetHeight
         this.$infoHolder.style.width = (stepWidth - (Settings.margin * 2)) + "px"
+        this.$infoHolder.style.height = stepHeight + "px"
 
         // Check path images
         this.correctMarkImage = "./imgs/correct.png"

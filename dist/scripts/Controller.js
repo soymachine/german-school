@@ -1,12 +1,17 @@
 
+import Header from './header/Header.js'
 import ContentDraggable from './content/ContentDraggable.js'
 import ContentMultiple from './content/ContentMultiple.js'
 import ContentFinancial from './content/ContentFinancial.js'
-import Content3 from './content/Content3.js'
 import Settings from './helpers/Settings.js'
 import {eventSystem, Events} from './helpers/EventSystem.js'
 import QuestionaireController from './questionaire/QuestionaireController.js'
 import ContentWhyEnterpreuner from './content/ContentWhyEnterpreuner.js'
+import ContentElevatorPitch from './content/ContentElevatorPitch.js'
+import ContentPatagonia from './content/ContentPatagonia.js'
+import ContentTravelToManaus from './content/ContentTravelToManaus.js'
+import Avatar from './content/ContentAvatar.js'
+import Intro from './content/Intro.js'
 
 class Controller {
     constructor(){
@@ -52,6 +57,12 @@ class Controller {
 
         // Agregamos segun el contenido
 
+        /* 0.- INTRO */
+        this.intro = new Intro()
+
+        /* 0.- AVATAR */
+        this.avatar = new Avatar()
+
         /* 1.- FLOW DIAGRAM */
         this.contentDraggable = new ContentDraggable()
         // this.content["content-1"] = new ContentDraggable()
@@ -65,6 +76,18 @@ class Controller {
 
         /* 4.- WHY ENTERPRENEUR */
         this.contentWhyEnterpreuner = new ContentWhyEnterpreuner()
+
+        /* 5.- ELEVATOR PITCH */
+        this.contentElevatorPitch = new ContentElevatorPitch()
+
+        /* 6.- PATAGONIA FOUNDER */
+        this.contentPatagonia = new ContentPatagonia()
+
+        /* TRAVEL TO MANAUS */
+        this.travelToManaus = new ContentTravelToManaus() 
+
+        /* HEADER */
+        this.header = new Header()
 
         /* 4.- FORM */
         //this.content["content-3"] = new Content3()
@@ -86,10 +109,25 @@ class Controller {
         */
 
         /* TESTING */
-        // this.showContent(2)
+        // this.showContent(1)
+        document.addEventListener("keydown", (event) => {
+            that.onkeydown(event)
+        });
+
+        
 
         eventSystem.subscribe(Events.ON_REQUEST_STEP, (content)=>{ this.showContent(content) }) // this.showContent(this.currentSection)
+        eventSystem.subscribe(Events.ON_REQUEST_NEXT_STEP, ()=>{ this.onNextContentRequested() }) // this.showContent(this.currentSection)
     }
+
+    onkeydown = (event) => {
+        if (event.key === "ArrowRight") {
+            this.showContent(this.currentSection + 1)
+        }
+        if (event.key === "ArrowLeft") {
+            this.showContent(this.currentSection - 1)
+        }
+    };
 
     onClickNext(content){
         console.log(`next es ${content}`)
@@ -101,7 +139,20 @@ class Controller {
         this.showContent(content)
     }
 
+    onNextContentRequested(){
+        this.showContent(this.currentSection + 1)
+    }
+
     showContent(content){
+
+        // Limite izquierda
+        if(content < 0) content = 0
+
+        const el = document.getElementById(`step-${content}`)
+        // opacity to 1
+        el.style.opacity = 1
+
+
         const xDest = -this.contentWidth * content
         anime({
             targets: '#content',
@@ -113,6 +164,8 @@ class Controller {
                 eventSystem.publish(Events.ON_CONTENT_SHOWN, content) 
             }
         });
+
+        eventSystem.publish(Events.ON_CONTENT_BEGIN_SHOWN, content) 
 
         // Si hay contenido previo notificamos que desaparece
         eventSystem.publish(Events.ON_CONTENT_HIDE, this.currentSection)
