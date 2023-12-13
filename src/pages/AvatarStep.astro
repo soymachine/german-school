@@ -26,12 +26,14 @@ const { step } = Astro.props;
                 <div class="avatar-body-part" id="avatar-eyes-preview" width="350px" src="./imgs/avatar/parts/eyes.svg">
                     <img id="avatar-eyes-image" width="350px" src="./imgs/avatar/parts/eyes.svg">
                 </div>
-                <img class="avatar-body-part" id="avatar-hair-preview" width="350px" src="./imgs/avatar/parts/hair-style-1-color-1.svg">
                 <img class="avatar-body-part" id="avatar-mouth-preview" width="350px" src="./imgs/avatar/parts/mouth-skin-1.svg">
                 <img class="avatar-body-part" id="avatar-nose-preview" width="350px" src="./imgs/avatar/parts/nose-skin-1.svg">
                 <img class="avatar-body-part" id="avatar-body-preview" width="350px" src="./imgs/avatar/parts/body-1.svg">
-                <img class="avatar-body-part" id="avatar-glasses-preview" width="350px" src="./imgs/avatar/parts/glasses.svg">
-                <img class="avatar-body-part" id="avatar-glasses-preview" width="350px" src="./imgs/avatar/parts/glasses.svg">
+                <img class="avatar-body-part avatar-body-extra" id="avatar-glasses-preview" width="350px" src="./imgs/avatar/parts/glasses.svg">
+                <img class="avatar-body-part avatar-body-extra" id="avatar-moustache-preview" width="350px" src="./imgs/avatar/parts/moustache.png">
+                <img class="avatar-body-part avatar-body-extra" id="avatar-beard-preview" width="350px" src="./imgs/avatar/parts/beard.png">
+                <img class="avatar-body-part" id="avatar-hair-preview" width="350px" src="./imgs/avatar/parts/hair-style-1-color-1.svg">
+                
 
                 <img class="avatar-test" id="avatar-test-1" src="./imgs/incorrect.png">
                 <img class="avatar-test" id="avatar-test-2" src="./imgs/incorrect.png">
@@ -126,6 +128,20 @@ const { step } = Astro.props;
                             <div class="square outter-square"></div>
                         </a>
                     </div>
+                </div>
+                <div id="color-picker-4">
+                    <a class="current-picker color-picker-item" id="picker-4-nothing" href="#">
+                        <img src="./imgs/avatar/controllers/icon-nothing-active.png">  
+                    </a>
+                    <a class="color-picker-item" id="picker-4-glasses" href="#">
+                        <img src="./imgs/avatar/controllers/icon-glasses.png">  
+                    </a>
+                    <a class="color-picker-item" id="picker-4-moustache" href="#">
+                        <img src="./imgs/avatar/controllers/icon-moustache.png">  
+                    </a>
+                    <a class="color-picker-item" id="picker-4-beard" href="#">
+                        <img src="./imgs/avatar/controllers/icon-beard.png">  
+                    </a>
                 </div>
             </div>
         </div>
@@ -278,6 +294,23 @@ const { step } = Astro.props;
         width:80%;
         margin: 0 auto;
         position: relative;
+    }
+
+    #color-picker-4 {
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        /* center elements */
+        justify-items: center;
+        align-items: center;
+        gap:30px 0px;
+        width:80%;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    #color-picker-4 a{
+        width: auto;
+        height: auto;
     }
 
     .current-picker .inner-square{

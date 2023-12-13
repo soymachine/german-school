@@ -136,7 +136,13 @@ class ContentAvatar extends Content {
                 id:"2",
                 picker: new AvatarPicker("3", 5, "flex")
             },
+            {
+                id:"4",
+                picker: new AvatarPicker("4", 4, "grid")
+            },
         ]
+
+        this.extras = ["nothing", "glasses", "moustache", "beard"]
 
         /* STARTUP */
         this.updateSection()
@@ -151,7 +157,7 @@ class ContentAvatar extends Content {
             contentID:this.contentID
         })
 
-        
+        this.updateExtraImage("nothing")
 
         eventSystem.subscribe(Events.ON_PICKER_UPDATE, (pickerResponseObj)=>{
             this.onPickerUpdate(pickerResponseObj)
@@ -159,24 +165,67 @@ class ContentAvatar extends Content {
     }
 
     onPickerUpdate({parent, id}){
-        console.log(parent)
-        console.log(this.currentDisplay)
-
-        //picker-1-color-1
-        const prev = document.getElementById(`picker-${parent}-color-${(this.currentDisplay + 1)}`)
-        // Remove class current-picker
-        prev.classList.remove("current-picker")
-
+        console.log(id)
         let nextDisplay = id.split("-")[3]
         nextDisplay = Number(nextDisplay) - 1
-        console.log(nextDisplay)
+
+        if(parent == 4){
+            /*
+            const iconName = this.extras[this.currentDisplay]
+            const img = document.querySelector(`#picker-${parent}-${iconName} img`)
+            img.src= "./imgs/avatar/controllers/icon-" + iconName + ".png"
+            */
+
+            const iconID = id.split("-")[2]
+            nextDisplay = this.extras.findIndex((item)=>{return item == iconID})
+        }else{
+            const prev = document.getElementById(`picker-${parent}-color-${(this.currentDisplay + 1)}`)
+            prev.classList.remove("current-picker")
+        }
+        
         this.currentDisplay = nextDisplay
 
-        const current = document.getElementById(`picker-${parent}-color-${(this.currentDisplay + 1)}`)
-        // Remove class current-picker
-        current.classList.add("current-picker")
+        if(parent == 4){
+            const iconName = this.extras[this.currentDisplay]
+            const img = document.querySelector(`#picker-${parent}-${iconName} img`)
+            img.src= "./imgs/avatar/controllers/icon-" + iconName + "-active.png"
 
+            this.updateExtraImage(iconName)
+        }else{
+            const current = document.getElementById(`picker-${parent}-color-${(this.currentDisplay + 1)}`)
+            // Remove class current-picker
+            current.classList.add("current-picker")
+        }
+        
         this.updateCurrentDisplay()
+    }
+
+    updateExtraImage(extraImageID){
+        // Ocultamos todas
+        console.log("extraImageID: " + extraImageID)
+
+        if(extraImageID == "nothing"){
+            document.querySelectorAll(".avatar-body-extra").forEach((item)=>{
+                item.style.display = "none"
+            })
+
+            this.extras.forEach((id)=>{
+                if(id != "nothing"){
+
+                    // picker-4-glasses
+                    const elID = `#picker-4-${id} img`
+                    
+                    const img = document.querySelector(elID)
+                    img.src= "./imgs/avatar/controllers/icon-" + id + ".png"
+                }
+            })
+
+        }else{
+            // Activo o inactivo
+            document.getElementById(`avatar-${extraImageID}-preview`).style.display = "block"
+            document.querySelector(`#picker-4-nothing img`).src= "./imgs/avatar/controllers/icon-nothing.png"
+        }
+        
     }
 
     activateContent(){
