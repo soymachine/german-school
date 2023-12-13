@@ -6,6 +6,7 @@ class AvatarMovement {
         this.mouth = parts.mouth
         this.nose = parts.nose
         this.eyes = parts.eyes
+        this.glasses = parts.glasses
         this.contentID = parts.contentID
         this.avatarImgRect = document.querySelector(".avatar-image").getBoundingClientRect()
         this.xDest = 0
@@ -17,6 +18,7 @@ class AvatarMovement {
 
         /* Correcciones en porcentajes */
         this.eyesCorrection = {x: 0.605, y:0.4}
+        this.glassesCorrection = {x: 0.605, y:0.4}
         this.noseCorrection = {x: 0.622, y:0.477}
         this.mouthCorrection = {x: 0.605, y:0.549}
         this.eyebrowsCorrection = {x: 0.605, y:0.334}
@@ -27,9 +29,10 @@ class AvatarMovement {
 
         this.radius = {
             "eyes": 13,
-            "mouth": 10,
-            "nose": 8,
+            "mouth": 5,
+            "nose": 5,
             "eyebrows": 5,
+            "glasses": 3,
         }
         const self = this
 
@@ -111,6 +114,9 @@ class AvatarMovement {
         
         /* EYEBROWS */
         this.movePart("eyebrows", this.eyebrows, this.eyebrowsCorrection, this.radius["eyebrows"], "4")
+
+        /* GLASSES */
+        this.movePart("glasses", this.glasses, this.eyebrowsCorrection, this.radius["glasses"], "5")
     }
 
     movePart(id, part, correction, radius, testID){
@@ -124,9 +130,11 @@ class AvatarMovement {
         
         part.style.transform = `translateX(${x}px) translateY(${y}px)`
 
+        /*
         const testX = correctionX
         const testY = correctionY
         document.getElementById("avatar-test-" + testID).style.transform = `translateX(${testX}px) translateY(${testY}px)`
+        */
     }
 
     onMouseMove(event){

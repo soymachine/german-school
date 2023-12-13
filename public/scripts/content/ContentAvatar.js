@@ -97,6 +97,9 @@ class ContentAvatar extends Content {
         this.neck = document.getElementById("avatar-neck-preview")
         this.nose = document.getElementById("avatar-nose-preview")
         this.body = document.getElementById("avatar-body-preview")
+        this.glasses = document.getElementById("avatar-glasses-preview")
+        this.beard = document.getElementById("avatar-beard-preview")
+        this.moustache = document.getElementById("avatar-moustache-preview")
 
         // Toda la imaen
         this.avatarImage = document.querySelector(".avatar-image")
@@ -138,11 +141,12 @@ class ContentAvatar extends Content {
             },
             {
                 id:"4",
-                picker: new AvatarPicker("4", 4, "grid")
+                picker: new AvatarPicker("extras", 4, "grid")
             },
         ]
 
         this.extras = ["nothing", "glasses", "moustache", "beard"]
+        this.extrasSelected = [true, false, false, false]
 
         /* STARTUP */
         this.updateSection()
@@ -154,8 +158,14 @@ class ContentAvatar extends Content {
             mouth:this.mouth,
             nose:this.nose,
             eyes:this.$eyes,
+            glasses:this.glasses,
+            beard:this.beard,
+            moustache:this.moustache,
             contentID:this.contentID
         })
+
+        
+
 
         this.updateExtraImage("nothing")
 
@@ -165,42 +175,57 @@ class ContentAvatar extends Content {
     }
 
     onPickerUpdate({parent, id}){
-        console.log(id)
-        let nextDisplay = id.split("-")[3]
-        nextDisplay = Number(nextDisplay) - 1
-
-        if(parent == 4){
-            /*
-            const iconName = this.extras[this.currentDisplay]
-            const img = document.querySelector(`#picker-${parent}-${iconName} img`)
-            img.src= "./imgs/avatar/controllers/icon-" + iconName + ".png"
-            */
-
-            const iconID = id.split("-")[2]
-            nextDisplay = this.extras.findIndex((item)=>{return item == iconID})
+        if(parent == "extras"){
+            this.onExtraButtonClicked(id)
         }else{
+            let nextDisplay = id.split("-")[3]
+            nextDisplay = Number(nextDisplay) - 1
+
             const prev = document.getElementById(`picker-${parent}-color-${(this.currentDisplay + 1)}`)
             prev.classList.remove("current-picker")
-        }
-        
-        this.currentDisplay = nextDisplay
 
-        if(parent == 4){
-            const iconName = this.extras[this.currentDisplay]
-            const img = document.querySelector(`#picker-${parent}-${iconName} img`)
-            img.src= "./imgs/avatar/controllers/icon-" + iconName + "-active.png"
-
-            this.updateExtraImage(iconName)
-        }else{
             const current = document.getElementById(`picker-${parent}-color-${(this.currentDisplay + 1)}`)
             // Remove class current-picker
             current.classList.add("current-picker")
+
+            // Falta hacer esto para "extras"
+            this.currentDisplay = nextDisplay
+            this.updateCurrentDisplay()
+        }
+    }
+
+    onExtraButtonClicked(id){
+        const iconID = id.split("-")[2]
+        const nextDisplay = this.extras.findIndex((item)=>{return item == iconID})
+        const iconName = this.extras[nextDisplay]
+        console.log(`iconName: ${iconName}`)
+        const img = document.querySelector(`#picker-extras-${iconName} img`)
+
+        // Activamos o Desactivamos? Depende del estado
+        // A excepción de "nothing" que no tiene toggle
+        let imageState = iconName + ".png"
+
+        if(iconName != "nothing"){
+            // Toggle la que clicamos
+            this.extrasSelected[nextDisplay] = !this.extrasSelected[nextDisplay]
+            
+            if(this.extrasSelected[nextDisplay]){
+                imageState = iconName + "-active.png"
+            }
+        }else{
+            // Se queda marcado
+            imageState = iconName + "-active.png"
         }
         
+        img.src= "./imgs/avatar/controllers/icon-" + imageState
+
+
+        this.updateExtraImage(iconName, nextDisplay)
+        this.currentDisplay = nextDisplay
         this.updateCurrentDisplay()
     }
 
-    updateExtraImage(extraImageID){
+    updateExtraImage(extraImageID, imageIndex){
         // Ocultamos todas
         console.log("extraImageID: " + extraImageID)
 
@@ -209,21 +234,42 @@ class ContentAvatar extends Content {
                 item.style.display = "none"
             })
 
-            this.extras.forEach((id)=>{
+            this.extras.forEach((id, index)=>{
                 if(id != "nothing"){
 
-                    // picker-4-glasses
-                    const elID = `#picker-4-${id} img`
-                    
-                    const img = document.querySelector(elID)
+                    // Desactivamos en el objeto de estados
+                    this.extrasSelected[index] = false
+                    // Actualizamos las imagenes a "inactivas"
+                    const img = document.querySelector(`#picker-extras-${id} img`)
                     img.src= "./imgs/avatar/controllers/icon-" + id + ".png"
                 }
             })
 
         }else{
-            // Activo o inactivo
-            document.getElementById(`avatar-${extraImageID}-preview`).style.display = "block"
-            document.querySelector(`#picker-4-nothing img`).src= "./imgs/avatar/controllers/icon-nothing.png"
+            // Show / Hide del elemento avatar según el estado
+            const avatarElement = document.getElementById(`avatar-${extraImageID}-preview`);
+
+            if (this.extrasSelected[imageIndex]) {
+              avatarElement.style.display = "block";
+            } else {
+              avatarElement.style.display = "none";
+            }
+            
+            // El "nothing" se ha de desmarcar si al final ha quedado algún elemento extra seleccionado
+            const total = this.extrasSelected.reduce((acc, item, index) => {
+                if(index > 0 && item) acc += 1
+                return acc
+            }, 0)
+            
+            if(total > 0){
+                this.extrasSelected[0] = true
+                document.querySelector(`#picker-extras-nothing img`).src= "./imgs/avatar/controllers/icon-nothing.png"
+            }else{
+                this.extrasSelected[0] = false
+                document.querySelector(`#picker-extras-nothing img`).src= "./imgs/avatar/controllers/icon-nothing-active.png"
+            }
+            
+            
         }
         
     }
