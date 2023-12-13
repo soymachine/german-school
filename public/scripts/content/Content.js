@@ -7,11 +7,19 @@ class Content{
         this.isNextEnabled = false
         eventSystem.subscribe(Events.ON_CONTENT_SHOWN, (content)=>{ this.onContentShown(content)})
         eventSystem.subscribe(Events.ON_CONTENT_HIDE, (content)=>{ this.onContentHide(content)})
+        eventSystem.subscribe(Events.ON_CONTENT_BEGIN_SHOWN, (content)=>{ this.onContentBeginShow(content)})
+    }
+
+    onContentBeginShow(content){
+        if(content == this.contentID){
+            //console.log("Activamos content de " + content)
+            this.preactivateContent()
+        }
     }
 
     onContentShown(content){
         if(content == this.contentID){
-            console.log("Activamos content de " + content)
+            //console.log("Activamos content de " + content)
             this.activateContent()
         }
     }

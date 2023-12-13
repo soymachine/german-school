@@ -5,18 +5,27 @@ import Settings from '../helpers/Settings.js'
 import Steps from '../helpers/Steps.js'
 import AvatarMovement from './avatar/AvatarMovement.js'
 import AvatarPicker from './avatar/AvatarPicker.js'
+import NamePicker from './avatar/NamePicker.js'
+import { avatarSelection } from '../helpers/AvatarSelection.js'
 
 class ContentAvatar extends Content {
     constructor(){
         super(Steps.AVATAR)
 
-        console.log("Avatar")
-        
+        // Singleton al AvatarSelection
+        this.avatarSelection = avatarSelection
+
         // Scope
         const self = this
 
         // Sections
         this.sections = [
+            {
+                id:"name",
+                label:"Name",
+                total:0,
+                current:0
+            },
             {
                 id:"skin",
                 label:"Skin color",
@@ -105,7 +114,6 @@ class ContentAvatar extends Content {
         this.avatarImage = document.querySelector(".avatar-image")
 
         this.avatarNumberPart = document.getElementById("avatar-part-number")
-       
         
         // El botón de NEXT
         this.$nextButton = document.querySelector(`#next-button-${this.contentID}`)
@@ -128,20 +136,24 @@ class ContentAvatar extends Content {
         /* AVATAR PICKER */
         this.pickers = [
             {
-                id:"0",
-                picker: new AvatarPicker("1", 8, "grid")
+                id:"1",
+                picker: new AvatarPicker("1", 8, "grid") // SKINS
             },
             {
                 id:"3",
-                picker: new AvatarPicker("2", 5, "flex")
-            },
-            {
-                id:"2",
-                picker: new AvatarPicker("3", 5, "flex")
+                picker: new AvatarPicker("3", 5, "flex") // HAIR COLORS
             },
             {
                 id:"4",
-                picker: new AvatarPicker("extras", 4, "grid")
+                picker: new AvatarPicker("2", 5, "flex") // BODY COLORS
+            },
+            {
+                id:"5",
+                picker: new AvatarPicker("extras", 4, "grid") // EXTRAS
+            },
+            {
+                id:"0",
+                picker: new NamePicker("name") // NAME
             },
         ]
 
@@ -164,14 +176,20 @@ class ContentAvatar extends Content {
             contentID:this.contentID
         })
 
-        
-
-
         this.updateExtraImage("nothing")
+
+        /* NAME */
+        document.getElementById("name-input").onchange = (e)=>{
+            const name = document.getElementById("name-input").value
+            console.log(name)
+            this.avatarSelection.setName(name)
+        }
 
         eventSystem.subscribe(Events.ON_PICKER_UPDATE, (pickerResponseObj)=>{
             this.onPickerUpdate(pickerResponseObj)
         })
+
+        this.hasFinishCreatingAvatar = false
     }
 
     onPickerUpdate({parent, id}){
@@ -180,11 +198,13 @@ class ContentAvatar extends Content {
         }else{
             let nextDisplay = id.split("-")[3]
             nextDisplay = Number(nextDisplay) - 1
-
+            
+            console.log(`nextDisplay: ${nextDisplay} currentdisplay: ${this.currentDisplay}, parent: ${parent}`)
             const prev = document.getElementById(`picker-${parent}-color-${(this.currentDisplay + 1)}`)
+            console.log(prev)
             prev.classList.remove("current-picker")
 
-            const current = document.getElementById(`picker-${parent}-color-${(this.currentDisplay + 1)}`)
+            const current = document.getElementById(`picker-${parent}-color-${(nextDisplay + 1)}`)
             // Remove class current-picker
             current.classList.add("current-picker")
 
@@ -198,7 +218,6 @@ class ContentAvatar extends Content {
         const iconID = id.split("-")[2]
         const nextDisplay = this.extras.findIndex((item)=>{return item == iconID})
         const iconName = this.extras[nextDisplay]
-        console.log(`iconName: ${iconName}`)
         const img = document.querySelector(`#picker-extras-${iconName} img`)
 
         // Activamos o Desactivamos? Depende del estado
@@ -211,10 +230,17 @@ class ContentAvatar extends Content {
             
             if(this.extrasSelected[nextDisplay]){
                 imageState = iconName + "-active.png"
+
+                this.avatarSelection.addExtra(iconName)
+            }else{
+                this.avatarSelection.removeExtra(iconName)
             }
         }else{
             // Se queda marcado
             imageState = iconName + "-active.png"
+
+            // Actualizamos el avatar
+            this.avatarSelection.removeExtras()
         }
         
         img.src= "./imgs/avatar/controllers/icon-" + imageState
@@ -223,11 +249,13 @@ class ContentAvatar extends Content {
         this.updateExtraImage(iconName, nextDisplay)
         this.currentDisplay = nextDisplay
         this.updateCurrentDisplay()
+
+        
     }
 
     updateExtraImage(extraImageID, imageIndex){
         // Ocultamos todas
-        console.log("extraImageID: " + extraImageID)
+        // console.log("extraImageID: " + extraImageID)
 
         if(extraImageID == "nothing"){
             document.querySelectorAll(".avatar-body-extra").forEach((item)=>{
@@ -268,8 +296,6 @@ class ContentAvatar extends Content {
                 this.extrasSelected[0] = false
                 document.querySelector(`#picker-extras-nothing img`).src= "./imgs/avatar/controllers/icon-nothing-active.png"
             }
-            
-            
         }
         
     }
@@ -334,6 +360,9 @@ class ContentAvatar extends Content {
     updateAvatarBasedOnSection(){
         const currentSectionID = this.sections[this.currentSection].id
         switch(currentSectionID){
+            case "name":
+                this.updateAvatarSize("big")
+                break;
             case "skin":
                 this.updateAvatarSize("small")
                 break;
@@ -380,20 +409,8 @@ class ContentAvatar extends Content {
             duration: duration,
             easing:'easeOutQuad',            
         })
-        
-        if(sizeType == "big"){
-            document.getElementById("avatar-part-number").style.display = "block" // mostramos el avatar-part-number
-            document.getElementById("color-picker-wrapper").style.display = "none" 
-            document.querySelectorAll(".avatar-display-button").forEach(button => button.style.opacity = 1) // mostramos los avatar-display-button
-        }else{
-            document.getElementById("avatar-part-number").style.display = "none" // ocultamos el avatar-part-number
-            document.getElementById("color-picker-wrapper").style.display = "block"
-            document.querySelectorAll(".avatar-display-button").forEach(button => button.style.opacity = 0) // mostramos los avatar-display-button
-        }
-        
+                       
     }
-
-    
 
     updateDisplayNumber(){
         // Actualizamos el numero
@@ -403,7 +420,6 @@ class ContentAvatar extends Content {
     updateBodyColor(){
         this.body.src = `./imgs/avatar/parts/body-${(this.currentDisplay + 1)}.svg`
     }
-
 
     updateHairColor(){
         this.hair.src = `./imgs/avatar/parts/hair-style-1-color-${(this.currentDisplay + 1)}.svg`
@@ -464,7 +480,16 @@ class ContentAvatar extends Content {
             }
         })
 
-        // Iterate
+        // Mostramos o ocultamos los botones de pasador de elementos
+        console.log(this.currentSection)
+        if(this.currentSection == 2){
+            document.getElementById("avatar-part-number").style.display = "block" // mostramos el avatar-part-number
+            document.querySelectorAll(".avatar-display-button").forEach(button => button.style.opacity = 1) // mostramos los avatar-display-button
+        }else{
+            document.getElementById("avatar-part-number").style.display = "none" // ocultamos el avatar-part-number
+            document.querySelectorAll(".avatar-display-button").forEach(button => button.style.opacity = 0) // mostramos los avatar-display-button
+        }
+       
     }
 
     onMouseMove(event){
@@ -497,7 +522,28 @@ class ContentAvatar extends Content {
     
 
     onClickNext(){
-        this.gotoNextStep()
+        if(this.hasFinishCreatingAvatar){
+            // Hemos completado y hemos visto el saludo, ya podemos marchar
+            this.gotoNextStep()
+        }else{
+            // Hemos completado el avatar, veremos el saludo
+            this.hasFinishCreatingAvatar = true
+            this.showGreetings()
+        }
+    }
+
+    showGreetings(){
+        // Avatar en grande
+        this.updateAvatarSize("big")
+
+        // Quitamos los pickers
+        document.getElementById("color-picker-wrapper").style.display = "none"
+        document.getElementById("avatar-part-number").style.display = "none"
+        document.querySelector(".avatar-controllers").style.opacity = "0"
+        document.querySelectorAll(".avatar-display-button").forEach(button => button.style.opacity = 0) // mostramos los avatar-display-button
+
+        document.querySelector(".avatar-greetings").style.opacity = "1"
+        
     }
     
 }

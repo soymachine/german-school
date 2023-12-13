@@ -7,6 +7,8 @@ class AvatarMovement {
         this.nose = parts.nose
         this.eyes = parts.eyes
         this.glasses = parts.glasses
+        this.beard = parts.beard
+        this.moustache = parts.moustache
         this.contentID = parts.contentID
         this.avatarImgRect = document.querySelector(".avatar-image").getBoundingClientRect()
         this.xDest = 0
@@ -22,6 +24,8 @@ class AvatarMovement {
         this.noseCorrection = {x: 0.622, y:0.477}
         this.mouthCorrection = {x: 0.605, y:0.549}
         this.eyebrowsCorrection = {x: 0.605, y:0.334}
+        this.beardCorrection = {x: 0.605, y:0.549}
+        this.moustacheCorrection = {x: 0.605, y:0.549}
 
         /* Parpadeo */
         this.currentParpadeo = 0
@@ -33,6 +37,8 @@ class AvatarMovement {
             "nose": 5,
             "eyebrows": 5,
             "glasses": 3,
+            "beard": 3,
+            "moustache": 3,
         }
         const self = this
 
@@ -116,7 +122,13 @@ class AvatarMovement {
         this.movePart("eyebrows", this.eyebrows, this.eyebrowsCorrection, this.radius["eyebrows"], "4")
 
         /* GLASSES */
-        this.movePart("glasses", this.glasses, this.eyebrowsCorrection, this.radius["glasses"], "5")
+        this.movePart("glasses", this.glasses, this.glassesCorrection, this.radius["glasses"], "5")
+
+        /* BEARD */
+        this.movePart("beard", this.beard, this.beardCorrection, this.radius["beard"], "6")
+
+        /* MOUSTACHE */
+        this.movePart("moustache", this.moustache, this.moustacheCorrection, this.radius["moustache"], "7")
     }
 
     movePart(id, part, correction, radius, testID){
@@ -147,7 +159,7 @@ class AvatarMovement {
         this.avatarWidth = size
         this.avatarHeight = size * this.avatarRatio
         this.avatarImgRect = document.querySelector(".avatar-image").getBoundingClientRect()
-        console.log(this.avatarImgRect)
+        //console.log(this.avatarImgRect)
     }
 
     getAngle(x1, y1, x2, y2) {

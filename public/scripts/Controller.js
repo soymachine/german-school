@@ -10,7 +10,7 @@ import ContentWhyEnterpreuner from './content/ContentWhyEnterpreuner.js'
 import ContentElevatorPitch from './content/ContentElevatorPitch.js'
 import ContentPatagonia from './content/ContentPatagonia.js'
 import ContentTravelToManaus from './content/ContentTravelToManaus.js'
-import Avatar from './content/ContentAvatar.js'
+import ContentAvatar from './content/ContentAvatar.js'
 import Intro from './content/Intro.js'
 
 class Controller {
@@ -61,7 +61,7 @@ class Controller {
         this.intro = new Intro()
 
         /* 0.- AVATAR */
-        this.avatar = new Avatar()
+        this.contentAvatar = new ContentAvatar()
 
         /* 1.- FLOW DIAGRAM */
         this.contentDraggable = new ContentDraggable()
@@ -109,7 +109,7 @@ class Controller {
         */
 
         /* TESTING */
-        this.showContent(1)
+        this.showContent(5)
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event)
         });

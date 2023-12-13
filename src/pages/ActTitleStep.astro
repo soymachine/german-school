@@ -1,0 +1,121 @@
+---
+import NextButton from '../components/buttons/NextButton.astro';
+
+interface Props {
+	act: string,
+	label: string,
+    step:string
+}
+
+const { act, label, step } = Astro.props;
+const acts = ["I", "II", "III", "IV"]
+---
+<div class="act-title-wrapper">
+    <div class="act-title-menu">
+        <div class="act-title-title">Act I</div>
+        <div class="act-title-step-menu">
+            {
+                acts.map((currentAct, index) => {
+                    let selected = ""
+                    if (currentAct == act) {
+                        selected = "act-selected"
+                    }
+
+                    return (
+                        <div class=`act ${selected}` id=`act-${(index+1)}`></div>
+                    )
+                })
+            }
+            
+        </div>
+    </div>
+    <div class="act-title-label">
+        {label}
+    </div>
+    <div class="act-title-img">
+        <img src=`./imgs/acts/titles/act-title-${act}-img.png`>
+    </div>
+    <div class="act-title-button">
+        <NextButton step={step}/>
+    </div>
+</div>
+<script define:vars={{ step }}>
+
+    const nextButton = document.getElementById(`next-button-${step}`)
+    nextButton.onmousedown = function(event) { //asign a function
+        onClickNext(event)
+    }
+        
+    nextButton.addEventListener('touchstart', function(event){
+        event.preventDefault();
+        onClickNext(event.touches[0])
+    }, false); 
+
+    function onClickNext(event) {
+        window.controller.onNextContentRequested()
+    }
+
+</script>
+<style>
+
+    .act-title-wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 100%;;
+        color:#054696;
+        text-align: center;
+        font-size: 18px;
+        /*margin:20px 0px;*/
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .act-title-menu {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .act-title-title {
+        text-align: center;
+        font-weight: bold;
+        margin:20px 0px;
+    }
+
+    .act-title-step-menu {
+        display: flex;
+        flex-direction: row;
+        gap:10px;
+        width: 90%;
+        margin:0 auto;
+    }
+
+    .act {
+        flex-grow: 1;
+        height: 10px;
+        background-color: #CEDFE5;
+    }
+
+    .act-selected {
+        background-color: #054696;
+    }
+
+    .act-title-label {
+        font-size: 35px;
+        font-weight: bold;
+        margin: 50px auto;
+        width: 80%;
+       
+    }
+
+    .act-title-img img{
+       width:100%;
+    }
+
+    .act-title-button{
+        align-self: center;
+        flex-grow: 1;
+        display: flex;
+        align-items: flex-end;
+        margin-bottom: 20px;
+
+    }
+</style>

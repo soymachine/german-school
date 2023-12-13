@@ -15,6 +15,10 @@ const { step } = Astro.props;
         </div>
         <a id="avatar-controller-right" href="#"><img src="./imgs/avatar/controllers/avatar-controller-right.png"></a>
     </div>
+    <div class="avatar-greetings">
+        <div class="avatar-greetings-name user-name">Iñaki</div>
+        <div class="avatar-greetings-label">This is <strong>your story...</strong></div>
+    </div>
     <div class="avatar-display">
         <a id="avatar-display-left" class="avatar-display-button" href="#"><img src="./imgs/avatar/controllers/avatar-slider-left.png"></a>
         <div class="avatar-display-wrapper">
@@ -143,6 +147,9 @@ const { step } = Astro.props;
                         <img src="./imgs/avatar/controllers/icon-beard.png">  
                     </a>
                 </div>
+                <div id="name-picker">
+                    <input id="name-input" type="text" placeholder="Type your name" />
+                </div>
             </div>
         </div>
         <a id="avatar-display-right" class="avatar-display-button" href="#"><img src="./imgs/avatar/controllers/avatar-slider-right.png"></a>
@@ -162,7 +169,21 @@ const { step } = Astro.props;
         position: relative;
         display: flex;
         flex-direction: column;
-        
+        margin-top: 10px;
+    }
+
+    .avatar-greetings{
+        position: absolute;
+        width: 100%;
+        font-size: 20px;
+        margin: 40px 0px 0px 0px;
+        opacity: 0;
+        transition: opacity 0.5s;
+    }
+
+    .avatar-greetings-name {
+        font-size: 25px;
+
     }
 
     .avatar-body-part {
@@ -306,6 +327,7 @@ const { step } = Astro.props;
         width:80%;
         margin: 0 auto;
         position: relative;
+        margin-bottom: -20px;
     }
 
     #color-picker-extras a{
@@ -401,6 +423,18 @@ const { step } = Astro.props;
         background-color:#F55F03;
     }
 
-    
+    #name-picker {
+        border-bottom: 2px dashed #0D4C99;
+        margin-top: -20px;
+    }
+
+    #name-input{
+        padding: 10px 0px;
+        width: 100%;
+        text-align: center;
+        border: none;
+        font-size: 30px;
+        color:#0D4C99;
+    }
 
 </style>

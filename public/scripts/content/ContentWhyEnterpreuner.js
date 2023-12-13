@@ -10,7 +10,7 @@ class ContentWhyEnterpreuner extends Content {
     constructor(){
         super(Steps.WHY_ENTERPRENEUR)
 
-        console.log("Enterpreneur")
+        //console.log("Enterpreneur")
         
         // Scope
         const self = this
@@ -53,6 +53,45 @@ class ContentWhyEnterpreuner extends Content {
 
         // Las posibles respuestas, solo podemos marcar una
         this.reponseUnique = new ResponseUnique(this.contentID)
+
+
+        /* AVATAR RELATED */
+        // Posicionamos al avatar
+        setTimeout(()=>{
+            self.centerAvatar()
+        }, 100)        
+    }
+
+    centerAvatar(){
+        const avatar = document.getElementById(`my-avatar-${this.contentID}`)
+        const avatarIMG = avatar.querySelector(`.my-avatar-body-part`)
+        const avatarRect = avatarIMG.getBoundingClientRect()
+
+        const avatarHolderRect = document.querySelector(".holder-why-enterpreneur #avatar").getBoundingClientRect()
+        const xCenter = (avatarHolderRect.width / 2) - (avatarRect.width / 2)
+        const yCenter = (avatarHolderRect.height / 2) - (avatarRect.height / 2)
+        avatar.style.left = xCenter + "px"
+        avatar.style.top = yCenter + "px"
+    }
+
+    preactivateContent(){
+        
+    }
+
+    activateContent(){
+        // Contenido ya está mostrado
+        document.querySelectorAll(`.btn-step-${this.contentID}-option`).forEach(button => {
+            const buttonRect = button.getBoundingClientRect()
+            //console.log(buttonRect, button)
+            this.buttonsData.push(buttonRect)
+        })
+        
+        this.holderRect = document.querySelector(`.holder-why-enterpreneur`).getBoundingClientRect()
+        
+        this.correctIconRect = this.$answerCorrectIcon.getBoundingClientRect()
+        //console.log(this.correctIconRect)
+
+       
     }
 
     onResponseUpdate(responseObj){
@@ -78,7 +117,6 @@ class ContentWhyEnterpreuner extends Content {
                 // impares
                 x += this.xOffset
             }
-
 
             anime({
                 targets: '#answer-correct-icon',
@@ -107,25 +145,13 @@ class ContentWhyEnterpreuner extends Content {
     }
 
     processResponse(){
-        console.log("processResponse")
+        //console.log("processResponse")
         // Is the response correct or incorrect?
         const response = this.reponseUnique.currentButtonSelected
         
     }
 
-    activateContent(){
-        // Contenido ya está mostrado
-        document.querySelectorAll(`.btn-step-${this.contentID}-option`).forEach(button => {
-            const buttonRect = button.getBoundingClientRect()
-            console.log(buttonRect, button)
-            this.buttonsData.push(buttonRect)
-        })
-        
-        this.holderRect = document.querySelector(`.holder-why-enterpreneur`).getBoundingClientRect()
-        
-        this.correctIconRect = this.$answerCorrectIcon.getBoundingClientRect()
-        console.log(this.correctIconRect)
-    }
+   
     
 
     onClickNext(){

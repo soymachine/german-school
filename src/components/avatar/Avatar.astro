@@ -1,0 +1,45 @@
+---
+interface Props {
+	step: string;
+}
+
+const { step } = Astro.props;
+---
+<div id=`my-avatar-${step}` class="my-avatar-image">
+    <img class="my-avatar-body-part" id="my-avatar-neck-preview" src="./imgs/avatar/parts/neck-1.svg">
+    <img class="my-avatar-body-part" id="my-avatar-head-preview" src="./imgs/avatar/parts/skin-1.svg">
+    <img class="my-avatar-body-part" id="my-avatar-eyebrows-preview" src="./imgs/avatar/parts/eyebrows-skin-1.svg">
+    <div class="my-avatar-body-part" id="my-avatar-eyes-preview" src="./imgs/avatar/parts/eyes.svg">
+        <img id="my-avatar-eyes-image" src="./imgs/avatar/parts/eyes.svg">
+    </div>
+    <img class="my-avatar-body-part" id="my-avatar-mouth-preview" src="./imgs/avatar/parts/mouth-skin-1.svg">
+    <img class="my-avatar-body-part" id="my-avatar-nose-preview" src="./imgs/avatar/parts/nose-skin-1.svg">
+    <img class="my-avatar-body-part" id="my-avatar-body-preview" src="./imgs/avatar/parts/body-1.svg">
+    <img class="my-avatar-body-part my-avatar-body-extra" id="my-avatar-glasses-preview" src="./imgs/avatar/parts/glasses.svg">
+    <img class="my-avatar-body-part my-avatar-body-extra" id="my-avatar-moustache-preview" src="./imgs/avatar/parts/moustache.png">
+    <img class="my-avatar-body-part my-avatar-body-extra" id="my-avatar-beard-preview" src="./imgs/avatar/parts/beard.png">
+    <img class="my-avatar-body-part" id="my-avatar-hair-preview" src="./imgs/avatar/parts/hair-style-1-color-1.svg">
+</div>
+<script>
+    const width = 150
+    document.querySelectorAll(".my-avatar-body-part, #my-avatar-eyes-image").forEach(element => {
+        // Set width to 200 for each element
+        element.width = width
+    })
+</script>
+<style>
+    .my-avatar-image {
+        position: absolute;
+        top:0px;
+        left:0px;
+    }
+
+    .my-avatar-body-part {
+        position: absolute;
+        pointer-events: none;
+    }
+
+    #my-avatar-body-preview {
+        clip-path: circle(40%);
+    }
+</style>

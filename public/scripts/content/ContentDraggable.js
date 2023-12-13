@@ -188,10 +188,12 @@ class ContentDraggable extends Content {
         this.dropZoneBoundingRect  = this.dropZone.getBoundingClientRect()
         this.contentBoundingRect  = this.content.getBoundingClientRect()
         this.rootRect = document.getElementById("root").getBoundingClientRect()
+        /*
         console.log("rootBoundingRect")
         console.log(this.rootRect)
         console.log("contentBoundingRect")
         console.log(this.contentBoundingRect)
+        */
     }
 
     positionDraggableElements(){
@@ -301,7 +303,7 @@ class ContentDraggable extends Content {
         // Incrementaoms el z-index del drageable
         this.draggingElement.style.zIndex = 999
 
-        console.log("quitamos a dragID:" + elementID + " de la lista")
+        //console.log("quitamos a dragID:" + elementID + " de la lista")
         this.dropElementsData.forEach(item => {
             if(item.droppedID == elementID){
                 item.droppedID = undefined
@@ -329,7 +331,7 @@ class ContentDraggable extends Content {
     }
 
     onMouseUp(){
-        console.log("onMouseUp")
+        //console.log("onMouseUp")
         // Hemos de calcular dónde hemos soltado el elemento
         // Si lo hemos soltado en una zona de drop, mirar el item de esa zona
         // Si no, lo dejamos en su posición original

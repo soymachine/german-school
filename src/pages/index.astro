@@ -11,6 +11,9 @@ import WhyEnterpreneurStep from './WhyEnterpreneurStep.astro'
 import Form from '../components/Form.astro';
 import ElevatorPitchStep from './ElevatorPitchStep.astro';
 import PatagoniaStep from './PatagoniaStep.astro';
+import SocialMediaStep from './SocialMediaStep.astro';
+import ActTitleStep from './ActTitleStep.astro';
+import Act1_Cinematics from './acts/Act1_Cinematics.astro';
 import Intro from './Intro.astro';
 import Header from '../components/Header.astro';
 ---
@@ -28,27 +31,39 @@ import Header from '../components/Header.astro';
 					<AvatarStep step='1'/>
 				</Step>
 				<Step step="2" act="I">
-					<FlowDiagramStep step='2'/>
+					<SocialMediaStep step='2'/>
 				</Step>
 				<Step step="3" act="I">
-					<StartupsStep step="3"/>
+					<ActTitleStep act='I' label='The Call for Adventure' step="3"/>
 				</Step>
-				<Step step="4" act="II">
-					<FinancialMetric step="4" />
+				<Step step="4" act="I">
+					<Act1_Cinematics step='4'/>
 				</Step>
-				<CleanStep step="5" act="III">
-					<TravelToManausStep step="5" />
+				<Step step="5" act="III">
+					<WhyEnterpreneurStep step="5" />
+				</Step>
+
+				<!-- subect TO CHANGE -->
+				<Step step="6" act="I">
+					<FlowDiagramStep step='6'/>
+				</Step>
+				<Step step="7" act="I">
+					<StartupsStep step="7"/>
+				</Step>
+				<Step step="8" act="II">
+					<FinancialMetric step="8" />
+				</Step>
+				<CleanStep step="9" act="III">
+					<TravelToManausStep step="9" />
 				</CleanStep>
-				<Step step="6" act="III">
-					<WhyEnterpreneurStep step="6" />
+				
+				<Step step="10" act="III">
+					<ElevatorPitchStep step="10" />
 				</Step>
-				<Step step="7" act="III">
-					<ElevatorPitchStep step="7" />
+				<Step step="11" act="III">
+					<PatagoniaStep step="11" />
 				</Step>
-				<Step step="8" act="III">
-					<PatagoniaStep step="8" />
-				</Step>
-				<Step step="9" act="IV">
+				<Step step="12" act="IV">
 					<Form />
 				</Step>
 			</div>
@@ -152,6 +167,7 @@ import Header from '../components/Header.astro';
 		z-index:1;
 		width: 100%;
 		display:grid;
+		background-color: #054696;
 	}
 
 </style>
