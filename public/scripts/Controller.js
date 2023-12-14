@@ -1,7 +1,7 @@
 
 import Header from './header/Header.js'
 import ContentDraggable from './content/ContentDraggable.js'
-import ContentMultiple from './content/ContentMultiple.js'
+import ContentStartup from './content/ContentStartup.js'
 import ContentFinancial from './content/ContentFinancial.js'
 import Settings from './helpers/Settings.js'
 import {eventSystem, Events} from './helpers/EventSystem.js'
@@ -68,7 +68,7 @@ class Controller {
         // this.content["content-1"] = new ContentDraggable()
 
         /* 2.- STARTUPS QUESTION */
-        this.contentMultiple = new ContentMultiple()
+        this.contentMultiple = new ContentStartup()
         //this.content["content-2"] = new Content2()
 
         /* 3.- FINANCIAL METRIC QUESTION */

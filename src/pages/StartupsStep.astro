@@ -105,11 +105,16 @@ const items = [
                     <div class="image-wrapper">
                         <img src={item.src}>
                     </div>
-                    <div class=`company-label ${classWHU}`>{item.label}</div>
+                    <div class="item-text-wrapper">
+                        <div class=`item-label company-label ${classWHU} hide-label`>{item.label}</div>
                     {
                         
                     }
-                    {item.isWHU && <div class="whu-alumni"><strong>WHU</strong>alumni</div>}
+                    {item.isWHU && <div class="item-label whu-alumni hide-label"><strong>WHU</strong>alumni</div>}
+                    </div>
+                    
+                    <img id=`startup-option-${i+1}-correct` class="company-result-image company-correct-image" src="./imgs/companies/correct.png">
+                    <img id=`startup-option-${i+1}-incorrect` class="company-result-image company-incorrect-image"src="./imgs/companies/incorrect.png">
                 </div>    
             </div>
             
@@ -120,6 +125,16 @@ const items = [
     
 </div>
 <style define:vars={{ companiesBorderURL, companiesBorderHorizontalURL}}>
+
+    .company-result-image{
+        width: 40px;
+        position:absolute;
+        top: 65%;
+        left: 65%;
+        transition: all .5s;
+        opacity: 0;
+    }
+
     .content-holder {
         /*position:absolute;*/
         --text-blue:#14519C;
@@ -168,29 +183,26 @@ const items = [
         background-repeat: repeat-y;
         background-position-x: right;
         padding: 13px 8px;
+        position: relative;
     }
 
     .company-label{
-        position: absolute;
         margin-top: -40px;
         text-align: center;
-        width: 25%;
+        /*width: 25%;*/
         font-size: 14px;
         color:var(--text-blue);        
     }
 
     .whu-alumni {
-        position: absolute;
-        margin-top: -20px;
         text-align: center;
         font-size: 14px;
         color:white;
         padding:5px 10px;
         background-color:var(--text-blue);
-        width: 14%;
+        
         font-size: 12px;
         border-radius: 4px;
-        margin-left: 14px;
     }
 
     .not-whu-alumni {
@@ -200,10 +212,12 @@ const items = [
 
     .show-label {
         display: block;
+        opacity: 0;
     }
 
     .hide-label {
         display: none;
+        opacity: 0;
     }
 
     .company-holder:nth-child(3n) > .company-item {
@@ -229,6 +243,18 @@ const items = [
         border: 5px solid #789BC4 !important;
     }
 
+    .item-text-wrapper {
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: -11px;
+        margin-left: -8px;
+    }
+
 
     .image-wrapper {
         border: 5px solid white;
@@ -238,7 +264,7 @@ const items = [
         padding: 15px 10px;
     }
 
-    .company-item img{
+    .image-wrapper img{
         width: 100%; /* Make the image fill the available space */
         height: auto; /* Maintain aspect ratio */
         display: block; /* Remove any extra spacing around images */
@@ -255,6 +281,18 @@ const items = [
 
     .score-result {
         color:#00A5DC;
+    }
+
+    .option-correct {
+        border-color:#8DD6A5;
+    }
+
+    .option-incorrect{
+        border-color:#FEADB4;
+    }
+
+    .item-label {
+        transition:all .5s ease-out;
     }
 
 </style>
