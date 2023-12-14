@@ -2,23 +2,30 @@
 import NextButton from '../components/buttons/NextButton.astro';
 
 interface Props {
-	act: string,
+	act: number,
 	label: string,
     step:string
 }
 
-const { act, label, step } = Astro.props;
+let { act, label, step } = Astro.props;
+
+act = Number(act)
+let actPos = act - 1
 const acts = ["I", "II", "III", "IV"]
+let selected = ""
 ---
 <div class="act-title-wrapper">
     <div class="act-title-menu">
-        <div class="act-title-title">Act I</div>
+        <div class="act-title-title">Act {acts[act-1]}</div>
         <div class="act-title-step-menu">
             {
                 acts.map((currentAct, index) => {
-                    let selected = ""
-                    if (currentAct == act) {
+                    if(index < actPos) {
+                        selected = "act-previous"
+                    }else if(index == actPos) {
                         selected = "act-selected"
+                    }else{
+                        selected = ""
                     }
 
                     return (
@@ -33,7 +40,7 @@ const acts = ["I", "II", "III", "IV"]
         {label}
     </div>
     <div class="act-title-img">
-        <img src=`./imgs/acts/titles/act-title-${act}-img.png`>
+        <img src=`./imgs/acts/titles/act-title-${acts[act-1]}-img.png`>
     </div>
     <div class="act-title-button">
         <NextButton step={step}/>
@@ -96,6 +103,10 @@ const acts = ["I", "II", "III", "IV"]
 
     .act-selected {
         background-color: #054696;
+    }
+
+    .act-previous {
+        background-color: #6FDB8F;
     }
 
     .act-title-label {

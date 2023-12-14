@@ -6,6 +6,9 @@ interface Props {
 const { step } = Astro.props;
 ---
 <div id=`my-avatar-${step}` class="my-avatar-image">
+    <img class="my-avatar-body-part" id="my-avatar-base-bg-preview" src="./imgs/avatar/parts/base-bg.png">
+    <img class="my-avatar-body-part" id="my-avatar-body-preview" src="./imgs/avatar/parts/body-1.svg">
+    <img class="my-avatar-body-part" id="my-avatar-base-line-preview" src="./imgs/avatar/parts/base-line.png">
     <img class="my-avatar-body-part" id="my-avatar-neck-preview" src="./imgs/avatar/parts/neck-1.svg">
     <img class="my-avatar-body-part" id="my-avatar-head-preview" src="./imgs/avatar/parts/skin-1.svg">
     <img class="my-avatar-body-part" id="my-avatar-eyebrows-preview" src="./imgs/avatar/parts/eyebrows-skin-1.svg">
@@ -14,7 +17,7 @@ const { step } = Astro.props;
     </div>
     <img class="my-avatar-body-part" id="my-avatar-mouth-preview" src="./imgs/avatar/parts/mouth-skin-1.svg">
     <img class="my-avatar-body-part" id="my-avatar-nose-preview" src="./imgs/avatar/parts/nose-skin-1.svg">
-    <img class="my-avatar-body-part" id="my-avatar-body-preview" src="./imgs/avatar/parts/body-1.svg">
+    
     <img class="my-avatar-body-part my-avatar-body-extra" id="my-avatar-glasses-preview" src="./imgs/avatar/parts/glasses.svg">
     <img class="my-avatar-body-part my-avatar-body-extra" id="my-avatar-moustache-preview" src="./imgs/avatar/parts/moustache.png">
     <img class="my-avatar-body-part my-avatar-body-extra" id="my-avatar-beard-preview" src="./imgs/avatar/parts/beard.png">
@@ -24,7 +27,8 @@ const { step } = Astro.props;
     const width = 150
     document.querySelectorAll(".my-avatar-body-part, #my-avatar-eyes-image").forEach(element => {
         // Set width to 200 for each element
-        element.width = width
+        const el = element as HTMLImageElement
+        el.width = width
     })
 </script>
 <style>

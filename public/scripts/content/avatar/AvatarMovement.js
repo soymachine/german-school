@@ -2,6 +2,8 @@ import Content from '../Content.js'
 class AvatarMovement {
     constructor(parts)
     {
+        this.id = parts.id // #my-avatar-1,-2,... o #avatar-image
+        this.eyesID = parts.eyesID
         this.eyebrows = parts.eyebrows
         this.mouth = parts.mouth
         this.nose = parts.nose
@@ -10,13 +12,15 @@ class AvatarMovement {
         this.beard = parts.beard
         this.moustache = parts.moustache
         this.contentID = parts.contentID
-        this.avatarImgRect = document.querySelector(".avatar-image").getBoundingClientRect()
+        this.avatarImgRect = parts.avatarImgRect
         this.xDest = 0
         this.yDest = 0
         this.xCurrent = 0
         this.yCurrent = 0
         this.speed = 10
         this.avatarRatio = 1.3 // alto por cada pixel de ancho
+        this.baseWidth = 350
+        this.baseHeight = 455
 
         /* Correcciones en porcentajes */
         this.eyesCorrection = {x: 0.605, y:0.4}
@@ -40,17 +44,25 @@ class AvatarMovement {
             "beard": 3,
             "moustache": 3,
         }
-        const self = this
 
         this.isMoving = true
         // Get the mouse X and Y
         
+    }
+
+    activate(){
+        const self = this
+
+        this.init()
         
         document.querySelector(`body`).onmousemove = function(event) { //asign a function
             self.onMouseMove(event)
         }
+    }
 
-        this.init()
+    deactivate(){
+        document.querySelector(`body`).onmousemove = null
+        this.isMoving = false
     }
 
     init(){
@@ -58,6 +70,7 @@ class AvatarMovement {
         let start, prev
 
         function frame(timeStamp) {
+            
             if (start === undefined) {
                 start = 0
                 prev = timeStamp
@@ -88,10 +101,11 @@ class AvatarMovement {
         // this.eyes to scale 0
         const durationClose = 30
         const durationOpen = 100
+        const yPos = -(this.avatarWidth * 0.11)
         anime({
-            targets: `#avatar-eyes-image`,
+            targets: `${this.id} ${this.eyesID}`,
             translateY: [
-                { value: -50, duration: durationClose },
+                { value: yPos, duration: durationClose },
                 { value: 0, duration: durationOpen, delay:100}
               ],
             scaleY:[
@@ -132,13 +146,24 @@ class AvatarMovement {
     }
 
     movePart(id, part, correction, radius, testID){
+        radius = (this.avatarWidth / 350) * radius
+
         const correctionX = correction.x * this.avatarWidth
         const correctionY = correction.y * this.avatarHeight
         const angle = this.getAngle(this.avatarImgRect.x + correctionX, this.avatarImgRect.y + correctionY, this.xCurrent, this.yCurrent);
-        // console.log(`correction.x  ${correction.x } , correctionY ${correction.y} this.avatarImgRect.width ${this.avatarImgRect.width} this.avatarImgRect.height ${this.avatarImgRect.height}`)
+        
+        /*
+        // Testing 
+        if(id == "eyes"){
+            const x = this.avatarImgRect.x + correctionX
+            const y = this.avatarImgRect.y + correctionY
+            const dist = this.getDistance(x, y, this.xCurrent, this.yCurrent)
+            //console.log(`dist ${dist} x ${x} y ${y} this.xCurrent ${this.xCurrent} this.yCurrent ${this.yCurrent}`)
+        }
+        */
+        
         var x = 0 + radius * Math.cos(angle);
         var y = 0 + radius * Math.sin(angle);
-
         
         part.style.transform = `translateX(${x}px) translateY(${y}px)`
 
@@ -152,20 +177,28 @@ class AvatarMovement {
     onMouseMove(event){
         this.xDest = event.clientX
         this.yDest = event.clientY
-        // console.log(`angle ${angle}, eyeX ${eyeX}, eyeY ${eyeY}`)
+
+        // console.log(`xDest ${this.xDest} yDest ${this.yDest}`)
     }
 
     updateAvatarSize(size){
         this.avatarWidth = size
         this.avatarHeight = size * this.avatarRatio
-        this.avatarImgRect = document.querySelector(".avatar-image").getBoundingClientRect()
-        //console.log(this.avatarImgRect)
+        this.avatarImgRect = document.querySelector(this.id).getBoundingClientRect()        
+    }
+
+    updateAvatarImgRect(){
+        this.avatarImgRect = document.querySelector(this.id).getBoundingClientRect()        
     }
 
     getAngle(x1, y1, x2, y2) {
         var dx = x2 - x1;
         var dy = y2 - y1;
         return Math.atan2(dy, dx);
+    }
+
+    getDistance(x1, y1, x2, y2) {
+        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
     }
 }
 

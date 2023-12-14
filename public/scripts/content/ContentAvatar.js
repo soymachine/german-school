@@ -129,10 +129,6 @@ class ContentAvatar extends Content {
 
         // this.disableNextButton()
 
-        this.addEvent(document.getElementById(`step-${this.contentID}`), Content.ON_MOVE, (event)=>{
-            self.onMouseMove(event)
-        })
-
         /* AVATAR PICKER */
         this.pickers = [
             {
@@ -166,6 +162,8 @@ class ContentAvatar extends Content {
 
         /* MOVIMIENTO DEL AVATAR */        
         this.avatarMovement = new AvatarMovement({
+            id:"#avatar-image",
+            eyesID:"#avatar-eyes-image",
             eyebrows:this.eyebrows,
             mouth:this.mouth,
             nose:this.nose,
@@ -173,7 +171,8 @@ class ContentAvatar extends Content {
             glasses:this.glasses,
             beard:this.beard,
             moustache:this.moustache,
-            contentID:this.contentID
+            avatarImgRect: document.querySelector("#avatar-image").getBoundingClientRect(),
+            contentID:this.contentID,
         })
 
         this.updateExtraImage("nothing")
@@ -307,6 +306,11 @@ class ContentAvatar extends Content {
         //console.log(this.eyesRect)
         this.updateAvatarBasedOnSection()
 
+        this.avatarMovement.activate()
+    }
+
+    predeactivateContent(){
+        this.avatarMovement.deactivate()
     }
 
     onNextDisplayButtonClicked(event){
@@ -419,12 +423,13 @@ class ContentAvatar extends Content {
 
     updateBodyColor(){
         this.body.src = `./imgs/avatar/parts/body-${(this.currentDisplay + 1)}.svg`
+
+        this.avatarSelection.bodyColor = this.currentDisplay
     }
 
     updateHairColor(){
         this.hair.src = `./imgs/avatar/parts/hair-style-1-color-${(this.currentDisplay + 1)}.svg`
-
-        
+        this.avatarSelection.hairColor = this.currentDisplay
     }
     updateSkin(){
         this.head.src = `./imgs/avatar/parts/skin-${(this.currentDisplay + 1)}.svg` 
@@ -432,6 +437,7 @@ class ContentAvatar extends Content {
         this.mouth.src = `./imgs/avatar/parts/mouth-skin-${(this.currentDisplay + 1)}.svg` 
         this.neck.src = `./imgs/avatar/parts/neck-${(this.currentDisplay + 1)}.svg` 
         this.nose.src = `./imgs/avatar/parts/nose-skin-${(this.currentDisplay + 1)}.svg` 
+        this.avatarSelection.skinColor = this.currentDisplay
     }
 
     onNextSectionButtonClicked(event){
@@ -481,7 +487,6 @@ class ContentAvatar extends Content {
         })
 
         // Mostramos o ocultamos los botones de pasador de elementos
-        console.log(this.currentSection)
         if(this.currentSection == 2){
             document.getElementById("avatar-part-number").style.display = "block" // mostramos el avatar-part-number
             document.querySelectorAll(".avatar-display-button").forEach(button => button.style.opacity = 1) // mostramos los avatar-display-button
@@ -491,35 +496,6 @@ class ContentAvatar extends Content {
         }
        
     }
-
-    onMouseMove(event){
-        /*
-        let x = event.clientX
-        let y = event.clientY
-
-        const correccionX = 195 // estos números en base a las dimensiones de la imagen!
-        const correccionY = 131
-        const avatarX = (this.avatarImgRect.x + correccionX)
-        const avatarY = (this.avatarImgRect.y + correccionY)
-
-        x = x - (this.avatarImgRect.x + correccionX)
-        y = y - (this.avatarImgRect.y + correccionY)
-
-        //const angle = this.calculateAngle(avatarX, avatarY, event.clientX, event.clientY)
-        const angle = this.getAngle(avatarX, avatarY, event.clientX, event.clientY);
-        var radius = 5; // Change this to the desired radius
-        var eyeX = 0 + radius * Math.cos(angle);
-        var eyeY = 0 + radius * Math.sin(angle);
-
-        this.$eyes.style.left = `${eyeX}px`;
-        this.$eyes.style.top = `${eyeY}px`;
-
-        // console.log(`angle ${angle}, eyeX ${eyeX}, eyeY ${eyeY}`)
-        */
-    }
-
-    
-    
 
     onClickNext(){
         if(this.hasFinishCreatingAvatar){

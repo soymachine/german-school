@@ -34,7 +34,7 @@ import Header from '../components/Header.astro';
 					<SocialMediaStep step='2'/>
 				</Step>
 				<Step step="3" act="I">
-					<ActTitleStep act='I' label='The Call for Adventure' step="3"/>
+					<ActTitleStep act=1 label='The Call for Adventure' step="3"/>
 				</Step>
 				<Step step="4" act="I">
 					<Act1_Cinematics step='4'/>
@@ -42,28 +42,31 @@ import Header from '../components/Header.astro';
 				<Step step="5" act="III">
 					<WhyEnterpreneurStep step="5" />
 				</Step>
-
-				<!-- subect TO CHANGE -->
-				<Step step="6" act="I">
-					<FlowDiagramStep step='6'/>
+				<Step step="6" act="II">
+					<ActTitleStep act=2 label='The Journey begins' step="6"/>
 				</Step>
 				<Step step="7" act="I">
 					<StartupsStep step="7"/>
 				</Step>
-				<Step step="8" act="II">
-					<FinancialMetric step="8" />
+				<!-- subect TO CHANGE -->
+				<Step step="8" act="I">
+					<FlowDiagramStep step='8'/>
 				</Step>
-				<CleanStep step="9" act="III">
-					<TravelToManausStep step="9" />
+				
+				<Step step="9" act="II">
+					<FinancialMetric step="9" />
+				</Step>
+				<CleanStep step="10" act="III">
+					<TravelToManausStep step="10" />
 				</CleanStep>
 				
-				<Step step="10" act="III">
-					<ElevatorPitchStep step="10" />
-				</Step>
 				<Step step="11" act="III">
-					<PatagoniaStep step="11" />
+					<ElevatorPitchStep step="11" />
 				</Step>
-				<Step step="12" act="IV">
+				<Step step="12" act="III">
+					<PatagoniaStep step="12" />
+				</Step>
+				<Step step="13" act="IV">
 					<Form />
 				</Step>
 			</div>
@@ -79,6 +82,11 @@ import Header from '../components/Header.astro';
     	--marginGeneral: 0%;
     	--color-alternate: orange;
     	--color-correct: green;
+	}
+
+	p {
+		margin:0;
+		padding:0;
 	}
 
 	.hide {

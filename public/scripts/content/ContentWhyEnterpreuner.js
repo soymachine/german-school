@@ -3,6 +3,8 @@ import {eventSystem, Events} from '../helpers/EventSystem.js'
 import ResponseUnique from '../helpers/ResponseUnique.js'
 import Settings from '../helpers/Settings.js'
 import Steps from '../helpers/Steps.js'
+import AvatarCopier from './avatar/AvatarCopier.js'
+import AvatarMovement from './avatar/AvatarMovement.js'
 
 
 
@@ -17,7 +19,7 @@ class ContentWhyEnterpreuner extends Content {
         this.isScoreShown = false
         this.yOffset = 20
         this.xOffset = 5
-        this.duration = 500
+        this.duration = 250
 
         // Data
         this.responses = [
@@ -58,8 +60,27 @@ class ContentWhyEnterpreuner extends Content {
         /* AVATAR RELATED */
         // Posicionamos al avatar
         setTimeout(()=>{
-            self.centerAvatar()
+            self.setupAvatar()
         }, 100)        
+    }
+
+    setupAvatar(){
+        this.centerAvatar()
+        this.avatarCopier = new AvatarCopier(this.contentID)
+        this.avatarMovement = new AvatarMovement({
+            id: `#my-avatar-${this.contentID}`,
+            eyesID:"#my-avatar-eyes-image",
+            eyebrows:this.avatarCopier.eyebrows,
+            mouth:this.avatarCopier.mouth,
+            nose:this.avatarCopier.nose,
+            eyes:this.avatarCopier.eyes,
+            glasses:this.avatarCopier.glasses,
+            beard:this.avatarCopier.beard,
+            moustache:this.avatarCopier.moustache,
+            avatarImgRect: document.getElementById(`my-avatar-${this.contentID}`).getBoundingClientRect(),
+            contentID:this.contentID,
+        })
+        this.avatarMovement.updateAvatarSize(150)
     }
 
     centerAvatar(){
@@ -75,7 +96,8 @@ class ContentWhyEnterpreuner extends Content {
     }
 
     preactivateContent(){
-        
+        if(this.avatarCopier) this.avatarCopier.update()
+        if(this.avatarMovement) this.avatarMovement.activate()
     }
 
     activateContent(){
@@ -89,9 +111,13 @@ class ContentWhyEnterpreuner extends Content {
         this.holderRect = document.querySelector(`.holder-why-enterpreneur`).getBoundingClientRect()
         
         this.correctIconRect = this.$answerCorrectIcon.getBoundingClientRect()
-        //console.log(this.correctIconRect)
 
-       
+        this.avatarMovement.updateAvatarImgRect()
+        //console.log(this.correctIconRect)
+    }
+
+    deactivateContent(){
+        this.avatarMovement.deactivate()
     }
 
     onResponseUpdate(responseObj){
@@ -132,8 +158,8 @@ class ContentWhyEnterpreuner extends Content {
                         targets: '#answer-correct-icon',
                         scale: 1,
                         opacity: 1,
-                        easing: Settings.ease,
-                        duration:self.duration,
+                        easing: 'easeOutElastic',
+                        duration:1000,
                         complete: function(anim) {
                             
                         }

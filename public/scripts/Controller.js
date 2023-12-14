@@ -109,7 +109,7 @@ class Controller {
         */
 
         /* TESTING */
-        this.showContent(5)
+        this.showContent(7) // 5 why
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event)
         });
@@ -152,6 +152,9 @@ class Controller {
         // opacity to 1
         el.style.opacity = 1
 
+        const previousContent = this.currentSection
+        // Si hay contenido previo notificamos que desaparece
+        eventSystem.publish(Events.ON_CONTENT_BEGIN_HIDE, previousContent)
 
         const xDest = -this.contentWidth * content
         anime({
@@ -162,13 +165,13 @@ class Controller {
             complete: function(anim) {
                  // notificamos el contenido que entra
                 eventSystem.publish(Events.ON_CONTENT_SHOWN, content) 
+                eventSystem.publish(Events.ON_CONTENT_HIDE, previousContent)
             }
         });
 
         eventSystem.publish(Events.ON_CONTENT_BEGIN_SHOWN, content) 
 
-        // Si hay contenido previo notificamos que desaparece
-        eventSystem.publish(Events.ON_CONTENT_HIDE, this.currentSection)
+        
 
         this.currentSection = content
     }

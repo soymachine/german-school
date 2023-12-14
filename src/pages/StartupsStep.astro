@@ -5,6 +5,7 @@ interface Props {
 	step: string;
 }
 import { imageURL } from '../../public/scripts/helpers/ImageURL';
+import QuestionHeader from '../components/QuestionHeader.astro';
 
 const baseURL = import.meta.env.PUBLIC_URL
 
@@ -17,54 +18,63 @@ const items = [
         id:"company-1",
         src:"./imgs/companies/company-1.png",
         isGood:true,
+        isWHU:true,
         label:"audibene"
     },
     {
         id:"company-2",
         src:"./imgs/companies/company-2.png",
         isGood:true,
-        label:""
+        isWHU:false,
+        label:"Slack"
     },
     {
         id:"company-3",
         src:"./imgs/companies/company-3.png",
         isGood:true,
+        isWHU:true,
         label:"HelloFresh"
     },
     {
         id:"company-4",
         src:"./imgs/companies/company-4.png",
         isGood:true,
-        label:""
+        isWHU:false,
+        label:"Salesforce"
     },
     {
         id:"company-5",
         src:"./imgs/companies/company-5.png",
         isGood:true,
+        isWHU:true,
         label:"KitchenStories"
     },
     {
         id:"company-6",
         src:"./imgs/companies/company-6.png",
         isGood:true,
+        isWHU:true,
         label:"Zalando"
     },
     {
         id:"company-7",
         src:"./imgs/companies/company-7.png",
         isGood:true,
+        isWHU:true,
         label:"Home24"
     },
     {
         id:"company-8",
         src:"./imgs/companies/company-8.png",
         isGood:true,
-        label:""
+        isWHU:false,
+        label:"SAP"
     },
     {
         id:"company-9",
         src:"./imgs/companies/company-9.png",
         isGood:true,
+        isWHU:true,
         label:"Flixbus"
     },
 ]
@@ -72,8 +82,10 @@ const items = [
 <div class=`content-holder`>
     <div class="info">
         <div class=`title-step-${step}`>
-            <h1>Networking is also very important. Several WHU alumni founded 6 of these succsseful start-up</h1>
-            <h1><strong>Can you GUESS who they are?</strong></h1>
+            <QuestionHeader character="rafael">
+                <p class="first-paragraph">6 of these startups were found by <strong>WHU alumni.</strong></p>
+                <p>Do you know them?</p>
+            </QuestionHeader>   
         </div>
         <div class=`score-step-${step}`>
             <h1>Your guessing score: <span class="score-result">6/6</span></h1>
@@ -83,15 +95,25 @@ const items = [
         
     </div>
     <div class="companies-grid">
-        {items.map((item, i) => (
+        {items.map((item, i) => {
+            const classWHU = !item.isWHU ? "not-whu-alumni" : "";
+            let divWHU = ""
+            
+            return(
             <div class="company-holder">
                 <div class=`company-item btn-multsel-step-${step}-option` id=`btn-step-${step}-option-${i+1}`>
-                    <img src={item.src}>
-                    <div class="company-label hide-label">{item.label}</div>
+                    <div class="image-wrapper">
+                        <img src={item.src}>
+                    </div>
+                    <div class=`company-label ${classWHU}`>{item.label}</div>
+                    {
+                        
+                    }
+                    {item.isWHU && <div class="whu-alumni"><strong>WHU</strong>alumni</div>}
                 </div>    
             </div>
             
-        ))}
+        )})}
         
     </div>
     <NextButton step={step}/>
@@ -110,7 +132,13 @@ const items = [
 
     .info {
         position: relative;
-        height: 100px;
+        height: 170px;
+        margin-top: 20px;
+    }
+
+    .first-paragraph {
+        margin-bottom: 30px;
+        margin-right: 30px;
     }
 
     .title-step-1{
@@ -131,28 +159,44 @@ const items = [
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr 1fr 1fr;
         margin-bottom: 5px;
+        width: 90%;
+        margin: 0 auto;
     }
 
     .company-item{
         background-image: var(--companiesBorderURL);
         background-repeat: repeat-y;
         background-position-x: right;
-        padding: 10px;
-        /*margin: 5px 0px 0px 5px;*/
-        /*padding-right: 5px;*/
+        padding: 13px 8px;
     }
 
     .company-label{
         position: absolute;
-        /* top: 69px; */
-        /* left: 0px; */
-        margin-top: -13px;
+        margin-top: -40px;
         text-align: center;
-        /* border: 1px solid red; */
-        width: 27.5%;
-        font-size: 12px;
+        width: 25%;
+        font-size: 14px;
         color:var(--text-blue);        
     }
+
+    .whu-alumni {
+        position: absolute;
+        margin-top: -20px;
+        text-align: center;
+        font-size: 14px;
+        color:white;
+        padding:5px 10px;
+        background-color:var(--text-blue);
+        width: 14%;
+        font-size: 12px;
+        border-radius: 4px;
+        margin-left: 14px;
+    }
+
+    .not-whu-alumni {
+        color: #999999 !important
+    }
+
 
     .show-label {
         display: block;
@@ -180,18 +224,25 @@ const items = [
         background:none !important;
     }
 
-    .btn-step-option-selected img{
-        border:1px solid #7B9FAF !important;
-        border-radius:10px;
-        background-color: #F2F5F7;
+    .btn-step-option-selected .image-wrapper {
+        background-color: #EBF1F3;
+        border: 5px solid #789BC4 !important;
+    }
 
+
+    .image-wrapper {
+        border: 5px solid white;
+        border-radius: 20px;
+        background-color: white;
+        height: 100%;
+        padding: 15px 10px;
     }
 
     .company-item img{
-        border:1px solid white;
         width: 100%; /* Make the image fill the available space */
         height: auto; /* Maintain aspect ratio */
         display: block; /* Remove any extra spacing around images */
+        margin: 0 auto;
     }
     
     .button-enabled {

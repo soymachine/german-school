@@ -21,8 +21,6 @@ class AvatarPicker {
     }
 
     onButtonClicked(id){
-        console.log(id)
-
         eventSystem.publish(Events.ON_PICKER_UPDATE, {
             parent:this.id,
             id:id

@@ -1,0 +1,58 @@
+---
+interface Props {
+	character: string;
+}
+
+const { character } = Astro.props;
+---
+<div class="why-intro-text">
+    <div class="why-intro-data">
+        <div class="why-intro-title">
+            <slot />
+        </div>
+        <div class="why-intro-image">
+            <img src=`./imgs/characters/${character}.png`>                
+        </div>
+    </div>
+    <div class="why-intro-separation"></div>
+</div>
+<style>
+    .why-intro-text p{
+       
+        margin:0;
+        font-size:20px;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .why-intro-separation {
+        width: 100%;
+        height: 5px;
+        background-color: #82A2CA;
+    }
+
+    .why-intro-image img{
+        height: 140px;
+    }
+
+    .why-intro-data {
+        display: flex;
+        align-items: center;
+    }
+
+    .why-intro-title {
+        flex-grow: 1;
+        font-size:20px;
+        text-align: left;
+    }
+
+    .why-intro-title p{
+        padding:0;
+        margin:0px;
+    }
+
+    .why-intro-text{
+        padding-bottom: 20px;
+        width: 90%;
+        margin: 0 auto;
+    }
+</style>
