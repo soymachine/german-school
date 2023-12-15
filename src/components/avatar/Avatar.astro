@@ -1,14 +1,25 @@
 ---
 interface Props {
-	step: string;
+	step: string,
+    width?:number,
+    isSpeech?:boolean
 }
 
-const { step } = Astro.props;
+let { step, width, isSpeech } = Astro.props;
+
+
+if(!isSpeech){
+    isSpeech = false
+}
+
+if(!width) {
+    width = 150
+}
 ---
 <div id=`my-avatar-${step}` class="my-avatar-image">
-    <img class="my-avatar-body-part" id="my-avatar-base-bg-preview" src="./imgs/avatar/parts/base-bg.png">
-    <img class="my-avatar-body-part" id="my-avatar-body-preview" src="./imgs/avatar/parts/body-1.svg">
-    <img class="my-avatar-body-part" id="my-avatar-base-line-preview" src="./imgs/avatar/parts/base-line.png">
+    <img class="my-avatar-body-part" class:list={[{ "my-avatar-hide": isSpeech }]} id="my-avatar-base-bg-preview" src="./imgs/avatar/parts/base-bg.png">
+    <img class="my-avatar-body-part" class:list={[{ "avatar-circle-mask": !isSpeech }]} id="my-avatar-body-preview" src="./imgs/avatar/parts/body-1.svg">
+    <img class="my-avatar-body-part" class:list={[{ "my-avatar-hide": isSpeech }]} id="my-avatar-base-line-preview" src="./imgs/avatar/parts/base-line.png">
     <img class="my-avatar-body-part" id="my-avatar-neck-preview" src="./imgs/avatar/parts/neck-1.svg">
     <img class="my-avatar-body-part" id="my-avatar-head-preview" src="./imgs/avatar/parts/skin-1.svg">
     <img class="my-avatar-body-part" id="my-avatar-eyebrows-preview" src="./imgs/avatar/parts/eyebrows-skin-1.svg">
@@ -23,11 +34,12 @@ const { step } = Astro.props;
     <img class="my-avatar-body-part my-avatar-body-extra" id="my-avatar-beard-preview" src="./imgs/avatar/parts/beard.png">
     <img class="my-avatar-body-part" id="my-avatar-hair-preview" src="./imgs/avatar/parts/hair-style-1-color-1.svg">
 </div>
-<script>
-    const width = 150
+<script define:vars={{ width }}>
+console.log("width:" + width)
+    
     document.querySelectorAll(".my-avatar-body-part, #my-avatar-eyes-image").forEach(element => {
         // Set width to 200 for each element
-        const el = element as HTMLImageElement
+        const el = element
         el.width = width
     })
 </script>
@@ -38,12 +50,16 @@ const { step } = Astro.props;
         left:0px;
     }
 
+    .my-avatar-hide {
+        opacity: 0;
+    }
+
     .my-avatar-body-part {
         position: absolute;
         pointer-events: none;
     }
 
-    #my-avatar-body-preview {
+    .avatar-circle-mask {
         clip-path: circle(40%);
     }
 </style>

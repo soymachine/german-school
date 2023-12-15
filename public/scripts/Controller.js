@@ -12,6 +12,8 @@ import ContentPatagonia from './content/ContentPatagonia.js'
 import ContentTravelToManaus from './content/ContentTravelToManaus.js'
 import ContentAvatar from './content/ContentAvatar.js'
 import Intro from './content/Intro.js'
+import ContentAct1Cinematics from './content/ContentAct1Cinematics.js'
+import ContentAct2Cinematics from './content/ContentAct2Cinematics.js'
 
 class Controller {
     constructor(){
@@ -57,30 +59,36 @@ class Controller {
 
         // Agregamos segun el contenido
 
-        /* 0.- INTRO */
+        /* - INTRO */
         this.intro = new Intro()
 
-        /* 0.- AVATAR */
+        /* - AVATAR */
         this.contentAvatar = new ContentAvatar()
 
-        /* 1.- FLOW DIAGRAM */
+        /* - ACT I CINEMATICS */
+        this.contentAct1Cinematics = new ContentAct1Cinematics()
+
+         /* - ACT II CINEMATICS */
+         this.contentAct2Cinematics = new ContentAct2Cinematics()
+
+        /* - FLOW DIAGRAM */
         this.contentDraggable = new ContentDraggable()
         // this.content["content-1"] = new ContentDraggable()
 
-        /* 2.- STARTUPS QUESTION */
+        /* - STARTUPS QUESTION */
         this.contentMultiple = new ContentStartup()
         //this.content["content-2"] = new Content2()
 
-        /* 3.- FINANCIAL METRIC QUESTION */
+        /* - FINANCIAL METRIC QUESTION */
         this.contentFinancial = new ContentFinancial()
 
-        /* 4.- WHY ENTERPRENEUR */
+        /* - WHY ENTERPRENEUR */
         this.contentWhyEnterpreuner = new ContentWhyEnterpreuner()
 
-        /* 5.- ELEVATOR PITCH */
+        /* - ELEVATOR PITCH */
         this.contentElevatorPitch = new ContentElevatorPitch()
 
-        /* 6.- PATAGONIA FOUNDER */
+        /* - PATAGONIA FOUNDER */
         this.contentPatagonia = new ContentPatagonia()
 
         /* TRAVEL TO MANAUS */
@@ -113,8 +121,6 @@ class Controller {
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event)
         });
-
-        
 
         eventSystem.subscribe(Events.ON_REQUEST_STEP, (content)=>{ this.showContent(content) }) // this.showContent(this.currentSection)
         eventSystem.subscribe(Events.ON_REQUEST_NEXT_STEP, ()=>{ this.onNextContentRequested() }) // this.showContent(this.currentSection)

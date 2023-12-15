@@ -25,9 +25,10 @@ const { step } = Astro.props;
         </div>
         <div class="characters">
             <div id="speech-user-avatar">
-                <Avatar isSpeech={true} width={200} step={step}/>
+                <Avatar isSpeech={true} width={170} step={step}/>
             </div>
             <img class="character-image" id="sarah" src="./imgs/characters/sarah-speech.png">
+            <img class="character-image" id="rafael" src="./imgs/characters/rafael-speech.png">
         </div>
     </div>
 </div>
@@ -88,7 +89,9 @@ const { step } = Astro.props;
     /*  OTHER */
     .characters > #speech-user-avatar {
         position: absolute;
-        top:49%;
+        top: 53%;
+        left: 1%;
+        z-index: 100;
     }
 
     .act-cinematics-wrapper {
@@ -122,13 +125,18 @@ const { step } = Astro.props;
     }
 
     .character-image{
-        width: 160px;
+        width: 130px;
         position: absolute;
     }
 
     #sarah {
-        top: 58%;
-        left: 59%;
+        top: 62%;
+        left: 23%;
+        transform: scaleX(-1);
+    }
 
+    #rafael {
+        top: 58%;
+        left: 66%;
     }
 </style>

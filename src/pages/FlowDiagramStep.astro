@@ -57,6 +57,7 @@ const realtimealertURL = imageURL("imgs/flow-diagram/realtimealert.png")
             <div id="datamonitoring" class="draggable-item noselect">Data monitoring</div>
             <div id="predictiveanalysis" class="draggable-item noselect">Predictive analysis</div>
             <div id="imagerecognition" class="draggable-item noselect">Image recognition</div>
+            <div id="draggable-test"><img src="./imgs/correct.png" width="20px"></div>
             <div id="draggable-content-correct" class="draggable-content-final">
                 <img src="./imgs/correct.png">
                 <div>The <strong>flow diagaram of this AI model</strong> is:</div>
@@ -140,6 +141,13 @@ const realtimealertURL = imageURL("imgs/flow-diagram/realtimealert.png")
 
     .draggable-zone-hidden {
         background: none;
+    }
+
+    #draggable-test {
+        position: absolute;
+        top:400px;
+        left:0px;  
+        opacity: 0;      
     }
 
     .draggable-item {

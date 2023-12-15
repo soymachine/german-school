@@ -14,6 +14,7 @@ import PatagoniaStep from './PatagoniaStep.astro';
 import SocialMediaStep from './SocialMediaStep.astro';
 import ActTitleStep from './ActTitleStep.astro';
 import Act1_Cinematics from './acts/Act1_Cinematics.astro';
+import Act2_Cinematics from './acts/Act2_Cinematics.astro';
 import Intro from './Intro.astro';
 import Header from '../components/Header.astro';
 ---
@@ -46,27 +47,30 @@ import Header from '../components/Header.astro';
 					<ActTitleStep act=2 label='The Journey begins' step="6"/>
 				</Step>
 				<Step step="7" act="I">
-					<StartupsStep step="7"/>
+					<Act2_Cinematics step='7'/>
+				</Step>
+				<Step step="8" act="I">
+					<StartupsStep step="8"/>
 				</Step>
 				<!-- subect TO CHANGE -->
-				<Step step="8" act="I">
-					<FlowDiagramStep step='8'/>
+				<Step step="9" act="I">
+					<FlowDiagramStep step='9'/>
 				</Step>
 				
-				<Step step="9" act="II">
-					<FinancialMetric step="9" />
+				<Step step="10" act="II">
+					<FinancialMetric step="10" />
 				</Step>
-				<CleanStep step="10" act="III">
-					<TravelToManausStep step="10" />
+				<CleanStep step="11" act="III">
+					<TravelToManausStep step="11" />
 				</CleanStep>
 				
-				<Step step="11" act="III">
-					<ElevatorPitchStep step="11" />
-				</Step>
 				<Step step="12" act="III">
-					<PatagoniaStep step="12" />
+					<ElevatorPitchStep step="12" />
 				</Step>
-				<Step step="13" act="IV">
+				<Step step="13" act="III">
+					<PatagoniaStep step="13" />
+				</Step>
+				<Step step="14" act="IV">
 					<Form />
 				</Step>
 			</div>

@@ -512,6 +512,11 @@ class ContentAvatar extends Content {
         // Avatar en grande
         this.updateAvatarSize("big")
 
+        // Update name
+        console.log(`avatarSelection.name ${avatarSelection.name}`)
+        document.querySelector(".avatar-greetings-name").innerHTML = avatarSelection.name
+        
+
         // Quitamos los pickers
         document.getElementById("color-picker-wrapper").style.display = "none"
         document.getElementById("avatar-part-number").style.display = "none"
