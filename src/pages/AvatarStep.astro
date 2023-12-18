@@ -22,21 +22,21 @@ const { step } = Astro.props;
     <div class="avatar-display">
         <a id="avatar-display-left" class="avatar-display-button" href="#"><img src="./imgs/avatar/controllers/avatar-slider-left.png"></a>
         <div class="avatar-display-wrapper">
-            <img class="avatar-ref" id="avatar-ref" width="350px" src="./imgs/avatar/parts/neck-1.svg">
+            <img class="avatar-ref" id="avatar-ref" src="./imgs/avatar/parts/neck-1.svg">
             <div class="avatar-image" id="avatar-image">
-                <img class="avatar-body-part" id="avatar-neck-preview" width="350px" src="./imgs/avatar/parts/neck-1.svg">
-                <img class="avatar-body-part" id="avatar-head-preview" width="350px" src="./imgs/avatar/parts/skin-1.svg">
-                <img class="avatar-body-part" id="avatar-eyebrows-preview" width="350px" src="./imgs/avatar/parts/eyebrows-skin-1.svg">
-                <div class="avatar-body-part" id="avatar-eyes-preview" width="350px" src="./imgs/avatar/parts/eyes.svg">
-                    <img id="avatar-eyes-image" width="350px" src="./imgs/avatar/parts/eyes.svg">
+                <img class="avatar-body-part" id="avatar-neck-preview" src="./imgs/avatar/parts/neck-1.svg">
+                <img class="avatar-body-part" id="avatar-head-preview" src="./imgs/avatar/parts/skin-1.svg">
+                <img class="avatar-body-part" id="avatar-eyebrows-preview" src="./imgs/avatar/parts/eyebrows-skin-1.svg">
+                <div class="avatar-body-part" id="avatar-eyes-preview" src="./imgs/avatar/parts/eyes.svg">
+                    <img id="avatar-eyes-image" src="./imgs/avatar/parts/eyes.svg" />
                 </div>
-                <img class="avatar-body-part" id="avatar-mouth-preview" width="350px" src="./imgs/avatar/parts/mouth-skin-1.svg">
-                <img class="avatar-body-part" id="avatar-nose-preview" width="350px" src="./imgs/avatar/parts/nose-skin-1.svg">
-                <img class="avatar-body-part" id="avatar-body-preview" width="350px" src="./imgs/avatar/parts/body-1.svg">
-                <img class="avatar-body-part avatar-body-extra" id="avatar-glasses-preview" width="350px" src="./imgs/avatar/parts/glasses.svg">
-                <img class="avatar-body-part avatar-body-extra" id="avatar-moustache-preview" width="350px" src="./imgs/avatar/parts/moustache.png">
-                <img class="avatar-body-part avatar-body-extra" id="avatar-beard-preview" width="350px" src="./imgs/avatar/parts/beard.png">
-                <img class="avatar-body-part" id="avatar-hair-preview" width="350px" src="./imgs/avatar/parts/hair-style-1-color-1.svg">
+                <img class="avatar-body-part" id="avatar-mouth-preview" src="./imgs/avatar/parts/mouth-skin-1.svg">
+                <img class="avatar-body-part" id="avatar-nose-preview" src="./imgs/avatar/parts/nose-skin-1.svg">
+                <img class="avatar-body-part" id="avatar-body-preview" src="./imgs/avatar/parts/body-1.svg">
+                <img class="avatar-body-part avatar-body-extra" id="avatar-glasses-preview" src="./imgs/avatar/parts/glasses.svg">
+                <img class="avatar-body-part avatar-body-extra" id="avatar-moustache-preview" src="./imgs/avatar/parts/moustache.png">
+                <img class="avatar-body-part avatar-body-extra" id="avatar-beard-preview" src="./imgs/avatar/parts/beard.png">
+                <img class="avatar-body-part" id="avatar-hair-preview" src="./imgs/avatar/parts/hair-style-1-color-1.svg">
                 
 
                 <img class="avatar-test" id="avatar-test-1" src="./imgs/incorrect.png">
@@ -159,6 +159,8 @@ const { step } = Astro.props;
 </div>
 <style>
     .avatar-wrapper {
+
+        --size-items:60px;
         width:100%;
         --text-blue:#14519C; 
         --color-blue:#044596; 
@@ -436,5 +438,31 @@ const { step } = Astro.props;
         font-size: 30px;
         color:#0D4C99;
     }
+
+
+    @media (max-width: 375px) {
+        .avatar-display-wrapper {
+            transform: translateY(-40px);           
+        }
+        
+        .avatar-display {
+            margin-bottom: -30px;
+        }
+
+        #color-picker-1{
+            width: 100%;
+        }
+
+        #color-picker-extras{
+            width: 70%;
+            margin-bottom: 15px;
+        }
+
+        #color-picker-extras {
+            gap:10px 0px;
+        }
+    }
+
+    
 
 </style>

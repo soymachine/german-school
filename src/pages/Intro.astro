@@ -2,7 +2,7 @@
     <div class="first-sentence">Guardians of the</div>
     <div class="second-sentence">Rainforest</div>
     <div class="middle-zone">
-        <img class="bg-image" src="./imgs/intro/intro-background.png" height="400px" width="337px">
+        <img class="bg-image" src="./imgs/intro/intro-background.png">
         <a id="intro-button" class="button-start" href="#">Start</a>
     </div>
 </div>
@@ -23,7 +23,6 @@
     .second-sentence{
         font-size:45px;
         font-weight:bold;
-
     }
 
     .middle-zone {
@@ -35,6 +34,8 @@
         position: absolute;
         top:0;
         left:0;
+        width: 337px;
+        height: 400px;
     }
 
     .button-start {
@@ -49,6 +50,25 @@
         padding: 15px 50px;
         text-decoration: none;
         font-weight:bold;
+    }
+
+    @media (max-width: 375px) {
+        .bg-image {
+            width: 337px;
+            height: 456px;
+        }
+
+        .middle-zone{
+            margin-top: 10px;
+        }
+
+        .intro-wrapper{
+            margin-top: -25px;
+        }
+
+        #intro-button {
+            top:150px;
+        }
     }
 
 </style>

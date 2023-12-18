@@ -20,6 +20,7 @@ class ContentWhyEnterpreuner extends Content {
         this.yOffset = 20
         this.xOffset = 5
         this.duration = 250
+        this.currentReponseSelected = undefined
 
         // Data
         this.responses = [
@@ -84,13 +85,14 @@ class ContentWhyEnterpreuner extends Content {
     }
 
     centerAvatar(){
+        const yOffset = 20
         const avatar = document.getElementById(`my-avatar-${this.contentID}`)
         const avatarIMG = avatar.querySelector(`.my-avatar-body-part`)
         const avatarRect = avatarIMG.getBoundingClientRect()
 
         const avatarHolderRect = document.querySelector(".holder-why-enterpreneur #avatar").getBoundingClientRect()
         const xCenter = (avatarHolderRect.width / 2) - (avatarRect.width / 2)
-        const yCenter = (avatarHolderRect.height / 2) - (avatarRect.height / 2)
+        const yCenter = (avatarHolderRect.height / 2) - (avatarRect.height / 2) - yOffset
         avatar.style.left = xCenter + "px"
         avatar.style.top = yCenter + "px"
     }
@@ -144,6 +146,23 @@ class ContentWhyEnterpreuner extends Content {
                 x += this.xOffset
             }
 
+            
+            // Desactivamos las imagenes antiguas
+            if(this.currentReponseSelected != undefined){
+                this.deactivateButton(this.currentReponseSelected)
+            }
+
+            // Activamos las imagenes nuevas
+            this.activateButton(responseNum)
+
+            anime({
+                targets: '.answer-description',
+                opacity: 1,
+                easing: 'linear',
+                duration:500,
+            });   
+            
+
             anime({
                 targets: '#answer-correct-icon',
                 scale: 0,
@@ -166,8 +185,42 @@ class ContentWhyEnterpreuner extends Content {
                     });        
                 }
             });
+
+            this.currentReponseSelected = responseNum
             
         }
+    }
+
+    activateButton(responseNum){
+        anime({
+            targets: `#step-${this.contentID}-button-${responseNum}-image-active`,
+            opacity: 1,
+            easing: Settings.ease,
+            duration:this.duration,                
+        });
+
+        anime({
+            targets: `#step-${this.contentID}-button-${responseNum}-image-inactive`,
+            opacity: 0,
+            easing: Settings.ease,
+            duration:this.duration,                
+        });
+    }
+
+    deactivateButton(responseNum){
+        anime({
+            targets: `#step-${this.contentID}-button-${responseNum}-image-active`,
+            opacity: 0,
+            easing: Settings.ease,
+            duration:this.duration,                
+        });
+
+        anime({
+            targets: `#step-${this.contentID}-button-${responseNum}-image-inactive`,
+            opacity: 1,
+            easing: Settings.ease,
+            duration:this.duration,                
+        });
     }
 
     processResponse(){
@@ -185,13 +238,8 @@ class ContentWhyEnterpreuner extends Content {
             return
         }
         
-        if(!this.isScoreShown){
-            this.processResponse()
-            this.isScoreShown = true
-        }else{
-            // Vamos a la siguiente sección
-            this.gotoNextStep()
-        }
+        // Vamos a la siguiente sección
+        this.gotoNextStep()
     }
     
 }

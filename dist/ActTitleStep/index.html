@@ -1,0 +1,20 @@
+<!DOCTYPE html><style>.button-holder[data-astro-cid-sfrs4p7o]{max-width:200px;text-align:center;margin:0 auto;font-family:Roboto,sans-serif}.next-button-link[data-astro-cid-sfrs4p7o]{text-decoration:none;background-color:#00a5dc;color:#fff;padding:10px 30px;margin:10px;border-radius:8px;font-size:22px;font-weight:700;display:block}
+.act-title-wrapper[data-astro-cid-i7wbas62]{display:flex;flex-direction:column;height:100%;color:#054696;text-align:center;font-size:18px;font-family:Roboto,sans-serif}.act-title-menu[data-astro-cid-i7wbas62]{display:flex;flex-direction:column}.act-title-title[data-astro-cid-i7wbas62]{text-align:center;font-weight:700;margin:20px 0}.act-title-step-menu[data-astro-cid-i7wbas62]{display:flex;flex-direction:row;gap:10px;width:90%;margin:0 auto}.act[data-astro-cid-i7wbas62]{flex-grow:1;height:10px;background-color:#cedfe5}.act-selected[data-astro-cid-i7wbas62]{background-color:#054696}.act-previous[data-astro-cid-i7wbas62]{background-color:#6fdb8f}.act-title-label[data-astro-cid-i7wbas62]{font-size:35px;font-weight:700;margin:50px auto;width:80%}.act-title-img[data-astro-cid-i7wbas62] img[data-astro-cid-i7wbas62]{width:100%}.act-title-button[data-astro-cid-i7wbas62]{align-self:center;flex-grow:1;display:flex;align-items:flex-end;margin-bottom:20px}
+</style><div class="act-title-wrapper" data-astro-cid-i7wbas62> <div class="act-title-menu" data-astro-cid-i7wbas62> <div class="act-title-title" data-astro-cid-i7wbas62>Act </div> <div class="act-title-step-menu" data-astro-cid-i7wbas62> <div class="act " id="act-1" data-astro-cid-i7wbas62></div><div class="act " id="act-2" data-astro-cid-i7wbas62></div><div class="act " id="act-3" data-astro-cid-i7wbas62></div><div class="act " id="act-4" data-astro-cid-i7wbas62></div> </div> </div> <div class="act-title-label" data-astro-cid-i7wbas62>  </div> <div class="act-title-img" data-astro-cid-i7wbas62> <img src="./imgs/acts/titles/act-title-undefined-img.png" data-astro-cid-i7wbas62> </div> <div class="act-title-button" data-astro-cid-i7wbas62> <div class="button-holder" data-astro-cid-sfrs4p7o> <a id="next-button-undefined" class="next-button-link" href="#" data-astro-cid-sfrs4p7o>Next</a> </div>  </div> </div> <script>(function(){const step = undefined;
+
+
+    const nextButton = document.getElementById(`next-button-${step}`)
+    nextButton.onmousedown = function(event) { //asign a function
+        onClickNext(event)
+    }
+        
+    nextButton.addEventListener('touchstart', function(event){
+        event.preventDefault();
+        onClickNext(event.touches[0])
+    }, false); 
+
+    function onClickNext(event) {
+        window.controller.onNextContentRequested()
+    }
+
+})();</script> 

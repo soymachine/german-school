@@ -21,8 +21,6 @@ class AvatarPicker {
     }
 
     onButtonClicked(id){
-        console.log(id)
-
         eventSystem.publish(Events.ON_PICKER_UPDATE, {
             parent:this.id,
             id:id
@@ -30,13 +28,10 @@ class AvatarPicker {
     }
 
     show(){
-        console.log("show " + this.id)
-
         document.getElementById(`color-picker-${this.id}`).style.display = this.type
     }
 
     hide(){
-        console.log("hide " + this.id)
         document.getElementById(`color-picker-${this.id}`).style.display = "none"
     }
 }

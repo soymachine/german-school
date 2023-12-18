@@ -13,22 +13,32 @@ const { step } = Astro.props;
             <div class="speech">
                 <div class="speech-bubble">
                     <div class="speech-bubble-text">
-                        <div id="speech-content-act-1" class="speech-bubble-text-content">
+                        <div id="speech-content-act-2" class="speech-bubble-text-content">
                             Nice to meet you Iñaki, I think you can be the perfect addition to the team
                         </div>
                     </div>                    
                 </div>
                 <img id="speech-bubble-wedge" src="./imgs/acts/speech/speech-wedge.png">
-                <a id="content-cinematic-act-1-button" class="speech-bubble-button" href="#"><div class="speech-loading"><img src="./imgs/acts/speech/speech-loading.gif"></div></a>
+                <a id="content-cinematic-act-2-button" class="speech-bubble-button" href="#"><div class="speech-loading"><img src="./imgs/acts/speech/speech-loading.gif"></div></a>
             </div>
             <img class="act-cinematics-background-image" src="./imgs/acts/titles/title-I-Background.png">
         </div>
         <div class="characters">
             <div id="speech-user-avatar">
-                <Avatar isSpeech={true} width={170} step={step}/>
+                <Avatar isSpeech={true} width={170} step={step} textCorrection={14}/>
             </div>
-            <img class="character-image" id="sarah" src="./imgs/characters/sarah-speech.png">
-            <img class="character-image" id="rafael" src="./imgs/characters/rafael-speech.png">
+            <img class="character-image" id="sarah-act-2" src="./imgs/characters/sarah-speech.png">
+            <img class="character-image" id="rafael-act-2" src="./imgs/characters/rafael-speech.png">
+            <div class="character-name" id="sarah-name-act-2">Sarah</div>
+            <div class="character-name" id="rafael-name-act-2">Dr. Rafael</div>
+            <!-- 
+            <div class="character-image" id="sarah">
+                <img src="./imgs/characters/sarah-speech.png">
+            </div>
+            <div class="character-image" id="rafael">
+                <img src="./imgs/characters/rafael-speech.png">
+            </div>
+            -->
         </div>
     </div>
 </div>
@@ -63,7 +73,6 @@ const { step } = Astro.props;
     #speech-bubble-wedge {
         margin-top: -2px;
         transform: translateX(110px);
-        
     }
 
     .speech-bubble-text {
@@ -125,18 +134,88 @@ const { step } = Astro.props;
     }
 
     .character-image{
-        width: 130px;
         position: absolute;
+        width: 130px;
     }
 
-    #sarah {
+    .character-name {
+        position: absolute;
+        font-weight: bold;
+    }
+
+    #sarah-name-act-2 {
+        top: 105%;
+        left: 32%;
+        color:#054696;
+    }
+
+    #rafael-name-act-2 {
+        top: 105%;
+        left: 70%;
+        color:#21B22E;
+    }
+
+    #sarah-act-2 {
         top: 62%;
         left: 23%;
         transform: scaleX(-1);
     }
 
-    #rafael {
+    #rafael-act-2 {
         top: 58%;
         left: 66%;
+    }
+
+    @media (max-width: 375px) {
+        .act-cinematics-wrapper {
+            font-size: 20px;
+        }
+
+        .speech {
+            top: -20%;
+        }
+
+        .speech-bubble {
+            width: 79%;
+            height: 150px;
+            padding: 10px 0px;
+        }
+
+        .speech-loading {
+            width: 70px;
+            padding: 11px 10px;
+            margin-top: -46px;
+        }
+
+        .speech-loading img{
+            width: 70px;
+            margin-top: 10px;
+        }
+
+        #speech-bubble-wedge {
+            width: 35px;
+        }
+
+        #sarah-act-2 {
+            width: 110px;
+        }
+
+        #rafael-act-2 {
+            width: 110px;
+        }
+
+        #sarah-name-act-2 {
+            font-size: 17px;
+            top:104%;
+        }
+
+        #rafael-name-act-2 {
+            font-size: 17px;
+            top:104%;
+        }
+
+        .speech-bubble-text {
+            margin: auto 10px;
+        }
     }
 </style>

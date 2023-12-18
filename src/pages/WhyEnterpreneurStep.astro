@@ -10,21 +10,33 @@ const { step } = Astro.props;
 ---
 <div class=`holder-why-enterpreneur`>
     <QuestionHeader character="sarah">
-        <p><strong>WHY</strong> do you want</p>
-        <p>to become an <strong>entepreneur?</strong></p>
+        <p><strong>WHY</strong> do you want to</p>
+        <p>become an <strong>entepreneur?</strong></p>
     </QuestionHeader>
     <div class="answers">
         <div class="answers-group">
-            <a class=`btn-step-${step}-option answer answer-selected` id=`step-${step}-answer-button-1` href="#"><img src="./imgs/why-enterpreneur/option-1.png"></a>
-            <a class=`btn-step-${step}-option answer` id=`step-${step}-answer-button-2` href="#"><img src="./imgs/why-enterpreneur/option-2.png"></a>
+            <a class=`btn-step-${step}-option answer answer-selected` id=`step-${step}-answer-button-1` href="#">
+                <img id=`step-${step}-button-1-image-inactive` src="./imgs/why-enterpreneur/option-1.png">
+                <img class="active-image" id=`step-${step}-button-1-image-active` src="./imgs/why-enterpreneur/option-1-active.png">
+            </a>
+            <a class=`btn-step-${step}-option answer` id=`step-${step}-answer-button-2` href="#">
+                <img id=`step-${step}-button-2-image-inactive` src="./imgs/why-enterpreneur/option-2.png">
+                <img class="active-image" id=`step-${step}-button-2-image-active` src="./imgs/why-enterpreneur/option-2-active.png">
+            </a>
         </div>
         <div id="avatar">
             <!--<img src="./imgs/why-enterpreneur/avatar-test.png">-->
-            <Avatar step={step}/>
+            <Avatar step={step} hasText={false} width={185}/>
         </div>
         <div class="answers-group">
-            <a class=`btn-step-${step}-option answer` id=`step-${step}-answer-button-3` href="#"><img src="./imgs/why-enterpreneur/option-3.png"></a>
-            <a class=`btn-step-${step}-option answer` id=`step-${step}-answer-button-4` href="#"><img src="./imgs/why-enterpreneur/option-4.png"></a>
+            <a class=`btn-step-${step}-option answer` id=`step-${step}-answer-button-3` href="#">
+                <img id=`step-${step}-button-3-image-inactive` src="./imgs/why-enterpreneur/option-3.png">
+                <img class="active-image" id=`step-${step}-button-3-image-active` src="./imgs/why-enterpreneur/option-3-active.png">
+            </a>
+            <a class=`btn-step-${step}-option answer` id=`step-${step}-answer-button-4` href="#">
+                <img id=`step-${step}-button-4-image-inactive` src="./imgs/why-enterpreneur/option-4.png">
+                <img class="active-image" id=`step-${step}-button-4-image-active` src="./imgs/why-enterpreneur/option-4-active.png">
+            </a>
         </div>
         <div id="answer-correct-icon"><img width="40px" src="./imgs/correct.png"></div>
         
@@ -39,7 +51,7 @@ const { step } = Astro.props;
     .holder-why-enterpreneur {
         --text-blue:#14519C; 
         --color-blue:#044596;
-        color:darkblue;
+        color:var(--color-blue);
         text-align: center;
         font-size: 14px;
         margin:20px 10px;
@@ -51,7 +63,9 @@ const { step } = Astro.props;
        
     }
 
-    
+    .active-image {
+        opacity: 0;
+    }
     
     .answers {
         display: flex;
@@ -64,16 +78,25 @@ const { step } = Astro.props;
     .answers-group {
         display:flex;
         flex-direction: row;
-        gap: 50px;
+        gap: 15px;
     }
 
     .answer {
         border-radius:8px;
         background-color: #E5EAF0;
         border:4px solid #E5EAF0;
-        padding:10px;
-        width: 100px;
-        transition: all 1s ease-out;
+        width: 180px;
+        height: 111px;
+        transition: all .250s ease-out;
+        position: relative;
+    }
+
+    .answer img {
+        width: 180px;
+        position: absolute;
+        top:0px;
+        left:0px;
+        z-index: 0;
     }
 	
     .btn-step-option-selected {
@@ -83,7 +106,7 @@ const { step } = Astro.props;
 
     #avatar {
         width: 100%;
-        height: 50px;
+        height: 25px;
         position: relative;
     }
 
@@ -93,10 +116,12 @@ const { step } = Astro.props;
     }
 
     .answer-description {
-        border:1px solid #15519D;
+        border:2px solid #15519D;
+        font-size: 18px;
         border-radius:8px;
         padding:10px 10px;
-        margin:30px 10px 30px 10px;
+        margin:30px 20px 30px 20px;
+        opacity: 0;
     }
 
     #answer-correct-icon{
@@ -104,6 +129,22 @@ const { step } = Astro.props;
         top:0;
         left:0;
         opacity: 0;
+    }
+
+    @media (max-width: 375px) {
+        .answer {
+            width: 150px;
+            height: 90px;
+        }
+        
+        .answer img {
+            width: 150px;
+            
+        }
+
+        .answer-description {
+            margin:30px 20px 6px 20px;
+        }
     }
 
 </style>

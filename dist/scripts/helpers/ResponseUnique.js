@@ -13,7 +13,7 @@ class ResponseUnique {
         const that = this
 
         // Lista de botones de selección
-        console.log(step)
+        //console.log(step)
 
         document.querySelectorAll(`.btn-step-${step}-option`).forEach(button => {
             const id = Number(button.getAttribute("id").split("-")[4])
@@ -35,7 +35,7 @@ class ResponseUnique {
     }
 
     onClickSelection(id){
-        console.log(id)
+        //console.log(id)
 
         // Remove previous current class
         if(this.currentButtonSelected != null){
@@ -43,6 +43,7 @@ class ResponseUnique {
         }
 
         const anchor = this.buttons[id].anchor
+        console.log(anchor)
         anchor.classList.add("btn-step-option-selected");
 
         this.currentButtonSelected = id

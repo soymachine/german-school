@@ -43,6 +43,7 @@ class ResponseUnique {
         }
 
         const anchor = this.buttons[id].anchor
+        console.log(anchor)
         anchor.classList.add("btn-step-option-selected");
 
         this.currentButtonSelected = id

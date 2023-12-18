@@ -1,7 +1,7 @@
 
 import Header from './header/Header.js'
 import ContentDraggable from './content/ContentDraggable.js'
-import ContentMultiple from './content/ContentMultiple.js'
+import ContentStartup from './content/ContentStartup.js'
 import ContentFinancial from './content/ContentFinancial.js'
 import Settings from './helpers/Settings.js'
 import {eventSystem, Events} from './helpers/EventSystem.js'
@@ -10,8 +10,13 @@ import ContentWhyEnterpreuner from './content/ContentWhyEnterpreuner.js'
 import ContentElevatorPitch from './content/ContentElevatorPitch.js'
 import ContentPatagonia from './content/ContentPatagonia.js'
 import ContentTravelToManaus from './content/ContentTravelToManaus.js'
-import Avatar from './content/ContentAvatar.js'
+import ContentAvatar from './content/ContentAvatar.js'
 import Intro from './content/Intro.js'
+import ContentAct1Cinematics from './content/ContentAct1Cinematics.js'
+import ContentAct2Cinematics from './content/ContentAct2Cinematics.js'
+import ContentSocialMedia from './content/ContentSocialMedia.js'
+import ContentBusiness from './content/ContentBusiness.js'
+import ContentAct1SarahApproves from './content/ContentAct1SarahApproves.js'
 
 class Controller {
     constructor(){
@@ -57,30 +62,45 @@ class Controller {
 
         // Agregamos segun el contenido
 
-        /* 0.- INTRO */
+        /* - INTRO */
         this.intro = new Intro()
 
-        /* 0.- AVATAR */
-        this.avatar = new Avatar()
+        /* - AVATAR */
+        this.contentAvatar = new ContentAvatar()
 
-        /* 1.- FLOW DIAGRAM */
+        /* - AVATAR */
+        this.contentSocialMedia = new ContentSocialMedia()
+
+        /* - ACT I CINEMATICS */
+        this.contentAct1Cinematics = new ContentAct1Cinematics()
+
+         /* - ACT II CINEMATICS */
+         this.contentAct2Cinematics = new ContentAct2Cinematics()
+
+        /* - FLOW DIAGRAM */
         this.contentDraggable = new ContentDraggable()
         // this.content["content-1"] = new ContentDraggable()
 
-        /* 2.- STARTUPS QUESTION */
-        this.contentMultiple = new ContentMultiple()
+        /* - STARTUPS QUESTION */
+        this.contentMultiple = new ContentStartup()
         //this.content["content-2"] = new Content2()
 
-        /* 3.- FINANCIAL METRIC QUESTION */
+        /* - FINANCIAL METRIC QUESTION */
         this.contentFinancial = new ContentFinancial()
 
-        /* 4.- WHY ENTERPRENEUR */
+        /* - WHY ENTERPRENEUR */
         this.contentWhyEnterpreuner = new ContentWhyEnterpreuner()
 
-        /* 5.- ELEVATOR PITCH */
+        /* - BUSINESS */
+        this.contentBusiness = new ContentBusiness()
+
+        /* - CINEMATICS SARAH APPROVES */
+        this.contentAct1SarahApproves = new ContentAct1SarahApproves()
+
+        /* - ELEVATOR PITCH */
         this.contentElevatorPitch = new ContentElevatorPitch()
 
-        /* 6.- PATAGONIA FOUNDER */
+        /* - PATAGONIA FOUNDER */
         this.contentPatagonia = new ContentPatagonia()
 
         /* TRAVEL TO MANAUS */
@@ -109,12 +129,10 @@ class Controller {
         */
 
         /* TESTING */
-        //this.showContent(1)
+        this.showContent(15) // 5 why
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event)
         });
-
-        
 
         eventSystem.subscribe(Events.ON_REQUEST_STEP, (content)=>{ this.showContent(content) }) // this.showContent(this.currentSection)
         eventSystem.subscribe(Events.ON_REQUEST_NEXT_STEP, ()=>{ this.onNextContentRequested() }) // this.showContent(this.currentSection)
@@ -152,6 +170,9 @@ class Controller {
         // opacity to 1
         el.style.opacity = 1
 
+        const previousContent = this.currentSection
+        // Si hay contenido previo notificamos que desaparece
+        eventSystem.publish(Events.ON_CONTENT_BEGIN_HIDE, previousContent)
 
         const xDest = -this.contentWidth * content
         anime({
@@ -162,13 +183,13 @@ class Controller {
             complete: function(anim) {
                  // notificamos el contenido que entra
                 eventSystem.publish(Events.ON_CONTENT_SHOWN, content) 
+                eventSystem.publish(Events.ON_CONTENT_HIDE, previousContent)
             }
         });
 
         eventSystem.publish(Events.ON_CONTENT_BEGIN_SHOWN, content) 
 
-        // Si hay contenido previo notificamos que desaparece
-        eventSystem.publish(Events.ON_CONTENT_HIDE, this.currentSection)
+        
 
         this.currentSection = content
     }

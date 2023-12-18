@@ -147,26 +147,6 @@ class ContentDraggable extends Content {
         setTimeout(() => {
             this.getBoundingRects()
             this.positionDraggableElements()
-
-            this.droppableItems.forEach((item, i) => {
-                // Adjust width of the element as itemWidth
-                item.style.width = `${this.itemWidth}px`
-                const dropBoundingRect = item.getBoundingClientRect()
-                const id = item.id.split("-")[1]
-
-                
-                const x = dropBoundingRect.x - this.rootRect.x//+ this.contentBoundingRect.width // - self.contentBoundingRect.x
-                const y = dropBoundingRect.y - self.contentBoundingRect.y
-
-
-                const dropData = this.findDropElement(id)
-                dropData.pos = {x,y}
-                dropData.width = dropBoundingRect.width
-                dropData.height = dropBoundingRect.height
-            })
-
-            this.setupLines()
-
         }, 100)
 
         // Track de la posición del mouse
@@ -174,12 +154,51 @@ class ContentDraggable extends Content {
             event.preventDefault();
             self.mouseX = event.clientX
             self.mouseY = event.clientY
+
+            //self.positionDropElements()
+            //self.setupLines()
         });
 
         // Empezamos el loop
         this.startLoop()
     }
 
+
+    activateContent(){
+        this.getBoundingRects()
+        this.positionDropElements()
+        this.setupLines()
+    }
+
+    positionDropElements(){
+        // this.xLeft + marginInterior + this.marginLeft
+
+        // Test
+        const test = document.getElementById("draggable-test")
+
+        this.droppableItems.forEach((item, i) => {
+            // Adjust width of the element as itemWidth
+            item.style.width = `${this.itemWidth}px`
+            const dropBoundingRect = item.getBoundingClientRect()
+            const id = item.id.split("-")[1]
+
+            console.log(dropBoundingRect)
+            //console.log(this.rootRect.x)
+            //console.log(this.marginLeft)
+            //console.log(this.xLeft)
+            //const x = dropBoundingRect.x - this.rootRect.x
+            const x = dropBoundingRect.x - this.rootRect.x + this.xLeft
+            const y = dropBoundingRect.y - this.contentBoundingRect.y
+            console.log(x)        
+            test.style.left = `${x}px`
+            test.style.top = `${y}px`
+
+            const dropData = this.findDropElement(id)
+            dropData.pos = {x,y}
+            dropData.width = dropBoundingRect.width
+            dropData.height = dropBoundingRect.height
+        })
+    }
 
   
 
@@ -188,10 +207,16 @@ class ContentDraggable extends Content {
         this.dropZoneBoundingRect  = this.dropZone.getBoundingClientRect()
         this.contentBoundingRect  = this.content.getBoundingClientRect()
         this.rootRect = document.getElementById("root").getBoundingClientRect()
+        
+        const holder = document.querySelector(".draggable-holder").currentStyle || window.getComputedStyle(document.querySelector(".draggable-holder"))
+        this.marginLeft = Number(holder.marginLeft.replace("px", ""))
+        this.xLeft = this.rootRect.width * Number(this.contentID)
+        /*
         console.log("rootBoundingRect")
         console.log(this.rootRect)
         console.log("contentBoundingRect")
         console.log(this.contentBoundingRect)
+        */
     }
 
     positionDraggableElements(){
@@ -213,7 +238,8 @@ class ContentDraggable extends Content {
         this.itemHeight = 44
         const rowWidth = 60
 
-
+        
+        
         // Elementos de drageo
         this.draggableItems.forEach((item, i) => {
             // Adjust width of the element as itemWidth
@@ -224,8 +250,10 @@ class ContentDraggable extends Content {
             const elementID = dataElement.id
             
             // Punto 0,0
-            let x = this.draggableZoneBoundingRect.x - this.rootRect.x + marginInterior //+ this.draggableZoneBoundingRect.x  + marginInterior // - this.contentBoundingRect.x
-            let y = this.draggableZoneBoundingRect.y - this.rootRect.y + marginVertical // - this.contentBoundingRect.y
+            console.log("Checking")
+            //console.log(`this.draggableZoneBoundingRect.x = ${this.draggableZoneBoundingRect.x} this.rootRect.x = ${this.rootRect.x} this.contentBoundingRect.x = ${this.contentBoundingRect.x}`)
+            let x = this.xLeft + marginInterior + this.marginLeft //this.draggableZoneBoundingRect.x - this.rootRect.x + marginInterior 
+            let y = this.draggableZoneBoundingRect.y - this.rootRect.y + marginVertical 
             
             // Posición según fila y columna
             x += col * (this.itemWidth + marginInterior)
@@ -301,7 +329,7 @@ class ContentDraggable extends Content {
         // Incrementaoms el z-index del drageable
         this.draggingElement.style.zIndex = 999
 
-        console.log("quitamos a dragID:" + elementID + " de la lista")
+        //console.log("quitamos a dragID:" + elementID + " de la lista")
         this.dropElementsData.forEach(item => {
             if(item.droppedID == elementID){
                 item.droppedID = undefined
@@ -329,7 +357,7 @@ class ContentDraggable extends Content {
     }
 
     onMouseUp(){
-        console.log("onMouseUp")
+        //console.log("onMouseUp")
         // Hemos de calcular dónde hemos soltado el elemento
         // Si lo hemos soltado en una zona de drop, mirar el item de esa zona
         // Si no, lo dejamos en su posición original

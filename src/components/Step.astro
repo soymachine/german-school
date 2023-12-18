@@ -3,7 +3,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 interface Props {
 	step: string,
-	act: string,
+	act?: string,
 }
 
 const { step, act } = Astro.props;
@@ -78,6 +78,13 @@ const stepNum = Number(step)
 
 	.button{
         
+
+    }
+
+    @media (max-width: 375px) {
+        .step {
+            grid-template-rows: 60px auto 35px;
+        }
     }
 	
 </style>

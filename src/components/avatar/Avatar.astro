@@ -2,19 +2,15 @@
 interface Props {
 	step: string,
     width?:number,
-    isSpeech?:boolean
+    isSpeech?:boolean,
+    fontSize?:number,
+    hasText?:boolean,
+    textCorrection?:number,
 }
 
-let { step, width, isSpeech } = Astro.props;
+let { step, width = 150, isSpeech = false, fontSize = 22, hasText = true, textCorrection = 20 } = Astro.props;
 
-
-if(!isSpeech){
-    isSpeech = false
-}
-
-if(!width) {
-    width = 150
-}
+const height = width * 1.33333
 ---
 <div id=`my-avatar-${step}` class="my-avatar-image">
     <img class="my-avatar-body-part" class:list={[{ "my-avatar-hide": isSpeech }]} id="my-avatar-base-bg-preview" src="./imgs/avatar/parts/base-bg.png">
@@ -34,20 +30,56 @@ if(!width) {
     <img class="my-avatar-body-part my-avatar-body-extra" id="my-avatar-beard-preview" src="./imgs/avatar/parts/beard.png">
     <img class="my-avatar-body-part" id="my-avatar-hair-preview" src="./imgs/avatar/parts/hair-style-1-color-1.svg">
 </div>
-<script define:vars={{ width }}>
-console.log("width:" + width)
+{
+    hasText && (
+        <div class="user-name" id=`my-avatar-name-${step}`>Dani</div>        
+    )
+}
+
+<script define:vars={{ width, height, step, fontSize, hasText, textCorrection }}>
     
-    document.querySelectorAll(".my-avatar-body-part, #my-avatar-eyes-image").forEach(element => {
+    //console.log(width, height, step)
+    const contentRect = document.querySelector("#content").getBoundingClientRect()
+    const percent = contentRect.width / 448
+    const finalWidth = width * percent
+    const finalHeight = width * 1.3 * percent
+    const finalTextCorrection = textCorrection * percent
+    const finalFontSize = fontSize * percent
+    console.log("percent = ", percent)
+    console.log("finalWidth = ", finalWidth)
+    console.log("finalTextCorrection = ", finalTextCorrection)
+    
+    document.querySelectorAll(`#my-avatar-${step} .my-avatar-body-part,#my-avatar-${step} #my-avatar-eyes-image`).forEach(element => {
         // Set width to 200 for each element
         const el = element
-        el.width = width
+        el.width = finalWidth
     })
+
+    if(hasText){
+        // Centramos el nombre de usuario
+        const userName = document.getElementById("my-avatar-name-"+step)
+        const rect = userName.getBoundingClientRect();
+        const x = finalWidth * .5 - rect.width * .5
+        const y = finalHeight - (finalTextCorrection)
+
+        userName.style.left = `${x}px`
+        userName.style.top = `${y}px`
+
+        // change fontSize of userName based on fontSize param
+        userName.style.fontSize = `${finalFontSize}px`
+    }
+   
+
 </script>
 <style>
+    .user-name{
+        position: absolute;
+    }
     .my-avatar-image {
         position: absolute;
         top:0px;
         left:0px;
+        z-index: 100;
     }
 
     .my-avatar-hide {

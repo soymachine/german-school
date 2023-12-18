@@ -15,7 +15,7 @@ const isTravel = (step == "5") ? true: false
 <script>
     
 </script>
-<div class=`step` id=`step-${step}` class:list={[{ bgTravel: isTravel }]}>
+<div class=`step bgTravel` id=`step-${step}`>
     <div class="step-content">
         <slot />
     </div>

@@ -146,12 +146,20 @@ class AvatarMovement {
     }
 
     movePart(id, part, correction, radius, testID){
-        radius = (this.avatarWidth / 350) * radius
+        
 
         const correctionX = correction.x * this.avatarWidth
         const correctionY = correction.y * this.avatarHeight
         const angle = this.getAngle(this.avatarImgRect.x + correctionX, this.avatarImgRect.y + correctionY, this.xCurrent, this.yCurrent);
-        
+        const distance = this.getDistance(this.avatarImgRect.x + correctionX, this.avatarImgRect.y + correctionY, this.xCurrent, this.yCurrent);
+
+        radius = (this.avatarWidth / 350) * radius
+
+        let percentRadius = distance / radius
+        // if percentRadius > 1 => percentRadius = 1
+        percentRadius = Math.min(percentRadius, 1)
+
+        const alphaRadius = (radius * percentRadius) 
         /*
         // Testing 
         if(id == "eyes"){
@@ -159,11 +167,12 @@ class AvatarMovement {
             const y = this.avatarImgRect.y + correctionY
             const dist = this.getDistance(x, y, this.xCurrent, this.yCurrent)
             //console.log(`dist ${dist} x ${x} y ${y} this.xCurrent ${this.xCurrent} this.yCurrent ${this.yCurrent}`)
+            console.log(alphaRadius)
         }
-        */
+        //*/
         
-        var x = 0 + radius * Math.cos(angle);
-        var y = 0 + radius * Math.sin(angle);
+        var x = 0 + alphaRadius * Math.cos(angle);
+        var y = 0 + alphaRadius * Math.sin(angle);
         
         part.style.transform = `translateX(${x}px) translateY(${y}px)`
 

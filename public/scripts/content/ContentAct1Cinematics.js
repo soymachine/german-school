@@ -3,6 +3,8 @@ import {eventSystem, Events} from '../helpers/EventSystem.js'
 import Settings from '../helpers/Settings.js'
 import Steps from '../helpers/Steps.js'
 import { avatarSelection } from '../helpers/AvatarSelection.js'
+import AvatarCopier from './avatar/AvatarCopier.js'
+
 class ContentAct1Cinematics extends Content {
     constructor() {
         super(Steps.ACT_I_CINEMATICS)
@@ -21,11 +23,15 @@ class ContentAct1Cinematics extends Content {
             self.onClickSpeechBubble()
         })
         // this.updateText()
+
+        
     }
 
     preactivateContent(){
         this.texts[0] = `Nice to meet you <span class='user-name'>${avatarSelection.name}!</span><p style='margin-top:20px'>I think you can be the perfect addition to the team</p>`
         this.updateText()
+        this.avatarCopier = new AvatarCopier(this.contentID)
+        this.avatarCopier.update()
     }
 
     onClickSpeechBubble() {

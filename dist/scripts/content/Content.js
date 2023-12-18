@@ -7,11 +7,27 @@ class Content{
         this.isNextEnabled = false
         eventSystem.subscribe(Events.ON_CONTENT_SHOWN, (content)=>{ this.onContentShown(content)})
         eventSystem.subscribe(Events.ON_CONTENT_HIDE, (content)=>{ this.onContentHide(content)})
+        eventSystem.subscribe(Events.ON_CONTENT_BEGIN_SHOWN, (content)=>{ this.onContentBeginShow(content)})
+        eventSystem.subscribe(Events.ON_CONTENT_BEGIN_HIDE, (content)=>{ this.onContentBeginHide(content)})
+    }
+
+    onContentBeginShow(content){
+        if(content == this.contentID){
+            //console.log("Activamos content de " + content)
+            this.preactivateContent()
+        }
+    }
+
+    onContentBeginHide(content){
+        if(content == this.contentID){
+            //console.log("Activamos content de " + content)
+            this.predeactivateContent()
+        }
     }
 
     onContentShown(content){
         if(content == this.contentID){
-            console.log("Activamos content de " + content)
+            //console.log("Activamos content de " + content)
             this.activateContent()
         }
     }
@@ -20,6 +36,14 @@ class Content{
         if(content == this.contentID){
             this.deactivateContent()
         }
+    }
+
+    preactivateContent(){
+        // a implementar quien lo necesite
+    }
+
+    predeactivateContent(){
+        // a implementar quien lo necesite
     }
 
     activateContent(){

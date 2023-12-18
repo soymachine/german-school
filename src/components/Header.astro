@@ -16,18 +16,17 @@ const { step,act } = Astro.props;
     .header {
         --color-blue:#064796;
         display: grid;
-        grid-template-areas: 'info settings';
-        grid-template-columns: auto 34px;
+        grid-template-areas: 'info';
+        grid-template-columns: auto;
         grid-template-rows: 34px;
         margin: 15px 15px;
         gap: 7px;
         font-family: 'Roboto', sans-serif;
         color:white;
-        opacity:0;
+        
     }
 
     .info{
-        grid-area: info;
         padding:10px;
         display: flex;
         justify-content: center;
@@ -57,6 +56,25 @@ const { step,act } = Astro.props;
     }
 
     .settings{
-        grid-area: settings;
+        position: absolute;
+        left: 88%;
+        top: 13px;
+    }
+
+    @media (max-width: 375px) {
+        .header-title {
+            font-size: 15px;            
+        }
+
+        .small-text{
+            font-size:10px;
+            margin-top: 2px;
+        }
+
+        .header {
+            margin: 13px 15px;
+        }
+
+        
     }
 </style>

@@ -1,1 +1,61 @@
-Social media
+---
+import NextButton from '../components/buttons/NextButton.astro';
+import QuestionHeader from '../components/QuestionHeader.astro';
+import Avatar from '../components/avatar/Avatar.astro';
+interface Props {
+	step: string;
+}
+
+const { step } = Astro.props;
+---
+<div class=`holder-social-media`>
+    <div id="avatar">
+        <Avatar step={step} hasText={false}/>
+    </div>
+    <div>Social Media content here...</div>
+    <NextButton step={step}/>
+</div>
+<style >
+    
+    .holder-social-media {
+        --text-blue:#14519C; 
+        --color-blue:#044596;
+        color:darkblue;
+        text-align: center;
+        font-size: 14px;
+        margin:20px 10px;
+        font-family: 'Roboto', sans-serif;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    
+
+    #avatar {
+        width: 100%;
+        height: 50px;
+        position: relative;
+    }
+
+    #avatar img {
+        margin-top: -60px;
+        pointer-events: none;
+    }
+
+    .answer-description {
+        border:1px solid #15519D;
+        border-radius:8px;
+        padding:10px 10px;
+        margin:30px 10px 30px 10px;
+    }
+
+    #answer-correct-icon{
+        position: absolute;
+        top:0;
+        left:0;
+        opacity: 0;
+    }
+
+</style>

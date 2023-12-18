@@ -14,6 +14,7 @@ class AvatarCopier {
         this.glasses = document.querySelector(`#my-avatar-${this.id} #my-avatar-glasses-preview`)
         this.beard = document.querySelector(`#my-avatar-${this.id} #my-avatar-beard-preview`)
         this.moustache = document.querySelector(`#my-avatar-${this.id} #my-avatar-moustache-preview`)
+        this.name = document.getElementById(`my-avatar-name-${this.id}`)
     }
 
     update(){
@@ -29,6 +30,8 @@ class AvatarCopier {
         this.nose.src = `./imgs/avatar/parts/nose-skin-${(skinColor)}.svg` 
         this.hair.src = `./imgs/avatar/parts/hair-style-1-color-${(hairColor)}.svg`
         this.body.src = `./imgs/avatar/parts/body-${(bodyColor)}.svg`
+
+        if(this.name) this.name.innerHTML = avatarSelection.name
         
         /* Los extras */
         if(avatarSelection.beard == 0){

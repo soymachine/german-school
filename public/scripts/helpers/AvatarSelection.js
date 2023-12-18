@@ -9,7 +9,7 @@ class AvatarSelection {
         this.beard = 0 
         this.glasses = 0 
         this.moustache = 0 
-        this.name = "" 
+        this.name = "Dani" 
     }
 
     setName(name){

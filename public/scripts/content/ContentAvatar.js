@@ -64,14 +64,20 @@ class ContentAvatar extends Content {
         this.currentDisplay = 0
         this.maxDisplays = this.sections[this.currentSection].total
 
+        this.contentRect = document.querySelector("#content").getBoundingClientRect()
+        const W = this.contentRect.width
+        const H = this.contentRect.height
+        const sizeBig = W * 0.78
+        const sizeSmall = W * 0.5
+        const yOffset = H>667?50:-20
         this.adjustments = {
             "big":{
-                size:350,
+                size: sizeBig, // 350
                 x:0, y:0
             },
             "small":{
-                size:300,
-                x:30, y:-50
+                size:sizeSmall, // 300
+                x:sizeSmall * 0.28, y:0 - yOffset
             },
         }       
 
@@ -86,6 +92,10 @@ class ContentAvatar extends Content {
         this.prevDisplayButton = document.getElementById("avatar-display-left")
         this.nextDisplayButton = document.getElementById("avatar-display-right")
 
+        // Next button
+        this.nextButton = document.getElementById(`next-button-${this.contentID}`)
+        this.nextButton.innerHTML = "Finish"
+
         /* EVENTS */
         this.addEvent(this.nextSectionButton, Content.ON_PRESS, (e)=>{this.onNextSectionButtonClicked(e)})
         this.addEvent(this.prevSectionButton, Content.ON_PRESS, (e)=>{this.onPrevSectionButtonClicked(e)})
@@ -96,7 +106,7 @@ class ContentAvatar extends Content {
         this.$eyes = document.getElementById("avatar-eyes-preview");
         this.eyesRect = this.$eyes.getBoundingClientRect();
         
-        this.contentRect = document.querySelector("#content").getBoundingClientRect()
+        
 
         /* BODY PARTS */
         this.hair = document.getElementById("avatar-hair-preview")
@@ -511,6 +521,8 @@ class ContentAvatar extends Content {
     showGreetings(){
         // Avatar en grande
         this.updateAvatarSize("big")
+
+        this.nextButton.innerHTML = "Next"
 
         // Update name
         console.log(`avatarSelection.name ${avatarSelection.name}`)

@@ -14,6 +14,9 @@ import ContentAvatar from './content/ContentAvatar.js'
 import Intro from './content/Intro.js'
 import ContentAct1Cinematics from './content/ContentAct1Cinematics.js'
 import ContentAct2Cinematics from './content/ContentAct2Cinematics.js'
+import ContentSocialMedia from './content/ContentSocialMedia.js'
+import ContentBusiness from './content/ContentBusiness.js'
+import ContentAct1SarahApproves from './content/ContentAct1SarahApproves.js'
 
 class Controller {
     constructor(){
@@ -65,6 +68,9 @@ class Controller {
         /* - AVATAR */
         this.contentAvatar = new ContentAvatar()
 
+        /* - AVATAR */
+        this.contentSocialMedia = new ContentSocialMedia()
+
         /* - ACT I CINEMATICS */
         this.contentAct1Cinematics = new ContentAct1Cinematics()
 
@@ -84,6 +90,12 @@ class Controller {
 
         /* - WHY ENTERPRENEUR */
         this.contentWhyEnterpreuner = new ContentWhyEnterpreuner()
+
+        /* - BUSINESS */
+        this.contentBusiness = new ContentBusiness()
+
+        /* - CINEMATICS SARAH APPROVES */
+        this.contentAct1SarahApproves = new ContentAct1SarahApproves()
 
         /* - ELEVATOR PITCH */
         this.contentElevatorPitch = new ContentElevatorPitch()
@@ -117,7 +129,7 @@ class Controller {
         */
 
         /* TESTING */
-        this.showContent(7) // 5 why
+        this.showContent(0) // 5 why
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event)
         });

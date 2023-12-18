@@ -14,9 +14,11 @@ import PatagoniaStep from './PatagoniaStep.astro';
 import SocialMediaStep from './SocialMediaStep.astro';
 import ActTitleStep from './ActTitleStep.astro';
 import Act1_Cinematics from './acts/Act1_Cinematics.astro';
+import Act1_SarahApproves from './acts/Act1_SarahApproves.astro';
 import Act2_Cinematics from './acts/Act2_Cinematics.astro';
 import Intro from './Intro.astro';
 import Header from '../components/Header.astro';
+import BusinessStep from './BusinessStep.astro';
 ---
 <Layout title="Guardians of the Rainforest | WHU">
 	<div class="container" draggable="false">
@@ -25,52 +27,58 @@ import Header from '../components/Header.astro';
 				<Header step={"0"} act={"I"}/>
 			</div>
 			<div id="content" class="content">
-				<Step step="0" act="0">
+				<Step step="0">
 					<Intro step='0'/>
 				</Step>
-				<Step step="1" act="I">
+				<Step step="1">
 					<AvatarStep step='1'/>
 				</Step>
-				<Step step="2" act="I">
+				<Step step="2">
 					<SocialMediaStep step='2'/>
 				</Step>
-				<Step step="3" act="I">
-					<ActTitleStep act=1 label='The Call for Adventure' step="3"/>
+				<Step step="3">
+					<ActTitleStep act={1} label='The Call for Adventure' step="3"/>
 				</Step>
-				<Step step="4" act="I">
+				<Step step="4">
 					<Act1_Cinematics step='4'/>
 				</Step>
-				<Step step="5" act="III">
+				<Step step="5">
 					<WhyEnterpreneurStep step="5" />
 				</Step>
-				<Step step="6" act="II">
-					<ActTitleStep act=2 label='The Journey begins' step="6"/>
+				<Step step="6">
+					<BusinessStep step="6" />
 				</Step>
-				<Step step="7" act="I">
-					<Act2_Cinematics step='7'/>
+				<Step step="7">
+					<Act1_SarahApproves step="7" />
 				</Step>
-				<Step step="8" act="I">
-					<StartupsStep step="8"/>
+				<Step step="8">
+					<ActTitleStep act={2} label='The Journey begins' step="8"/>
+				</Step>
+				<Step step="9">
+					<Act2_Cinematics step='9'/>
+				</Step>
+				<Step step="10">
+					<StartupsStep step="10"/>
 				</Step>
 				<!-- subect TO CHANGE -->
-				<Step step="9" act="I">
-					<FlowDiagramStep step='9'/>
+				<Step step="11">
+					<FlowDiagramStep step='11'/>
 				</Step>
 				
-				<Step step="10" act="II">
-					<FinancialMetric step="10" />
+				<Step step="12">
+					<FinancialMetric step="12" />
 				</Step>
-				<CleanStep step="11" act="III">
-					<TravelToManausStep step="11" />
+				<CleanStep step="13" act="III">
+					<TravelToManausStep step="13" />
 				</CleanStep>
 				
-				<Step step="12" act="III">
-					<ElevatorPitchStep step="12" />
+				<Step step="14">
+					<ElevatorPitchStep step="14" />
 				</Step>
-				<Step step="13" act="III">
-					<PatagoniaStep step="13" />
+				<Step step="15">
+					<PatagoniaStep step="15" />
 				</Step>
-				<Step step="14" act="IV">
+				<Step step="16">
 					<Form />
 				</Step>
 			</div>

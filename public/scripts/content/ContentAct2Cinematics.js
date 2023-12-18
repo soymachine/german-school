@@ -3,20 +3,21 @@ import {eventSystem, Events} from '../helpers/EventSystem.js'
 import Settings from '../helpers/Settings.js'
 import Steps from '../helpers/Steps.js'
 import { avatarSelection } from '../helpers/AvatarSelection.js'
+import AvatarCopier from './avatar/AvatarCopier.js'
+
 class ContentAct2Cinematics extends Content {
     constructor() {
         super(Steps.ACT_II_CINEMATICS)
         console.log("Content Act II Cinematics")
         const self = this
-        this.greetingsText = `Nice to meet you <span class='user-name'>${avatarSelection.name}!</span><p style='margin-top:20px'>I think you can be the perfect addition to the team</p>`,
         this.texts = [
             "to update",
             "But first I need to test your enterpreneurship skills!"
         ]
         this.maxSteps = 2
         this.step = 1
-        this.label = document.getElementById("speech-content-act-1")
-        this.button = document.getElementById("content-cinematic-act-1-button")
+        this.label = document.getElementById("speech-content-act-2")
+        this.button = document.getElementById("content-cinematic-act-2-button")
         this.addEvent(this.button, Content.ON_PRESS, (event)=>{
             self.onClickSpeechBubble()
         })
@@ -24,8 +25,10 @@ class ContentAct2Cinematics extends Content {
     }
 
     preactivateContent(){
-        this.texts[0] = `Nice to meet you <span class='user-name'>${avatarSelection.name}!</span><p style='margin-top:20px'>I think you can be the perfect addition to the team</p>`
+        this.texts[0] = `Welcome aboard, <span class='user-name'>${avatarSelection.name}!</span>`
         this.updateText()
+        this.avatarCopier = new AvatarCopier(this.contentID)
+        this.avatarCopier.update()
     }
 
     onClickSpeechBubble() {
