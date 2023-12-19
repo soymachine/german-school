@@ -24,6 +24,7 @@ const { step } = Astro.props;
         <div class="avatar-display-wrapper">
             <img class="avatar-ref" id="avatar-ref" src="./imgs/avatar/parts/neck-1.svg">
             <div class="avatar-image" id="avatar-image">
+                <img class="avatar-body-part" id="avatar-hair-back-preview" src="./imgs/avatar/parts/hair-style-2-back-black.svg">
                 <img class="avatar-body-part" id="avatar-neck-preview" src="./imgs/avatar/parts/neck-1.svg">
                 <img class="avatar-body-part" id="avatar-head-preview" src="./imgs/avatar/parts/skin-1.svg">
                 <img class="avatar-body-part" id="avatar-eyebrows-preview" src="./imgs/avatar/parts/eyebrows-skin-1.svg">
@@ -36,7 +37,7 @@ const { step } = Astro.props;
                 <img class="avatar-body-part avatar-body-extra" id="avatar-glasses-preview" src="./imgs/avatar/parts/glasses.svg">
                 <img class="avatar-body-part avatar-body-extra" id="avatar-moustache-preview" src="./imgs/avatar/parts/moustache.png">
                 <img class="avatar-body-part avatar-body-extra" id="avatar-beard-preview" src="./imgs/avatar/parts/beard.png">
-                <img class="avatar-body-part" id="avatar-hair-preview" src="./imgs/avatar/parts/hair-style-1-color-1.svg">
+                <img class="avatar-body-part" id="avatar-hair-preview" src="./imgs/avatar/parts/hair-style-1-black.svg">
                 
 
                 <img class="avatar-test" id="avatar-test-1" src="./imgs/incorrect.png">
@@ -176,6 +177,7 @@ const { step } = Astro.props;
 
     .avatar-greetings{
         position: absolute;
+        pointer-events: none;
         width: 100%;
         font-size: 20px;
         margin: 40px 0px 0px 0px;
@@ -460,6 +462,11 @@ const { step } = Astro.props;
 
         #color-picker-extras {
             gap:10px 0px;
+        }
+
+        .avatar-greetings{
+            margin: 15px 0px 0px 0px;
+            
         }
     }
 

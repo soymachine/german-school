@@ -18,6 +18,10 @@ class ContentAvatar extends Content {
         // Scope
         const self = this
 
+        this.hairColors = ["black", "blonde", "blue", "brown", "redhair"]
+        this.currentHairColor = 0
+        this.currentHairStyle = 0
+
         // Sections
         this.sections = [
             {
@@ -35,7 +39,7 @@ class ContentAvatar extends Content {
             {
                 id:"hairstyle",
                 label:"Hair style",
-                total:12,
+                total:6,
                 current:0
             },
             {
@@ -110,6 +114,7 @@ class ContentAvatar extends Content {
 
         /* BODY PARTS */
         this.hair = document.getElementById("avatar-hair-preview")
+        this.hairBack = document.getElementById("avatar-hair-back-preview")
         this.head = document.getElementById("avatar-head-preview")
         this.eyebrows = document.getElementById("avatar-eyebrows-preview")
         this.mouth = document.getElementById("avatar-mouth-preview")
@@ -119,6 +124,9 @@ class ContentAvatar extends Content {
         this.glasses = document.getElementById("avatar-glasses-preview")
         this.beard = document.getElementById("avatar-beard-preview")
         this.moustache = document.getElementById("avatar-moustache-preview")
+
+        // Ocultamos el back de momento
+        this.hairBack.style.opacity = 0
 
         // Toda la imaen
         this.avatarImage = document.querySelector(".avatar-image")
@@ -257,6 +265,7 @@ class ContentAvatar extends Content {
 
         this.updateExtraImage(iconName, nextDisplay)
         this.currentDisplay = nextDisplay
+        
         this.updateCurrentDisplay()
 
         
@@ -359,8 +368,11 @@ class ContentAvatar extends Content {
                 this.updateSkin()
                 break;
             case "hairstyle":
+                this.currentHairStyle = this.currentDisplay
+                this.updateHairStyle()
                 break;
             case "haircolor":
+                this.currentHairColor = this.currentDisplay
                 this.updateHairColor()
                 break;
             case "bodycolor":
@@ -438,9 +450,34 @@ class ContentAvatar extends Content {
     }
 
     updateHairColor(){
-        this.hair.src = `./imgs/avatar/parts/hair-style-1-color-${(this.currentDisplay + 1)}.svg`
+        const hairColor = this.hairColors[this.currentDisplay]
+        this.hair.src = `./imgs/avatar/parts/hair-style-${this.currentHairStyle + 1}-${hairColor}.svg`
+
+        // Cambiamos el color del back también si procede
+        if(this.currentHairStyle != 0){
+            this.hairBack.src = `./imgs/avatar/parts/hair-style-${(this.currentHairStyle + 1)}-back-${hairColor}.svg`
+        }
+
+
         this.avatarSelection.hairColor = this.currentDisplay
     }
+
+    updateHairStyle(){
+        const hairColor = this.hairColors[this.currentHairColor]
+        this.hair.src = `./imgs/avatar/parts/hair-style-${(this.currentDisplay + 1)}-${hairColor}.svg`
+
+        // Tiene pelo back?
+        if(this.currentDisplay == 0){
+            this.hairBack.style.opacity = 0
+        }else{
+            this.hairBack.style.opacity = 1
+            this.hairBack.src = `./imgs/avatar/parts/hair-style-${(this.currentDisplay + 1)}-back-${hairColor}.svg`
+        }
+
+        this.avatarSelection.hairStyle = this.currentDisplay
+    }
+
+
     updateSkin(){
         this.head.src = `./imgs/avatar/parts/skin-${(this.currentDisplay + 1)}.svg` 
         this.eyebrows.src = `./imgs/avatar/parts/eyebrows-skin-${(this.currentDisplay + 1)}.svg` 

@@ -10,8 +10,8 @@ const { step } = Astro.props;
 ---
 <div class=`holder-business`>
     <QuestionHeader character="sarah">
-        <p><strong>Let's talk business.</strong></p>
-        <p>Only one anser is correct</p>
+        <p class="first-paragraph"><strong>Let's talk business.</strong></p>
+        <p class="second-paragraph">Only one anser is correct</p>
     </QuestionHeader>
     <div class="answers">
         <div class="business-titles">
@@ -24,27 +24,80 @@ const { step } = Astro.props;
                 <div class="answer-text">Visual chart</div>
                 <div class="separation"></div>
                 <div class="answer-text">Written document</div>
+                <img class="answer-correct-icon" src="./imgs/companies/correct.png"></img>
+                <img class="answer-incorrect-icon" src="./imgs/companies/incorrect.png"></img>
             </a>
             <a class=`btn-step-${step}-option business-answer-button` href="#" id=`step-${step}-answer-button-2`>
                 <div class="answer-text">Written document</div>
                 <div class="separation"></div>
                 <div class="answer-text">Visual chart</div>
+                <img class="answer-correct-icon" src="./imgs/companies/correct.png"></img>
+                <img class="answer-incorrect-icon" src="./imgs/companies/incorrect.png"></img>
             </a>
             <a class=`btn-step-${step}-option business-answer-button` href="#" id=`step-${step}-answer-button-3`>
                 <div class="answer-text">Start-ups only</div>
                 <div class="separation"></div>
                 <div class="answer-text">All business</div>
+                <img class="answer-correct-icon" src="./imgs/companies/correct.png"></img>
+                <img class="answer-incorrect-icon" src="./imgs/companies/incorrect.png"></img>
             </a>
             <a class=`btn-step-${step}-option business-answer-button` href="#" id=`step-${step}-answer-button-4`>
                 <div class="answer-text">Small businesses</div>
                 <div class="separation"></div>
                 <div class="answer-text">Large corporations</div>
+                <img class="answer-correct-icon" src="./imgs/companies/correct.png"></img>
+                <img class="answer-incorrect-icon" src="./imgs/companies/incorrect.png"></img>
             </a>
+        </div>
+        <div class="business-result">
+            <p class="business-result-points">+10</p>
+            <p><span>points</span></p>
         </div>
     </div>
     <NextButton step={step}/>
 </div>
 <style >
+
+    .business-result {
+        position: absolute;
+        left: 33%;
+        top: 65%;
+        background-color: #CEDFE5;
+        padding: 10px 20px;
+        font-size: 38px;
+        font-weight: bold;
+        border-radius: 8px;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .business-result span {
+        font-size: 20px;
+    }
+
+    .business-result p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .business-result p:last-child {
+        margin-top:-20px;
+    }
+
+    .answer-correct-icon {
+        position: absolute;
+        left:100%;
+        top:0px;
+        opacity: 0;
+    }
+
+    .answer-incorrect-icon {
+        position: absolute;
+        left:100%;
+        top:0px;
+        opacity: 0;
+
+    }
 
     .holder-business {
         --text-blue:#14519C; 
@@ -54,7 +107,7 @@ const { step } = Astro.props;
         font-size: 16px;
         margin:20px 40px;
         font-family: 'Roboto', sans-serif;
-        overflow: hidden;
+        overflow: visible;
         position: relative;
         display: flex;
         flex-direction: column;
@@ -104,6 +157,7 @@ const { step } = Astro.props;
         padding: 10px 10px;
         text-decoration: none;
         color:var(--color-blue);
+        position: relative;
     }
 
     .answer-text {
@@ -112,12 +166,26 @@ const { step } = Astro.props;
     }
 
     .separation {
-        border-right:2px solid #82A2CA;
+        border-right:2px solid rgba(5, 70, 150, 0.35);
     }
 
     .btn-step-option-selected {
         background-color: var(--color-blue);
         color:white;
+    }
+
+    .btn-step-option-selected .separation{
+        border-right:2px solid rgba(255, 255, 255, 0.35);
+    }
+
+    .btn-step-option-correct {
+        background-color: #1CAD4B;
+        border-color:#1CAD4B;
+        color:white;
+    }
+
+    .btn-step-option-correct .separation{
+        border-right:2px solid rgba(255, 255, 255, 0.35);
     }
 
     #title-plan {
@@ -176,6 +244,18 @@ const { step } = Astro.props;
 
         .answers {
             margin-bottom: 10px;
+        }
+
+        .answer-correct-icon {
+            left: 94%;
+            width: 36px;
+            top: 9%;
+        }
+
+        .answer-incorrect-icon {
+            left: 94%;
+            width: 36px;
+            top: 9%;
         }
 
     }

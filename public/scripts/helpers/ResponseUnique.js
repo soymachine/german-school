@@ -6,7 +6,7 @@ class ResponseUnique {
         this.step = step
         // Data
         this.buttons = {}
-
+        this.isEnabled = true
         this.currentButtonSelected = null
 
         // Scope
@@ -35,7 +35,9 @@ class ResponseUnique {
     }
 
     onClickSelection(id){
-        //console.log(id)
+        if(!this.isEnabled){
+            return
+        }
 
         // Remove previous current class
         if(this.currentButtonSelected != null){
