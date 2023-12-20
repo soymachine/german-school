@@ -36,6 +36,8 @@ class ContentPatagonia extends Content {
         this.duration = 500
 
         // Evento general para el release
+        
+        /*
         document.onmouseup = function() { //asign a function
             self.onMouseUp()
         }
@@ -44,6 +46,12 @@ class ContentPatagonia extends Content {
             event.preventDefault();
             self.onMouseUp()
         }, false);
+        */
+
+        const stepElement = document.getElementById(`step-${this.contentID}`)
+        this.addEvent(stepElement, Content.ON_RELEASE, (event)=>{
+            self.onMouseUp()
+        })
 
         // El botón de NEXT
         this.$nextButton = document.querySelector(`#next-button-${this.contentID}`)
@@ -109,6 +117,7 @@ class ContentPatagonia extends Content {
             },
         ]
 
+        // AQUI Puede que problemas
         this.addEvent(document, Content.ON_MOVE, (event) => {
             self.setMousePosition(event.clientX, event.clientY)
             self.updateDistance()

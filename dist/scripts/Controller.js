@@ -61,62 +61,76 @@ class Controller {
         this.content = {}
 
         // Agregamos segun el contenido
-
-        /* - INTRO */
+        
+        //- INTRO
         this.intro = new Intro()
 
-        /* - AVATAR */
+        // - AVATAR 
         this.contentAvatar = new ContentAvatar()
 
-        /* - AVATAR */
+        
+        // - AVATAR 
         this.contentSocialMedia = new ContentSocialMedia()
 
-        /* - ACT I CINEMATICS */
+        
+        // - ACT I CINEMATICS 
         this.contentAct1Cinematics = new ContentAct1Cinematics()
 
-         /* - ACT II CINEMATICS */
-         this.contentAct2Cinematics = new ContentAct2Cinematics()
+        
+        // - ACT II CINEMATICS 
+        this.contentAct2Cinematics = new ContentAct2Cinematics()
 
-        /* - FLOW DIAGRAM */
+        
+        // - FLOW DIAGRAM 
         this.contentDraggable = new ContentDraggable()
         // this.content["content-1"] = new ContentDraggable()
 
-        /* - STARTUPS QUESTION */
+        
+        // - STARTUPS QUESTION 
         this.contentMultiple = new ContentStartup()
         //this.content["content-2"] = new Content2()
 
-        /* - FINANCIAL METRIC QUESTION */
+        
+        // - FINANCIAL METRIC QUESTION 
         this.contentFinancial = new ContentFinancial()
 
-        /* - WHY ENTERPRENEUR */
+        
+        // - WHY ENTERPRENEUR 
         this.contentWhyEnterpreuner = new ContentWhyEnterpreuner()
 
-        /* - BUSINESS */
+        
+        // - BUSINESS 
         this.contentBusiness = new ContentBusiness()
 
-        /* - CINEMATICS SARAH APPROVES */
+        
+        // - CINEMATICS SARAH APPROVES 
         this.contentAct1SarahApproves = new ContentAct1SarahApproves()
 
-        /* - ELEVATOR PITCH */
+        
+        // - ELEVATOR PITCH 
         this.contentElevatorPitch = new ContentElevatorPitch()
 
-        /* - PATAGONIA FOUNDER */
+        
+        // - PATAGONIA FOUNDER 
         this.contentPatagonia = new ContentPatagonia()
 
-        /* TRAVEL TO MANAUS */
+        
+        // TRAVEL TO MANAUS 
         this.travelToManaus = new ContentTravelToManaus() 
-
-        /* HEADER */
+        
+        
+        // HEADER
         this.header = new Header()
 
-        /* 4.- FORM */
+        
+        // 4.- FORM
         //this.content["content-3"] = new Content3()
 
         // El controlador del questionario
         this.questionaireController = new QuestionaireController()
-
-        /* MUSIC */
         /*
+        
+        
         var sound = new Howl({
             src: ['sound/song.mp3'],
             autoplay: true,
@@ -128,7 +142,7 @@ class Controller {
         });
         */
 
-        /* TESTING */
+        // TESTING */
         this.showContent(0) // 5 why
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event)

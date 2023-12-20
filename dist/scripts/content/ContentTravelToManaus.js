@@ -65,7 +65,7 @@ class ContentTravelToManaus extends Content {
     }
 
     onTravelComplete(){
-        // eventSystem.publish(Events.ON_REQUEST_NEXT_STEP)
+        eventSystem.publish(Events.ON_REQUEST_NEXT_STEP)
     }
 }
 

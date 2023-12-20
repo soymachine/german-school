@@ -13,24 +13,7 @@ const stepNum = Number(step)
 
 
 ---
-<script>
-    
-    const headerHeight = 65
-    const footerHeight = 35
-    const marginLateral= 0
-    const rect = document.querySelector(".step").getBoundingClientRect()
-    const stepHeight = rect.height
-    const stepWidth = rect.width
 
-    // change .step-content height based on stepHeight
-    document.querySelectorAll(".step-content").forEach(element => {
-        const height = (stepHeight - headerHeight - footerHeight)
-        const width = (stepWidth - marginLateral - marginLateral)
-        element.style.width = `${width}px`
-        element.style.height = `${height}px`
-    });
-
-</script>
 <div class=`step` id=`step-${step}`>
     <div class="step-header">
     </div>
@@ -41,6 +24,24 @@ const stepNum = Number(step)
         <Footer>
     </div>
 </div>
+<script define:vars={{ step }}>
+    
+    const headerHeight = 65
+    const footerHeight = 35
+    const marginLateral= 0
+    const rect = document.querySelector(".step").getBoundingClientRect()
+    const stepWidth = rect.width
+
+    // change .step-content height based on stepHeight
+    document.querySelectorAll(".step-content").forEach(element => {
+        const height = (window.innerHeight - headerHeight - footerHeight) // stepHeight
+        //console.log("height = ", height)
+        const width = (stepWidth - marginLateral - marginLateral)
+        element.style.width = `${width}px`
+        element.style.height = `${height}px`
+        //element.innerHTML = `window.innerHeight = ${window.innerHeight}`
+    });
+</script >
 <style>
 
     .step {

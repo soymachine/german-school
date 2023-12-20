@@ -135,6 +135,13 @@ class ContentAvatar extends Content {
         
         // El botón de NEXT
         this.$nextButton = document.querySelector(`#next-button-${this.contentID}`)
+
+        /*
+        document.querySelector("#name-input").addEventListener('touchend', function(event){
+            event.preventDefault();
+            console.log("Como?")
+        }, false);
+        */
         
 
         this.$nextButton.onmousedown = function(e) { //asign a function
@@ -491,7 +498,7 @@ class ContentAvatar extends Content {
         let nextSection = this.currentSection + 1
 
         if(nextSection >= this.maxSections){
-            nextSection = 0
+            return
         }
         
         this.currentSection = nextSection
@@ -504,7 +511,7 @@ class ContentAvatar extends Content {
     onPrevSectionButtonClicked(event){
         let nextSection = this.currentSection - 1
         if(nextSection < 0){
-            nextSection = this.maxSections - 1
+            return
         }
 
         this.currentSection = nextSection
@@ -522,6 +529,36 @@ class ContentAvatar extends Content {
         
         this.updateAvatarBasedOnSection()
         this.updatePicker()
+        this.updateArrows()
+    }
+
+    updateArrows(){
+        if(this.currentSection == 0){
+            this.prevSectionButton.style.opacity = 0
+        }else{
+            this.prevSectionButton.style.opacity = 1
+        }
+
+        if(this.currentSection == this.maxSections - 1){
+            this.nextSectionButton.style.opacity = 0
+            this.checkNextButtonForFinish()
+        }else{
+            this.nextSectionButton.style.opacity = 1
+            this.nextButton.style.opacity = 0
+        }
+
+    }
+
+    checkNextButtonForFinish(){
+        // Solo mostramos Finish si hemos puesto nombre al avatar
+        if(avatarSelection.name != ""){
+            this.nextButton.innerHTML = "Finish"
+            this.nextButton.style.opacity = 1
+        }else{
+            this.nextButton.style.opacity = 0
+        }
+    
+        
     }
 
     updatePicker(){
@@ -545,6 +582,10 @@ class ContentAvatar extends Content {
     }
 
     onClickNext(){
+        if(this.nextButton.style.opacity != 1){
+            return 
+        }
+        
         if(this.hasFinishCreatingAvatar){
             // Hemos completado y hemos visto el saludo, ya podemos marchar
             this.gotoNextStep()

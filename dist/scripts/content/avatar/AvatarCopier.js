@@ -4,6 +4,7 @@ class AvatarCopier {
     constructor(id) {
         this.id = id
         this.hair = document.querySelector(`#my-avatar-${this.id} #my-avatar-hair-preview`)
+        this.hairBack = document.querySelector(`#my-avatar-${this.id} #my-avatar-hair-back-preview`)
         this.head = document.querySelector(`#my-avatar-${this.id} #my-avatar-head-preview`)
         this.eyes = document.querySelector(`#my-avatar-${this.id} #my-avatar-eyes-preview`)
         this.eyebrows = document.querySelector(`#my-avatar-${this.id} #my-avatar-eyebrows-preview`)
@@ -15,12 +16,13 @@ class AvatarCopier {
         this.beard = document.querySelector(`#my-avatar-${this.id} #my-avatar-beard-preview`)
         this.moustache = document.querySelector(`#my-avatar-${this.id} #my-avatar-moustache-preview`)
         this.name = document.getElementById(`my-avatar-name-${this.id}`)
+        this.hairColors = ["black", "blonde", "blue", "brown", "redhair"]
     }
 
     update(){
         const skinColor = avatarSelection.skinColor + 1
-        const hairStyle = avatarSelection.hair + 1
-        const hairColor = avatarSelection.hairColor + 1
+        const hairStyle = avatarSelection.hairStyle + 1
+        const hairColor = this.hairColors[avatarSelection.hairColor]
         const bodyColor = avatarSelection.bodyColor + 1
 
         this.head.src = `./imgs/avatar/parts/skin-${(skinColor)}.svg` 
@@ -28,10 +30,19 @@ class AvatarCopier {
         this.mouth.src = `./imgs/avatar/parts/mouth-skin-${(skinColor)}.svg` 
         this.neck.src = `./imgs/avatar/parts/neck-${(skinColor)}.svg` 
         this.nose.src = `./imgs/avatar/parts/nose-skin-${(skinColor)}.svg` 
-        this.hair.src = `./imgs/avatar/parts/hair-style-1-color-${(hairColor)}.svg`
+        this.hair.src = `./imgs/avatar/parts/hair-style-${(hairStyle)}-${(hairColor)}.svg`
         this.body.src = `./imgs/avatar/parts/body-${(bodyColor)}.svg`
 
         if(this.name) this.name.innerHTML = avatarSelection.name
+
+        /* El pelo back */
+        if(avatarSelection.hairStyle == 0){
+            // ocultamos el pelo back
+            this.hairBack.style.opacity = 0 
+        }else{
+            this.hairBack.style.opacity = 1 
+            this.hairBack.src = `./imgs/avatar/parts/hair-style-${(hairStyle)}-back-${(hairColor)}.svg`
+        }
         
         /* Los extras */
         if(avatarSelection.beard == 0){

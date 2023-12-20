@@ -133,21 +133,13 @@ class ContentDraggable extends Content {
             },
         ]
 
+        // OJO ERror aqui
         document.addEventListener('touchmove', function(event){
             event.preventDefault();
             var x = event.touches[0].clientX;
             var y = event.touches[0].clientY;
             self.setMousePosition(x, y)
         }, false)
-
-        //console.log(itemWidth)
-        
-
-        // Para que el cambio del width surja efecto en los getBoundingClientRect de los drop zone
-        setTimeout(() => {
-            this.getBoundingRects()
-            this.positionDraggableElements()
-        }, 100)
 
         // Track de la posición del mouse
         document.addEventListener('mousemove', (event) => {
@@ -158,6 +150,15 @@ class ContentDraggable extends Content {
             //self.positionDropElements()
             //self.setupLines()
         });
+
+        //console.log(itemWidth)
+        
+
+        // Para que el cambio del width surja efecto en los getBoundingClientRect de los drop zone
+        setTimeout(() => {
+            this.getBoundingRects()
+            this.positionDraggableElements()
+        }, 100)
 
         // Empezamos el loop
         this.startLoop()
