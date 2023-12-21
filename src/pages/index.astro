@@ -19,6 +19,7 @@ import Act2_Cinematics from './acts/Act2_Cinematics.astro';
 import Intro from './Intro.astro';
 import Header from '../components/Header.astro';
 import BusinessStep from './BusinessStep.astro';
+import Footer from '../components/Footer.astro';
 ---
 <Layout title="Guardians of the Rainforest | WHU">
 	<div class="container" draggable="false">
@@ -82,7 +83,9 @@ import BusinessStep from './BusinessStep.astro';
 					<Form />
 				</Step>
 			</div>
-			
+			<div class="sticky-footer">
+				<Footer />
+			</div>
 		</div>
 		
 	</div>
@@ -188,6 +191,13 @@ import BusinessStep from './BusinessStep.astro';
 		width: 100%;
 		display:grid;
 		background-color: #054696;
+	}
+
+	.sticky-footer {
+		width: 100%;
+		position: absolute;
+		bottom: 0px;
+		height: 35px;
 	}
 
 </style>

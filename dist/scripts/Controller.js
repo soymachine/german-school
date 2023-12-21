@@ -143,7 +143,7 @@ class Controller {
         */
 
         // TESTING */
-        this.showContent(0) // 5 why
+        //this.showContent(4) // 5 why
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event)
         });
@@ -193,6 +193,7 @@ class Controller {
             targets: '#content',
             translateX: xDest,
             easing: Settings.ease,
+            delay:0,
             duration:Settings.duration,
             complete: function(anim) {
                  // notificamos el contenido que entra

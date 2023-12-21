@@ -1,25 +1,39 @@
 <div class="footer">
-    WHU Logo + Footer info
+    <div class="footer-separator"></div>
+    <div class="footer-content">
+        <div class="footer-text">
+            © WHU 2023. Privacy policy
+        </div>
+    </div>
 </div>
-<script >
-    /*
-    const wIH = window.innerHeight
-    const rect = document.querySelector(".step").getBoundingClientRect()
-    const stepHeight = rect.height
-    
-    document.querySelector(".footer").innerHTML = `wIH=${wIH}px stepHeight=${stepHeight}px`
-    */
 
-</script >
 <style>
     .footer{
         --color-blue:#064796;
+        
         border-top:1px solid #9BB5D5;
-        padding:10px;
-        color:var(--color-blue);
+        /*padding:10px;*/
+        color:white;
         font-family: 'Roboto', sans-serif;
         text-align: center;
         font-size: 12px;
-        margin: 0 20px;
+        margin: 0 0px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .footer-separator{
+        border-top:2px solid #9EC0CC;
+        margin-bottom:2px;
+    }
+
+    .footer-content{
+        background-color:#548DA0;
+        flex-grow:1;
+    }
+
+    .footer-text {
+        margin-top: 8px;
     }
 </style>

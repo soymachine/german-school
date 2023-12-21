@@ -17,11 +17,20 @@ class ContentAct1Cinematics extends Content {
         ]
         this.maxSteps = 2
         this.step = 1
+        this.clicks = 0
         this.label = document.getElementById("speech-content-act-1")
         this.button = document.getElementById("content-cinematic-act-1-button")
+
+
+        this.button.onmousedown = function(event) { //asign a function
+            self.onClickSpeechBubble()
+        }
+
+        /*
         this.addEvent(this.button, Content.ON_PRESS, (event)=>{
             self.onClickSpeechBubble()
         })
+        */
         // this.updateText()
 
         
@@ -36,6 +45,7 @@ class ContentAct1Cinematics extends Content {
 
     onClickSpeechBubble() {
         console.log("Click bubble")
+        this.clicks = this.clicks + 1
 
         const nextStep = this.step + 1
 
@@ -47,6 +57,7 @@ class ContentAct1Cinematics extends Content {
             this.updateText()
         }
         
+        //this.label.innerHTML = `clicks ${this.clicks}`
     }
 
     updateText(){
