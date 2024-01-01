@@ -10,6 +10,7 @@ class ContentDraggable extends Content {
         const self = this
 
         // Draggeo
+        this.isActive = false
         this.isDragging = false
         this.draggingElement = undefined
         this.draggingElementPos = undefined
@@ -133,26 +134,11 @@ class ContentDraggable extends Content {
             },
         ]
 
-        // OJO ERror aqui
-        document.addEventListener('touchmove', function(event){
-            event.preventDefault();
-            var x = event.touches[0].clientX;
-            var y = event.touches[0].clientY;
-            self.setMousePosition(x, y)
-        }, false)
+        this.onTouchMove = this.onTouchMove.bind(this);
+        this.onMouseMove = this.onMouseMove.bind(this);
 
-        // Track de la posición del mouse
-        document.addEventListener('mousemove', (event) => {
-            event.preventDefault();
-            self.mouseX = event.clientX
-            self.mouseY = event.clientY
-
-            //self.positionDropElements()
-            //self.setupLines()
-        });
 
         //console.log(itemWidth)
-        
 
         // Para que el cambio del width surja efecto en los getBoundingClientRect de los drop zone
         setTimeout(() => {
@@ -160,10 +146,38 @@ class ContentDraggable extends Content {
             this.positionDraggableElements()
         }, 100)
 
-        // Empezamos el loop
-        this.startLoop()
+        
     }
 
+    preactivateContent(){
+        this.isActive = true
+        // Empezamos el loop
+        this.startLoop()
+
+        document.addEventListener('touchmove', this.onTouchMove)
+
+        // Track de la posición del mouse
+        document.addEventListener('mousemove', this.onMouseMove);
+    }
+
+    deactivateContent(){
+        this.isActive = false
+
+        document.removeEventListener('touchmove', this.onTouchMove)
+
+        // Track de la posición del mouse
+        document.removeEventListener('mousemove', this.onMouseMove);
+    }
+
+    onTouchMove(event){
+        event.preventDefault();
+        this.setMousePosition(event.touches[0].clientX, event.touches[0].clientY)
+    }
+
+    onMouseMove(event){
+        event.preventDefault();
+        this.setMousePosition(event.clientX, event.clientY)
+    }
 
     activateContent(){
         this.getBoundingRects()
@@ -499,7 +513,10 @@ class ContentDraggable extends Content {
         const self = this
         function frame(timestamp) {
             self.loop()
-            window.requestAnimationFrame(frame);
+
+            if(self.isActive){
+                window.requestAnimationFrame(frame);
+            }
         }
         window.requestAnimationFrame(frame);
     }

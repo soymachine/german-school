@@ -13,9 +13,10 @@ class ContentAct1SarahApproves extends Content {
         this.greetingsText = `Nice to meet you <span class='user-name'>${avatarSelection.name}!</span><p style='margin-top:20px'>I think you can be the perfect addition to the team</p>`,
         this.label = document.getElementById("speech-content-act-sarah-approves")
         this.button = document.getElementById("content-cinematic-act-sarah-approves-button")
-        this.addEvent(this.button, Content.ON_PRESS, (event)=>{
+        
+        this.button.onmousedown = function(event) { //asign a function
             self.onClickSpeechBubble()
-        })
+        }
         // this.updateText()
 
         

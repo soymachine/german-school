@@ -35,7 +35,7 @@ class ContentTravelToManaus  {
         */
 
         let opacity = 1
-        if(content == 13 || content == 0){
+        if(content == 0){
             opacity = 0
         }
 

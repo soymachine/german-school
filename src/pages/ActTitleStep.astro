@@ -8,7 +8,6 @@ interface Props {
 }
 
 let { act, label, step } = Astro.props;
-
 act = Number(act)
 let actPos = act - 1
 const acts = ["I", "II", "III", "IV"]
@@ -59,7 +58,8 @@ let selected = ""
     }, false); 
 
     function onClickNext(event) {
-        window.controller.onNextContentRequested()
+        console.log("on click next " + step)
+        window.controller.showContent(Number(step) + 1)
     }
 
 </script>

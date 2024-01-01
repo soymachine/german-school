@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Step from '../components/Step.astro';
-import CleanStep from '../components/CleanStep.astro';
+import TravelStep from '../components/TravelStep.astro';
 import AvatarStep from './AvatarStep.astro';
 import FlowDiagramStep from './FlowDiagramStep.astro';
 import StartupsStep from './StartupsStep.astro'
@@ -55,24 +55,22 @@ import Footer from '../components/Footer.astro';
 				<Step step="8">
 					<ActTitleStep act={2} label='The Journey begins' step="8"/>
 				</Step>
-				<Step step="9">
-					<Act2_Cinematics step='9'/>
-				</Step>
+				<TravelStep step="9" act="III">
+					<TravelToManausStep step="9" />
+				</TravelStep>
 				<Step step="10">
-					<StartupsStep step="10"/>
+					<Act2_Cinematics step='10'/>
+				</Step>
+				<Step step="11">
+					<StartupsStep step="11"/>
 				</Step>
 				<!-- subect TO CHANGE -->
-				<Step step="11">
-					<FlowDiagramStep step='11'/>
-				</Step>
-				
 				<Step step="12">
-					<FinancialMetric step="12" />
+					<FlowDiagramStep step='12'/>
 				</Step>
-				<CleanStep step="13" act="III">
-					<TravelToManausStep step="13" />
-				</CleanStep>
-				
+				<Step step="13">
+					<FinancialMetric step="13" />
+				</Step>
 				<Step step="14">
 					<ElevatorPitchStep step="14" />
 				</Step>
@@ -191,6 +189,7 @@ import Footer from '../components/Footer.astro';
 		width: 100%;
 		display:grid;
 		background-color: #054696;
+		opacity:0;
 	}
 
 	.sticky-footer {
@@ -198,6 +197,7 @@ import Footer from '../components/Footer.astro';
 		position: absolute;
 		bottom: 0px;
 		height: 35px;
+		opacity:0;
 	}
 
 </style>

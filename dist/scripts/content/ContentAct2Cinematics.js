@@ -12,15 +12,20 @@ class ContentAct2Cinematics extends Content {
         const self = this
         this.texts = [
             "to update",
-            "But first I need to test your enterpreneurship skills!"
+            "More than <strong>half of Earth's rain forests have already been lost</strong> due to the human demand for wood and arable land",
+            "if current deforestation rates continue, these critical habitats could <strong>disappear from the planet completely</strong>",
+            "Projects like this are really important to make an impact and change this trend. I'm excited to have you here!",
+            "To become a successful enterpreneur and develop initiatives like this, it is very important to be <strong>well-connected</strong>"
         ]
-        this.maxSteps = 2
+        this.maxSteps = this.texts.length
         this.step = 1
         this.label = document.getElementById("speech-content-act-2")
         this.button = document.getElementById("content-cinematic-act-2-button")
-        this.addEvent(this.button, Content.ON_PRESS, (event)=>{
+        
+        this.button.onmousedown = function(event) { //asign a function
             self.onClickSpeechBubble()
-        })
+        }
+        
         // this.updateText()
     }
 

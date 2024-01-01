@@ -8,13 +8,13 @@ const { step } = Astro.props;
 ---
 <div class=`holder-travel-manaus`>
     <div id="travel-manaus-background">
-        <img  src="./imgs/plane-travel/plane-travel-background.png">
+        <img src="./imgs/plane-travel/plane-travel-background.png">
     </div>
     <div id="travel-manaus-plane">
         <img id="travel-manaus-plane-img" src="./imgs/plane-travel/plane.png">
     </div>
     <svg id="plane-path" width="317px" height="560px" version="1.1">
-        <path fill="transparent" stroke="#000000" stroke-width="4" d="M300,120q-180-0-230,200" class="path" data-astro-cid-ugx7r32e=""></path>
+        <path fill="transparent" stroke="#FF3300" stroke-width="4" d="M300,120q-180-0-230,200" class="path" data-astro-cid-ugx7r32e=""></path>
     </svg>
 </div>
 
@@ -25,12 +25,14 @@ const { step } = Astro.props;
         left: 0;
     }
     .holder-travel-manaus {
-        margin: 10px auto;
+        margin: auto;
         position: relative;
+        overflow: hidden;
     }
 
-    #travel-manaus-background {
-
+    #travel-manaus-background img{
+        border-radius: 10px;
+        height: 100%;
     }
 
     #plane-path path{

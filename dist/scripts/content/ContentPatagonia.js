@@ -11,6 +11,7 @@ class ContentPatagonia extends Content {
         const self = this
 
         // Draggeo
+        this.isActive = false
         this.isDragging = false
         this.isDraggingEnabled = true
         this.draggingElement = undefined
@@ -117,13 +118,8 @@ class ContentPatagonia extends Content {
             },
         ]
 
-        // AQUI Puede que problemas
-        this.addEvent(document, Content.ON_MOVE, (event) => {
-            self.setMousePosition(event.clientX, event.clientY)
-            self.updateDistance()
-            self.updateDropIndicator()
-            //self.updateTestImage()
-        })
+        this.onTouchMove = this.onTouchMove.bind(this);
+        this.onMouseMove = this.onMouseMove.bind(this);
 
         // Para que el cambio del width surja efecto en los getBoundingClientRect de los drop zone
         setTimeout(() => {
@@ -132,7 +128,39 @@ class ContentPatagonia extends Content {
         }, 100)
 
         // Empezamos el loop
+        //this.startLoop()
+    }
+
+    preactivateContent(){
+        this.isActive = true
+        // Empezamos el loop
         this.startLoop()
+        document.addEventListener('touchmove', this.onTouchMove)
+
+        // Track de la posición del mouse
+        document.addEventListener('mousemove', this.onMouseMove);
+    }
+
+    deactivateContent(){
+        this.isActive = false
+        document.removeEventListener('touchmove', this.onTouchMove)
+
+        // Track de la posición del mouse
+        document.removeEventListener('mousemove', this.onMouseMove);
+    }
+
+    onTouchMove(event){
+        event.preventDefault();
+        this.setMousePosition(event.touches[0].clientX, event.touches[0].clientY)
+        this.updateDistance()
+        this.updateDropIndicator()
+    }
+
+    onMouseMove(event){
+        event.preventDefault();
+        this.setMousePosition(event.clientX, event.clientY)
+        this.updateDistance()
+        this.updateDropIndicator()
     }
 
     updateTestImage(){

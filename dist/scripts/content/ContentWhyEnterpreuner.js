@@ -56,13 +56,12 @@ class ContentWhyEnterpreuner extends Content {
 
         // Las posibles respuestas, solo podemos marcar una
         this.reponseUnique = new ResponseUnique(this.contentID)
+    }
 
-
-        /* AVATAR RELATED */
-        // Posicionamos al avatar
-        setTimeout(()=>{
-            self.setupAvatar()
-        }, 100)        
+    preactivateContent(){
+        this.setupAvatar()
+        if(this.avatarCopier) this.avatarCopier.update()
+        if(this.avatarMovement) this.avatarMovement.activate()
     }
 
     setupAvatar(){
@@ -95,11 +94,6 @@ class ContentWhyEnterpreuner extends Content {
         const yCenter = (avatarHolderRect.height / 2) - (avatarRect.height / 2) - yOffset
         avatar.style.left = xCenter + "px"
         avatar.style.top = yCenter + "px"
-    }
-
-    preactivateContent(){
-        if(this.avatarCopier) this.avatarCopier.update()
-        if(this.avatarMovement) this.avatarMovement.activate()
     }
 
     activateContent(){
@@ -229,8 +223,6 @@ class ContentWhyEnterpreuner extends Content {
         const response = this.reponseUnique.currentButtonSelected
         
     }
-
-   
     
 
     onClickNext(){

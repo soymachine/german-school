@@ -445,11 +445,11 @@ const { step } = Astro.props;
 
     @media (max-width: 375px) {
         .avatar-display-wrapper {
-            transform: translateY(-40px);           
+            /*transform: translateY(-40px);*/
         }
         
         .avatar-display {
-            margin-bottom: -50px;
+            margin-bottom: -10px;
         }
 
         #color-picker-1{
@@ -468,6 +468,18 @@ const { step } = Astro.props;
         .avatar-greetings{
             margin: 15px 0px 0px 0px;
             
+        }
+
+        #avatar-display-right{
+            margin-right: 20px;
+        }
+
+        #avatar-display-left{
+            margin-left: 20px;
+        }
+
+        .avatar-display{
+            width: 100%;
         }
     }
 

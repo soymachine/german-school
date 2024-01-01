@@ -5,6 +5,7 @@ class Content{
         this.contentID = contentID
         this.$nextButton = undefined
         this.isNextEnabled = false
+        
         eventSystem.subscribe(Events.ON_CONTENT_SHOWN, (content)=>{ this.onContentShown(content)})
         eventSystem.subscribe(Events.ON_CONTENT_HIDE, (content)=>{ this.onContentHide(content)})
         eventSystem.subscribe(Events.ON_CONTENT_BEGIN_SHOWN, (content)=>{ this.onContentBeginShow(content)})
@@ -13,7 +14,9 @@ class Content{
 
     onContentBeginShow(content){
         if(content == this.contentID){
-            //console.log("Activamos content de " + content)
+            
+            // Como norma genérica, mostramos el step-content
+            document.querySelector("#step-" + this.contentID+ " .step-content").style.display = "block"
             this.preactivateContent()
         }
     }
@@ -34,6 +37,10 @@ class Content{
 
     onContentHide(content){
         if(content == this.contentID){
+
+            // Como norma genérica, ocultamos el step-content
+            document.querySelector("#step-" + this.contentID+ " .step-content").style.display = "none"
+
             this.deactivateContent()
         }
     }

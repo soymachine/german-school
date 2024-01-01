@@ -18,6 +18,7 @@ class ContentAct1Cinematics extends Content {
         this.maxSteps = 2
         this.step = 1
         this.clicks = 0
+        this.isWriting = false
         this.label = document.getElementById("speech-content-act-1")
         this.button = document.getElementById("content-cinematic-act-1-button")
 
@@ -26,25 +27,27 @@ class ContentAct1Cinematics extends Content {
             self.onClickSpeechBubble()
         }
 
-        /*
-        this.addEvent(this.button, Content.ON_PRESS, (event)=>{
-            self.onClickSpeechBubble()
-        })
-        */
-        // this.updateText()
-
+       
         
     }
 
-    preactivateContent(){
-        this.texts[0] = `Nice to meet you <span class='user-name'>${avatarSelection.name}!</span><p style='margin-top:20px'>I think you can be the perfect addition to the team</p>`
+    activateContent(){
         this.updateText()
+    }
+
+    preactivateContent(){
+        this.label.innerHTML = ""
+        this.texts[0] = `Nice to meet you <span class='user-name'>${avatarSelection.name}!</span><p style='margin-top:20px'>I think you can be the perfect addition to the team</p>`
         this.avatarCopier = new AvatarCopier(this.contentID)
         this.avatarCopier.update()
     }
 
     onClickSpeechBubble() {
         console.log("Click bubble")
+        if(this.isWriting){
+            return
+        }
+
         this.clicks = this.clicks + 1
 
         const nextStep = this.step + 1
@@ -69,7 +72,26 @@ class ContentAct1Cinematics extends Content {
                 break;
         }
 
-        this.label.innerHTML = this.texts[this.step - 1]
+        this.label.innerHTML = ""
+        
+        var typewriter = new Typewriter(this.label, {
+            loop: false,
+            delay: 25,
+            cursor:''
+        });
+
+        // Quitar el bubble de "next"
+        this.button.style.display = 'none'
+        this.isWriting = true
+
+        //*
+        typewriter.typeString(this.texts[this.step - 1]).start().callFunction(()=>{
+            // Reactivar el bubble de "next"
+            this.button.style.display = 'contents'
+            this.isWriting = false
+        })
+        //*/
+       
     }
 }
 export default ContentAct1Cinematics

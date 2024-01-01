@@ -10,6 +10,7 @@ class Intro extends Content {
 
         // Scope
         const self = this
+        this.isLoadingComplete = false
         // this.$answerCorrectIcon = document.querySelector(`#answer-correct-icon`)
         const contentRect = document.querySelector(`#step-${this.contentID}`).getBoundingClientRect()
         this.$bgImage = document.querySelector(".bg-image")
@@ -19,6 +20,7 @@ class Intro extends Content {
 
         // El botón de NEXT
         this.$nextButton = document.querySelector(`#intro-button`)
+        this.$nextButton.style.opacity = 0
         
 
         this.$nextButton.onmousedown = function(e) { //asign a function
@@ -44,6 +46,39 @@ class Intro extends Content {
             easing:'easeOutQuad'
         });
 
+        const imagesArray = Array.from(document.images)
+        Promise.all(imagesArray.filter(img => !img.complete).map(img => new Promise(resolve => { img.onload = img.onerror = resolve; })))
+        .then(() => 
+        {
+            this.isLoadingComplete = true
+
+            anime({
+                targets: `#loading`,
+                opacity: 0,
+                duration: duration,
+                easing:'linear',
+                complete: function(anim) {
+                    anime({
+                        targets: `#intro-button`,
+                        opacity: 1,
+                        duration: duration,
+                        easing:'linear',
+                    });
+                }
+            });
+
+            
+            /*
+            console.log("All images loaded en total: " + imagesArray.length)
+
+            imagesArray.forEach(img =>
+            {
+                console.log(img.src)
+            })
+            */
+
+        })
+
     }
 
     activateContent(){
@@ -51,6 +86,9 @@ class Intro extends Content {
     }
 
     onClickNext(){
+        if(!this.isLoadingComplete){
+            return
+        }
         this.gotoNextStep()
     }
     

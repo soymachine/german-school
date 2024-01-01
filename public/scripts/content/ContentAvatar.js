@@ -39,7 +39,7 @@ class ContentAvatar extends Content {
             {
                 id:"hairstyle",
                 label:"Hair style",
-                total:6,
+                total:12,
                 current:0
             },
             {
@@ -71,9 +71,10 @@ class ContentAvatar extends Content {
         this.contentRect = document.querySelector("#content").getBoundingClientRect()
         const W = this.contentRect.width
         const H = this.contentRect.height
-        const sizeBig = W * 0.78
-        const sizeSmall = W * 0.5
-        const yOffset = H>667?50:-20
+        const sizeBig = W * 0.74
+        const sizeSmall = W * 0.50
+        const yOffset = sizeSmall * 0.05
+        const xSmall = (sizeBig - sizeSmall) * .5
         this.adjustments = {
             "big":{
                 size: sizeBig, // 350
@@ -81,7 +82,7 @@ class ContentAvatar extends Content {
             },
             "small":{
                 size:sizeSmall, // 300
-                x:sizeSmall * 0.28, y:0 - yOffset
+                x:xSmall, y:0 - yOffset
             },
         }       
 
@@ -222,16 +223,11 @@ class ContentAvatar extends Content {
         }else{
             let nextDisplay = id.split("-")[3]
             nextDisplay = Number(nextDisplay) - 1
-            
-            console.log(`nextDisplay: ${nextDisplay} currentdisplay: ${this.currentDisplay}, parent: ${parent}`)
             const prev = document.getElementById(`picker-${parent}-color-${(this.currentDisplay + 1)}`)
-            console.log(prev)
             prev.classList.remove("current-picker")
-
             const current = document.getElementById(`picker-${parent}-color-${(nextDisplay + 1)}`)
             // Remove class current-picker
             current.classList.add("current-picker")
-
             // Falta hacer esto para "extras"
             this.currentDisplay = nextDisplay
             this.updateCurrentDisplay()
@@ -269,13 +265,10 @@ class ContentAvatar extends Content {
         
         img.src= "./imgs/avatar/controllers/icon-" + imageState
 
-
         this.updateExtraImage(iconName, nextDisplay)
         this.currentDisplay = nextDisplay
         
         this.updateCurrentDisplay()
-
-        
     }
 
     updateExtraImage(extraImageID, imageIndex){
@@ -456,12 +449,24 @@ class ContentAvatar extends Content {
         this.avatarSelection.bodyColor = this.currentDisplay
     }
 
+    hasHairBack(position){
+        if(position == 0 ||
+           position == 6 ||
+           position == 8 ||
+           position == 9 ||
+           position == 10){
+            return false
+        }else{
+            return true
+        }
+    }
+
     updateHairColor(){
         const hairColor = this.hairColors[this.currentDisplay]
         this.hair.src = `./imgs/avatar/parts/hair-style-${this.currentHairStyle + 1}-${hairColor}.svg`
 
         // Cambiamos el color del back también si procede
-        if(this.currentHairStyle != 0){
+        if(this.hasHairBack(this.currentHairStyle)){
             this.hairBack.src = `./imgs/avatar/parts/hair-style-${(this.currentHairStyle + 1)}-back-${hairColor}.svg`
         }
 
@@ -470,11 +475,20 @@ class ContentAvatar extends Content {
     }
 
     updateHairStyle(){
+
+        if(this.currentDisplay == 11){
+            this.hairBack.style.opacity = 0
+            this.hair.style.opacity = 0
+            return
+        }else{
+            
+        }
+
         const hairColor = this.hairColors[this.currentHairColor]
         this.hair.src = `./imgs/avatar/parts/hair-style-${(this.currentDisplay + 1)}-${hairColor}.svg`
 
         // Tiene pelo back?
-        if(this.currentDisplay == 0){
+        if(!this.hasHairBack(this.currentDisplay)){
             this.hairBack.style.opacity = 0
         }else{
             this.hairBack.style.opacity = 1
@@ -482,6 +496,7 @@ class ContentAvatar extends Content {
         }
 
         this.avatarSelection.hairStyle = this.currentDisplay
+        this.hair.style.opacity = 1
     }
 
 

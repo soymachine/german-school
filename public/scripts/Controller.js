@@ -21,6 +21,8 @@ import ContentAct1SarahApproves from './content/ContentAct1SarahApproves.js'
 class Controller {
     constructor(){
 
+        this.isFooterShown = false
+
         // Valores generales del contenedor
         this.$content = document.querySelector("#content")
         
@@ -143,7 +145,7 @@ class Controller {
         */
 
         // TESTING */
-        //this.showContent(4) // 5 why
+        this.showContent(7) // 5 why
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event)
         });
@@ -176,7 +178,9 @@ class Controller {
     }
 
     showContent(content){
-
+        console.log(`showContent ${content}`)
+        // si el contenido es el mismo que ya hay, no hacemos nada (doble click en continue, por ej)
+        if(content == this.currentSection) return
         // Limite izquierda
         if(content < 0) content = 0
 
@@ -204,9 +208,22 @@ class Controller {
 
         eventSystem.publish(Events.ON_CONTENT_BEGIN_SHOWN, content) 
 
-        
-
         this.currentSection = content
+
+        this.checkFooter()
+    }
+
+    checkFooter(){
+        if(!this.isFooterShown){
+            this.isFooterShown = true
+            anime({
+                targets: '.sticky-footer',
+                opacity: 1,
+                easing: Settings.ease,
+                delay:0,
+                duration:Settings.duration,
+            });
+        }
     }
 }
 export default Controller
