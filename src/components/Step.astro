@@ -34,7 +34,8 @@ const stepNum = Number(step)
 
     // change .step-content height based on stepHeight
     document.querySelectorAll(".step-content").forEach(element => {
-        const height = (window.innerHeight - headerHeight - footerHeight) // stepHeight
+        let height = (window.innerHeight - headerHeight - footerHeight) // stepHeight
+        height > 700? height = 700 : height
         //console.log("height = ", height)
         const width = (stepWidth - marginLateral - marginLateral)
         element.style.width = `${width}px`

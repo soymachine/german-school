@@ -131,8 +131,6 @@ class Controller {
         // El controlador del questionario
         this.questionaireController = new QuestionaireController()
         /*
-        
-        
         var sound = new Howl({
             src: ['sound/song.mp3'],
             autoplay: true,
@@ -145,7 +143,7 @@ class Controller {
         */
 
         // TESTING */
-        this.showContent(7) // 5 why
+        this.showContent(3) // 5 why
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event)
         });

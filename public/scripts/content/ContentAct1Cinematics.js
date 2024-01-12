@@ -26,8 +26,6 @@ class ContentAct1Cinematics extends Content {
         this.button.onmousedown = function(event) { //asign a function
             self.onClickSpeechBubble()
         }
-
-       
         
     }
 
