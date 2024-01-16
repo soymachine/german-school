@@ -17,8 +17,12 @@ const { character } = Astro.props;
     <div class="why-intro-separation"></div>
 </div>
 <style>
+    .why-intro-text{
+        color:#054696;
+    }
+
     .why-intro-text p{
-       
+        
         margin:0;
         font-size:20px;
         font-family: 'Roboto', sans-serif;
@@ -56,8 +60,14 @@ const { character } = Astro.props;
         margin: 0 auto;
     }
 
+    
+
 
     @media (max-width: 375px) {
+        .why-intro-title{
+            font-size:16px;
+        }
+
         .why-intro-image img{
             height: 89px;
         } 

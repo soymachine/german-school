@@ -1,5 +1,6 @@
 ---
 import NextButton from '../components/buttons/NextButton.astro';
+import Punctuation from '../components/Punctuation.astro';
 
 interface Props {
 	step: string;
@@ -83,14 +84,13 @@ const items = [
     <div class="info">
         <div class=`title-step-${step}`>
             <QuestionHeader character="rafael">
-                <p class="first-paragraph">6 of these startups were found by <strong>WHU alumni.</strong></p>
-                <p>Do you know them?</p>
+                6 of these startups were<br>founded by <strong>WHU alumni.</strong><br>
+                Do you know which ones?
             </QuestionHeader>   
         </div>
         <div class=`score-step-${step}`>
-            <h1>Your guessing score: <span class="score-result">6/6</span></h1>
-            <h1><strong>PERFECT!</strong></h1>
-            <div>Don't hesitate to reach these companies and ask for business advice, they have a lot of expertise</div>
+            <p>You guessed correctly</p>
+            <h1><span class="score-result">6/6</span><span class="score-whu-alumni">WHU alumni</span></h1>
         </div>
         
     </div>
@@ -101,16 +101,12 @@ const items = [
             
             return(
             <div class="company-holder">
-                <div class=`company-item btn-multsel-step-${step}-option` id=`btn-step-${step}-option-${i+1}`>
+                <div class=`company-item btn-multsel-step-${step}-option ${classWHU}` id=`btn-step-${step}-option-${i+1}`>
                     <div class="image-wrapper">
                         <img src={item.src}>
                     </div>
                     <div class="item-text-wrapper">
-                        <div class=`item-label company-label ${classWHU} hide-label`>{item.label}</div>
-                    {
-                        
-                    }
-                    {item.isWHU && <div class="item-label whu-alumni hide-label"><strong>WHU</strong>alumni</div>}
+                        {item.isWHU && <div class=`item-label company-label ${classWHU} hide-label`>{item.label}</div>}
                     </div>
                     
                     <img id=`startup-option-${i+1}-correct` class="company-result-image company-correct-image" src="./imgs/companies/correct.png">
@@ -121,6 +117,7 @@ const items = [
         )})}
         
     </div>
+    <Punctuation step={step}/>
     <NextButton step={step}/>
     
 </div>
@@ -136,7 +133,7 @@ const items = [
     }
 
     .content-holder {
-        /*position:absolute;*/
+        position:relative;
         --text-blue:#14519C;
         color:darkblue;
         text-align: center;
@@ -186,8 +183,16 @@ const items = [
         position: relative;
     }
 
+    .company-item-final {
+        background:none !important;
+    }
+
+    .company-holder-final::after {
+        background-image: none !important;
+    }
+
     .company-label{
-        margin-top: -40px;
+        margin-top: -30px;
         text-align: center;
         /*width: 25%;*/
         font-size: 14px;
@@ -251,7 +256,7 @@ const items = [
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: -11px;
+        margin-top: 0px;
         margin-left: -8px;
     }
 
@@ -280,7 +285,17 @@ const items = [
     }
 
     .score-result {
-        color:#00A5DC;
+        color:#054696;
+        background-color: #D2EFDB;
+        padding:5px;
+    }
+
+    .score-whu-alumni {
+        color:white;
+        background-color: #054696;
+        padding:5px;
+        margin-left: 5px;
+        border-radius: 2px;
     }
 
     .option-correct {
@@ -294,6 +309,8 @@ const items = [
     .item-label {
         transition:all .5s ease-out;
     }
+
+    
 
     @media (max-width: 375px) {
 

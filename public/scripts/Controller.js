@@ -143,7 +143,7 @@ class Controller {
         */
 
         // TESTING */
-        this.showContent(3) // 5 why
+        this.showContent(11) // 5 why
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event)
         });

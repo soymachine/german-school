@@ -1,0 +1,46 @@
+---
+interface Props {
+	step: string;
+}
+
+const { step } = Astro.props;
+
+---
+<div id=`result-step-${step}` class="business-result">
+    <p class="business-result-points">+10</p>
+    <p><span>points</span></p>
+</div>
+<style >
+
+    .business-result {
+        position: absolute;
+        left: 37%;
+        top: 70%;
+        background-color: #CEDFE5;
+        padding: 10px 20px;
+        font-size: 30px;
+        font-weight: bold;
+        border-radius: 8px;
+        opacity: 0;
+        pointer-events: none;
+        color:#044596;
+    }
+
+    .business-result-points {
+        font-weight: 800;
+    }
+
+    .business-result span {
+        font-size: 18px;
+    }
+
+    .business-result p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .business-result p:last-child {
+        margin-top:-15px;
+    }
+
+</style>

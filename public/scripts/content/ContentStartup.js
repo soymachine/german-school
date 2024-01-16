@@ -11,6 +11,8 @@ class ContentStartup extends Content {
         // Scope
         const self = this
 
+        this.finalText = "<strong>Networking is really important!</strong><br>You should stay in touch with these successful companies."
+
         // Correct elements
         this.correctElements = [1, 3, 5, 6, 7, 9]
 
@@ -44,6 +46,7 @@ class ContentStartup extends Content {
         this.hideScore()
 
         this.$finalScore = document.querySelector(".score-result")
+        // this.$finalScore = document.querySelector(".why-intro-title")
 
         eventSystem.subscribe(Events.ON_RESPONSE_UPDATE, (responseObj)=>{
             this.onResponseUpdate(responseObj)
@@ -57,6 +60,9 @@ class ContentStartup extends Content {
     showAllLabels(){
         const duration = 500
         const delay = 25
+
+        // Cambiamos el texto final
+        document.querySelector(`.title-step-${this.contentID} .why-intro-title`).innerHTML = this.finalText 
 
         this.$labels.forEach(label => {
             // Add ".show-label" class to label item
@@ -74,7 +80,12 @@ class ContentStartup extends Content {
             })
         })
 
+        document.querySelectorAll(".company-holder").forEach((item, index) => {
+            item.classList.add("company-holder-final");
+        })
+
         document.querySelectorAll(".company-item").forEach((item, index) => {
+            item.classList.add("company-item-final");
             item.querySelector(".image-wrapper").classList.remove("option-correct")
             item.querySelector(".image-wrapper").classList.remove("option-incorrect")
             item.querySelector(".image-wrapper").style.background= "none"
@@ -84,9 +95,14 @@ class ContentStartup extends Content {
             })
         })
 
+        
+        document.querySelectorAll(".not-whu-alumni").forEach((item, index) => {
+            item.style.opacity = 0
+        })
+
         anime({
             targets: `.image-wrapper`,
-            translateY: -22,
+            translateY: -15, // 22
             duration: duration,
             easing:'easeOutQuad',
             delay: function(el, i, l) {
@@ -96,13 +112,61 @@ class ContentStartup extends Content {
 
         anime({
             targets: `.image-wrapper img`,
-            scale: .75,
+            scale: 1,
             duration: duration,
             easing:'easeOutQuad',
             delay: function(el, i, l) {
                 return i * delay;
               },
         })
+
+
+        const delayDesplazamiento = 1000
+        // Kitchen sube
+        anime({
+            targets: `#btn-step-${this.contentID}-option-5`,
+            translateY: -105,
+            duration: duration,
+            easing:'easeOutQuad',
+            delay: delayDesplazamiento,
+        });
+
+        // Home 24 sube
+        anime({
+            targets: `#btn-step-${this.contentID}-option-7`,
+            translateY: -105,
+            duration: duration,
+            easing:'easeOutQuad',
+            delay: delayDesplazamiento + 50,
+        });
+
+        // Flixbus sube
+        anime({
+            targets: `#btn-step-${this.contentID}-option-9`,
+            translateY: -105,
+            duration: duration,
+            easing:'easeOutQuad',
+            delay: delayDesplazamiento + 100,
+        });
+
+        // Flixbus a la izquierda
+        anime({
+            targets: `#btn-step-${this.contentID}-option-6`,
+            translateX: -105,
+            duration: duration,
+            easing:'easeOutQuad',
+            delay: delayDesplazamiento + 150,
+        });
+
+        // Mostramos la puntuacion
+        anime({
+            targets: `#result-step-${this.contentID}`,
+            opacity: 1,
+            duration: duration,
+            easing:'easeOutQuad',
+            delay: delayDesplazamiento + 200,
+        });
+        
     }
 
     hideTitle(){
@@ -155,7 +219,7 @@ class ContentStartup extends Content {
                 const score = this.getScore()
                 this.responseMultiple.isEnabled = false
                 this.showScore()
-                this.hideTitle()
+                //this.hideTitle()
                 this.freezeCompanies()
                 break
             case "score":
@@ -210,7 +274,21 @@ class ContentStartup extends Content {
         console.log(this.currentButtonsSelected)
         console.log(acertadas)
 
-        this.$finalScore.innerHTML = acertadas + "/6"
+        let finalHTML = "You guessed correctly<br>"
+        finalHTML    += '<span class="score-result"><strong>'+ acertadas + '</strong> out of <strong>6</strong></span>'
+        finalHTML    += '<span class="score-whu-alumni">WHU alumni</span>'
+        
+        //document.querySelector(`.title-step-${this.contentID} .why-intro-title`).innerHTML = finalHTML
+        //finalScore.innerHTML = finalHTML;
+        document.querySelector(`.score-step-${this.contentID} .score-result`).innerHTML = '<strong>'+ acertadas + '</strong> out of <strong>6</strong>'
+        //console.log(document.querySelector(`.title-step-${this.contentID} .why-intro-title`))
+        //console.log(this.$score)
+        document.querySelector(`.title-step-${this.contentID} .why-intro-title`).innerHTML = ""
+        document.querySelector(`.title-step-${this.contentID} .why-intro-title`).appendChild(this.$score)
+
+
+        document.querySelector(`#result-step-${this.contentID} .business-result-points`).innerHTML = "+" + (acertadas * 10)
+        
     }
     
 }

@@ -12,7 +12,7 @@ class ContentAct2Cinematics extends Content {
         const self = this
         this.texts = [
             "to update",
-            "More than <strong>half of Earth's rain forests have already been lost</strong> due to the human demand for wood and arable land",
+            "More than <strong>half of Earth's rain forests have already been lost</strong> due to the human demand for wood and arable land.",
             "if current deforestation rates continue, these critical habitats could <strong>disappear from the planet completely</strong>",
             "Projects like this are really important to make an impact and change this trend. I'm excited to have you here!",
             "To become a successful enterpreneur and develop initiatives like this, it is very important to be <strong>well-connected</strong>"
@@ -30,7 +30,7 @@ class ContentAct2Cinematics extends Content {
     }
 
     preactivateContent(){
-        this.texts[0] = `Welcome aboard, <span class='user-name'>${avatarSelection.name}!</span>`
+        this.texts[0] = `Welcome aboard, <span class='user-name'>${avatarSelection.name}!</span></br>I'm <strong>Dr. Rafael</strong> and I'm a rainforest ecologist scientist.`
         this.updateText()
         this.avatarCopier = new AvatarCopier(this.contentID)
         this.avatarCopier.update()
