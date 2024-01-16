@@ -17,6 +17,8 @@ import ContentAct2Cinematics from './content/ContentAct2Cinematics.js'
 import ContentSocialMedia from './content/ContentSocialMedia.js'
 import ContentBusiness from './content/ContentBusiness.js'
 import ContentAct1SarahApproves from './content/ContentAct1SarahApproves.js'
+import ContentAct2PreQuestion from './content/ContentAct2PreQuestion.js'
+import ContentValues from './content/ContentValues.js'
 
 class Controller {
     constructor(){
@@ -119,6 +121,12 @@ class Controller {
         
         // TRAVEL TO MANAUS 
         this.travelToManaus = new ContentTravelToManaus() 
+
+        // PRE QUESTION TEXTS
+        this.contentAct2PreQuestion = new ContentAct2PreQuestion();
+
+        // VALUES
+        this.contentValues = new ContentValues();
         
         
         // HEADER
@@ -143,7 +151,7 @@ class Controller {
         */
 
         // TESTING */
-        this.showContent(11) // 5 why
+        this.showContent(14) // 5 why
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event)
         });

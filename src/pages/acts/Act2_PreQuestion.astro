@@ -1,0 +1,214 @@
+---
+import Avatar from "../../components/avatar/Avatar.astro";
+
+interface Props {
+	step: string;
+}
+
+const { step } = Astro.props;
+---
+<div class="act-cinematics-wrapper">
+    <div class="act-cinematics-center"> 
+        <div class="act-cinematics-holder">
+            <div class="speech">
+                <div class="speech-bubble">
+                    <div class="speech-bubble-text">
+                        <div id="speech-content-act-pre-question" class="speech-bubble-text-content">
+                            
+                        </div>
+                    </div>                    
+                </div>
+                <img id="speech-bubble-wedge" src="./imgs/acts/speech/speech-wedge.png">
+                <a id="content-cinematic-act-pre-question-button" class="speech-bubble-button" href="#"><div class="speech-loading"><img src="./imgs/acts/speech/speech-loading.gif"></div></a>
+            </div>
+            <img class="act-cinematics-background-image" src="./imgs/acts/titles/title-I-Background.png">
+        </div>
+        <div class="characters">
+            <div id="speech-user-avatar">
+                <Avatar isSpeech={true} width={170} step={step} textCorrection={14}/>
+            </div>
+            <img class="character-image" id="sarah-act-2" src="./imgs/characters/sarah-speech.png">
+            <img class="character-image" id="rafael-act-2" src="./imgs/characters/rafael-speech.png">
+            <div class="character-name" id="sarah-name-act-2">Sarah</div>
+            <div class="character-name" id="rafael-name-act-2">Dr. Rafael</div>
+
+        </div>
+    </div>
+</div>
+<style>
+    /* SPEECH */
+    .speech {
+        position: absolute;
+        width: 100%;
+        top: -16%;
+    }
+
+    .speech-bubble {
+        width: 62%;
+        height: 150px;
+        margin: auto;
+        background-color: #EAEFF7;
+        padding: 10px 20px;
+        border: 2px solid #054696;
+        /* drop hard shadow */
+        box-shadow: 5px 5px 0px 0px rgb(0 0 0 / 75%);
+    }
+    .speech-loading {
+        background-color: #00A5DC;
+        width: 100px;
+        padding: 17px 10px;
+        margin: 0 auto;
+        border-radius: 7px;
+        border: 2px solid white;
+        margin-top: -57px;
+    }
+
+    #speech-bubble-wedge {
+        margin-top: -2px;
+        transform: translateX(110px);
+    }
+
+    .speech-bubble-text {
+        height: 100%;
+        margin: auto;
+        display: flex;
+    }
+
+    .speech-bubble-text-content {
+        margin: auto;
+    }
+
+    .speech-loading img{
+        width: 100px;
+        margin-top: 10px;
+    }
+
+    .speech-bubble-button {
+        display: contents;
+    }
+
+
+    /*  OTHER */
+    .characters > #speech-user-avatar {
+        position: absolute;
+        top: 53%;
+        left: 1%;
+        z-index: 100;
+    }
+
+    .act-cinematics-wrapper {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        color:#054696;
+        font-size: 22px;
+        /*margin:20px 0px;*/
+        font-family: 'Roboto', sans-serif;
+        text-align: center;
+    }
+
+    .act-cinematics-center {
+        position: relative;
+        margin: auto 0;
+    }
+
+    .act-cinematics-background-image{
+        width: 100%;
+    }
+
+    .characters {
+        position: absolute;
+        pointer-events: none;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+    }
+
+    .character-image{
+        position: absolute;
+        width: 130px;
+    }
+
+    .character-name {
+        position: absolute;
+        font-weight: bold;
+    }
+
+    #sarah-name-act-2 {
+        top: 105%;
+        left: 32%;
+        color:#054696;
+    }
+
+    #rafael-name-act-2 {
+        top: 105%;
+        left: 70%;
+        color:#21B22E;
+    }
+
+    #sarah-act-2 {
+        top: 62%;
+        left: 23%;
+        transform: scaleX(-1);
+    }
+
+    #rafael-act-2 {
+        top: 58%;
+        left: 66%;
+    }
+
+    @media (max-width: 375px) {
+        .act-cinematics-wrapper {
+            font-size: 18px;
+        }
+
+        .speech {
+            top: -20%;
+        }
+
+        .speech-bubble {
+            width: 79%;
+            height: 150px;
+            padding: 10px 0px;
+        }
+
+        .speech-loading {
+            width: 70px;
+            padding: 11px 10px;
+            margin-top: -46px;
+        }
+
+        .speech-loading img{
+            width: 70px;
+            margin-top: 10px;
+        }
+
+        #speech-bubble-wedge {
+            width: 35px;
+        }
+
+        #sarah-act-2 {
+            width: 110px;
+        }
+
+        #rafael-act-2 {
+            width: 110px;
+        }
+
+        #sarah-name-act-2 {
+            font-size: 17px;
+            top:104%;
+        }
+
+        #rafael-name-act-2 {
+            font-size: 17px;
+            top:104%;
+        }
+
+        .speech-bubble-text {
+            margin: auto 10px;
+        }
+    }
+</style>

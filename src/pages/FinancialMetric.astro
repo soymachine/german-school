@@ -1,5 +1,7 @@
 ---
 import NextButton from '../components/buttons/NextButton.astro';
+import QuestionHeader from '../components/QuestionHeader.astro';
+import Punctuation from '../components/Punctuation.astro';
 
 interface Props {
 	step: string;
@@ -12,18 +14,15 @@ const { step } = Astro.props;
 
 ---
 <div class=`content-holder`>
-    
+    <div class="info">
+        <div class=`title-step-${step}`>
+            <QuestionHeader character="rafael">
+                Also, I want to know how well can you transform <strong>investments into profits.</strong>
+            </QuestionHeader>   
+        </div>
+    </div>
     <div class="info-holder">
         <div id="question-holder">
-            <div class="info-grid">
-                <div class="info-picture">
-                    <img src="./imgs/financial-metrics/financial-metrics-person.png">
-                </div>
-                <div class="info-wedge">
-                    <img src="./imgs/financial-metrics/financial-metrics-wedge.png">
-                </div>
-                <div class="info-text">Before you officially launch, you need to make assestment of how well you can <strong>transform investments into profits.</strong></div>                        
-            </div>
             <div class="info-question">
                 <div class="question-text">What is the financial metric that tracks profit relative to shareholder's equity?</div>
                 <div class="answers">
@@ -35,17 +34,6 @@ const { step } = Astro.props;
         </div>
         <div id="result-holder">
             <div class="result-holder">
-                <div class="result-sentence">
-                    <div id="result-sentence-correct">
-                        <p class="result-paragraph">Well done, <span class="user-name">Iñaki.</span></p>
-                        <p class="result-paragraph"><strong>That is correct!</strong></p>
-                    </div>
-                    <div id="result-sentence-incorrect">
-                        <p class="result-paragraph"><strong>That is not correct,</strong> <span class="user-name">Iñaki.</span></p>
-                        <p class="result-paragraph">The right answer was <strong>ROE</strong></p>
-                    </div>
-                </div>
-                
                 <div class="visual-result">
                     <div class="visual-result-left">
 
@@ -57,16 +45,18 @@ const { step } = Astro.props;
                         <img id="visual-result-mark" src="./imgs/correct.png">
                     </div>
                 </div>
-                <div class="result-title">ROE</div>
-                <div class="result-description">The <strong>Return on Equity</strong> metric tracks profit relative to shareholder's equity, as opposed to Price-to-earning ratio (P/E) or Return on investment (ROI)</div>
+                <div class="result-title">ROE</div>                
             </div>
         </div>        
     </div>
-    <NextButton step={step}/>
+    <Punctuation step={step}/>
+    <div class="next-button-wrapper">
+        <NextButton step={step}/>
+    </div>
 </div>
 <style>
     .content-holder {
-        /*position:absolute;*/
+        position:relative;
         --text-blue:#14519C; 
         --color-blue:#044596;
         color:darkblue;
@@ -129,16 +119,19 @@ const { step } = Astro.props;
 
     .info-question{
         grid-area: question;
+        margin: 0px 25px;
     }
 
     .question-text {
         padding:10px;
+        color:#054696;
     }
 
     .answers {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 20px;
+        margin-top: 20px;
     }
 
     .answers .btn-step-option-selected{
@@ -159,7 +152,7 @@ const { step } = Astro.props;
     .result-holder {
         display: flex;
         flex-direction: column;
-        
+        margin: 0px 30px;
     }
 
     .visual-result {
@@ -178,19 +171,24 @@ const { step } = Astro.props;
         padding: 10px 0px;
     }
 
+    .visual-result-center img {
+        width: 75%;
+    }
+
     .visual-result-right{
         width: 20%;
-        align-self: flex-end;
+        align-self: center;
     }
 
     .result-title {
-        background-color: #C3D3E6;
+        background-color: #C9EBD4;
         font-size:20px;
         font-color:var(--color-blue);
-        border-radius:4px;
+        border-radius:10px;
         padding:10px 0px;
         margin-bottom: 10px;
         font-weight: bold;
+        border:2px solid #044596;
     }
 
     .result-title-wrong {
@@ -217,5 +215,10 @@ const { step } = Astro.props;
     .result-description{
         text-align: left;
     }
+
+    .next-button-wrapper{
+        padding-top: 20px;
+    }
+
 
 </style>

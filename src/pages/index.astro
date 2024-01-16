@@ -13,9 +13,11 @@ import ElevatorPitchStep from './ElevatorPitchStep.astro';
 import PatagoniaStep from './PatagoniaStep.astro';
 import SocialMediaStep from './SocialMediaStep.astro';
 import ActTitleStep from './ActTitleStep.astro';
+import ValuesStep from './ValuesStep.astro';
 import Act1_Cinematics from './acts/Act1_Cinematics.astro';
 import Act1_SarahApproves from './acts/Act1_SarahApproves.astro';
 import Act2_Cinematics from './acts/Act2_Cinematics.astro';
+import Act2_PreQuestion from './acts/Act2_PreQuestion.astro';
 import Intro from './Intro.astro';
 import Header from '../components/Header.astro';
 import BusinessStep from './BusinessStep.astro';
@@ -64,20 +66,27 @@ import Footer from '../components/Footer.astro';
 				<Step step="11">
 					<StartupsStep step="11"/>
 				</Step>
-				<!-- subect TO CHANGE -->
 				<Step step="12">
-					<FlowDiagramStep step='12'/>
+					<FinancialMetric step="12" />
 				</Step>
 				<Step step="13">
-					<FinancialMetric step="13" />
+					<Act2_PreQuestion step="13" />
 				</Step>
 				<Step step="14">
-					<ElevatorPitchStep step="14" />
+					<ValuesStep step="14" />
 				</Step>
+				<!-- subect TO CHANGE -->
 				<Step step="15">
-					<PatagoniaStep step="15" />
+					<FlowDiagramStep step='15'/>
 				</Step>
+				
 				<Step step="16">
+					<ElevatorPitchStep step="16" />
+				</Step>
+				<Step step="17">
+					<PatagoniaStep step="17" />
+				</Step>
+				<Step step="18">
 					<Form />
 				</Step>
 			</div>
