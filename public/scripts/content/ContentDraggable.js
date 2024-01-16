@@ -9,6 +9,9 @@ class ContentDraggable extends Content {
         // Scope
         const self = this
 
+        this.title = document.querySelector(`.title-step-${this.contentID} .why-intro-title`)
+        this.initialText = this.title.innerHTML
+
         // Draggeo
         this.isActive = false
         this.isDragging = false
@@ -243,9 +246,13 @@ class ContentDraggable extends Content {
 
         // Estos valores han de ser dinámicos
         const W = document.querySelector("#root").offsetWidth
-        const marginExterior = 20
-        const marginInterior = 10
+        const marginExterior = 45 // 20
+        const marginInterior = 15
+        const marginEntreItems = 30
+        const initialX = 30
+        const initialY = 15
         const marginVertical = 10
+        const marginVerticalEntreItems = 5
         const rowMargin = 10
         const extraWSpace = 20
 
@@ -253,7 +260,9 @@ class ContentDraggable extends Content {
         this.itemHeight = 44
         const rowWidth = 60
 
-        
+        console.log("this.itemWidth = " + this.itemWidth)
+        console.log("this.itemHeight = " + this.itemHeight)
+
         
         // Elementos de drageo
         this.draggableItems.forEach((item, i) => {
@@ -267,12 +276,12 @@ class ContentDraggable extends Content {
             // Punto 0,0
             console.log("Checking")
             //console.log(`this.draggableZoneBoundingRect.x = ${this.draggableZoneBoundingRect.x} this.rootRect.x = ${this.rootRect.x} this.contentBoundingRect.x = ${this.contentBoundingRect.x}`)
-            let x = this.xLeft + marginInterior + this.marginLeft //this.draggableZoneBoundingRect.x - this.rootRect.x + marginInterior 
-            let y = this.draggableZoneBoundingRect.y - this.rootRect.y + marginVertical 
+            let x = this.xLeft + initialX + this.marginLeft //this.draggableZoneBoundingRect.x - this.rootRect.x + marginInterior 
+            let y = this.draggableZoneBoundingRect.y - this.rootRect.y + initialY 
             
             // Posición según fila y columna
-            x += col * (this.itemWidth + marginInterior)
-            y += row * (this.itemHeight + marginVertical)
+            x += col * (this.itemWidth + marginEntreItems)
+            y += row * (this.itemHeight + marginVerticalEntreItems)
 
             // console.log(x, y)
             
@@ -461,16 +470,18 @@ class ContentDraggable extends Content {
                         this.dropElementsData[i].droppedID = undefined
                     }
                 })
+
+                this.title.innerHTML = this.initialText
             }
             
             if(this.itemsDragged.length == 4){
                 // Bien o mal?
-                this.hideDraggableZone()
+                //this.hideDraggableZone()
                 
                 const correctOrder = this.isOrderCorrect()
 
                 if(correctOrder){
-                    this.draggableCorrectElement.style.display = "block"
+                    //this.draggableCorrectElement.style.display = "block"
                     this.enableNextButton()
 
                     // Enviamos la respuesta
@@ -479,7 +490,9 @@ class ContentDraggable extends Content {
                         response:true
                     })
                 }else{
-                    this.draggableIncorrectElement.style.display = "block"
+                    // Incorrecto
+                    //this.draggableIncorrectElement.style.display = "block"
+                    this.title.innerHTML = "<strong>Something is off!</strong><br>Please review the diagram."
                     this.disableNextButton()
                 }
             }
@@ -610,7 +623,10 @@ class ContentDraggable extends Content {
             const dropDataRealtime = this.findDropElement("realtimealert")
             const lineRect = line.getBoundingClientRect()
             const x = dropData.pos.x + 38
+            
             const y = dropData.pos.y + (dropData.height) + 64
+            
+
             const w = (dropDataRealtime.pos.x) - (dropData.pos.x) - 42
             const path = document.querySelector(`#path-5`)
             line.style.left = x + "px"
@@ -632,7 +648,7 @@ class ContentDraggable extends Content {
             console.log(dropData)
             const lineRect = line.getBoundingClientRect()
             const x = dropData.pos.x + dropData.width + 5
-            const y = dropData.pos.y + (dropData.height * .5) + 2
+            const y = dropData.pos.y + (dropData.height * .5) + 5
             const w = (dropDataImageRecognition.pos.x + dropDataImageRecognition.width) - (dropData.pos.x + dropData.width) - 40
            
             const path = document.querySelector(`#path-6`)

@@ -1,6 +1,7 @@
 ---
 import NextButton from '../components/buttons/NextButton.astro';
 import { imageURL } from '../../public/scripts/helpers/ImageURL';
+import QuestionHeader from '../components/QuestionHeader.astro';
 
 interface Props {
 	step: string;
@@ -25,7 +26,13 @@ const realtimealertURL = imageURL("imgs/flow-diagram/realtimealert.png")
 
 ---
 <div class=`draggable-holder`>
-    <h1>Welcome <span class="user-name">Iñaki</span> and <span class="name">Ariana</span>! You two now have to design how the basic <strong>functioning of AI:</strong></h1>
+    <div class="info">
+        <div class=`title-step-${step}`>
+            <QuestionHeader character="alex">
+                Drag key elements to create our <strong>AI flow diagram:</strong>
+            </QuestionHeader>   
+        </div>
+    </div>
     <div class="dropzone-content">
         {
             
@@ -82,7 +89,7 @@ const realtimealertURL = imageURL("imgs/flow-diagram/realtimealert.png")
         margin:10px 20px;
         font-family: 'Roboto', sans-serif;
         --item-width: 0px; /* 130*/ /* 183 */
-        --item-height: 40px;
+        --item-height: 33px;
         --color-blue:#054696;
         --marginVertical:calc(5 * 3);
     }
@@ -118,7 +125,7 @@ const realtimealertURL = imageURL("imgs/flow-diagram/realtimealert.png")
         flex-direction: column;
         justify-content: center;
         gap:40px;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
     }
 
     .dropzone-row-zone {
@@ -132,7 +139,6 @@ const realtimealertURL = imageURL("imgs/flow-diagram/realtimealert.png")
     }
 
     .draggable-zone {
-        margin-top:15px;
         display: grid;
         border-radius: 8px;
         background-color: #E7EFF2;

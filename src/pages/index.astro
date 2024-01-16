@@ -18,6 +18,7 @@ import Act1_Cinematics from './acts/Act1_Cinematics.astro';
 import Act1_SarahApproves from './acts/Act1_SarahApproves.astro';
 import Act2_Cinematics from './acts/Act2_Cinematics.astro';
 import Act2_PreQuestion from './acts/Act2_PreQuestion.astro';
+import Act3_Cinematics from './acts/Act3_Cinematics.astro';
 import Intro from './Intro.astro';
 import Header from '../components/Header.astro';
 import BusinessStep from './BusinessStep.astro';
@@ -75,18 +76,23 @@ import Footer from '../components/Footer.astro';
 				<Step step="14">
 					<ValuesStep step="14" />
 				</Step>
-				<!-- subect TO CHANGE -->
 				<Step step="15">
-					<FlowDiagramStep step='15'/>
+					<ActTitleStep act={3} label='The Trials' step="15"/>
 				</Step>
-				
 				<Step step="16">
-					<ElevatorPitchStep step="16" />
+					<Act3_Cinematics step='16'/>
 				</Step>
 				<Step step="17">
-					<PatagoniaStep step="17" />
+					<FlowDiagramStep step='17'/>
 				</Step>
+				<!-- subect TO CHANGE -->
 				<Step step="18">
+					<ElevatorPitchStep step="18" />
+				</Step>
+				<Step step="19">
+					<PatagoniaStep step="19" />
+				</Step>
+				<Step step="20">
 					<Form />
 				</Step>
 			</div>
