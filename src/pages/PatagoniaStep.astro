@@ -1,5 +1,8 @@
 ---
 import NextButton from '../components/buttons/NextButton.astro';
+import QuestionHeader from '../components/QuestionHeader.astro';
+import Punctuation from '../components/Punctuation.astro';
+
 interface Props {
 	step: string;
 }
@@ -8,10 +11,20 @@ const { step } = Astro.props;
 const logos = ["google", "snapchat", "patagonia", "twitter"]
 ---
 <div class=`holder-patagonia-pitch`>
-    <div class="patagonia-intro-text">
-		<p class="first-sentence" id="patagonia-first-sentence"><span class="user-name">Laura,</span> how about your own <strong>role models</strong> and <strong>mentors?</strong></p>
-		<p class="second-sentence" id="patagonia-second-sentence"><strong>Yvon Chouinard</strong> is an enterpreneur who actively engages in environmental activism and advocacy. He founded...</p>
-	</div>
+    
+    <div class="info">
+        <div class=`title-step-${step}`>
+            <QuestionHeader character="alex">
+                How about <strong>your own role models</strong> and mentors?
+            </QuestionHeader>   
+        </div>
+    </div>
+    <div class="founder-explanation">
+        <div class="founder-explanation-text">
+            <strong>Yvon Chouinard</strong> is an entrepreneur who actively engages in environmental activism and advocacy. What company did he found?
+        </div>
+        <img id="image-patagonia" src="./imgs/patagonia/patagonia-text.png">
+    </div>
     <div class="founder founder-dropzone">
         <img id="founder-image" src="./imgs/patagonia/patagonia-founder.png">
         {
@@ -32,11 +45,16 @@ const logos = ["google", "snapchat", "patagonia", "twitter"]
          -->
     </div>
     <div class="logo-holder draggable-zone-patagonia">
-        <img id="image-patagonia" src="./imgs/patagonia/patagonia-text.png">
+        
     </div>
+    <Punctuation step={step}/>
     <NextButton step={step}/>
 </div>
 <style >
+
+    .info {
+        margin:0px 20px;
+    }
 
     .holder-patagonia-pitch {
         --text-blue:#14519C; 
@@ -49,7 +67,6 @@ const logos = ["google", "snapchat", "patagonia", "twitter"]
         position: relative;
         display: flex;
         flex-direction: column;
-       
     }
 
     .patagonia-intro-text p{
@@ -66,8 +83,12 @@ const logos = ["google", "snapchat", "patagonia", "twitter"]
         margin:0px 20px 10px 20px !important;
     }
 
-    .second-sentence{
-        margin:0px 20px 0px 20px !important;
+    .founder-explanation{
+        position: relative;
+        margin: 0 45px;
+        margin-bottom: 8px;
+        text-align: left;
+        color:#054696;
     }
 
     .founder {
@@ -81,8 +102,8 @@ const logos = ["google", "snapchat", "patagonia", "twitter"]
     }
 
     .indicator-images{
-        left:calc(50% - 81px);
-        top:calc(50% - 78px);
+        left:calc(50% - 66px);
+        top:calc(50% - 65px);
         position:absolute;
     }
 
@@ -98,7 +119,7 @@ const logos = ["google", "snapchat", "patagonia", "twitter"]
     }
 
     .draggable-zone-patagonia {
-        height:125px;
+        height:95px;
         position:relative;
         pointer-events: none;
     }
@@ -109,17 +130,17 @@ const logos = ["google", "snapchat", "patagonia", "twitter"]
     }
 
     #image-patagonia {
-        margin:60px 0px 0px 0px;
-    }
-
-    #image-patagonia {
         opacity: 0;
+        position: absolute;
+        top: 25%;
+        left: 36px;
+}
     }
 
     @media (max-width: 375px) {
 
         .holder-patagonia-pitch{
-            margin-top: 30px;
+           
         }
     }
 

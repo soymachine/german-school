@@ -1,5 +1,8 @@
 ---
 import NextButton from '../components/buttons/NextButton.astro';
+import QuestionHeader from '../components/QuestionHeader.astro';
+import Punctuation from '../components/Punctuation.astro';
+
 interface Props {
 	step: string;
 }
@@ -17,26 +20,39 @@ const timersURL = [
 ]
 ---
 <div class=`holder-elevator-pitch`>
+   
+    <div class="info">
+        <div class=`title-step-${step}`>
+            <QuestionHeader character="alex">
+                You’ll have to explain this project, short and clearly,<br>with an <strong>elevator pitch!</strong>
+            </QuestionHeader>   
+        </div>
+    </div>
     <div class="elevator-intro-text">
-		<p class="first-sentence"><strong>An elevetor pitch</strong> is a way to convey information about your business</p>
-		<p class="second-sentence"><span class="user-name">Laura,</span> how long should it be?</p>
+		<p class="elevator-first-sentence">The elevator pitch conveys the core information about your business, but…<br>
+            <strong>How long should it be?</strong>
+        </p>
 	</div>
     <div class="watch">
         <a href="#" class="watch-anchor">
+            <!--<img id="watch-image" src="./imgs/elevator-pitch/watch-test.png"> -->
             <img id="watch-image" src="./imgs/elevator-pitch/watch.png">
             <div id="watch-images-container">
+                <img class="watch-timer-static" id="watch-timer-upper" src="./imgs/elevator-pitch/watch-over.png" />
             {
                 timersURL.map((timer, index) => (
-                    <img class="watch-timer" id={`watch-timer-${index}`} src={`./imgs/elevator-pitch/${timer}`}> </img>
+                    <img class="watch-timer" id={`watch-timer-${index}`} src={`./imgs/elevator-pitch/${timer}`} />
                 ))
             }
+            
+
             </div>
         </a>
         <img id="watch-center-piece" src="./imgs/elevator-pitch/watch-center-piece.png">
         <div class="time-selected-text"> 30''</div>
         
     </div>
-    
+    <Punctuation step={step}/>
     <NextButton step={step}/>
 </div>
 <style >
@@ -47,7 +63,7 @@ const timersURL = [
         color:darkblue;
         text-align: center;
         font-size: 14px;
-        margin:20px 10px;
+        margin:0px 20px;
         font-family: 'Roboto', sans-serif;
         overflow: hidden;
         position: relative;
@@ -60,12 +76,12 @@ const timersURL = [
         margin:0;
     }
 
-    .elevator-intro-text{
-        padding-bottom: 20px;
-    }
+    
 
-    .first-sentence{
-        margin:0px 20px 10px 20px !important;
+    .elevator-first-sentence{
+        color:#054696;
+        text-align: left;
+        margin:0px 40px 10px 20px !important;
     }
 
     .second-sentence{
@@ -73,7 +89,8 @@ const timersURL = [
     }
 
     .watch {
-        margin: 20px 0px;
+        margin: 0px 0px;
+        margin-bottom: 30px;
         position: relative;
     }
 
@@ -86,7 +103,7 @@ const timersURL = [
         top: 34%;
         left: 0%;
         color: #054696;
-        font-size: 28px;
+        font-size: 20px;
         width: 100%;
         text-align: center;     
         font-weight: bold;  
@@ -111,10 +128,29 @@ const timersURL = [
         pointer-events: none;
     }
 
+    .watch-timer-static {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        opacity:0;
+        pointer-events: none;
+    }
+
+    #watch-timer-upper {
+        opacity: 1 !important;
+        z-index: 100;
+    }
+
     #watch-images-container {
         position: absolute;
         top: 50%;
         left: 50%;
+    }
+
+    #test {
+        opacity: 1 !important;
+        width: 5px;
+        z-index: 100;
     }
 
 </style>

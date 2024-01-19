@@ -12,8 +12,12 @@ class ContentElevatorPitch extends Content {
 
         // Scope
         const self = this
+        this.duration = 500;
         this.isNextEnabled = false
+        this.isPressEnabled = true
         this.isPressingWatch = false
+        this.isFinalResultShown = false
+        this.currentTramo = 0
         this.xCenter = undefined
         this.yCenter = undefined
         this.maxTramos = 8
@@ -65,6 +69,8 @@ class ContentElevatorPitch extends Content {
     }
 
     processMovement(){
+        if(!this.isPressEnabled) return;
+
         if(this.isPressingWatch){
             this.angle = this.calculateAngle()
             this.processAngle()
@@ -72,9 +78,13 @@ class ContentElevatorPitch extends Content {
     }
 
     onPressWatch(event){
+        if(!this.isPressEnabled) return;
+
         this.setMousePosition(event.clientX, event.clientY)
 
         this.distanceFromCenter = this.calculateDistance(this.xCenter, this.yCenter, this.mouseX, this.mouseY)
+
+        
         
         if(this.distanceFromCenter < this.radius){
             this.isPressingWatch = true
@@ -87,6 +97,7 @@ class ContentElevatorPitch extends Content {
 
     processAngle(){
         const tramo = Math.floor(this.angle / this.angleTramo)
+        this.currentTramo = tramo
 
         this.$timeSelected.innerText = this.timeData[tramo]
 
@@ -110,6 +121,9 @@ class ContentElevatorPitch extends Content {
         theta -= 270; 
         if (theta < 0) theta = 360 + theta; // range [0, 360)
         if (theta < 0) theta = 360 + theta; // range [0, 360)
+
+        // console.log(`xCenter ${x1} yCenter ${y1} mouseX ${x2} mouseY ${y2} angle ${theta}`)
+
         return theta;
     }
     
@@ -125,11 +139,13 @@ class ContentElevatorPitch extends Content {
     activateContent(){
         // Contenido ya está mostrado
         this.watchRect = this.$watchImage.getBoundingClientRect()
-        this.xCenter = this.watchRect.left + (this.watchRect.width / 2)
-        this.yCenter = this.watchRect.top + (this.watchRect.height / 2)
+        const watchWidth = this.watchRect.width
+        const watchHeight = this.watchRect.height
+        this.xCenter = this.watchRect.left + (watchWidth / 2)
+        this.yCenter = this.watchRect.top + (watchHeight / 2)
         
         // 0.684 es el pòrcentaje de la imagen del círculo respecto del total de la imagen
-        this.radius = (this.watchRect.width * 0.684) / 2
+        this.radius = (this.watchRect.width * 0.52898) / 2 // 0.684
 
         const self = this
         document.querySelectorAll(`.watch-timer`).forEach(timer => {
@@ -139,6 +155,14 @@ class ContentElevatorPitch extends Content {
             timer.style.top = -(rect.height * .5) - 2 + "px"
             self.timeImages.push(timer)
         })
+
+        document.querySelectorAll(`.watch-timer-static`).forEach(timer => {
+            const rect = timer.getBoundingClientRect()
+            timer.style.left = -(rect.width * .5) + "px"
+            timer.style.top = -(rect.height * .5) - 2 + "px"
+        })
+
+       
     }
     
 
@@ -146,8 +170,49 @@ class ContentElevatorPitch extends Content {
         if(!this.isNextEnabled){
             return
         }
+
+        if(!this.isFinalResultShown){
+            this.isFinalResultShown = true
+            const isCorrect = this.currentTramo == 0
+            this.showFinalResult(isCorrect);
+        }else{
+            this.gotoNextStep()
+        }
         
-        this.gotoNextStep()
+    }
+
+    showFinalResult(isCorrect){
+        this.isPressEnabled = false
+        let points = "0";
+        let textFinal = "Mmm, not really! <strong>30 seconds</strong> would be the ideal length for an elevator pitch."
+        if(isCorrect){
+            points = "+10";
+            textFinal = "Yes! An elevator pitch should focus on highlighting the <strong>unique selling points.</strong>"
+            //this.firstSentence.innerHTML = "<strong>That's correct!</strong>"
+        }else{
+            //this.firstSentence.innerHTML = "<strong>That's incorrect!</strong>"
+        }
+        
+
+        anime({
+            targets: `#result-step-${this.contentID}`,
+            opacity: 1,
+            duration: this.duration,
+            easing:'easeOutQuad'
+        })
+
+        anime({
+            targets: `.watch`, 
+            scale:.90,
+            translateY:-30,
+            duration: this.duration,
+            easing:'easeOutQuad'
+        })
+
+        document.querySelector(`#result-step-${this.contentID} .business-result-points`).innerHTML = points
+        document.querySelector(`.elevator-first-sentence`).innerHTML = "Short and to the point!"
+        document.querySelector(`.title-step-${this.contentID} .why-intro-title`).innerHTML = textFinal
+        //document.querySelector(`.title-step-${this.contentID} .why-intro-title`).innerHTML = textFinal
     }
 
     calculateDistance(x1, y1, x2, y2) {

@@ -15,11 +15,14 @@ import Intro from './content/Intro.js'
 import ContentAct1Cinematics from './content/ContentAct1Cinematics.js'
 import ContentAct2Cinematics from './content/ContentAct2Cinematics.js'
 import ContentAct3Cinematics from './content/ContentAct3Cinematics.js'
+import ContentAct4Cinematics from './content/ContentAct4Cinematics.js'
 import ContentSocialMedia from './content/ContentSocialMedia.js'
 import ContentBusiness from './content/ContentBusiness.js'
 import ContentAct1SarahApproves from './content/ContentAct1SarahApproves.js'
 import ContentAct2PreQuestion from './content/ContentAct2PreQuestion.js'
 import ContentValues from './content/ContentValues.js'
+import SarahQuestion9 from './content/SarahQuestion9.js'
+import ContentAct3AlexAfterIA from './content/ContentAct3AlexAfterIA.js'
 
 class Controller {
     constructor(){
@@ -83,8 +86,11 @@ class Controller {
         // - ACT II CINEMATICS 
         this.contentAct2Cinematics = new ContentAct2Cinematics()
 
-        // - ACT II CINEMATICS 
+        // - ACT III CINEMATICS 
         this.contentAct3Cinematics = new ContentAct3Cinematics()
+
+        // - ACT IV CINEMATICS 
+        this.contentAct4Cinematics = new ContentAct4Cinematics()
         
         // - FLOW DIAGRAM 
         this.contentDraggable = new ContentDraggable()
@@ -128,6 +134,15 @@ class Controller {
 
         // VALUES
         this.contentValues = new ContentValues();
+
+        // - ACT III CINEMATICS ALEX AFTER IA
+        this.contentAct3AlexAfterIA = new ContentAct3AlexAfterIA()
+
+        // - SARAH QUESTION 9
+        this.sarahQuestion9 = new SarahQuestion9()
+
+        
+
         
         
         // HEADER
@@ -152,7 +167,7 @@ class Controller {
         */
 
         // TESTING */
-        this.showContent(17) // 5 why
+        this.showContent(23) // 5 why
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event)
         });

@@ -14,11 +14,14 @@ import PatagoniaStep from './PatagoniaStep.astro';
 import SocialMediaStep from './SocialMediaStep.astro';
 import ActTitleStep from './ActTitleStep.astro';
 import ValuesStep from './ValuesStep.astro';
+import SarahQuestion9 from './SarahQuestion9.astro';
 import Act1_Cinematics from './acts/Act1_Cinematics.astro';
+import Act4_Cinematics from './acts/Act4_Cinematics.astro';
 import Act1_SarahApproves from './acts/Act1_SarahApproves.astro';
 import Act2_Cinematics from './acts/Act2_Cinematics.astro';
 import Act2_PreQuestion from './acts/Act2_PreQuestion.astro';
 import Act3_Cinematics from './acts/Act3_Cinematics.astro';
+import Act3_AlexAfterIA from './acts/Act3_AlexAfterIA.astro';
 import Intro from './Intro.astro';
 import Header from '../components/Header.astro';
 import BusinessStep from './BusinessStep.astro';
@@ -85,14 +88,26 @@ import Footer from '../components/Footer.astro';
 				<Step step="17">
 					<FlowDiagramStep step='17'/>
 				</Step>
-				<!-- subect TO CHANGE -->
 				<Step step="18">
-					<ElevatorPitchStep step="18" />
+					<Act3_AlexAfterIA step='18'/>
 				</Step>
 				<Step step="19">
 					<PatagoniaStep step="19" />
 				</Step>
 				<Step step="20">
+					<ElevatorPitchStep step="20" />
+				</Step>
+				<Step step="21">
+					<ActTitleStep act={4} label='The Reward' step="21"/>
+				</Step>
+				<Step step="22">
+					<Act4_Cinematics step='22'/>
+				</Step>
+				<Step step="23">
+					<SarahQuestion9 step='23'/>
+				</Step>
+				<!-- subect TO CHANGE -->
+				<Step step="24">
 					<Form />
 				</Step>
 			</div>

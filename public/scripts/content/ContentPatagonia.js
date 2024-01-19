@@ -28,7 +28,7 @@ class ContentPatagonia extends Content {
             y: undefined
         }
         this.distanceThreshold = 80
-        this.founderImageHeight = 180
+        this.founderImageHeight = 140
         this.draggerX = 0
         this.draggerY = 0
         this.itemsDragged = []
@@ -195,14 +195,6 @@ class ContentPatagonia extends Content {
     activateContent(){
         this.getBoundingRects()
         this.positionDraggableElements()
-
-        /*
-        console.log(this.content)
-        console.log(this.contentBoundingRect)
-        console.log(this.dropZone)
-        console.log(this.dropZoneBoundingRect)
-        console.log(this.dropZoneCenterX, this.dropZoneCenterY)
-        */
     }
 
     getBoundingRects(){
@@ -247,7 +239,6 @@ class ContentPatagonia extends Content {
             
             // Posición según fila y columna
             x += i * (this.itemWidth + marginInterior)
-            // console.log(x, y)
             
             // Actualizamos las posiciones en la data
             dataElement.initialPos = {x, y}
@@ -272,7 +263,6 @@ class ContentPatagonia extends Content {
 
                 var x = event.touches[0].clientX;
                 var y = event.touches[0].clientY;
-                console.log(x, y)
                 self.setMousePosition(x, y)
 
                 self.onMouseDownItem(item, i)
@@ -329,11 +319,11 @@ class ContentPatagonia extends Content {
             //const distance = this.getDistance(xImage, yImage, this.dropZoneCenterX, this.dropZoneCenterY)
             if(this.distance < this.distanceThreshold){
                 // Calcular esto mejor    
-                const xOffset = -20
-                const yOffset = 10
-                x = this.dropZoneCenterX - (this.founderImageRect.width * .5) + xOffset
-                y = this.dropZoneCenterY + (this.founderImageRect.height * .5) - this.itemHeight + yOffset
-
+                const xOffset = -8
+                const yOffset = 0
+                x = this.dropZoneCenterX - (this.founderImageRect.width * .5) - this.itemWidth + xOffset 
+                y = this.dropZoneCenterY - (this.itemHeight * .5);// + (this.founderImageRect.height * .5) - this.itemHeight + yOffset
+                
                 this.processResponse()
             }else{
                 // Calcular aquí se va a la pos inicial o a uno de los drops
@@ -344,6 +334,7 @@ class ContentPatagonia extends Content {
             let duration = this.distance * 20
             duration > 500 ? duration = 500 : duration
 
+            console.log(`element oto move: #${this.draggingElement.id}`)
             anime({
                 targets: `#${this.draggingElement.id}`,
                 left: x,
@@ -377,7 +368,7 @@ class ContentPatagonia extends Content {
             if(position == this.draggingElementPos){
 
             }else{
-                console.log(`duration ${this.duration} itemID ${itemID}`)
+                
                 anime({
                     targets: `#${itemID}`,
                     scale: 0,
@@ -388,43 +379,48 @@ class ContentPatagonia extends Content {
         })
 
         // Marker de correcto / incorrecto
+        let points = "0"
         let imageFinal = this.incorrectImage
         let imageName = "image-incorrect"
+        let textFinal = "<strong>You missed that one!</strong><br>Yvon Chouinard is the<br>founder of Patagonia."
         if(this.draggingElementPos == 2){
             imageFinal = this.correctImage
             imageName = "image-correct"
-
-            this.firstSentence.innerHTML = "<strong>That's correct!</strong>"
+            points = "+10";
+            textFinal = "<strong>You’re right!</strong><br>Yvon Chouinard is the<br>founder of Patagonia."
+            //this.firstSentence.innerHTML = "<strong>That's correct!</strong>"
         }else{
-            this.firstSentence.innerHTML = "<strong>That's incorrect!</strong>"
+            //this.firstSentence.innerHTML = "<strong>That's incorrect!</strong>"
         }
         
-        this.secondSentence.innerHTML = "<strong>Yvon Chouinard</strong> founded this American outdoor clothing company in 1973."
-        const xOffset = -30
+        //this.secondSentence.innerHTML = "<strong>Yvon Chouinard</strong> founded this American outdoor clothing company in 1973."
+        const xOffset = 8
         const yOffset = 30
         let x
         let y
+
         x = this.dropZoneCenterX + (this.founderImageRect.width * .5) + xOffset
-        y = this.dropZoneCenterY + (this.founderImageRect.height * .5) - this.correctImage.getBoundingClientRect().height + yOffset
+        y = this.dropZoneCenterY - (this.correctImage.getBoundingClientRect().height * .5)
         
         imageFinal.style.left = `${x}px`
         imageFinal.style.top = `${y}px`
 
         anime({
-            targets: `#${imageName}, #image-patagonia`,
+            targets: `#${imageName}, #image-patagonia, #result-step-${this.contentID}`,
             opacity: 1,
             duration: this.duration,
             easing:'easeOutQuad'
         })
         
         anime({
-            targets: `#patagonia-drop-indicator, #patagonia-dashed-line`,
+            targets: `#patagonia-drop-indicator, #patagonia-dashed-line, .founder-explanation-text`,
             opacity: 0,
             duration: this.duration,
             easing:'easeOutQuad'
         })
         
-        
+        document.querySelector(`#result-step-${this.contentID} .business-result-points`).innerHTML = points
+        document.querySelector(`.title-step-${this.contentID} .why-intro-title`).innerHTML = textFinal
     }
 
 
