@@ -14,7 +14,10 @@ import PatagoniaStep from './PatagoniaStep.astro';
 import SocialMediaStep from './SocialMediaStep.astro';
 import ActTitleStep from './ActTitleStep.astro';
 import ValuesStep from './ValuesStep.astro';
+import Congrats from './Congrats.astro';
+import PointsExplanation from './PointsExplanation.astro';
 import SarahQuestion9 from './SarahQuestion9.astro';
+import SarahQuestion10 from './SarahQuestion10.astro';
 import Act1_Cinematics from './acts/Act1_Cinematics.astro';
 import Act4_Cinematics from './acts/Act4_Cinematics.astro';
 import Act1_SarahApproves from './acts/Act1_SarahApproves.astro';
@@ -22,10 +25,12 @@ import Act2_Cinematics from './acts/Act2_Cinematics.astro';
 import Act2_PreQuestion from './acts/Act2_PreQuestion.astro';
 import Act3_Cinematics from './acts/Act3_Cinematics.astro';
 import Act3_AlexAfterIA from './acts/Act3_AlexAfterIA.astro';
+import Act4_Cinematics_After9 from './acts/Act4_Cinematics_After9.astro';
 import Intro from './Intro.astro';
 import Header from '../components/Header.astro';
 import BusinessStep from './BusinessStep.astro';
 import Footer from '../components/Footer.astro';
+import PrologueCinematics from './acts/Prologue_Cinematics.astro';
 ---
 <Layout title="Guardians of the Rainforest | WHU">
 	<div class="container" draggable="false">
@@ -106,8 +111,26 @@ import Footer from '../components/Footer.astro';
 				<Step step="23">
 					<SarahQuestion9 step='23'/>
 				</Step>
-				<!-- subect TO CHANGE -->
 				<Step step="24">
+					<Act4_Cinematics_After9 step='24'/>
+				</Step>
+				<Step step="25">
+					<SarahQuestion10 step='25'/>
+				</Step>
+				<Step step="26">
+					<ActTitleStep act={5} label='The next chapter' step="26"/>
+				</Step>
+				<Step step="27">
+					<PrologueCinematics step='27'/>
+				</Step>
+				<Step step="28">
+					<Congrats step='28'/>
+				</Step>
+				<Step step="29">
+					<PointsExplanation step='29'/>
+				</Step>
+				<!-- subect TO CHANGE -->
+				<Step step="29">
 					<Form />
 				</Step>
 			</div>

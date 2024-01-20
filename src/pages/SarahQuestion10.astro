@@ -16,26 +16,26 @@ const { step } = Astro.props;
 <div class=`content-holder`>
     <div class="info">
         <div class=`title-step-${step}`>
-            <QuestionHeader character="sarah">
-                As entrepreneurs, we need to <strong>lead and inspire</strong> other team members.
+            <QuestionHeader character="sarah">Regarding the support of the <strong>expansion stage of the business cycle...</strong><br>
+
             </QuestionHeader>   
         </div>
     </div>
     <div class="info-holder">
         <div id="question-holder">
             <div class="info-question">
-                <div class="question-text">Which crucial skill we have to master to foster a positive work culture, and propel our ventures to success?</div>
+                <div class="question-text">Which of the following options do you believe is the most relevant?</div>
                 <div class="answers">
-                    <a class=`answer btn-step-${step}-option` id=`step-${step}-answer-button-1` href="#">Influential negotiation and persuasive abilities</a>
-                    <a class=`answer btn-step-${step}-option` id=`step-${step}-answer-button-2` href="#">Adaptive leadership and change management</a>
-                    <a class=`answer btn-step-${step}-option` id=`step-${step}-answer-button-3` href="#">Intuitive market intuition and trend forecasting</a>
-                    <a class=`answer btn-step-${step}-option` id=`step-${step}-answer-button-4` href="#">Proficient multitasking and time management</a>
+                    <a class=`answer btn-step-${step}-option` id=`step-${step}-answer-button-1` href="#">Practical skills training in marketing, finance and operations</a>
+                    <a class=`answer btn-step-${step}-option` id=`step-${step}-answer-button-2` href="#">Access to funding</a>
+                    <a class=`answer btn-step-${step}-option` id=`step-${step}-answer-button-3` href="#">Access to industry expertise and international business connections</a>
+                    <a class=`answer btn-step-${step}-option` id=`step-${step}-answer-button-4` href="#">Opportunities for events targeted towards business idea refining</a>
                 </div>
             </div>
         </div>
         <div id="result-holder">
             <div class="result-holder">
-                <div class="question-9-explanation">Every business faces multiple challenges, so being flexible and adapting to context will be your best skill!</div>
+                <div class="question-9-explanation"></div>
                 <div class="visual-result">
                     <div class="visual-result-left">
                         <img style="opacity:0"  src="./imgs/correct.png">
@@ -77,7 +77,7 @@ const { step } = Astro.props;
         display: grid;
         grid-template-columns: 100% 100%;
         gap:30px;
-        margin-bottom: 30px;
+       
         /*transform: translateX(-328px);*/
     }   
 
@@ -149,8 +149,11 @@ const { step } = Astro.props;
         border-radius: 8px;
         color:var(--color-blue);
         font-size: 14px;
-        padding:15px 6px;
+        padding:10px 5px;
         text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     .result-holder {

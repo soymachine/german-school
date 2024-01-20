@@ -23,6 +23,9 @@ import ContentAct2PreQuestion from './content/ContentAct2PreQuestion.js'
 import ContentValues from './content/ContentValues.js'
 import SarahQuestion9 from './content/SarahQuestion9.js'
 import ContentAct3AlexAfterIA from './content/ContentAct3AlexAfterIA.js'
+import ContentAct4Cinematics_After9 from './content/ContentAct4Cinematics_After9.js'
+import SarahQuestion10 from './content/SarahQuestion10.js'
+import ContentPrologueCinematics from './content/ContentPrologueCinematics.js'
 
 class Controller {
     constructor(){
@@ -141,9 +144,14 @@ class Controller {
         // - SARAH QUESTION 9
         this.sarahQuestion9 = new SarahQuestion9()
 
-        
+        // - SARAH QUESTION 9
+        this.contentAct4Cinematics_After9 = new ContentAct4Cinematics_After9()
 
-        
+        // - SARAH QUESTION 10
+        this.sarahQuestion10 = new SarahQuestion10()
+
+        // - SARAH QUESTION 10
+        this.contentPrologueCinematics = new ContentPrologueCinematics()
         
         // HEADER
         this.header = new Header()
@@ -167,7 +175,7 @@ class Controller {
         */
 
         // TESTING */
-        this.showContent(23) // 5 why
+        //this.showContent(29) // 5 why
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event)
         });

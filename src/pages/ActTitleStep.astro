@@ -11,11 +11,21 @@ let { act, label, step } = Astro.props;
 act = Number(act)
 let actPos = act - 1
 const acts = ["I", "II", "III", "IV"]
+let actImg
+let actLabel
+if(act > 4) {
+    actLabel = "Epilogue"
+    actImg = `act-title-epilogue-img.png` 
+}else{
+    actLabel = "Act " + acts[act-1]
+    actImg = `act-title-${acts[act-1]}-img.png` 
+}
 let selected = ""
+// , "Epilogue"
 ---
 <div class="act-title-wrapper">
     <div class="act-title-menu">
-        <div class="act-title-title">Act {acts[act-1]}</div>
+        <div class="act-title-title">{actLabel}</div>
         <div class="act-title-step-menu">
             {
                 acts.map((currentAct, index) => {
@@ -39,7 +49,7 @@ let selected = ""
         {label}
     </div>
     <div class="act-title-img">
-        <img src=`./imgs/acts/titles/act-title-${acts[act-1]}-img.png`>
+        <img src=`./imgs/acts/titles/${actImg}`>
     </div>
     <div class="act-title-button">
         <NextButton step={step}/>

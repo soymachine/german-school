@@ -1,0 +1,140 @@
+---
+import NextButton from '../components/buttons/NextButton.astro';
+import QuestionHeader from '../components/QuestionHeader.astro';
+import Avatar from '../components/avatar/Avatar.astro';
+interface Props {
+	step: string;
+}
+
+const { step } = Astro.props;
+---
+<div class=`holder-congrats`>
+    <div class="title">
+        <strong>Congrats</strong> and <strong>thank you!</strong>
+    </div>
+    <div class="characters">
+        <div id="avatar">
+            <Avatar width={175} step={step} hasText={false} isSpeech={true}/>
+        </div>
+        <div><img id="all-characters" width="80%" src="./imgs/epilogue/all-characters.png"></div>
+    </div>
+    <div class="score-label">
+        <div class="score-label-first">
+            <span class='user-name'>Iñaki</span>, this is your
+        </div>
+        <div class="score-label-second">
+            FINAL SCORE:
+        </div>
+    </div>
+    <div class="score">
+        <div class="score-points">
+            <div class="score-points-total">200</div>
+            <div class="score-points-label">points</div>
+        </div>
+    </div>
+    
+    <NextButton step={step}/>
+</div>
+<style >
+
+    .holder-congrats {
+        color:#054696;
+        text-align: center;
+        font-size: 18px;
+        margin:20px 10px;
+        font-family: 'Roboto', sans-serif;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .title {
+        margin-bottom: 60px;
+    }
+    
+    .characters {
+        display: flex;
+        flex-direction: row;
+        border-bottom: 2px solid #82A2CA;
+        align-items: flex-end;
+        margin: 0 20px 50px 20px;
+    }
+
+    .score-label{
+        display: flex;
+        flex-direction: column;
+        margin: 0 20px;
+        color: #054696;
+    }
+
+    .score-label-second {
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .score {
+        display: flex;
+        flex-direction: column;
+        background-color: #E7EFF2;
+        border-radius: 5px;
+        /* padding: 10px 10px; */
+        margin: 15px 30px; 
+        position: relative;
+        height: 120px;
+    }
+
+    .score-points {
+        text-align: center;
+        color: white;
+        background-color: #EB590A;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: auto;
+        padding: 10px 20px;
+        border-radius: 10px;
+    }
+
+    .score-points-total {
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .score-points-label{
+        font-size: 20px;
+    }
+
+    #avatar {
+        width: 113%;
+        height: 118px;
+        position: relative;
+        top: -30px;
+        left: -16px;
+
+    }
+
+    #avatar img {
+        margin-top: -60px;
+        pointer-events: none;
+    }
+
+    .answer-description {
+        border:1px solid #15519D;
+        border-radius:8px;
+        padding:10px 10px;
+        margin:30px 10px 30px 10px;
+    }
+
+    #answer-correct-icon{
+        position: absolute;
+        top:0;
+        left:0;
+        opacity: 0;
+    }
+
+</style>

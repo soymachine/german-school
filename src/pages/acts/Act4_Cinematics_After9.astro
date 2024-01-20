@@ -1,0 +1,189 @@
+---
+import Avatar from "../../components/avatar/Avatar.astro";
+
+interface Props {
+	step: string;
+}
+
+const { step } = Astro.props;
+
+// width 200 es a desktop (W:448)
+
+---
+
+<div class="act-cinematics-wrapper">
+    <div class="act-cinematics-center"> 
+        <div class="act-cinematics-holder">
+            <div class="speech">
+                <div class="speech-bubble">
+                    <div class="speech-bubble-text">
+                        <div id="speech-content-act-4-after9" class="speech-bubble-text-content">
+                            Nice to meet you Iñaki, I think you can be the perfect addition to the team
+                        </div>
+                    </div>                    
+                </div>
+                <img id="speech-bubble-wedge" src="./imgs/acts/speech/speech-wedge.png">
+                <a id="content-cinematic-act-4-after9-button" class="speech-bubble-button" href="#"><div class="speech-loading"><img src="./imgs/acts/speech/speech-loading.gif"></div></a>
+            </div>
+            <img class="act-cinematics-background-image" src="./imgs/acts/titles/title-I-Background.png">
+        </div>
+        <div class="characters">
+            <div id="speech-user-avatar">
+                <Avatar isSpeech={true} width={200} step={step} fontSize={25} textCorrection={10}/>
+            </div>
+            <img class="character-image" id="sarah" src="./imgs/characters/sarah-speech.png">
+            <div class="character-name" id="sarah-name">Sarah</div>
+
+        </div>
+    </div>
+</div>
+<style>
+    /* SPEECH */
+    .speech {
+        position: absolute;
+        width: 100%;
+        top: -16%;
+    }
+
+    .speech-bubble {
+        width: 62%;
+        height: 150px;
+        margin: auto;
+        background-color: #EAEFF7;
+        padding: 10px 20px;
+        border: 2px solid #054696;
+        /* drop hard shadow */
+        box-shadow: 5px 5px 0px 0px rgb(0 0 0 / 75%);
+    }
+    .speech-loading {
+        background-color: #00A5DC;
+        width: 100px;
+        padding: 17px 10px;
+        margin: 0 auto;
+        border-radius: 7px;
+        border: 2px solid white;
+        margin-top: -57px;
+    }
+
+    #speech-bubble-wedge {
+        margin-top: -2px;
+        transform: translateX(110px);
+    }
+
+    .speech-bubble-text {
+        height: 100%;
+        margin: auto;
+        display: flex;
+    }
+
+    .speech-bubble-text-content {
+        margin: auto 35px;
+    }
+
+    .speech-loading img{
+        width: 100px;
+        margin-top: 10px;
+    }
+
+    .speech-bubble-button {
+        display: contents;
+    }
+
+
+    /*  OTHER */
+    .characters > #speech-user-avatar {
+        position: absolute;
+        top:49%;
+    }
+
+    .act-cinematics-wrapper {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        color:#054696;
+        font-size: 22px;
+        /*margin:20px 0px;*/
+        font-family: 'Roboto', sans-serif;
+        text-align: center;
+    }
+
+    .act-cinematics-center {
+        position: relative;
+        margin: auto 0;
+    }
+
+    .act-cinematics-background-image{
+        width: 100%;
+    }
+
+    .characters {
+        position: absolute;
+        pointer-events: none;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+    }
+
+    .character-image{
+        width: 160px;
+        position: absolute;
+    }
+
+    .character-name {
+        position: absolute;
+        font-weight: bold;
+    }
+
+    #sarah-name {
+        top: 112%;
+        left: 69%;
+        color: #054696;
+        font-size: 25px;
+    }
+
+    #sarah {
+        top: 58%;
+        left: 59%;
+    }
+
+    @media (max-width: 375px) {
+        .act-cinematics-wrapper {
+            font-size: 18px;
+        }
+
+        .speech {
+            top: -20%;
+        }
+
+        .speech-bubble {
+            width: 79%;
+            height: 150px;
+            padding: 10px 0px;
+        }
+
+        .speech-loading {
+            width: 70px;
+            padding: 11px 10px;
+            margin-top: -46px;
+        }
+
+        .speech-loading img{
+            width: 70px;
+            margin-top: 10px;
+        }
+
+        #speech-bubble-wedge {
+            width: 35px;
+        }
+
+        #sarah {
+            width: 140px;;
+        }
+
+        #sarah-name {
+            font-size: 20px;
+        }
+    }
+</style>
