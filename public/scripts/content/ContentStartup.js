@@ -2,7 +2,7 @@ import ResponseMultiple from '../helpers/ResponseMultiple.js'
 import Content from './Content.js'
 import {eventSystem, Events}  from '../helpers/EventSystem.js'
 import Steps from '../helpers/Steps.js'
-
+import {currentPunctuation} from '../helpers/Punctuation.js'
 
 class ContentStartup extends Content {
     constructor(){
@@ -272,7 +272,8 @@ class ContentStartup extends Content {
         }, 0)
 
         console.log(this.currentButtonsSelected)
-        console.log(acertadas)
+        console.log()
+        currentPunctuation.addPunctuation(acertadas * 10)
 
         let finalHTML = "You guessed correctly<br>"
         finalHTML    += '<span class="score-result"><strong>'+ acertadas + '</strong> out of <strong>6</strong></span>'

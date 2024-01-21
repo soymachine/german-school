@@ -4,7 +4,7 @@ import ResponseUnique from '../helpers/ResponseUnique.js'
 import Settings from '../helpers/Settings.js'
 import Steps from '../helpers/Steps.js'
 import {avatarSelection} from '../helpers/AvatarSelection.js'
-
+import {currentPunctuation} from '../helpers/Punctuation.js'
 
 
 
@@ -162,6 +162,7 @@ class ContentBusiness extends Content {
             this.firstParagraph.innerHTML = `<strong>Well done, <span class='user-name'>${avatarSelection.name}</span>.</strong>`
             this.secondParagraph.innerHTML = `That is correct!`
             points = "+10"
+            currentPunctuation.addPunctuation(10)
         }else{
             this.firstParagraph.innerHTML = `<strong>Oops, <span class='user-name'>${avatarSelection.name}</span>.</strong>`
             this.secondParagraph.innerHTML = `The correct answer was...`

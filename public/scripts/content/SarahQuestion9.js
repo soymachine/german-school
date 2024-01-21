@@ -4,6 +4,7 @@ import {eventSystem, Events} from '../helpers/EventSystem.js'
 import ResponseUnique from '../helpers/ResponseUnique.js'
 import {avatarSelection} from '../helpers/AvatarSelection.js'
 import Steps from '../helpers/Steps.js'
+import { currentPunctuation } from '../helpers/Punctuation.js'
 
 
 class SarahQuestion9 extends Content {
@@ -85,6 +86,7 @@ class SarahQuestion9 extends Content {
 
             this.$titleText.innerHTML = "<strong>Well done</strong>, that is exactly what I was looking for!"
             this.pointsElement.innerHTML = "+10"
+            currentPunctuation.addPunctuation(10)
             this.$questionExplanation.innerHTML = "Every business faces multiple challenges, so being flexible and adapting to context will be your best skill!"
         }else{
             // Incorrect

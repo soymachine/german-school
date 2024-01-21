@@ -4,7 +4,7 @@ import {eventSystem, Events} from '../helpers/EventSystem.js'
 import ResponseUnique from '../helpers/ResponseUnique.js'
 import {avatarSelection} from '../helpers/AvatarSelection.js'
 import Steps from '../helpers/Steps.js'
-
+import {currentPunctuation} from '../helpers/Punctuation.js'
 
 class ContentValues extends Content {
     constructor(){
@@ -83,6 +83,7 @@ class ContentValues extends Content {
 
             this.$titleText.innerHTML = "<strong>Excellent!</strong> We're confident your goal is to improve this world and not chasing your own profit."
             this.pointsElement.innerHTML = "+10"
+            acertadas.addPunctuation(10)
         }else{
             // Incorrect
             // Change url of $imageMark to this.incorrectMarkImage string

@@ -1,6 +1,7 @@
 import Content from './Content.js'
 import {eventSystem, Events} from '../helpers/EventSystem.js'
 import Steps from '../helpers/Steps.js'
+import { currentPunctuation } from '../helpers/Punctuation.js'
 
 const ACCESS_TOKEN = "1234567890"
 class ContentForm extends Content {
@@ -54,7 +55,7 @@ class ContentForm extends Content {
             name:name,
             surname:surname,
             email:email,
-            score:90,
+            score:currentPunctuation.getPunctuation(),
             avatar:"2-1-1-2",
             phone:phone
           })

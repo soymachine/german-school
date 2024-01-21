@@ -3,7 +3,7 @@ import {eventSystem, Events} from '../helpers/EventSystem.js'
 import ResponseUnique from '../helpers/ResponseUnique.js'
 import Settings from '../helpers/Settings.js'
 import Steps from '../helpers/Steps.js'
-
+import {currentPunctuation} from '../helpers/Punctuation.js'
 
 
 class ContentElevatorPitch extends Content {
@@ -187,6 +187,7 @@ class ContentElevatorPitch extends Content {
         let textFinal = "Mmm, not really! <strong>30 seconds</strong> would be the ideal length for an elevator pitch."
         if(isCorrect){
             points = "+10";
+            currentPunctuation.addPunctuation(10)
             textFinal = "Yes! An elevator pitch should focus on highlighting the <strong>unique selling points.</strong>"
             //this.firstSentence.innerHTML = "<strong>That's correct!</strong>"
         }else{

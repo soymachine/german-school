@@ -1,7 +1,7 @@
 import Content from './Content.js'
 import {eventSystem, Events} from '../helpers/EventSystem.js'
 import Steps from '../helpers/Steps.js'
-
+import {currentPunctuation} from '../helpers/Punctuation.js'
 
 class ContentPatagonia extends Content {
     constructor(){
@@ -387,6 +387,7 @@ class ContentPatagonia extends Content {
             imageFinal = this.correctImage
             imageName = "image-correct"
             points = "+10";
+            currentPunctuation.addPunctuation(10)
             textFinal = "<strong>You’re right!</strong><br>Yvon Chouinard is the<br>founder of Patagonia."
             //this.firstSentence.innerHTML = "<strong>That's correct!</strong>"
         }else{

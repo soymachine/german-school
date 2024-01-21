@@ -3,7 +3,7 @@ import Settings from '../helpers/Settings.js'
 import {eventSystem, Events} from '../helpers/EventSystem.js'
 import ResponseUnique from '../helpers/ResponseUnique.js'
 import Steps from '../helpers/Steps.js'
-
+import {currentPunctuation} from '../helpers/Punctuation.js'
 
 class ContentFinancial extends Content {
     constructor(){
@@ -81,6 +81,7 @@ class ContentFinancial extends Content {
 
             this.$titleText.innerHTML = "<strong>Correct!</strong> The ROE (Return of Equity) is a very important metric for the shareholders."
             this.pointsElement.innerHTML = "+10"
+            currentPunctuation.addPunctuation(10)
         }else{
             // Incorrect
             // Change url of $imageMark to this.incorrectMarkImage string
