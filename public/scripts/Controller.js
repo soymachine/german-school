@@ -26,6 +26,8 @@ import ContentAct3AlexAfterIA from './content/ContentAct3AlexAfterIA.js'
 import ContentAct4Cinematics_After9 from './content/ContentAct4Cinematics_After9.js'
 import SarahQuestion10 from './content/SarahQuestion10.js'
 import ContentPrologueCinematics from './content/ContentPrologueCinematics.js'
+import CallToAction from './content/CallToAction.js'
+import ContentForm from './content/ContentForm.js'
 
 class Controller {
     constructor(){
@@ -152,13 +154,16 @@ class Controller {
 
         // - SARAH QUESTION 10
         this.contentPrologueCinematics = new ContentPrologueCinematics()
+
+        // - CALL TO ACTION
+        this.callToAction = new CallToAction()
         
         // HEADER
         this.header = new Header()
 
         
-        // 4.- FORM
-        //this.content["content-3"] = new Content3()
+        // - FORM
+        this.from = new ContentForm()
 
         // El controlador del questionario
         this.questionaireController = new QuestionaireController()
@@ -175,7 +180,7 @@ class Controller {
         */
 
         // TESTING */
-        //this.showContent(29) // 5 why
+        //this.showContent(31) // 5 why
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event)
         });

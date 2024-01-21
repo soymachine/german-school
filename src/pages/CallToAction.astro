@@ -1,0 +1,156 @@
+---
+import NextButton from '../components/buttons/NextButton.astro';
+import QuestionHeader from '../components/QuestionHeader.astro';
+import Avatar from '../components/avatar/Avatar.astro';
+interface Props {
+	step: string;
+}
+
+const { step } = Astro.props;
+---
+<div class=`holder-congrats`>
+    <div class="header">
+        <img src="./imgs/epilogue/call-to-action-header.png">
+    </div>
+    <div class="avatar-explanation">
+        <div class="header-avatar">
+            <div id="avatar">
+                <Avatar width={140} step={step} hasText={false} isSpeech={true}/>
+            </div>            
+        </div>
+        <div class="header-text">
+            Your journey doesn’t end here – <strong>start your adventure at WHU</strong> where we will nurture and elevate your skills to even greater heights. 
+        </div>
+    </div>
+    <div class="call-to-action">
+        <strong>Join us</strong> to unleash your full potential and create the next big thing with us!   
+    </div>
+    <NextButton step={step}/>
+</div>
+<style >
+
+    .header img {
+        width: 100%;
+    }
+
+    .holder-congrats {
+        color:#054696;
+        text-align: center;
+        font-size: 18px;
+        /*margin:20px 10px;*/
+        font-family: 'Roboto', sans-serif;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .title {
+        margin-bottom: 60px;
+    }
+    
+    .characters {
+        display: flex;
+        flex-direction: row;
+        border-bottom: 2px solid #82A2CA;
+        align-items: flex-end;
+        margin: 0 20px 50px 20px;
+    }
+
+    .score-label{
+        display: flex;
+        flex-direction: column;
+        margin: 0 20px;
+        color: #054696;
+    }
+
+    .score-label-second {
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .header {
+        
+    }
+
+    .avatar-explanation {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        background-color: #E7EFF2;
+        border-radius: 5px;
+        margin:10px 20px;
+        padding: 20px;
+    }
+
+    .header-text{
+        font-size: 15px;
+        text-align: left;
+        line-height: 1.5em;
+    }
+    
+    .explanation-label{
+        line-height: 1.4em;
+    }
+
+    .explanation-title {
+        margin-bottom: 10px;
+    }
+
+
+    .punctuation-description {
+        background-color: #044596;
+        color: white;
+        padding:10px 15px;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 18px;
+        position: relative;
+        z-index: 100;
+    }
+
+    .explanation {
+        background-color: #E7EFF2;
+        margin: 20px 20px 10px 20px;
+        border-radius: 10px;
+    }
+
+    .explanation-label {
+        padding:20px;
+        text-align: left;
+        font-size: 16px;        
+    }
+
+    .call-to-action{
+        font-size: 15px; 
+        margin:10px 30px;
+    }
+
+    #avatar {
+        width: 113%;
+        height: 118px;
+        position: relative;
+        top: 0px;
+        left: -7px;
+    }
+
+    #avatar img {
+        margin-top: -60px;
+        pointer-events: none;
+    }
+
+    .answer-description {
+        border:1px solid #15519D;
+        border-radius:8px;
+        padding:10px 10px;
+        margin:30px 10px 30px 10px;
+    }
+
+    #answer-correct-icon{
+        position: absolute;
+        top:0;
+        left:0;
+        opacity: 0;
+    }
+
+</style>

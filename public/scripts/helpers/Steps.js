@@ -28,6 +28,6 @@ Steps.PROLOGUE_CINEMATICS = 27
 Steps.CONGRATS = 28
 Steps.POINTS_EXPLANATION = 29
 Steps.CALL_TO_ACTION = 30
-Steps.FORM = 30
+Steps.FORM = 31
 
 export default Steps

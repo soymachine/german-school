@@ -31,6 +31,7 @@ import Header from '../components/Header.astro';
 import BusinessStep from './BusinessStep.astro';
 import Footer from '../components/Footer.astro';
 import PrologueCinematics from './acts/Prologue_Cinematics.astro';
+import CallToAction from './CallToAction.astro';
 ---
 <Layout title="Guardians of the Rainforest | WHU">
 	<div class="container" draggable="false">
@@ -129,8 +130,11 @@ import PrologueCinematics from './acts/Prologue_Cinematics.astro';
 				<Step step="29">
 					<PointsExplanation step='29'/>
 				</Step>
+				<Step step="30">
+					<CallToAction step='30'/>
+				</Step>
 				<!-- subect TO CHANGE -->
-				<Step step="29">
+				<Step step="31">
 					<Form />
 				</Step>
 			</div>
@@ -242,7 +246,7 @@ import PrologueCinematics from './acts/Prologue_Cinematics.astro';
 		width: 100%;
 		display:grid;
 		background-color: #054696;
-		opacity:0;
+		opacity:1;
 	}
 
 	.sticky-footer {
@@ -250,7 +254,7 @@ import PrologueCinematics from './acts/Prologue_Cinematics.astro';
 		position: absolute;
 		bottom: 0px;
 		height: 35px;
-		opacity:0;
+		opacity:1;
 	}
 
 </style>

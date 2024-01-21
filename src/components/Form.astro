@@ -1,21 +1,109 @@
 ---
+interface Props {
+	step: string;
+}
 
+const { step } = Astro.props;
 ---
-<!--<form action="" id="formulario">
-    <input type="text" id="email-input">
-    Email
-    <button id="send-form-btn" type="submit">Submit</button>
-</form>
--->
-<div class="form-wrapper">
-    <div>Final form will be here</div>
+<div class="holder-form">
+    <div class="title">Let’s <strong>get in touch!</strong></div>
+    <div class="form-wrapper">
+        
+        <form action="" id="formulario">
+            <div class="form-label">Name</div>
+            <input type="text" id="name-input">
+            <div class="form-label">Surname</div>
+            <input type="text" id="surname-input">
+            <div class="form-label">Email</div>
+            <input type="text" id="email-input">
+            <div class="form-label">Phone</div>
+            <input type="text" id="phone-input">
+            <div class="button-holder">
+                <a id=`next-button-${step}` class="next-button-link" href="#">Send</a>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="acceptance-wrapper">
+    <div><input type="checkbox"></div>
+    <div>I accept (policies WHU) - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ut mi viverra, porttitor dolor ornare, cursus lectus. Praesent nec mi et eros porttitor aliquam. </div>
 </div>
 <style>
-    .form-wrapper {
+
+    .acceptance-wrapper{
+        display: grid;
+        grid-template-columns: auto auto;
+        margin: 10px 20px 10px 20px;
+        font-size: 10px;
+        font-family: 'Roboto', sans-serif;
+        color:#999999;
+        gap:5px;
+    }
+
+    .holder-form {
+        color:#054696;
+        text-align: center;
+        font-size: 18px;
+        font-family: 'Roboto', sans-serif;
+        overflow: hidden;
+        position: relative;
         display: flex;
+        flex-direction: column;
+        margin:10px 30px;
         /* center on the available space */
+        /*
         justify-content: center;
         align-items: center;
         height: 100%;
+        */
     }
+
+    .title {
+        text-align: center;
+        margin:10px 0px;   
+    }
+
+    .form-wrapper {
+        background-color: #E7EFF2;
+        margin:10px 20px 10px 20px;
+        border-radius: 5px;
+        padding:20px 20px;
+        font-size: 16px;
+    }
+
+    .form-label {
+        font-style: italic;
+        margin-bottom: 5px;
+    }
+
+    #formulario {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #formulario input{
+        border:1px solid #054696;
+        padding:10px;
+        margin-bottom: 10px;
+    }
+
+    .button-holder {
+		max-width:300px;
+		text-align:center;
+		margin: 0 auto;
+		font-family: "Roboto",sans-serif;
+	}
+
+	.next-button-link{
+		text-decoration: none;
+		background-color:#00A5DC;
+		color:white;
+		padding:15px 50px;
+		margin:10px 10px;
+		border-radius: 8px;
+		font-size:20px;
+		font-weight:bold;
+		display:block;
+	}
+    
 </style>
