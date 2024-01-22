@@ -9,13 +9,65 @@ interface Props {
 const { step } = Astro.props;
 ---
 <div class=`holder-social-media`>
-    <div id="avatar">
-        <Avatar step={step} hasText={false}/>
+    <div class="bus">
+        <div class="bus-image bus-foreground"><img src="/public/imgs/intro/bus/bus_foreground.png"></div>
+        <div class="bus-image bus-background"><img src="/public/imgs/intro/bus/bus_background.png"></div>
+    </div>  
+    <div id="speech-user-avatar">
+        <Avatar isSpeech={true} width={175} step={step} fontSize={25} textCorrection={10} hasText={false}/>
     </div>
-    <div>Social Media content here...</div>
+    <div class="social-media-stream-wrapper">
+        <div class="social-media-stream">
+            <div id="social-media-image-1" class="social-media-image"><img src="/public/imgs/intro/bus/social-media-stream/sm-1.png"></div>
+            <div id="social-media-image-2" class="social-media-image"><img src="/public/imgs/intro/bus/social-media-stream/sm-2.png"></div>
+            <div id="social-media-image-3" class="social-media-image"><img src="/public/imgs/intro/bus/social-media-stream/sm-3.png"></div>
+            <div id="social-media-image-4" class="social-media-image"><img src="/public/imgs/intro/bus/social-media-stream/sm-4.png"></div>
+            <div id="social-media-image-5" class="social-media-interaction">
+                <div>ALERT! The worldwide demand for tropical hardwoods needs to decline. Our rainforest are in danger!                    
+                </div>
+                <img src="/public/imgs/intro/bus/social-media-stream/sm-5.png">
+            </div>
+        </div>
+    </div>
+    
     <NextButton step={step}/>
 </div>
 <style >
+
+    .social-media-stream-wrapper {
+        position: absolute;
+        width: 100%;
+        top: 180px;
+        left: 0px;
+        overflow: hidden;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .social-media-stream {
+        position: absolute;
+        top:0px;
+        left:0px;
+        z-index: 10;
+        width: 100%;
+    }
+
+    .social-media-image img{
+        width: 60%;
+    }
+
+    #social-media-image-5 {
+        width: 60%;
+        margin: 0 auto;
+        background-color: #CFEBFC;
+        padding: 10px 10px;
+        border-radius: 4px;
+        border: 4px solid #01A5DC;
+    }
+
+    .social-media-interaction img{
+        width: 100%;
+    }
     
     .holder-social-media {
         --text-blue:#14519C; 
@@ -23,20 +75,54 @@ const { step } = Astro.props;
         color:darkblue;
         text-align: center;
         font-size: 14px;
-        margin:20px 10px;
+        margin:20px 0px;
         font-family: 'Roboto', sans-serif;
         overflow: hidden;
         position: relative;
         display: flex;
         flex-direction: column;
         height: 100%;
+        /* center on y */
+        justify-content: center;
+        align-items: center;
+    }
+
+    .bus {
+        position: relative;
+        width: 100%;
+    }
+
+    .bus-foreground {
+        position: relative;
+        z-index:1;
+    }
+
+    .bus-background {
+        position: absolute;
+        z-index:0;
+        top:0px;
+    }
+
+
+    .bus-image img{
+        width: 100%;
+        
+        top:0px;
+        left:0px;
+    }
+
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        
     }
     
 
-    #avatar {
-        width: 100%;
-        height: 50px;
-        position: relative;
+    #speech-user-avatar {
+        position: absolute;
+        top: 10px;
+        left: 115px;
     }
 
     #avatar img {

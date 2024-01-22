@@ -2,6 +2,7 @@
 import NextButton from '../components/buttons/NextButton.astro';
 import { imageURL } from '../../public/scripts/helpers/ImageURL';
 import QuestionHeader from '../components/QuestionHeader.astro';
+import Punctuation from '../components/Punctuation.astro';
 
 interface Props {
 	step: string;
@@ -77,12 +78,15 @@ const realtimealertURL = imageURL("imgs/flow-diagram/realtimealert.png")
             </div>
         </div>
     </div>
+    <div class="punctuation-holder">
+        <Punctuation step={step}/>
+    </div>
     <NextButton step={step}/>
     
 </div>
 <style define:vars={{ datamonitoringURL, imagerecognitionURL, predictiveanalysisURL, realtimealertURL}}>
     .draggable-holder {
-        /*position:absolute;*/
+        /*position:relative;*/
         color:darkblue;
         text-align: center;
         font-size: 13px;
@@ -92,6 +96,11 @@ const realtimealertURL = imageURL("imgs/flow-diagram/realtimealert.png")
         --item-height: 33px;
         --color-blue:#054696;
         --marginVertical:calc(5 * 3);
+    }
+
+    .punctuation-holder {
+        position: relative;
+        top:-115px;
     }
 
     .test-img{

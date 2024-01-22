@@ -20,8 +20,11 @@ class ContentSocialMedia extends Content {
         this.yOffset = 20
         this.xOffset = 5
         this.duration = 250
+        this.durationStream = 1000
         this.$holder
         this.buttonsData = []
+        this.currentImage = 1;
+        this.socialMediaStream = document.querySelector(".social-media-stream");
         
         // El botón de NEXT
         this.$nextButton = document.querySelector(`#next-button-${this.contentID}`)
@@ -73,6 +76,68 @@ class ContentSocialMedia extends Content {
 
     activateContent(){
         this.avatarMovement.updateAvatarImgRect()
+
+        this.startMovement();
+    }
+
+    startMovement(){
+        // Movemos 3 imagenes sucesivamente
+        const y1 = -151;
+        const y2 = -151 - 114;
+        const y3 = -151 - 114 - 195;
+        const y4 = -151 - 114 - 195 - 114;
+        const waitTime = 500;
+
+        anime({
+            targets: `.social-media-stream`,
+            translateY: y1,
+            duration: this.durationStream,
+            easing:'easeInOutQuad',
+            complete: function(anim) {
+                moveSecond();
+            }
+        });
+
+        const moveSecond = () => {
+            anime({
+                targets: `.social-media-stream`,
+                translateY: y2,
+                duration: this.durationStream,
+                easing:'easeInOutQuad',
+                delay:waitTime,
+                complete: function(anim) {
+                    moveThird();
+                }
+            });
+        }
+
+        const moveThird = () => {
+            anime({
+                targets: `.social-media-stream`,
+                translateY: y3,
+                duration: this.durationStream,
+                easing:'easeInOutQuad',
+                delay:waitTime,
+                complete: function(anim) {
+                    //moveFourth();
+                }
+            });
+        }
+        
+        const moveFourth = () => {
+            anime({
+                targets: `.social-media-stream`,
+                translateY: y4,
+                duration: this.durationStream,
+                easing:'easeInOutQuad',
+                delay:waitTime,
+                complete: function(anim) {
+                    
+                }
+            });
+        }
+
+        
     }
 
     deactivateContent(){

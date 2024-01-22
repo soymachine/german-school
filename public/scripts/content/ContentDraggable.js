@@ -1,6 +1,7 @@
 import Content from './Content.js'
 import {eventSystem, Events} from '../helpers/EventSystem.js'
 import Steps from '../helpers/Steps.js'
+import {currentPunctuation} from '../helpers/Punctuation.js'
 
 class ContentDraggable extends Content {
     constructor(){
@@ -8,10 +9,13 @@ class ContentDraggable extends Content {
         
         // Scope
         const self = this
-
+        this.isCorrectOrder = false
         this.title = document.querySelector(`.title-step-${this.contentID} .why-intro-title`)
-        this.initialText = this.title.innerHTML
+        this.resultElement = document.querySelector(`#result-step-${this.contentID}`)
+        this.pointsElement = document.querySelector(`#result-step-${this.contentID} .business-result-points`)
 
+        this.initialText = this.title.innerHTML
+        this.duration = 500
         // Draggeo
         this.isActive = false
         this.isDragging = false
@@ -200,14 +204,14 @@ class ContentDraggable extends Content {
             const dropBoundingRect = item.getBoundingClientRect()
             const id = item.id.split("-")[1]
 
-            console.log(dropBoundingRect)
+            //console.log(dropBoundingRect)
             //console.log(this.rootRect.x)
             //console.log(this.marginLeft)
             //console.log(this.xLeft)
             //const x = dropBoundingRect.x - this.rootRect.x
             const x = dropBoundingRect.x - this.rootRect.x + this.xLeft
             const y = dropBoundingRect.y - this.contentBoundingRect.y
-            console.log(x)        
+            //console.log(x)        
             test.style.left = `${x}px`
             test.style.top = `${y}px`
 
@@ -308,7 +312,7 @@ class ContentDraggable extends Content {
 
                 var x = event.touches[0].clientX;
                 var y = event.touches[0].clientY;
-                console.log(x, y)
+                //console.log(x, y)
                 self.setMousePosition(x, y)
 
                 self.onMouseDownItem(item, i)
@@ -324,6 +328,9 @@ class ContentDraggable extends Content {
     }
 
     onMouseDownItem(item, i){
+        if(this.isCorrectOrder){
+            return
+        }
         const dataElement = this.dragElementsData[i]
         const elementID = dataElement.id
 
@@ -387,7 +394,6 @@ class ContentDraggable extends Content {
         // Si no, lo dejamos en su posición original
         if(this.isDragging){
             const id = this.draggingElementID 
-            
 
             // Qué drop está más cerca?
             let x;
@@ -417,6 +423,7 @@ class ContentDraggable extends Content {
             // Idealmente que se muevan a sitio de forma smoooooth
             //this.draggingElement.style.left = `${x}px`
             //this.draggingElement.style.top = `${y}px`
+            console.log(x, y, nearestDrop);
 
             let duration = minDistance * 5
             duration > 500 ? duration = 500 : duration
@@ -474,21 +481,17 @@ class ContentDraggable extends Content {
                 this.title.innerHTML = this.initialText
             }
             
+            console.log("this.itemsDragged.length "+ this.itemsDragged.length);
             if(this.itemsDragged.length == 4){
                 // Bien o mal?
                 //this.hideDraggableZone()
                 
                 const correctOrder = this.isOrderCorrect()
-
+                console.log("correctOrder? " + correctOrder)
                 if(correctOrder){
                     //this.draggableCorrectElement.style.display = "block"
-                    this.enableNextButton()
-
-                    // Enviamos la respuesta
-                    eventSystem.publish(Events.ON_RESPONSE_UPDATE, {
-                        responseID:this.contentID,
-                        response:true
-                    })
+                    this.onCorrectOrder()
+                    
                 }else{
                     // Incorrecto
                     //this.draggableIncorrectElement.style.display = "block"
@@ -501,6 +504,34 @@ class ContentDraggable extends Content {
         this.isDragging = false
         this.draggingElement = undefined
         this.draggingElementData = undefined
+    }
+
+    onCorrectOrder(){
+        this.isCorrectOrder = true
+        currentPunctuation.addPunctuation(10)
+        this.title.innerHTML = "<strong>Well done, thank you!</strong><br>Let’s quickly check them."
+        this.enableNextButton()
+
+        // Enviamos la respuesta
+        eventSystem.publish(Events.ON_RESPONSE_UPDATE, {
+            responseID:this.contentID,
+            response:true
+        })
+
+        // Mostramos el resultado
+        anime({
+            targets: `#result-step-${this.contentID}`,
+            opacity: 1,
+            duration: this.duration,
+            easing:'easeOutQuad'
+        })
+
+        const draggableZone = document.querySelector(".draggable-zone");
+        draggableZone.classList.add("draggable-zone-hidden");
+
+       
+
+        // Quitamos el fondito de las opciones draggables
     }
 
     hideDraggableZone(){

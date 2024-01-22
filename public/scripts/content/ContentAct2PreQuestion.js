@@ -25,7 +25,7 @@ class ContentAct2PreQuestion extends Content {
         this.duration = 1000
         this.rootRect = document.getElementById("root").getBoundingClientRect()
         this.W = this.rootRect.width 
-        this.outPosition = this.W * .5
+        this.outPosition = this.W * .75
         this.inPosition = 0
 
         anime.set(`#step-${this.contentID} #sarah-act-2, #step-${this.contentID} #sarah-name-act-2`, {
