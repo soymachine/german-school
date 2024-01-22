@@ -21,16 +21,41 @@ class ContentAct1Cinematics extends Content {
         this.isWriting = false
         this.label = document.getElementById("speech-content-act-1")
         this.button = document.getElementById("content-cinematic-act-1-button")
+        
+        this.duration = 1000
+        this.rootRect = document.getElementById("root").getBoundingClientRect()
+        this.W = this.rootRect.width 
+        this.outPosition = this.W * .5
+        this.inPosition = 0
 
+        anime.set(`#step-${this.contentID} #sarah, #step-${this.contentID} #sarah-name`, {
+            translateX: this.outPosition,
+        });
+
+        anime.set(`#step-${this.contentID} #speech-user-avatar`, {
+            translateX: -this.outPosition,
+        });
+
+        /*
+        anime.set(`#step-${this.contentID} #alex, #step-${this.contentID} #alex-name`, {
+            translateX: -this.outPosition,
+        });
+        */
 
         this.button.onmousedown = function(event) { //asign a function
             self.onClickSpeechBubble()
         }
+        this.button.style.display = "none"
         
     }
 
     activateContent(){
-        this.updateText()
+        
+        this.showCharacter("sarah", 0, ()=>{
+            this.updateText()
+        })
+
+        this.showCharacter("speech-user-avatar", 0)
     }
 
     preactivateContent(){
@@ -39,6 +64,25 @@ class ContentAct1Cinematics extends Content {
         this.avatarCopier = new AvatarCopier(this.contentID)
         this.avatarCopier.update()
     }
+
+    //*
+    showCharacter(name, posX, callback){
+        const delay = 0
+        anime({
+            targets: `#step-${this.contentID} #${name} , #step-${this.contentID} #${name}-name`,
+            translateX: posX,
+            duration: this.duration,
+            delay: delay,
+            easing:'easeOutQuad',
+            complete: function(anim) {
+                // call callback if it's not null or undefined
+                if(callback){
+                    callback()
+                }
+              }
+        });
+    }
+    //*/
 
     onClickSpeechBubble() {
         console.log("Click bubble")

@@ -21,19 +21,85 @@ class ContentAct2Cinematics extends Content {
         this.step = 1
         this.label = document.getElementById("speech-content-act-2")
         this.button = document.getElementById("content-cinematic-act-2-button")
+        this.isWriting = false
+
         
+        this.duration = 1000
+        this.rootRect = document.getElementById("root").getBoundingClientRect()
+        this.W = this.rootRect.width 
+        this.outPosition = this.W * .5
+        this.inPosition = 0
+
+        anime.set(`#step-${this.contentID} #sarah-act-2, #step-${this.contentID} #sarah-name-act-2`, {
+            translateX: -this.outPosition,
+        });
+
+        anime.set(`#step-${this.contentID} #sarah-act-2`, {
+            scaleX: -1
+        });
+
+        anime.set(`#step-${this.contentID} #rafael-act-2, #step-${this.contentID} #rafael-name-act-2`, {
+            translateX: this.outPosition,
+        });
+
+        anime.set(`#step-${this.contentID} #speech-user-avatar`, {
+            translateX: -this.outPosition,
+        });
+
         this.button.onmousedown = function(event) { //asign a function
             self.onClickSpeechBubble()
         }
+        this.button.style.display = "none"
         
         // this.updateText()
     }
 
     preactivateContent(){
         this.texts[0] = `Welcome aboard, <span class='user-name'>${avatarSelection.name}!</span></br>I'm <strong>Dr. Rafael</strong> and I'm a rainforest ecologist scientist.`
-        this.updateText()
+        //this.updateText()
         this.avatarCopier = new AvatarCopier(this.contentID)
         this.avatarCopier.update()
+    }
+
+    activateContent(){
+        this.showCharacter("rafael", 0, 200, ()=>{
+            this.updateText()
+        })
+
+        this.showCharacter("sarah", 0, 0)
+        this.showAvatar(0, 100)
+    }
+
+    showCharacter(name, posX, delay = 0, callback = undefined){
+        anime({
+            targets: `#step-${this.contentID} #${name}-act-2 , #step-${this.contentID} #${name}-name-act-2`,
+            translateX: posX,
+            duration: this.duration,
+            delay: delay,
+            easing:'easeOutQuad',
+            complete: function(anim) {
+                // call callback if it's not null or undefined
+                if(callback){
+                    callback()
+                }
+              }
+        });
+    }
+
+    showAvatar(posX, delay = 0, callback = undefined){
+        anime({
+            targets: `#step-${this.contentID} #speech-user-avatar`,
+            translateX: posX,
+            duration: this.duration,
+            delay: delay,
+            easing:'easeOutQuad',
+            complete: function(anim) {
+                // call callback if it's not null or undefined
+                if(callback){
+                    callback()
+                }
+              }
+        });
     }
 
     onClickSpeechBubble() {
@@ -51,6 +117,8 @@ class ContentAct2Cinematics extends Content {
         
     }
 
+    
+
     updateText(){
         switch(this.step){
             case 1:
@@ -60,7 +128,26 @@ class ContentAct2Cinematics extends Content {
                 break;
         }
 
-        this.label.innerHTML = this.texts[this.step - 1]
+        this.label.innerHTML = ""
+        
+        var typewriter = new Typewriter(this.label, {
+            loop: false,
+            delay: 25,
+            cursor:''
+        });
+
+        // Quitar el bubble de "next"
+        this.button.style.display = 'none'
+        this.isWriting = true
+
+        //*
+        typewriter.typeString(this.texts[this.step - 1]).start().callFunction(()=>{
+            // Reactivar el bubble de "next"
+            this.button.style.display = 'contents'
+            this.isWriting = false
+        })
+        //*/
+       
     }
 }
 export default ContentAct2Cinematics

@@ -274,7 +274,7 @@ class ContentDraggable extends Content {
             const elementID = dataElement.id
             
             // Punto 0,0
-            console.log("Checking")
+            //console.log("Checking")
             //console.log(`this.draggableZoneBoundingRect.x = ${this.draggableZoneBoundingRect.x} this.rootRect.x = ${this.rootRect.x} this.contentBoundingRect.x = ${this.contentBoundingRect.x}`)
             let x = this.xLeft + initialX + this.marginLeft //this.draggableZoneBoundingRect.x - this.rootRect.x + marginInterior 
             let y = this.draggableZoneBoundingRect.y - this.rootRect.y + initialY 
