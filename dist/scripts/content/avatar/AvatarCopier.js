@@ -36,11 +36,12 @@ class AvatarCopier {
         if(this.name) this.name.innerHTML = avatarSelection.name
 
         /* El pelo back */
-        if(avatarSelection.hairStyle == 0){
+        if(avatarSelection.hairStyle == 0 || avatarSelection.hairStyle == 7 || avatarSelection.hairStyle == 9 || avatarSelection.hairStyle == 10 || avatarSelection.hairStyle == 11){
             // ocultamos el pelo back
             this.hairBack.style.opacity = 0 
         }else{
             this.hairBack.style.opacity = 1 
+
             this.hairBack.src = `./imgs/avatar/parts/hair-style-${(hairStyle)}-back-${(hairColor)}.svg`
         }
         

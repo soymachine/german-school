@@ -28,7 +28,9 @@ import SarahQuestion10 from './content/SarahQuestion10.js'
 import ContentPrologueCinematics from './content/ContentPrologueCinematics.js'
 import CallToAction from './content/CallToAction.js'
 import ContentForm from './content/ContentForm.js'
-
+import ContentCongrats from './content/ContentCongrats.js'
+import ContentPointsExplanation from './content/ContentPointsExplanation.js'
+import {currentPunctuation} from './helpers/Punctuation.js'
 class Controller {
     constructor(){
 
@@ -157,6 +159,9 @@ class Controller {
 
         // - CALL TO ACTION
         this.callToAction = new CallToAction()
+
+        // - CONGRATS
+        this.congrats = new ContentCongrats()
         
         // HEADER
         this.header = new Header()
@@ -167,6 +172,9 @@ class Controller {
 
         // El controlador del questionario
         this.questionaireController = new QuestionaireController()
+
+        // El controlador del questionario
+        this.contentPointsExplanation = new ContentPointsExplanation()
         /*
         var sound = new Howl({
             src: ['sound/song.mp3'],
@@ -179,8 +187,10 @@ class Controller {
         });
         */
 
+        this.currentPunctuation = currentPunctuation
+
         // TESTING */
-        //this.showContent(2) // 10
+        //this.showContent(28) // 10
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event)
         });

@@ -1,10 +1,12 @@
 import Content from './Content.js'
 import {eventSystem, Events} from '../helpers/EventSystem.js'
+import Steps from '../helpers/Steps.js'
+import { currentPunctuation } from '../helpers/Punctuation.js'
 
 const ACCESS_TOKEN = "1234567890"
-class Content3 extends Content {
+class ContentForm extends Content {
     constructor(){
-        super(2)
+      super(Steps.FORM)
         
         // Par aabrir navegador Chrome sin CORS restrictions
         // server: sql16427.sql16427.dreamhostps.com
@@ -18,6 +20,9 @@ class Content3 extends Content {
         this.$form = document.querySelector("#formulario")
 
         this.$emailInput = document.getElementById("email-input")
+        this.$nameInput = document.getElementById("name-input")
+        this.$surnameInput = document.getElementById("surname-input")
+        this.$phoneInput = document.getElementById("phone-input")
 
         //  Formulario
         this.$form.addEventListener("submit", (e) => {
@@ -38,16 +43,21 @@ class Content3 extends Content {
 
     onSubmit(){
         let email = this.$emailInput.value;
+        let name = this.$nameInput.value;
+        let surname = this.$surnameInput.value;
+        let phone = this.$phoneInput.value;
         
         if (email.value == "") {
           // throw error
         } else {
           // perform operation with form input
           this.sendData({
-            name:"Dani",
+            name:name,
+            surname:surname,
             email:email,
-            score:90,
+            score:currentPunctuation.getPunctuation(),
             avatar:"2-1-1-2",
+            phone:phone
           })
         }
     }
@@ -104,4 +114,4 @@ class Content3 extends Content {
       }
 }
 
-export default Content3
+export default ContentForm

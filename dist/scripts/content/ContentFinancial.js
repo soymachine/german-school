@@ -3,7 +3,7 @@ import Settings from '../helpers/Settings.js'
 import {eventSystem, Events} from '../helpers/EventSystem.js'
 import ResponseUnique from '../helpers/ResponseUnique.js'
 import Steps from '../helpers/Steps.js'
-
+import {currentPunctuation} from '../helpers/Punctuation.js'
 
 class ContentFinancial extends Content {
     constructor(){
@@ -15,11 +15,13 @@ class ContentFinancial extends Content {
         this.isScoreShown = false
 
         // Dom Elements
-        this.$imageMark = document.querySelector(`#visual-result-mark`) 
-        this.$resultSentence = document.querySelector(`.result-sentence`) 
-        this.$resultTitle = document.querySelector(`.result-title`) 
-        this.$resultDescription = document.querySelector(`.result-description`) 
-        this.$infoHolder = document.querySelector(`.info-holder`)
+        this.$imageMark = document.querySelector(`#step-${this.contentID} #visual-result-mark`) 
+        this.$resultTitle = document.querySelector(`#step-${this.contentID} .result-title`) 
+        this.$resultDescription = document.querySelector(`#step-${this.contentID} .result-description`) 
+        this.$infoHolder = document.querySelector(`#step-${this.contentID} .info-holder`)
+        this.$titleText = document.querySelector(`#step-${this.contentID} .why-intro-title`)
+        this.resultElement = document.querySelector(`#result-step-${this.contentID}`)
+        this.pointsElement = document.querySelector(`#result-step-${this.contentID} .business-result-points`)
 
         const stepWidth = document.querySelector(`#step-${this.contentID}`).offsetWidth
         const stepHeight = this.$infoHolder.offsetHeight
@@ -76,27 +78,43 @@ class ContentFinancial extends Content {
             // Correct
             // Change url of $imageMark to this.correctMarkImage string
             this.$imageMark.src = this.correctMarkImage
-            // Remove the incorrect sentence 
-            document.getElementById(`result-sentence-incorrect`).remove()
+
+            this.$titleText.innerHTML = "<strong>Correct!</strong> The ROE (Return of Equity) is a very important metric for the shareholders."
+            this.pointsElement.innerHTML = "+10"
+            currentPunctuation.addPunctuation(10)
         }else{
             // Incorrect
             // Change url of $imageMark to this.incorrectMarkImage string
             this.$imageMark.src = this.incorrectMarkImage
-            // Remove the correct sentence 
-            document.getElementById(`result-sentence-correct`).remove()
 
             // Add class result-title-wrong 
             this.$resultTitle.classList.add("result-title-wrong")
+            
 
             // Change Text
+            if(response == 2){
+                this.$titleText.innerHTML = "<strong>No,</strong> P/E is the Price-to-earnings ratio. The right answer was <strong>ROE (Return of Equity)</strong>"
+            }else{
+                this.$titleText.innerHTML = "<strong>No,</strong> ROI is the Return on Investment. The right answer was <strong>ROE (Return of Equity)</strong>"
+            }
+
+            this.pointsElement.innerHTML = "0"
         }
+
+        anime({
+            targets: `#result-step-${this.contentID}`,
+            opacity: 1,
+            duration: 500,
+            delay:1000,
+            easing:'easeOutQuad'
+        });
     }
 
     moveContent(){
         const x = (document.querySelector(".step").offsetWidth - 10 ) * -1
         const duration = 500
         anime({
-            targets: `.info-holder`,
+            targets: `#step-${this.contentID} .info-holder`,
             translateX: x,
             duration: duration,
             easing:'easeOutQuad'

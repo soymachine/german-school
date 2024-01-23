@@ -11,7 +11,7 @@ class ContentTravelToManaus  {
         this.acto_4 = {start:6, finish:8}
         
         // opacity 0 for this.sticky
-        this.sticky.style.opacity = 0;
+        //this.sticky.style.opacity = 0;
         
         eventSystem.subscribe(Events.ON_CONTENT_BEGIN_SHOWN, (content)=>{ this.onContentBeginShown(content) })
 

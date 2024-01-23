@@ -27,8 +27,8 @@ class ContentBusiness extends Content {
             "To be my own boss and and lead a team",
             "To make an impact in society"
         ]
-        this.$answerDescription = document.querySelector(`.answer-description`)
-        this.$answerCorrectIcon = document.querySelector(`#answer-correct-icon`)
+        this.$answerDescription = document.querySelector(`#step-${this.contentID} .answer-description`)
+        this.$answerCorrectIcon = document.querySelector(`#step-${this.contentID} #answer-correct-icon`)
 
         this.firstParagraph = document.querySelector(`#step-${this.contentID} .first-paragraph`)
         this.secondParagraph = document.querySelector(`#step-${this.contentID} .second-paragraph`)
@@ -170,14 +170,14 @@ class ContentBusiness extends Content {
 
 
         anime({
-            targets:".business-result",
+            targets:`#step-${this.contentID} .business-result`,
             opacity: 1,
             easing: Settings.ease,
             duration:500,
             delay:0            
         });
         
-        document.querySelector(`.business-result-points`).innerHTML = points
+        document.querySelector(`#step-${this.contentID} .business-result-points`).innerHTML = points
        
     }
     

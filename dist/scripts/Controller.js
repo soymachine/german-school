@@ -14,10 +14,23 @@ import ContentAvatar from './content/ContentAvatar.js'
 import Intro from './content/Intro.js'
 import ContentAct1Cinematics from './content/ContentAct1Cinematics.js'
 import ContentAct2Cinematics from './content/ContentAct2Cinematics.js'
+import ContentAct3Cinematics from './content/ContentAct3Cinematics.js'
+import ContentAct4Cinematics from './content/ContentAct4Cinematics.js'
 import ContentSocialMedia from './content/ContentSocialMedia.js'
 import ContentBusiness from './content/ContentBusiness.js'
 import ContentAct1SarahApproves from './content/ContentAct1SarahApproves.js'
-
+import ContentAct2PreQuestion from './content/ContentAct2PreQuestion.js'
+import ContentValues from './content/ContentValues.js'
+import SarahQuestion9 from './content/SarahQuestion9.js'
+import ContentAct3AlexAfterIA from './content/ContentAct3AlexAfterIA.js'
+import ContentAct4Cinematics_After9 from './content/ContentAct4Cinematics_After9.js'
+import SarahQuestion10 from './content/SarahQuestion10.js'
+import ContentPrologueCinematics from './content/ContentPrologueCinematics.js'
+import CallToAction from './content/CallToAction.js'
+import ContentForm from './content/ContentForm.js'
+import ContentCongrats from './content/ContentCongrats.js'
+import ContentPointsExplanation from './content/ContentPointsExplanation.js'
+import {currentPunctuation} from './helpers/Punctuation.js'
 class Controller {
     constructor(){
 
@@ -73,15 +86,18 @@ class Controller {
         
         // - AVATAR 
         this.contentSocialMedia = new ContentSocialMedia()
-
         
         // - ACT I CINEMATICS 
         this.contentAct1Cinematics = new ContentAct1Cinematics()
-
         
         // - ACT II CINEMATICS 
         this.contentAct2Cinematics = new ContentAct2Cinematics()
 
+        // - ACT III CINEMATICS 
+        this.contentAct3Cinematics = new ContentAct3Cinematics()
+
+        // - ACT IV CINEMATICS 
+        this.contentAct4Cinematics = new ContentAct4Cinematics()
         
         // - FLOW DIAGRAM 
         this.contentDraggable = new ContentDraggable()
@@ -119,20 +135,47 @@ class Controller {
         
         // TRAVEL TO MANAUS 
         this.travelToManaus = new ContentTravelToManaus() 
-        
+
+        // PRE QUESTION TEXTS
+        this.contentAct2PreQuestion = new ContentAct2PreQuestion();
+
+        // VALUES
+        this.contentValues = new ContentValues();
+
+        // - ACT III CINEMATICS ALEX AFTER IA
+        this.contentAct3AlexAfterIA = new ContentAct3AlexAfterIA()
+
+        // - SARAH QUESTION 9
+        this.sarahQuestion9 = new SarahQuestion9()
+
+        // - SARAH QUESTION 9
+        this.contentAct4Cinematics_After9 = new ContentAct4Cinematics_After9()
+
+        // - SARAH QUESTION 10
+        this.sarahQuestion10 = new SarahQuestion10()
+
+        // - SARAH QUESTION 10
+        this.contentPrologueCinematics = new ContentPrologueCinematics()
+
+        // - CALL TO ACTION
+        this.callToAction = new CallToAction()
+
+        // - CONGRATS
+        this.congrats = new ContentCongrats()
         
         // HEADER
         this.header = new Header()
 
         
-        // 4.- FORM
-        //this.content["content-3"] = new Content3()
+        // - FORM
+        this.from = new ContentForm()
 
         // El controlador del questionario
         this.questionaireController = new QuestionaireController()
+
+        // El controlador del questionario
+        this.contentPointsExplanation = new ContentPointsExplanation()
         /*
-        
-        
         var sound = new Howl({
             src: ['sound/song.mp3'],
             autoplay: true,
@@ -144,8 +187,10 @@ class Controller {
         });
         */
 
+        this.currentPunctuation = currentPunctuation
+
         // TESTING */
-        // this.showContent(15) // 5 why
+        //this.showContent(28) // 10
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event)
         });
@@ -178,7 +223,9 @@ class Controller {
     }
 
     showContent(content){
-
+        console.log(`showContent ${content}`)
+        // si el contenido es el mismo que ya hay, no hacemos nada (doble click en continue, por ej)
+        if(content == this.currentSection) return
         // Limite izquierda
         if(content < 0) content = 0
 

@@ -51,7 +51,7 @@ class Intro extends Content {
         .then(() => 
         {
             this.isLoadingComplete = true
-
+            
             anime({
                 targets: `#loading`,
                 opacity: 0,
@@ -66,7 +66,7 @@ class Intro extends Content {
                     });
                 }
             });
-
+                
             
             /*
             console.log("All images loaded en total: " + imagesArray.length)

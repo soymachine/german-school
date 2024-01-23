@@ -15,10 +15,10 @@ class ContentFinancial extends Content {
         this.isScoreShown = false
 
         // Dom Elements
-        this.$imageMark = document.querySelector(`#visual-result-mark`) 
-        this.$resultTitle = document.querySelector(`.result-title`) 
-        this.$resultDescription = document.querySelector(`.result-description`) 
-        this.$infoHolder = document.querySelector(`.info-holder`)
+        this.$imageMark = document.querySelector(`#step-${this.contentID} #visual-result-mark`) 
+        this.$resultTitle = document.querySelector(`#step-${this.contentID} .result-title`) 
+        this.$resultDescription = document.querySelector(`#step-${this.contentID} .result-description`) 
+        this.$infoHolder = document.querySelector(`#step-${this.contentID} .info-holder`)
         this.$titleText = document.querySelector(`#step-${this.contentID} .why-intro-title`)
         this.resultElement = document.querySelector(`#result-step-${this.contentID}`)
         this.pointsElement = document.querySelector(`#result-step-${this.contentID} .business-result-points`)
@@ -114,7 +114,7 @@ class ContentFinancial extends Content {
         const x = (document.querySelector(".step").offsetWidth - 10 ) * -1
         const duration = 500
         anime({
-            targets: `.info-holder`,
+            targets: `#step-${this.contentID} .info-holder`,
             translateX: x,
             duration: duration,
             easing:'easeOutQuad'
