@@ -16,6 +16,16 @@ const { step } = Astro.props;
     <div id="speech-user-avatar">
         <Avatar isSpeech={true} width={175} step={step} fontSize={25} textCorrection={10} hasText={false}/>
     </div>
+    <div class="social-media-popups">
+        <div id="sm-popup-1" class="sm-popup-holder">
+            <img  class="popup-image" src="./imgs/intro/bus/social-media-stream/sm-5.png">
+            <a class="close-button" id="close-button-1" href="#"><img src="./imgs/intro/bus/social-media-stream/close-button.png"></a>
+        </div>
+        <div id="sm-popup-2" class="sm-popup-holder">
+            <img  class="popup-image" src="./imgs/intro/bus/social-media-stream/sm-9.png">
+            <a class="close-button" id="close-button-2" href="#"><img src="./imgs/intro/bus/social-media-stream/close-button.png"></a>
+        </div>
+    </div>
     <div class="social-media-stream-wrapper">
         <div class="social-media-stream">
             <div id="social-media-image-1" class="social-media social-media-image"><img src="./imgs/intro/bus/social-media-stream/sm-1.png"></div>
@@ -25,7 +35,9 @@ const { step } = Astro.props;
             <div id="social-media-image-rainforest" class="social-media-blur social-media social-media-interaction">
                 <div class="social-media-text"><strong>ALERT!</strong> The worldwide demand for tropical hardwoods needs to decline. Our rainforest are in danger!                    
                 </div>
-                <img src="./imgs/intro/bus/social-media-stream/sm-5.png">
+                <a id="social-media-link-1" class="social-media-link" href="#">
+                    <img src="./imgs/intro/bus/social-media-stream/sm-5.png">
+                </a>
                 <a id="social-media-button-1" href="#">
                     <img id="retweet-button" class="social-media-image-button" src="./imgs/intro/bus/social-media-stream/retweet-button.png">
                     <img id="retweet-button-completed" class="social-media-image-button" src="./imgs/intro/bus/social-media-stream/retweet-button-completed.png">
@@ -39,13 +51,16 @@ const { step } = Astro.props;
                 </div>
                 <div class="social-media-text"><span class="like-text">Like this</span> to get in touch!                   
                 </div>
-                <img  src="./imgs/intro/bus/social-media-stream/sm-9.png">
+                <a id="social-media-link-2" class="social-media-link" href="#">
+                    <img src="./imgs/intro/bus/social-media-stream/sm-9.png">
+                </a>
                 <a id="social-media-button-2" href="#">
                     <img id="like-button" class="social-media-image-button" src="./imgs/intro/bus/social-media-stream/like-button.png">
                     <img id="like-button-completed" class="social-media-image-button" src="./imgs/intro/bus/social-media-stream/like-button-completed.png">
                 </a>
             </div>
         </div>
+        
     </div>
 </div>
 <style >
@@ -98,8 +113,44 @@ const { step } = Astro.props;
         position: absolute;
         top:0px;
         left:0px;
-        z-index: 10;
+        z-index: 100;
         width: 100%;
+    }
+
+    .social-media-popups {
+        position: absolute;
+        top:160px;
+        left:0px;
+        z-index: 200;
+        width: 100%;
+    }
+
+    .sm-popup-holder{
+        width: 80%;
+        margin: 0 auto;
+        text-align: center;
+        display: flex;
+        position: absolute;
+        left: 0%;
+        right: 0%;
+        background-color: white;
+        padding:10px;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .popup-image {
+        width: 100%;
+    }
+
+    .close-button {
+        position: absolute;
+        right: -40px;
+        top: -20px;
+    }
+
+    .close-button img {
+        width:50%;
     }
 
     .social-media-image img{
@@ -180,7 +231,7 @@ const { step } = Astro.props;
 
     #speech-user-avatar {
         position: absolute;
-        top: 10px;
+        top: 15px;
         left: 115px;
     }
 

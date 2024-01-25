@@ -136,6 +136,13 @@ class ContentElevatorPitch extends Content {
         this.isPressingWatch = false
     }
 
+    preactivateContent(){
+        document.querySelectorAll(`.watch-timer-static`).forEach(timer => {
+            timer.style.left = 2000 + "px"
+            timer.style.top = 2000 + "px"
+        })
+    }
+
     activateContent(){
         // Contenido ya está mostrado
         this.watchRect = this.$watchImage.getBoundingClientRect()
@@ -157,6 +164,7 @@ class ContentElevatorPitch extends Content {
         })
 
         document.querySelectorAll(`.watch-timer-static`).forEach(timer => {
+            //timer.style.opacity = 1
             const rect = timer.getBoundingClientRect()
             timer.style.left = -(rect.width * .5) + "px"
             timer.style.top = -(rect.height * .5) - 2 + "px"

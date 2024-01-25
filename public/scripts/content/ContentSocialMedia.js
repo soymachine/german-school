@@ -18,11 +18,13 @@ class ContentSocialMedia extends Content {
         const self = this
         this.isScoreShown = false
         this.isRetweetClicked = false
+        this.isRetweetEnabled = false
+        this.isLinkeEnabled = false
         this.yOffset = 20
         this.xOffset = 5
         this.duration = 250
         this.waitTime = 500
-        this.durationStream = 1000//1000
+        this.durationStream = 100//1000
         this.$holder
         this.buttonsData = []
         this.currentImage = 1;
@@ -37,6 +39,7 @@ class ContentSocialMedia extends Content {
 
         this.likeButton = document.getElementById("social-media-button-2");
         this.socialMediaMarginBottom = 10;
+        this.linksEnabled = [false, false]
        
         // Las posibles respuestas, solo podemos marcar una
         this.reponseUnique = new ResponseUnique(this.contentID)
@@ -49,12 +52,21 @@ class ContentSocialMedia extends Content {
             self.onClickLike()
         })
 
+        document.querySelectorAll(`.social-media-link`).forEach(link => {
+            const id = link.getAttribute("id").split("-")[3]
+            console.log("id " + id)
+            this.addEvent(link, Content.ON_RELEASE, (event)=>{
+                self.onClickLink(id)
+            })  
+        })
 
-        /* AVATAR RELATED */
-        // Posicionamos al avatar
-        setTimeout(()=>{
-            self.setupAvatar()
-        }, 100)        
+        document.querySelectorAll(`.close-button`).forEach(closeButton => {
+            const id = closeButton.getAttribute("id").split("-")[2]
+            console.log("close id " + id)
+            this.addEvent(closeButton, Content.ON_RELEASE, (event)=>{
+                self.onClickClose(id)
+            })  
+        })
     }
 
     changeRetweet(){
@@ -67,11 +79,15 @@ class ContentSocialMedia extends Content {
     }
 
     onClickLike(){
+        if(!this.isLikeEnabled){
+           return
+        }
+
         this.changeLike();
         const self = this
         setTimeout(()=>{
             self.gotoNextStep()
-        }, 500) 
+        }, this.waitTime) 
     }
     unblur(id){
         setTimeout(()=>{
@@ -85,7 +101,7 @@ class ContentSocialMedia extends Content {
         
     }
     onClickRetwet(){
-        if(this.isRetweetClicked){
+        if(this.isRetweetClicked || !this.isRetweetEnabled){
             return
         }
         const self = this
@@ -150,7 +166,7 @@ class ContentSocialMedia extends Content {
                 easing:'easeInOutQuad',
                 delay:this.waitTime,
                 complete: function(anim) {
-                    
+                    self.linksEnabled[1] = true
                 },
                 begin: function(anim) {
                     self.unblur("social-media-image-sarah")
@@ -178,8 +194,11 @@ class ContentSocialMedia extends Content {
     }
 
     preactivateContent(){
-        if(this.avatarCopier) this.avatarCopier.update()
-        if(this.avatarMovement) this.avatarMovement.activate()
+         /* AVATAR RELATED */
+        // Posicionamos al avatar
+        this.setupAvatar()
+        this.avatarCopier.update()
+        this.avatarMovement.activate()
     }
 
     activateContent(){
@@ -257,14 +276,58 @@ class ContentSocialMedia extends Content {
                 easing:'easeInOutQuad',
                 delay:this.waitTime,
                 complete: function(anim) {
-                    
+                    self.linksEnabled[0] = true
                 },
                 begin: function(anim) {
                     self.unblur("social-media-image-rainforest")
                 }
             });
         }
-        
+    }
+
+    onpenLink(id){
+        console.log("onpenLink " + id)
+        const socialMediaPopup = document.getElementById("sm-popup-" + id)
+        socialMediaPopup.style.pointerEvents = "all";
+        anime({
+            targets: "#sm-popup-" + id,
+            opacity: 1,
+            duration: this.durationStream,
+            easing:'easeInOutQuad',
+            complete: function(anim) {
+               
+            },
+            
+        });
+    }
+
+    onClickLink(id){
+        const num = Number(id)
+        const pos = num - 1
+        // console.log("on click link is enabled " + this.linksEnabled[pos] + " pos: " + pos)
+
+        if(this.linksEnabled[pos]){
+            this.onpenLink(num)
+        }
+    }
+    onClickClose(id){
+        const num = Number(id)
+        if(id == 1){
+            this.isRetweetEnabled = true;
+        }else{
+            this.isLikeEnabled = true;
+        }
+        anime({
+            targets: "#sm-popup-" + id,
+            opacity: 0,
+            duration: this.durationStream,
+            easing:'easeInOutQuad',
+            complete: function(anim) {
+                const socialMediaPopup = document.getElementById("sm-popup-" + num)
+                socialMediaPopup.style.display = "none";
+            },
+            
+        });
     }
 
     deactivateContent(){

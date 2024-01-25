@@ -190,7 +190,7 @@ class Controller {
         this.currentPunctuation = currentPunctuation
 
         // TESTING */
-        //this.showContent(28) // 10
+        //this.showContent(2) // 10
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event)
         });
