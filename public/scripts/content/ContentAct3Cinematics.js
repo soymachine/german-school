@@ -55,6 +55,7 @@ class ContentAct3Cinematics extends Content {
         //this.updateText()
         this.avatarCopier = new AvatarCopier(this.contentID)
         this.avatarCopier.update()
+        this.centerAvatarName()
     }
 
     activateContent(){

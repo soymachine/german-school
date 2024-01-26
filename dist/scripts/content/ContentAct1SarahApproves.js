@@ -51,6 +51,7 @@ class ContentAct1SarahApproves extends Content {
         this.label.innerHTML = ""
         this.avatarCopier = new AvatarCopier(this.contentID)
         this.avatarCopier.update()
+        this.centerAvatarName()
     }
 
     showCharacter(name, posX, callback){

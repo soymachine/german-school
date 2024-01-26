@@ -31,9 +31,14 @@ import ContentForm from './content/ContentForm.js'
 import ContentCongrats from './content/ContentCongrats.js'
 import ContentPointsExplanation from './content/ContentPointsExplanation.js'
 import {currentPunctuation} from './helpers/Punctuation.js'
+import { avatarSelection } from './helpers/AvatarSelection.js'
+
 class Controller {
     constructor(){
 
+
+        this.avatarSelection = avatarSelection;
+        
         this.isFooterShown = false
 
         // Valores generales del contenedor

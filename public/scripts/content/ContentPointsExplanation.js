@@ -27,7 +27,12 @@ class ContentPointsExplanation extends Content {
 
     }
 
+    activateContent(){
+        this.updateAvatarImageRect();
+    }
+
     preactivateContent(){
+        this.setupAvatar();
         const punctuation = currentPunctuation.getPunctuation()
 
         let explanationTitle = ""

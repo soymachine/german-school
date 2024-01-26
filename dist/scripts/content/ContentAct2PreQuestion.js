@@ -54,6 +54,7 @@ class ContentAct2PreQuestion extends Content {
         //this.updateText()
         this.avatarCopier = new AvatarCopier(this.contentID)
         this.avatarCopier.update()
+        this.centerAvatarName()
     }
 
     activateContent(){

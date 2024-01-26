@@ -4,6 +4,8 @@ import ResponseUnique from '../helpers/ResponseUnique.js'
 import Settings from '../helpers/Settings.js'
 import Steps from '../helpers/Steps.js'
 import {currentPunctuation} from '../helpers/Punctuation.js'
+import { avatarSelection } from '../helpers/AvatarSelection.js'
+
 
 class ContentCongrats extends Content {
     constructor(){
@@ -27,6 +29,12 @@ class ContentCongrats extends Content {
 
     preactivateContent(){
         this.scoreLabel.innerHTML = currentPunctuation.getPunctuation()
+        this.setupAvatar();
+        document.querySelector(`#step-${this.contentID} .user-name`).innerHTML = avatarSelection.name
+    }
+
+    activateContent(){
+        this.updateAvatarImageRect();
     }
 
     onClickNext(){

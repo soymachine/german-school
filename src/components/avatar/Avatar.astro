@@ -60,11 +60,13 @@ const height = width * 1.33333
         // Centramos el nombre de usuario
         const userName = document.getElementById("my-avatar-name-"+step)
         const rect = userName.getBoundingClientRect();
-        const x = finalWidth * .5 - rect.width * .5
+        //const x = finalWidth * .5 - rect.width * .5
         const y = finalHeight - (finalTextCorrection)
 
-        userName.style.left = `${x}px`
+        //userName.style.left = `${x}px`
         userName.style.top = `${y}px`
+
+        //console.log("username width " + rect.width + " step " + step)
 
         // change fontSize of userName based on fontSize param
         userName.style.fontSize = `${finalFontSize}px`

@@ -5,6 +5,7 @@ import Settings from '../helpers/Settings.js'
 import Steps from '../helpers/Steps.js'
 import AvatarCopier from './avatar/AvatarCopier.js'
 import AvatarMovement from './avatar/AvatarMovement.js'
+import { currentPunctuation } from '../helpers/Punctuation.js'
 
 
 
@@ -229,9 +230,13 @@ class ContentWhyEnterpreuner extends Content {
         if(!this.isNextEnabled){
             return
         }
+
+        currentPunctuation.addPunctuation(25)
         
         // Vamos a la siguiente sección
         this.gotoNextStep()
+
+        this.isNextEnabled = false;
     }
     
 }

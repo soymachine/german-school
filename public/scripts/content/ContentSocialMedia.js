@@ -16,6 +16,7 @@ class ContentSocialMedia extends Content {
         
         // Scope
         const self = this
+        this.isMoving = true;
         this.isScoreShown = false
         this.isRetweetClicked = false
         this.isRetweetEnabled = false
@@ -24,7 +25,7 @@ class ContentSocialMedia extends Content {
         this.xOffset = 5
         this.duration = 250
         this.waitTime = 500
-        this.durationStream = 100//1000
+        this.durationStream = 1000//1000
         this.$holder
         this.buttonsData = []
         this.currentImage = 1;
@@ -67,6 +68,42 @@ class ContentSocialMedia extends Content {
                 self.onClickClose(id)
             })  
         })
+    }
+
+    startLoop(){
+        const self = this
+        let start, prev
+        const speed = 2;
+        let currentX = 0;
+        const busBackgroundHolder = document.querySelector(`.bus-background`)
+        console.log("busBackgroundHolder " + busBackgroundHolder)
+
+        function frame(timeStamp) {
+            
+            if (start === undefined) {
+                start = 0
+                prev = timeStamp
+            }
+
+            const elapsed = timeStamp - prev
+            prev = timeStamp
+
+            let nextX = currentX - speed;
+
+            if(nextX < -self.w){
+                nextX = 0
+            }
+
+            currentX = nextX
+            // Move busBackgroundHolder to nextX using transform translateX
+            busBackgroundHolder.style.transform = `translateX(${nextX}px)`
+    
+            if (self.isMoving) {
+                window.requestAnimationFrame(frame);
+            }
+        }
+    
+        window.requestAnimationFrame(frame);
     }
 
     changeRetweet(){
@@ -194,16 +231,30 @@ class ContentSocialMedia extends Content {
     }
 
     preactivateContent(){
-         /* AVATAR RELATED */
+        /* AVATAR RELATED */
         // Posicionamos al avatar
         this.setupAvatar()
         this.avatarCopier.update()
         this.avatarMovement.activate()
+
+        const foregroundImg = document.querySelector(`.bus-foreground img`)
+        
+        const foregroundImgRect = foregroundImg.getBoundingClientRect();
+        const height = foregroundImgRect.height
+        
+        // Cambiar el alto de las imagenes de background
+        this.w = 0;
+        const self = this;
+        document.querySelectorAll(`.bus-background img`).forEach(backgroundImage => {
+            backgroundImage.style.height = `${height}px`
+            self.w = backgroundImage.getBoundingClientRect().width;    
+        })
+
+        this.startLoop();
     }
 
     activateContent(){
         this.avatarMovement.updateAvatarImgRect()
-
         this.startMovement();
     }
 
@@ -314,8 +365,22 @@ class ContentSocialMedia extends Content {
         const num = Number(id)
         if(id == 1){
             this.isRetweetEnabled = true;
+            anime({
+                targets: "#retweet-button",
+                opacity: 1,
+                duration: this.durationStream,
+                easing:'easeInOutQuad'
+            });
+            
         }else{
             this.isLikeEnabled = true;
+
+            anime({
+                targets: "#like-button",
+                opacity: 1,
+                duration: this.durationStream,
+                easing:'easeInOutQuad'
+            });
         }
         anime({
             targets: "#sm-popup-" + id,

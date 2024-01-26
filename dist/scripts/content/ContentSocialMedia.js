@@ -16,8 +16,11 @@ class ContentSocialMedia extends Content {
         
         // Scope
         const self = this
+        this.isMoving = true;
         this.isScoreShown = false
         this.isRetweetClicked = false
+        this.isRetweetEnabled = false
+        this.isLinkeEnabled = false
         this.yOffset = 20
         this.xOffset = 5
         this.duration = 250
@@ -37,6 +40,7 @@ class ContentSocialMedia extends Content {
 
         this.likeButton = document.getElementById("social-media-button-2");
         this.socialMediaMarginBottom = 10;
+        this.linksEnabled = [false, false]
        
         // Las posibles respuestas, solo podemos marcar una
         this.reponseUnique = new ResponseUnique(this.contentID)
@@ -49,12 +53,57 @@ class ContentSocialMedia extends Content {
             self.onClickLike()
         })
 
+        document.querySelectorAll(`.social-media-link`).forEach(link => {
+            const id = link.getAttribute("id").split("-")[3]
+            console.log("id " + id)
+            this.addEvent(link, Content.ON_RELEASE, (event)=>{
+                self.onClickLink(id)
+            })  
+        })
 
-        /* AVATAR RELATED */
-        // Posicionamos al avatar
-        setTimeout(()=>{
-            self.setupAvatar()
-        }, 100)        
+        document.querySelectorAll(`.close-button`).forEach(closeButton => {
+            const id = closeButton.getAttribute("id").split("-")[2]
+            console.log("close id " + id)
+            this.addEvent(closeButton, Content.ON_RELEASE, (event)=>{
+                self.onClickClose(id)
+            })  
+        })
+    }
+
+    startLoop(){
+        const self = this
+        let start, prev
+        const speed = 2;
+        let currentX = 0;
+        const busBackgroundHolder = document.querySelector(`.bus-background`)
+        console.log("busBackgroundHolder " + busBackgroundHolder)
+
+        function frame(timeStamp) {
+            
+            if (start === undefined) {
+                start = 0
+                prev = timeStamp
+            }
+
+            const elapsed = timeStamp - prev
+            prev = timeStamp
+
+            let nextX = currentX - speed;
+
+            if(nextX < -self.w){
+                nextX = 0
+            }
+
+            currentX = nextX
+            // Move busBackgroundHolder to nextX using transform translateX
+            busBackgroundHolder.style.transform = `translateX(${nextX}px)`
+    
+            if (self.isMoving) {
+                window.requestAnimationFrame(frame);
+            }
+        }
+    
+        window.requestAnimationFrame(frame);
     }
 
     changeRetweet(){
@@ -67,11 +116,15 @@ class ContentSocialMedia extends Content {
     }
 
     onClickLike(){
+        if(!this.isLikeEnabled){
+           return
+        }
+
         this.changeLike();
         const self = this
         setTimeout(()=>{
             self.gotoNextStep()
-        }, 500) 
+        }, this.waitTime) 
     }
     unblur(id){
         setTimeout(()=>{
@@ -85,7 +138,7 @@ class ContentSocialMedia extends Content {
         
     }
     onClickRetwet(){
-        if(this.isRetweetClicked){
+        if(this.isRetweetClicked || !this.isRetweetEnabled){
             return
         }
         const self = this
@@ -150,7 +203,7 @@ class ContentSocialMedia extends Content {
                 easing:'easeInOutQuad',
                 delay:this.waitTime,
                 complete: function(anim) {
-                    
+                    self.linksEnabled[1] = true
                 },
                 begin: function(anim) {
                     self.unblur("social-media-image-sarah")
@@ -178,13 +231,30 @@ class ContentSocialMedia extends Content {
     }
 
     preactivateContent(){
-        if(this.avatarCopier) this.avatarCopier.update()
-        if(this.avatarMovement) this.avatarMovement.activate()
+        /* AVATAR RELATED */
+        // Posicionamos al avatar
+        this.setupAvatar()
+        this.avatarCopier.update()
+        this.avatarMovement.activate()
+
+        const foregroundImg = document.querySelector(`.bus-foreground img`)
+        
+        const foregroundImgRect = foregroundImg.getBoundingClientRect();
+        const height = foregroundImgRect.height
+        
+        // Cambiar el alto de las imagenes de background
+        this.w = 0;
+        const self = this;
+        document.querySelectorAll(`.bus-background img`).forEach(backgroundImage => {
+            backgroundImage.style.height = `${height}px`
+            self.w = backgroundImage.getBoundingClientRect().width;    
+        })
+
+        this.startLoop();
     }
 
     activateContent(){
         this.avatarMovement.updateAvatarImgRect()
-
         this.startMovement();
     }
 
@@ -257,14 +327,72 @@ class ContentSocialMedia extends Content {
                 easing:'easeInOutQuad',
                 delay:this.waitTime,
                 complete: function(anim) {
-                    
+                    self.linksEnabled[0] = true
                 },
                 begin: function(anim) {
                     self.unblur("social-media-image-rainforest")
                 }
             });
         }
-        
+    }
+
+    onpenLink(id){
+        console.log("onpenLink " + id)
+        const socialMediaPopup = document.getElementById("sm-popup-" + id)
+        socialMediaPopup.style.pointerEvents = "all";
+        anime({
+            targets: "#sm-popup-" + id,
+            opacity: 1,
+            duration: this.durationStream,
+            easing:'easeInOutQuad',
+            complete: function(anim) {
+               
+            },
+            
+        });
+    }
+
+    onClickLink(id){
+        const num = Number(id)
+        const pos = num - 1
+        // console.log("on click link is enabled " + this.linksEnabled[pos] + " pos: " + pos)
+
+        if(this.linksEnabled[pos]){
+            this.onpenLink(num)
+        }
+    }
+    onClickClose(id){
+        const num = Number(id)
+        if(id == 1){
+            this.isRetweetEnabled = true;
+            anime({
+                targets: "#retweet-button",
+                opacity: 1,
+                duration: this.durationStream,
+                easing:'easeInOutQuad'
+            });
+            
+        }else{
+            this.isLikeEnabled = true;
+
+            anime({
+                targets: "#like-button",
+                opacity: 1,
+                duration: this.durationStream,
+                easing:'easeInOutQuad'
+            });
+        }
+        anime({
+            targets: "#sm-popup-" + id,
+            opacity: 0,
+            duration: this.durationStream,
+            easing:'easeInOutQuad',
+            complete: function(anim) {
+                const socialMediaPopup = document.getElementById("sm-popup-" + num)
+                socialMediaPopup.style.display = "none";
+            },
+            
+        });
     }
 
     deactivateContent(){

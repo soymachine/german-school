@@ -30,18 +30,24 @@ class AvatarCopier {
         this.mouth.src = `./imgs/avatar/parts/mouth-skin-${(skinColor)}.svg` 
         this.neck.src = `./imgs/avatar/parts/neck-${(skinColor)}.svg` 
         this.nose.src = `./imgs/avatar/parts/nose-skin-${(skinColor)}.svg` 
-        this.hair.src = `./imgs/avatar/parts/hair-style-${(hairStyle)}-${(hairColor)}.svg`
+        
+        if(hairStyle != 12){
+            this.hair.src = `./imgs/avatar/parts/hair-style-${(hairStyle)}-${(hairColor)}.svg`
+            this.hair.style.opacity = 1 
+        }else{
+            this.hair.style.opacity = 0 
+        }
+
         this.body.src = `./imgs/avatar/parts/body-${(bodyColor)}.svg`
 
         if(this.name) this.name.innerHTML = avatarSelection.name
-
+        console.log("avatarSelection.hairStyle " + hairStyle)
         /* El pelo back */
-        if(avatarSelection.hairStyle == 0 || avatarSelection.hairStyle == 7 || avatarSelection.hairStyle == 9 || avatarSelection.hairStyle == 10 || avatarSelection.hairStyle == 11){
+        if(hairStyle == 1 || hairStyle == 7 || hairStyle == 9 || hairStyle == 10 || hairStyle == 11 || hairStyle == 12){
             // ocultamos el pelo back
             this.hairBack.style.opacity = 0 
         }else{
             this.hairBack.style.opacity = 1 
-
             this.hairBack.src = `./imgs/avatar/parts/hair-style-${(hairStyle)}-back-${(hairColor)}.svg`
         }
         

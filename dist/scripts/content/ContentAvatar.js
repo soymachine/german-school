@@ -479,6 +479,7 @@ class ContentAvatar extends Content {
         if(this.currentDisplay == 11){
             this.hairBack.style.opacity = 0
             this.hair.style.opacity = 0
+            this.avatarSelection.hairStyle = this.currentDisplay
             return
         }else{
             

@@ -23,7 +23,11 @@ class CallToAction extends Content {
     }
 
     activateContent(){
-        
+        this.updateAvatarImageRect();
+    }
+
+    preactivateContent(){
+        this.setupAvatar();
     }
 
     onClickNext(){

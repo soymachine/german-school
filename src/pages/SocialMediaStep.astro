@@ -11,7 +11,10 @@ const { step } = Astro.props;
 <div class=`holder-social-media`>
     <div class="bus">
         <div class="bus-image bus-foreground"><img src="./imgs/intro/bus/bus_foreground.png"></div>
-        <div class="bus-image bus-background"><img src="./imgs/intro/bus/bus_background.png"></div>
+        <div class="bus-image bus-background">
+            <img src="./imgs/intro/bus/bus_background.png">
+            <img src="./imgs/intro/bus/bus_background.png">
+        </div>
     </div>  
     <div id="speech-user-avatar">
         <Avatar isSpeech={true} width={175} step={step} fontSize={25} textCorrection={10} hasText={false}/>
@@ -67,6 +70,10 @@ const { step } = Astro.props;
 
     #retweet-button-completed, #like-button-completed {
         display: none;
+    }
+
+    #retweet-button, #like-button {
+        opacity: .25;
     }
 
     .social-media-image-button{
@@ -211,14 +218,18 @@ const { step } = Astro.props;
         position: absolute;
         z-index:0;
         top:0px;
+        width: max-content;
+        display: flex;
     }
 
 
     .bus-image img{
-        width: 100%;
-        
         top:0px;
         left:0px;
+    }
+
+    .bus-foreground img{
+        width: 100%;
     }
 
     .wrapper {

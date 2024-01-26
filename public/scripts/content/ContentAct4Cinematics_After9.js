@@ -62,6 +62,7 @@ class ContentAct4Cinematics_After9 extends Content {
         this.texts[0] = `Congrats! The interview has been a <strong>big success</strong>, <span class='user-name'>${avatarSelection.name}!</span>`
         this.avatarCopier = new AvatarCopier(this.contentID)
         this.avatarCopier.update()
+        this.centerAvatarName()
     }
 
     onClickSpeechBubble() {

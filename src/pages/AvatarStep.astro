@@ -149,7 +149,7 @@ const { step } = Astro.props;
                     </a>
                 </div>
                 <div id="name-picker">
-                    <input id="name-input" type="text" placeholder="Type your name" />
+                    <input id="name-input" type="text" placeholder="Type your name" maxlength="15"/>
                 </div>
             </div>
         </div>
@@ -443,7 +443,7 @@ const { step } = Astro.props;
     }
 
 
-    @media (max-width: 375px) {
+    @media (max-width: 400px) { /* antiguamente 375 */
         .avatar-display-wrapper {
             /*transform: translateY(-40px);*/
         }

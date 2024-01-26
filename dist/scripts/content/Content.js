@@ -1,4 +1,6 @@
 import {eventSystem, Events} from '../helpers/EventSystem.js'
+import AvatarCopier from './avatar/AvatarCopier.js'
+import AvatarMovement from './avatar/AvatarMovement.js'
 
 class Content{
     constructor(contentID){
@@ -10,6 +12,42 @@ class Content{
         eventSystem.subscribe(Events.ON_CONTENT_HIDE, (content)=>{ this.onContentHide(content)})
         eventSystem.subscribe(Events.ON_CONTENT_BEGIN_SHOWN, (content)=>{ this.onContentBeginShow(content)})
         eventSystem.subscribe(Events.ON_CONTENT_BEGIN_HIDE, (content)=>{ this.onContentBeginHide(content)})
+    }
+
+    setupAvatar(){
+        this.avatarCopier = new AvatarCopier(this.contentID)
+        this.avatarMovement = new AvatarMovement({
+            id: `#my-avatar-${this.contentID}`,
+            eyesID:"#my-avatar-eyes-image",
+            eyebrows:this.avatarCopier.eyebrows,
+            mouth:this.avatarCopier.mouth,
+            nose:this.avatarCopier.nose,
+            eyes:this.avatarCopier.eyes,
+            glasses:this.avatarCopier.glasses,
+            beard:this.avatarCopier.beard,
+            moustache:this.avatarCopier.moustache,
+            avatarImgRect: document.getElementById(`my-avatar-${this.contentID}`).getBoundingClientRect(),
+            contentID:this.contentID,
+        })
+        this.avatarMovement.updateAvatarSize(150)
+        this.avatarCopier.update()
+        this.avatarMovement.activate()
+    }
+
+    updateAvatarImageRect(){
+        this.avatarMovement.updateAvatarImgRect()
+    }
+
+    centerAvatarName(){
+
+        const bodyPart = document.querySelector(`#my-avatar-${this.contentID} #my-avatar-base-bg-preview`)
+        const finalWidth = bodyPart.width
+        
+
+        const userName = document.getElementById("my-avatar-name-" + this.contentID)
+        const rect = userName.getBoundingClientRect();
+        const x = finalWidth * .5 - rect.width * .5
+        userName.style.left = `${x}px`
     }
 
     onContentBeginShow(content){
