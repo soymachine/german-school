@@ -12,8 +12,8 @@ class ContentAct3Cinematics extends Content {
         const self = this
         this.texts = [
             "to update",
-            "My name is <strong>Alex</strong> and I'm the technical guy. We have lots of stuff to do!",
-            "First of all, can you help me <strong>designing the basic functioning of our AI?</strong>",
+            "My name is <strong>Alex</strong> and I am responsible for the technology behind our tool.",
+            "First of all, can you help me <strong>design the basic functioning of our AI?</strong>",
         ]
         this.maxSteps = this.texts.length
         this.step = 1
@@ -25,6 +25,13 @@ class ContentAct3Cinematics extends Content {
         this.W = this.rootRect.width 
         this.outPosition = this.W * .75
         this.inPosition = 0
+
+        // Ocultamos bocadillo
+        document.querySelectorAll(`#step-${this.contentID} .speech-bubble-element`).forEach(element => element.style.opacity = 0)
+        this.loadingElement = document.querySelector(`#step-${this.contentID} .speech-loading`)
+        this.loadingImg = document.querySelector(`#step-${this.contentID} #loading-gif`)
+        this.buttonImg = document.querySelector(`#step-${this.contentID} #button-arrow`)
+        this.loadingElement.style.display = "none"
 
         anime.set(`#step-${this.contentID} #sarah-act-3, #step-${this.contentID} #sarah-name-act-3`, {
             translateX: -this.outPosition,
@@ -45,7 +52,7 @@ class ContentAct3Cinematics extends Content {
         this.button.onmousedown = function(event) { //asign a function
             self.onClickSpeechBubble()
         }
-        this.button.style.display = "none"
+        //this.button.style.display = "none"
         
         // this.updateText()
     }
@@ -59,8 +66,17 @@ class ContentAct3Cinematics extends Content {
     }
 
     activateContent(){
+        const self = this
+
         this.showCharacter("alex", 0, 200, ()=>{
-            this.updateText()
+            anime({
+                targets:`#step-${this.contentID} .speech-bubble-element`,
+                opacity: 1,
+                duration: 1000,
+                complete: function(anim) {
+                    self.updateText()
+                  }
+            });
         })
 
         this.showCharacter("sarah", 0, 0)
@@ -132,13 +148,19 @@ class ContentAct3Cinematics extends Content {
         });
 
         // Quitar el bubble de "next"
-        this.button.style.display = 'none'
+        // add class talking to loadingElement
+        this.loadingElement.style.display = "block"
+        this.loadingElement.classList.add('talking')
+        this.buttonImg.style.display = "none"
+        this.loadingImg.style.display = "inline"
         this.isWriting = true
 
         //*
         typewriter.typeString(this.texts[this.step - 1]).start().callFunction(()=>{
             // Reactivar el bubble de "next"
-            this.button.style.display = 'contents'
+            this.buttonImg.style.display = "inline"
+            this.loadingImg.style.display = "none"
+            this.loadingElement.classList.remove('talking')
             this.isWriting = false
         })
         //*/

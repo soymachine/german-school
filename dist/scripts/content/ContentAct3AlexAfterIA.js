@@ -12,7 +12,7 @@ class ContentAct3AlexAfterIA extends Content {
         const self = this
         this.texts = [
             'The <strong>\'Rainforest Security <span>&<span> Awareness Intelligence\'</strong> (RSAI) has been completed!',
-            "The monitoring begins and the <strong>AI will detect and illegal</strong> and harmful activity.",
+            "The monitoring begins and the <strong>AI will detect any illegal</strong> and harmful activity.",
             "We have gained the attention of <strong>environmental activists</strong> and aspiring entrepreneurs.",
         ]
         this.maxSteps = this.texts.length
@@ -20,6 +20,13 @@ class ContentAct3AlexAfterIA extends Content {
         this.label = document.getElementById("speech-content-act-3-after-ia")
         this.button = document.getElementById("content-cinematic-act-3-after-ia-button")
         
+        // Ocultamos bocadillo
+        document.querySelectorAll(`#step-${this.contentID} .speech-bubble-element`).forEach(element => element.style.opacity = 0)
+        this.loadingElement = document.querySelector(`#step-${this.contentID} .speech-loading`)
+        this.loadingImg = document.querySelector(`#step-${this.contentID} #loading-gif`)
+        this.buttonImg = document.querySelector(`#step-${this.contentID} #button-arrow`)
+        this.loadingElement.style.display = "none"
+
         this.duration = 1000
         this.rootRect = document.getElementById("root").getBoundingClientRect()
         this.W = this.rootRect.width 
@@ -45,7 +52,7 @@ class ContentAct3AlexAfterIA extends Content {
         this.button.onmousedown = function(event) { //asign a function
             self.onClickSpeechBubble()
         }
-        this.button.style.display = "none"
+        //this.button.style.display = "none"
     }
 
     preactivateContent(){
@@ -56,8 +63,17 @@ class ContentAct3AlexAfterIA extends Content {
     }
 
     activateContent(){
+        const self = this
+
         this.showCharacter("alex", 0, 200, ()=>{
-            this.updateText()
+            anime({
+                targets:`#step-${this.contentID} .speech-bubble-element`,
+                opacity: 1,
+                duration: 1000,
+                complete: function(anim) {
+                    self.updateText()
+                  }
+            });
         })
 
         this.showCharacter("sarah", 0, 0)
@@ -129,13 +145,19 @@ class ContentAct3AlexAfterIA extends Content {
         });
 
         // Quitar el bubble de "next"
-        this.button.style.display = 'none'
+        // add class talking to loadingElement
+        this.loadingElement.style.display = "block"
+        this.loadingElement.classList.add('talking')
+        this.buttonImg.style.display = "none"
+        this.loadingImg.style.display = "inline"
         this.isWriting = true
 
         //*
         typewriter.typeString(this.texts[this.step - 1]).start().callFunction(()=>{
             // Reactivar el bubble de "next"
-            this.button.style.display = 'contents'
+            this.buttonImg.style.display = "inline"
+            this.loadingImg.style.display = "none"
+            this.loadingElement.classList.remove('talking')
             this.isWriting = false
         })
         //*/

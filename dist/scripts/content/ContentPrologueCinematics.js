@@ -26,6 +26,13 @@ class ContentPrologueCinematics extends Content {
         this.rafael = document.querySelector(`#step-${this.contentID} #rafael`)
         this.alex = document.querySelector(`#step-${this.contentID} #alex`)
 
+        // Ocultamos bocadillo
+        document.querySelectorAll(`#step-${this.contentID} .speech-bubble-element`).forEach(element => element.style.opacity = 0)
+        this.loadingElement = document.querySelector(`#step-${this.contentID} .speech-loading`)
+        this.loadingImg = document.querySelector(`#step-${this.contentID} #loading-gif`)
+        this.buttonImg = document.querySelector(`#step-${this.contentID} #button-arrow`)
+        this.loadingElement.style.display = "none"
+
         this.rootRect = document.getElementById("root").getBoundingClientRect()
         this.W = this.rootRect.width 
         this.outPosition = this.W * .5
@@ -56,14 +63,23 @@ class ContentPrologueCinematics extends Content {
         this.button.onmousedown = function(event) { //asign a function
             self.onClickSpeechBubble()
         }
-        this.button.style.display = "none"
+        //this.button.style.display = "none"
 
         
     }
 
     activateContent(){
+        const self = this
+
         this.showCharacter("sarah", 0, ()=>{
-            this.updateText()
+            anime({
+                targets:`#step-${this.contentID} .speech-bubble-element`,
+                opacity: 1,
+                duration: 1000,
+                complete: function(anim) {
+                    self.updateText()
+                  }
+            });
         })
 
         this.showCharacter("speech-user-avatar", 0)
@@ -177,13 +193,20 @@ class ContentPrologueCinematics extends Content {
         });
 
         // Quitar el bubble de "next"
-        this.button.style.display = 'none'
+        // add class talking to loadingElement
+        this.button.style.display = 'block'
+        this.loadingElement.style.display = "block"
+        this.loadingElement.classList.add('talking')
+        this.buttonImg.style.display = "none"
+        this.loadingImg.style.display = "inline"
         this.isWriting = true
 
         //*
         typewriter.typeString(this.texts[this.step - 1]).start().callFunction(()=>{
             // Reactivar el bubble de "next"
-            this.button.style.display = 'contents'
+            this.buttonImg.style.display = "inline"
+            this.loadingImg.style.display = "none"
+            this.loadingElement.classList.remove('talking')
             this.isWriting = false
         })
         //*/

@@ -15,15 +15,20 @@ const { step } = Astro.props;
     <div class="act-cinematics-center"> 
         <div class="act-cinematics-holder">
             <div class="speech">
-                <div class="speech-bubble">
+                <div class="speech-bubble speech-bubble-element">
                     <div class="speech-bubble-text">
                         <div id="speech-content-prologue" class="speech-bubble-text-content">
                             Nice to meet you Iñaki, I think you can be the perfect addition to the team
                         </div>
                     </div>                    
                 </div>
-                <img id="speech-bubble-wedge" src="./imgs/acts/speech/speech-wedge.png">
-                <a id="content-cinematic-prologue-button" class="speech-bubble-button" href="#"><div class="speech-loading"><img src="./imgs/acts/speech/speech-loading.gif"></div></a>
+                <img class="speech-bubble-element" id="speech-bubble-wedge" src="./imgs/acts/speech/speech-wedge.png">
+                <a id="content-cinematic-prologue-button" class="speech-bubble-button" href="#">
+                    <div class="speech-loading talking">
+                        <img id="loading-gif" src="./imgs/acts/speech/speech-grey-loading.gif">
+                        <img id="button-arrow" src="./imgs/acts/speech/speech-arrow.png">
+                    </div>
+                </a>
             </div>
             <img class="act-cinematics-background-image" src="./imgs/acts/titles/epilogue-Background.png">
         </div>
@@ -61,12 +66,17 @@ const { step } = Astro.props;
     }
     .speech-loading {
         background-color: #00A5DC;
-        width: 100px;
-        padding: 17px 10px;
+        width: 70px;
+        padding: 1px 10px 2px 10px;
         margin: 0 auto;
         border-radius: 7px;
         border: 2px solid white;
-        margin-top: -57px;
+        margin-top: -46px;
+    }
+
+    .talking {
+        background-color: #999999;
+        padding: 9px 10px;
     }
 
 
@@ -91,8 +101,14 @@ const { step } = Astro.props;
         margin-top: 10px;
     }
 
+    
+    .speech-loading #button-arrow{
+        display: none;
+    }
+
     .speech-bubble-button {
         display: contents;
+        opacity: 1;
     }
 
 
@@ -179,7 +195,7 @@ const { step } = Astro.props;
         left: 59%;
     }
 
-    @media (max-width: 400px) {
+    @media (max-width: 500px) {
         .act-cinematics-wrapper {
             font-size: 18px;
         }
@@ -194,15 +210,14 @@ const { step } = Astro.props;
             padding: 10px 0px;
         }
 
-        .speech-loading {
-            width: 70px;
-            padding: 11px 10px;
-            margin-top: -46px;
-        }
-
-        .speech-loading img{
+        .speech-loading #loading-gif{
             width: 70px;
             margin-top: 10px;
+        }
+
+        .speech-loading #button-arrow{
+            width: 20px;
+            margin-top: 8px;
         }
 
         #speech-bubble-wedge {

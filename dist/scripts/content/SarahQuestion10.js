@@ -29,7 +29,7 @@ class SarahQuestion10 extends Content {
         const stepHeight = this.$infoHolder.offsetHeight
         //this.$infoHolder.style.width = (stepWidth - (Settings.margin * 2)) + "px"
         this.$infoHolder.style.width = (stepWidth - (20 * 2)) + "px"
-        this.$infoHolder.style.height = stepHeight + "px"
+        //this.$infoHolder.style.height = stepHeight + "px"
 
         // Check path images
         this.correctMarkImage = "./imgs/correct.png"

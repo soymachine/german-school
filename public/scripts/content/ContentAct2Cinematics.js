@@ -23,6 +23,12 @@ class ContentAct2Cinematics extends Content {
         this.button = document.getElementById("content-cinematic-act-2-button")
         this.isWriting = false
 
+        // Ocultamos bocadillo
+        document.querySelectorAll(`#step-${this.contentID} .speech-bubble-element`).forEach(element => element.style.opacity = 0)
+        this.loadingElement = document.querySelector(`#step-${this.contentID} .speech-loading`)
+        this.loadingImg = document.querySelector(`#step-${this.contentID} #loading-gif`)
+        this.buttonImg = document.querySelector(`#step-${this.contentID} #button-arrow`)
+        this.loadingElement.style.display = "none"
         
         this.duration = 1000
         this.rootRect = document.getElementById("root").getBoundingClientRect()
@@ -49,13 +55,13 @@ class ContentAct2Cinematics extends Content {
         this.button.onmousedown = function(event) { //asign a function
             self.onClickSpeechBubble()
         }
-        this.button.style.display = "none"
+        //this.button.style.display = "none"
         
         // this.updateText()
     }
 
     preactivateContent(){
-        this.texts[0] = `Welcome aboard, <span class='user-name'>${avatarSelection.name}!</span></br>I'm <strong>Dr. Rafael</strong> and I'm a rainforest ecologist scientist.`
+        this.texts[0] = `Welcome aboard, <span class='user-name'>${avatarSelection.name}!</span></br>I'm <strong>Dr. Rafael</strong> and I'm a rainforest conservation scientist.`
         //this.updateText()
         this.avatarCopier = new AvatarCopier(this.contentID)
         this.avatarCopier.update()
@@ -63,8 +69,17 @@ class ContentAct2Cinematics extends Content {
     }
 
     activateContent(){
+        const self = this
+
         this.showCharacter("rafael", 0, 200, ()=>{
-            this.updateText()
+            anime({
+                targets:`#step-${this.contentID} .speech-bubble-element`,
+                opacity: 1,
+                duration: 500,
+                complete: function(anim) {
+                    self.updateText()
+                  }
+            });
         })
 
         this.showCharacter("sarah", 0, 0)
@@ -138,13 +153,18 @@ class ContentAct2Cinematics extends Content {
         });
 
         // Quitar el bubble de "next"
-        this.button.style.display = 'none'
+        this.loadingElement.style.display = "block"
+        this.loadingElement.classList.add('talking')
+        this.buttonImg.style.display = "none"
+        this.loadingImg.style.display = "inline"
         this.isWriting = true
 
         //*
         typewriter.typeString(this.texts[this.step - 1]).start().callFunction(()=>{
             // Reactivar el bubble de "next"
-            this.button.style.display = 'contents'
+            this.buttonImg.style.display = "inline"
+            this.loadingImg.style.display = "none"
+            this.loadingElement.classList.remove('talking')
             this.isWriting = false
         })
         //*/

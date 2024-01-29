@@ -203,7 +203,8 @@ class ContentSocialMedia extends Content {
                 easing:'easeInOutQuad',
                 delay:this.waitTime,
                 complete: function(anim) {
-                    self.linksEnabled[1] = true
+                    // Directamente activamos el like
+                    self.onClickClose(2)
                 },
                 begin: function(anim) {
                     self.unblur("social-media-image-sarah")
@@ -327,7 +328,7 @@ class ContentSocialMedia extends Content {
                 easing:'easeInOutQuad',
                 delay:this.waitTime,
                 complete: function(anim) {
-                    self.linksEnabled[0] = true
+                    self.onClickClose(1)
                 },
                 begin: function(anim) {
                     self.unblur("social-media-image-rainforest")
@@ -363,6 +364,7 @@ class ContentSocialMedia extends Content {
     }
     onClickClose(id){
         const num = Number(id)
+        console.log("num " + num);
         if(id == 1){
             this.isRetweetEnabled = true;
             anime({
@@ -374,7 +376,7 @@ class ContentSocialMedia extends Content {
             
         }else{
             this.isLikeEnabled = true;
-
+            console.log("Entramos aqui")
             anime({
                 targets: "#like-button",
                 opacity: 1,
@@ -382,17 +384,7 @@ class ContentSocialMedia extends Content {
                 easing:'easeInOutQuad'
             });
         }
-        anime({
-            targets: "#sm-popup-" + id,
-            opacity: 0,
-            duration: this.durationStream,
-            easing:'easeInOutQuad',
-            complete: function(anim) {
-                const socialMediaPopup = document.getElementById("sm-popup-" + num)
-                socialMediaPopup.style.display = "none";
-            },
-            
-        });
+        
     }
 
     deactivateContent(){

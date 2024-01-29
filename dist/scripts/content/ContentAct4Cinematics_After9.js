@@ -12,7 +12,7 @@ class ContentAct4Cinematics_After9 extends Content {
         const self = this
         this.texts = [
             "to update",
-            "You are bringing the issue of <strong>climate change</strong> and <strong>illegal activities in the rainforest</strong> and its impacts on the environment.",
+            "You are highlighting the issue of <strong>climate change</strong> and <strong>illegal activities in the rainforest</strong> and its impacts on the environment.",
             "More and more <strong>investors are interested</strong> and we have some first talks to plan an expansion strategy.",
             "You have done a great job so far, but I have a <strong>final question for you.</strong>",
         ]
@@ -22,6 +22,13 @@ class ContentAct4Cinematics_After9 extends Content {
         this.isWriting = false
         this.label = document.getElementById("speech-content-act-4-after9")
         this.button = document.getElementById("content-cinematic-act-4-after9-button")
+
+        // Ocultamos bocadillo
+        document.querySelectorAll(`#step-${this.contentID} .speech-bubble-element`).forEach(element => element.style.opacity = 0)
+        this.loadingElement = document.querySelector(`#step-${this.contentID} .speech-loading`)
+        this.loadingImg = document.querySelector(`#step-${this.contentID} #loading-gif`)
+        this.buttonImg = document.querySelector(`#step-${this.contentID} #button-arrow`)
+        this.loadingElement.style.display = "none"
 
         this.duration = 1000
         this.rootRect = document.getElementById("root").getBoundingClientRect()
@@ -46,12 +53,21 @@ class ContentAct4Cinematics_After9 extends Content {
         this.button.onmousedown = function(event) { //asign a function
             self.onClickSpeechBubble()
         }
-        this.button.style.display = "none"
+        //this.button.style.display = "none"
     }
 
     activateContent(){
+        const self = this
+
         this.showCharacter("sarah", 0, ()=>{
-            this.updateText()
+            anime({
+                targets:`#step-${this.contentID} .speech-bubble-element`,
+                opacity: 1,
+                duration: 1000,
+                complete: function(anim) {
+                    self.updateText()
+                  }
+            });
         })
 
         this.showCharacter("speech-user-avatar", 0)
@@ -121,13 +137,19 @@ class ContentAct4Cinematics_After9 extends Content {
         });
 
         // Quitar el bubble de "next"
-        this.button.style.display = 'none'
+        // add class talking to loadingElement
+        this.loadingElement.style.display = "block"
+        this.loadingElement.classList.add('talking')
+        this.buttonImg.style.display = "none"
+        this.loadingImg.style.display = "inline"
         this.isWriting = true
 
         //*
         typewriter.typeString(this.texts[this.step - 1]).start().callFunction(()=>{
             // Reactivar el bubble de "next"
-            this.button.style.display = 'contents'
+            this.buttonImg.style.display = "inline"
+            this.loadingImg.style.display = "none"
+            this.loadingElement.classList.remove('talking')
             this.isWriting = false
         })
         //*/

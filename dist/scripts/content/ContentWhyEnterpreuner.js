@@ -27,7 +27,7 @@ class ContentWhyEnterpreuner extends Content {
         this.responses = [
             "To solve an existing problem in the market",
             "To explore my creativiy to its full potential",
-            "To be my own boss and and lead a team",
+            "To be my own boss and lead a team",
             "To make an impact in society"
         ]
         this.$answerDescription = document.querySelector(`.answer-description`)

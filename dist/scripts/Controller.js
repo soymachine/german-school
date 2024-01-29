@@ -195,7 +195,7 @@ class Controller {
         this.currentPunctuation = currentPunctuation
 
         // TESTING */
-        //this.showContent(2) // 10
+        //this.showContent(2) // 16 cinematics done
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event)
         });
