@@ -110,8 +110,6 @@ class ContentAvatar extends Content {
         // Los ojos
         this.$eyes = document.getElementById("avatar-eyes-preview");
         this.eyesRect = this.$eyes.getBoundingClientRect();
-        
-        
 
         /* BODY PARTS */
         this.hair = document.getElementById("avatar-hair-preview")
@@ -605,10 +603,14 @@ class ContentAvatar extends Content {
         if(this.hasFinishCreatingAvatar){
             // Hemos completado y hemos visto el saludo, ya podemos marchar
             this.gotoNextStep()
+            
         }else{
             // Hemos completado el avatar, veremos el saludo
             this.hasFinishCreatingAvatar = true
             this.showGreetings()
+
+            // Enviamos un mensaje de que los AvatarCopier ya se pueden actualizar con los datos del AvatarSelector?
+            eventSystem.publish(Events.ON_AVATAR_COMPLETED)
         }
     }
 

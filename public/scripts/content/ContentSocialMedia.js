@@ -41,6 +41,8 @@ class ContentSocialMedia extends Content {
         this.likeButton = document.getElementById("social-media-button-2");
         this.socialMediaMarginBottom = 10;
         this.linksEnabled = [false, false]
+
+        this.avatarCopier = new AvatarCopier(this.contentID)
        
         // Las posibles respuestas, solo podemos marcar una
         this.reponseUnique = new ResponseUnique(this.contentID)
@@ -214,7 +216,7 @@ class ContentSocialMedia extends Content {
     }
 
     setupAvatar(){
-        this.avatarCopier = new AvatarCopier(this.contentID)
+        
         this.avatarMovement = new AvatarMovement({
             id: `#my-avatar-${this.contentID}`,
             eyesID:"#my-avatar-eyes-image",
@@ -235,7 +237,7 @@ class ContentSocialMedia extends Content {
         /* AVATAR RELATED */
         // Posicionamos al avatar
         this.setupAvatar()
-        this.avatarCopier.update()
+        //this.avatarCopier.update()
         this.avatarMovement.activate()
 
         const foregroundImg = document.querySelector(`.bus-foreground img`)

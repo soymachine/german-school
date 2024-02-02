@@ -24,6 +24,7 @@ class ContentPointsExplanation extends Content {
         this.scoreLabel = document.querySelector(`#step-${this.contentID} .score-points-total`)
         this.exaplanationTitleLabel = document.querySelector(`.punctuation-description`)
         this.exaplanationDescriptionLabel = document.querySelector(`.explanation-description`)
+        this.createAvatar();
 
     }
 

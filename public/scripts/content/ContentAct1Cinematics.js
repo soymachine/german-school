@@ -54,7 +54,7 @@ class ContentAct1Cinematics extends Content {
         }
         
         //this.button.style.display = "none"
-        
+        this.createAvatar();
     }
 
     activateContent(){
@@ -77,8 +77,6 @@ class ContentAct1Cinematics extends Content {
     preactivateContent(){
         this.label.innerHTML = ""
         this.texts[0] = `Nice to meet you <span class='user-name'>${avatarSelection.name}!</span><p style='margin-top:20px'>I think you can be the perfect addition to the team</p>`
-        this.avatarCopier = new AvatarCopier(this.contentID)
-        this.avatarCopier.update()
         this.centerAvatarName()
     }
 

@@ -42,8 +42,7 @@ class ContentAct1SarahApproves extends Content {
         //this.button.style.display = "none"
 
         // this.updateText()
-
-        
+        this.createAvatar();
     }
 
     activateContent(){
@@ -65,8 +64,6 @@ class ContentAct1SarahApproves extends Content {
 
     preactivateContent(){
         this.label.innerHTML = ""
-        this.avatarCopier = new AvatarCopier(this.contentID)
-        this.avatarCopier.update()
         this.centerAvatarName()
     }
 

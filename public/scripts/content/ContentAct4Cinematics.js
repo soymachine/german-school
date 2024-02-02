@@ -52,7 +52,7 @@ class ContentAct4Cinematics extends Content {
             self.onClickSpeechBubble()
         }
         //this.button.style.display = "none"
-        
+        this.createAvatar();
     }
 
     activateContent(){
@@ -75,8 +75,7 @@ class ContentAct4Cinematics extends Content {
     preactivateContent(){
         this.label.innerHTML = ""
         this.texts[0] = `<span class='user-name'>${avatarSelection.name}</span>, the awareness for rainforest protection has grown, and so has our <strong>media attention.</strong>`
-        this.avatarCopier = new AvatarCopier(this.contentID)
-        this.avatarCopier.update()
+        
         this.centerAvatarName()
     }
 

@@ -53,12 +53,12 @@ class ContentAct3AlexAfterIA extends Content {
             self.onClickSpeechBubble()
         }
         //this.button.style.display = "none"
+        this.createAvatar();
     }
 
     preactivateContent(){
         //this.updateText()
-        this.avatarCopier = new AvatarCopier(this.contentID)
-        this.avatarCopier.update()
+       
         this.centerAvatarName()
     }
 

@@ -64,7 +64,7 @@ class ContentPrologueCinematics extends Content {
             self.onClickSpeechBubble()
         }
         //this.button.style.display = "none"
-
+        this.createAvatar();
         
     }
 
@@ -88,8 +88,7 @@ class ContentPrologueCinematics extends Content {
     preactivateContent(){
         this.label.innerHTML = ""
         this.texts[0] = `<strong>What a journey, <span class='user-name'>${avatarSelection.name}!</span></strong><br>I’m really proud of your commitment with the project.`
-        this.avatarCopier = new AvatarCopier(this.contentID)
-        this.avatarCopier.update()
+        
         this.centerAvatarName()
 
     }

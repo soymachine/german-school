@@ -57,17 +57,19 @@ class ContentWhyEnterpreuner extends Content {
 
         // Las posibles respuestas, solo podemos marcar una
         this.reponseUnique = new ResponseUnique(this.contentID)
+
+        this.avatarCopier = new AvatarCopier(this.contentID)
     }
 
     preactivateContent(){
         this.setupAvatar()
-        if(this.avatarCopier) this.avatarCopier.update()
+        // if(this.avatarCopier) this.avatarCopier.update()
         if(this.avatarMovement) this.avatarMovement.activate()
     }
 
     setupAvatar(){
         this.centerAvatar()
-        this.avatarCopier = new AvatarCopier(this.contentID)
+       
         this.avatarMovement = new AvatarMovement({
             id: `#my-avatar-${this.contentID}`,
             eyesID:"#my-avatar-eyes-image",

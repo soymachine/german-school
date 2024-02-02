@@ -54,13 +54,13 @@ class ContentAct2PreQuestion extends Content {
         this.button.onmousedown = function(event) { //asign a function
             self.onClickSpeechBubble()
         }
-        //this.button.style.display = "none"
+
+        this.createAvatar();
     }
 
     preactivateContent(){
         //this.updateText()
-        this.avatarCopier = new AvatarCopier(this.contentID)
-        this.avatarCopier.update()
+        
         this.centerAvatarName()
     }
 

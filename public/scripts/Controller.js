@@ -180,6 +180,9 @@ class Controller {
 
         // El controlador del questionario
         this.contentPointsExplanation = new ContentPointsExplanation()
+
+        // El controlador del questionario
+        this.settings = new Settings()
         /*
         var sound = new Howl({
             src: ['sound/song.mp3'],
@@ -195,7 +198,7 @@ class Controller {
         this.currentPunctuation = currentPunctuation
 
         // TESTING */
-        //this.showContent(2) // 16 cinematics done
+        // this.showContent(25) // 16 cinematics done
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event)
         });

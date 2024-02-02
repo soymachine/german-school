@@ -54,14 +54,13 @@ class ContentAct3Cinematics extends Content {
         }
         //this.button.style.display = "none"
         
-        // this.updateText()
+        this.createAvatar();
     }
 
     preactivateContent(){
         this.texts[0] = `Hi there <strong>Sarah</strong> and nice to meet you, <span class='user-name'>${avatarSelection.name}!</span>`
         //this.updateText()
-        this.avatarCopier = new AvatarCopier(this.contentID)
-        this.avatarCopier.update()
+        
         this.centerAvatarName()
     }
 

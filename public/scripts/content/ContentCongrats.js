@@ -24,7 +24,7 @@ class ContentCongrats extends Content {
         }, false);
 
         this.scoreLabel = document.querySelector(`#step-${this.contentID} .score-points-total`)
-
+        this.createAvatar();
     }
 
     preactivateContent(){

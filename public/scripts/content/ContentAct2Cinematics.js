@@ -55,16 +55,12 @@ class ContentAct2Cinematics extends Content {
         this.button.onmousedown = function(event) { //asign a function
             self.onClickSpeechBubble()
         }
-        //this.button.style.display = "none"
-        
-        // this.updateText()
+        this.createAvatar();
     }
 
     preactivateContent(){
         this.texts[0] = `Welcome aboard, <span class='user-name'>${avatarSelection.name}!</span></br>I'm <strong>Dr. Rafael</strong> and I'm a rainforest conservation scientist.`
         //this.updateText()
-        this.avatarCopier = new AvatarCopier(this.contentID)
-        this.avatarCopier.update()
         this.centerAvatarName()
     }
 

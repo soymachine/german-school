@@ -1,7 +1,10 @@
 import { avatarSelection } from '../../helpers/AvatarSelection.js'
+import {eventSystem, Events} from '../../helpers/EventSystem.js'
+
 class AvatarCopier {
 
     constructor(id) {
+        console.log("Avatar copier, id: " + id)
         this.id = id
         this.hair = document.querySelector(`#my-avatar-${this.id} #my-avatar-hair-preview`)
         this.hairBack = document.querySelector(`#my-avatar-${this.id} #my-avatar-hair-back-preview`)
@@ -17,6 +20,9 @@ class AvatarCopier {
         this.moustache = document.querySelector(`#my-avatar-${this.id} #my-avatar-moustache-preview`)
         this.name = document.getElementById(`my-avatar-name-${this.id}`)
         this.hairColors = ["black", "blonde", "blue", "brown", "redhair"]
+
+        eventSystem.subscribe(Events.ON_AVATAR_COMPLETED, (content)=>{ this.update() }) // this.showContent(this.currentSection)
+
     }
 
     update(){
