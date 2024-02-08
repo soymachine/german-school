@@ -141,6 +141,8 @@ class SarahQuestion9 extends Content {
         }else{
             // Vamos a la siguiente sección
             this.gotoNextStep()
+            eventSystem.publish(Events.ON_PROGRESS_UPDATE, 9)
+
         }
     }
     

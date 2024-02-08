@@ -25,9 +25,9 @@ class ContentAvatar extends Content {
         // Sections
         this.sections = [
             {
-                id:"name",
-                label:"Name",
-                total:0,
+                id:"hairstyle",
+                label:"Hair style",
+                total:12,
                 current:0
             },
             {
@@ -36,12 +36,7 @@ class ContentAvatar extends Content {
                 total:8,
                 current:0
             },
-            {
-                id:"hairstyle",
-                label:"Hair style",
-                total:12,
-                current:0
-            },
+            
             {
                 id:"haircolor",
                 label:"Hair color",
@@ -49,15 +44,15 @@ class ContentAvatar extends Content {
                 current:0
             },
             {
-                id:"bodycolor",
-                label:"Body color",
-                total:5,
-                current:0
-            },
-            {
                 id:"extras",
                 label:"Extras",
                 total:3,
+                current:0
+            },
+            {
+                id:"name",
+                label:"Name",
+                total:0,
                 current:0
             },            
         ]
@@ -157,22 +152,18 @@ class ContentAvatar extends Content {
         this.pickers = [
             {
                 id:"1",
-                picker: new AvatarPicker("1", 8, "grid") // SKINS
+                picker: new AvatarPicker("skincolor", 8, "grid") // SKINS
+            },
+            {
+                id:"2",
+                picker: new AvatarPicker("haircolor", 5, "flex") // HAIR COLORS
             },
             {
                 id:"3",
-                picker: new AvatarPicker("3", 5, "flex") // HAIR COLORS
-            },
-            {
-                id:"4",
-                picker: new AvatarPicker("2", 5, "flex") // BODY COLORS
-            },
-            {
-                id:"5",
                 picker: new AvatarPicker("extras", 4, "grid") // EXTRAS
             },
             {
-                id:"0",
+                id:"4",
                 picker: new NamePicker("name") // NAME
             },
         ]
@@ -206,6 +197,7 @@ class ContentAvatar extends Content {
             const name = document.getElementById("name-input").value
             console.log(name)
             this.avatarSelection.setName(name)
+            this.checkNextButtonForFinish()
         }
 
         eventSystem.subscribe(Events.ON_PICKER_UPDATE, (pickerResponseObj)=>{
@@ -221,6 +213,11 @@ class ContentAvatar extends Content {
         }else{
             let nextDisplay = id.split("-")[3]
             nextDisplay = Number(nextDisplay) - 1
+            console.log("currentDisplaty " + this.currentDisplay)
+            console.log("nextDisplay " + nextDisplay)
+            //console.log("prev " + prevPickerName, "next " + nextPickerName)
+            console.log("parent " + parent)
+            console.log(`id: picker-${parent}-color-${(this.currentDisplay)}`)
             const prev = document.getElementById(`picker-${parent}-color-${(this.currentDisplay + 1)}`)
             prev.classList.remove("current-picker")
             const current = document.getElementById(`picker-${parent}-color-${(nextDisplay + 1)}`)
@@ -577,6 +574,7 @@ class ContentAvatar extends Content {
 
     updatePicker(){
         this.pickers.forEach(pickerElement => {
+            console.log("pickerElement id " + pickerElement.id + " currentSection " + this.currentSection)
             if(pickerElement.id == this.currentSection){
                 pickerElement.picker.show()
             }else{
@@ -584,8 +582,10 @@ class ContentAvatar extends Content {
             }
         })
 
+        const id = this.sections[this.currentSection].id;
+        console.log("current section for picker es id: " + id + " currentSection " + this.currentSection);
         // Mostramos o ocultamos los botones de pasador de elementos
-        if(this.currentSection == 2){
+        if(this.currentSection == 0){
             document.getElementById("avatar-part-number").style.display = "block" // mostramos el avatar-part-number
             document.querySelectorAll(".avatar-display-button").forEach(button => button.style.opacity = 1) // mostramos los avatar-display-button
         }else{

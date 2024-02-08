@@ -238,6 +238,9 @@ class ContentWhyEnterpreuner extends Content {
         // Vamos a la siguiente sección
         this.gotoNextStep()
 
+        eventSystem.publish(Events.ON_PROGRESS_UPDATE, 1)
+
+
         this.isNextEnabled = false;
     }
     

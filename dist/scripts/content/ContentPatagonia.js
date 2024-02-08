@@ -315,6 +315,13 @@ class ContentPatagonia extends Content {
             // A qué distancia está del centro de la imagen?
             const xImage = this.draggerX + (this.itemWidth / 2)
             const yImage = this.draggerY + (this.itemHeight / 2)
+
+            // Hemos hecho clic?
+            const distanceFromOrigin = this.getDistance(this.mouseX, this.mouseY, this.mouseOriginalPos.x, this.mouseOriginalPos.y)
+            if(distanceFromOrigin < 1){
+                // Hemos tapeado en el elemento, por lo que es como si lo hubieramos drageado a puesto
+                this.distance = this.distanceThreshold - 1
+            }
             
             //const distance = this.getDistance(xImage, yImage, this.dropZoneCenterX, this.dropZoneCenterY)
             if(this.distance < this.distanceThreshold){
@@ -465,6 +472,7 @@ class ContentPatagonia extends Content {
         }
         
         this.gotoNextStep()
+        eventSystem.publish(Events.ON_PROGRESS_UPDATE, 7)
     }
 
     

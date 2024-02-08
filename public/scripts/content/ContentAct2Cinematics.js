@@ -116,6 +116,13 @@ class ContentAct2Cinematics extends Content {
 
     onClickSpeechBubble() {
         console.log("Click bubble")
+        if(this.isWriting){
+            // Acabar de escribir todo
+            this.typewriter.stop();
+            this.label.innerHTML = this.texts[this.step - 1]
+            this.onTypeFinish()
+            return
+        }
 
         const nextStep = this.step + 1
 
@@ -142,7 +149,7 @@ class ContentAct2Cinematics extends Content {
 
         this.label.innerHTML = ""
         
-        var typewriter = new Typewriter(this.label, {
+        this.typewriter = new Typewriter(this.label, {
             loop: false,
             delay: 25,
             cursor:''
@@ -156,15 +163,20 @@ class ContentAct2Cinematics extends Content {
         this.isWriting = true
 
         //*
-        typewriter.typeString(this.texts[this.step - 1]).start().callFunction(()=>{
-            // Reactivar el bubble de "next"
-            this.buttonImg.style.display = "inline"
-            this.loadingImg.style.display = "none"
-            this.loadingElement.classList.remove('talking')
-            this.isWriting = false
+        this.typewriter.typeString(this.texts[this.step - 1]).start().callFunction(()=>{
+            this.onTypeFinish()
+
         })
         //*/
        
+    }
+
+    onTypeFinish(){
+        this.isWriting = false
+
+        this.buttonImg.style.display = "inline"
+        this.loadingImg.style.display = "none"
+        this.loadingElement.classList.remove('talking')
     }
 }
 export default ContentAct2Cinematics

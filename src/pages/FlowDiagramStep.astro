@@ -11,12 +11,9 @@ interface Props {
 const { step } = Astro.props;
 const baseURL = import.meta.env.PUBLIC_URL
 const array = new Array(6)
-array.push(50)
-array.push(50)
-array.push(65)
-array.push(65)
-array.push(50)
-array.push(50)
+array.push(53)
+array.push(53)
+array.push(38)
 let idx = 0
 
 const datamonitoringURL = imageURL("imgs/flow-diagram/datamonitoring.png") 
@@ -47,13 +44,12 @@ const realtimealertURL = imageURL("imgs/flow-diagram/realtimealert.png")
 
         <img id="wedge-1" class="wedge" src="./imgs/flow-diagram/wedge.png">
         <img id="wedge-2" class="wedge" src="./imgs/flow-diagram/wedge.png">
-        <div>
-            <div id="dropzone-predictiveanalysis" class="dropzone"></div>
-            
-        </div>
         <div class="dropzone-row-zone">
             <div id="dropzone-datamonitoring" class="dropzone"></div>
             <div id="dropzone-imagerecognition" class="dropzone"></div>
+        </div>
+        <div>
+            <div id="dropzone-predictiveanalysis" class="dropzone"></div>
         </div>
         <div>
             <div id="dropzone-realtimealert" class="dropzone"></div>

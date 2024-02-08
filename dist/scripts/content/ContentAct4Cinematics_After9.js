@@ -53,7 +53,8 @@ class ContentAct4Cinematics_After9 extends Content {
         this.button.onmousedown = function(event) { //asign a function
             self.onClickSpeechBubble()
         }
-        //this.button.style.display = "none"
+        
+        this.createAvatar();
     }
 
     activateContent(){
@@ -76,14 +77,17 @@ class ContentAct4Cinematics_After9 extends Content {
     preactivateContent(){
         this.label.innerHTML = ""
         this.texts[0] = `Congrats! The interview has been a <strong>big success</strong>, <span class='user-name'>${avatarSelection.name}!</span>`
-        this.avatarCopier = new AvatarCopier(this.contentID)
-        this.avatarCopier.update()
+        
         this.centerAvatarName()
     }
 
     onClickSpeechBubble() {
         console.log("Click bubble")
         if(this.isWriting){
+            // Acabar de escribir todo
+            this.typewriter.stop();
+            this.label.innerHTML = this.texts[this.step - 1]
+            this.onTypeFinish()
             return
         }
 
@@ -130,7 +134,7 @@ class ContentAct4Cinematics_After9 extends Content {
 
         this.label.innerHTML = ""
         
-        var typewriter = new Typewriter(this.label, {
+        this.typewriter = new Typewriter(this.label, {
             loop: false,
             delay: 25,
             cursor:''
@@ -145,15 +149,20 @@ class ContentAct4Cinematics_After9 extends Content {
         this.isWriting = true
 
         //*
-        typewriter.typeString(this.texts[this.step - 1]).start().callFunction(()=>{
-            // Reactivar el bubble de "next"
-            this.buttonImg.style.display = "inline"
-            this.loadingImg.style.display = "none"
-            this.loadingElement.classList.remove('talking')
-            this.isWriting = false
+        this.typewriter.typeString(this.texts[this.step - 1]).start().callFunction(()=>{
+            this.onTypeFinish()
+
         })
         //*/
        
+    }
+
+    onTypeFinish(){
+        this.isWriting = false
+
+        this.buttonImg.style.display = "inline"
+        this.loadingImg.style.display = "none"
+        this.loadingElement.classList.remove('talking')
     }
 }
 export default ContentAct4Cinematics_After9

@@ -20,6 +20,7 @@ class CallToAction extends Content {
             self.onClickNext()
         }, false);
 
+        this.createAvatar();
     }
 
     activateContent(){

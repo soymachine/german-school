@@ -24,16 +24,21 @@ class ContentCongrats extends Content {
         }, false);
 
         this.scoreLabel = document.querySelector(`#step-${this.contentID} .score-points-total`)
-
+        this.createAvatar();
     }
 
     preactivateContent(){
+        
         this.scoreLabel.innerHTML = currentPunctuation.getPunctuation()
         this.setupAvatar();
         document.querySelector(`#step-${this.contentID} .user-name`).innerHTML = avatarSelection.name
     }
 
     activateContent(){
+        console.log("ON PROGRESS CHANGE false llamada")
+        console.log(eventSystem)
+        eventSystem.publish("ON_PROGRESS_CHANGE", false)
+
         this.updateAvatarImageRect();
     }
 

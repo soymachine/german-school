@@ -48,87 +48,61 @@ const { step } = Astro.props;
             
             <div id="avatar-part-number">1/12</div>
             <div id="color-picker-wrapper">
-                <div id="color-picker-1">
-                    <a class="current-picker color-picker-item" id="picker-1-color-1" href="#">
+                <div id="color-picker-skincolor">
+                    <a class="current-picker color-picker-item" id="picker-skincolor-color-1" href="#">
                         <div class="square outter-square"></div>
                         <div class="square inner-square"></div>
                     </a>
-                    <a class="color-picker-item" id="picker-1-color-2" href="#">
+                    <a class="color-picker-item" id="picker-skincolor-color-2" href="#">
                         <div class="square inner-square"></div>
                         <div class="square outter-square"></div>
                     </a>
-                    <a class="color-picker-item" id="picker-1-color-3" href="#">
+                    <a class="color-picker-item" id="picker-skincolor-color-3" href="#">
                         <div class="square inner-square"></div>
                         <div class="square outter-square"></div>
                     </a>
-                    <a class="color-picker-item" id="picker-1-color-4" href="#">
+                    <a class="color-picker-item" id="picker-skincolor-color-4" href="#">
                         <div class="square inner-square"></div>
                         <div class="square outter-square"></div>
                     </a>
-                    <a class="color-picker-item" id="picker-1-color-5" href="#">
+                    <a class="color-picker-item" id="picker-skincolor-color-5" href="#">
                         <div class="square inner-square"></div>
                         <div class="square outter-square"></div>
                     </a>
-                    <a class="color-picker-item" id="picker-1-color-6" href="#">
+                    <a class="color-picker-item" id="picker-skincolor-color-6" href="#">
                         <div class="square inner-square"></div>
                         <div class="square outter-square"></div>
                     </a>
-                    <a class="color-picker-item" id="picker-1-color-7" href="#">
+                    <a class="color-picker-item" id="picker-skincolor-color-7" href="#">
                         <div class="square inner-square"></div>
                         <div class="square outter-square"></div>
                     </a>
-                    <a class="color-picker-item" id="picker-1-color-8" href="#">
+                    <a class="color-picker-item" id="picker-skincolor-color-8" href="#">
                         <div class="square outter-square"></div>
                         <div class="square inner-square"></div>
                     </a>
                 </div>
-                <div id="color-picker-2">
+                <div id="color-picker-haircolor">
                     <div class="group">
-                        <a class="current-picker color-picker-item" id="picker-2-color-1" href="#">
+                        <a class="current-picker color-picker-item" id="picker-haircolor-color-1" href="#">
                             <div class="square outter-square"></div>
                             <div class="square inner-square"></div>
                         </a>
-                        <a class="color-picker-item" id="picker-2-color-2" href="#">
+                        <a class="color-picker-item" id="picker-haircolor-color-2" href="#">
                             <div class="square inner-square"></div>
                             <div class="square outter-square"></div>
                         </a>
-                        <a class="color-picker-item" id="picker-2-color-3" href="#">
+                        <a class="color-picker-item" id="picker-haircolor-color-3" href="#">
                             <div class="square inner-square"></div>
                             <div class="square outter-square"></div>
                         </a>
                     </div>
                     <div class="group">
-                        <a class="color-picker-item" id="picker-2-color-4" href="#">
+                        <a class="color-picker-item" id="picker-haircolor-color-4" href="#">
                             <div class="square inner-square"></div>
                             <div class="square outter-square"></div>
                         </a>
-                        <a class="color-picker-item" id="picker-2-color-5" href="#">
-                            <div class="square inner-square"></div>
-                            <div class="square outter-square"></div>
-                        </a>
-                    </div>
-                </div>
-                <div id="color-picker-3">
-                    <div class="group">
-                        <a class="current-picker color-picker-item" id="picker-3-color-1" href="#">
-                            <div class="square outter-square"></div>
-                            <div class="square inner-square"></div>
-                        </a>
-                        <a class="color-picker-item" id="picker-3-color-2" href="#">
-                            <div class="square inner-square"></div>
-                            <div class="square outter-square"></div>
-                        </a>
-                        <a class="color-picker-item" id="picker-3-color-3" href="#">
-                            <div class="square inner-square"></div>
-                            <div class="square outter-square"></div>
-                        </a>
-                    </div>
-                    <div class="group">
-                        <a class="color-picker-item" id="picker-3-color-4" href="#">
-                            <div class="square inner-square"></div>
-                            <div class="square outter-square"></div>
-                        </a>
-                        <a class="color-picker-item" id="picker-3-color-5" href="#">
+                        <a class="color-picker-item" id="picker-haircolor-color-5" href="#">
                             <div class="square inner-square"></div>
                             <div class="square outter-square"></div>
                         </a>
@@ -294,7 +268,7 @@ const { step } = Astro.props;
     }
 
 
-    #color-picker-1 {
+    #color-picker-skincolor {
         display:none;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         gap:10px;
@@ -313,7 +287,7 @@ const { step } = Astro.props;
         position: relative;
     }
 
-    #color-picker-3 {
+    #color-picker-haircolor {
         display:grid;
         flex-direction:column;
         gap:10px;
@@ -354,87 +328,68 @@ const { step } = Astro.props;
     
 
     /* COLOR PICKER 1 */
-    #picker-1-color-1 .inner-square{
+    #picker-skincolor-color-1 .inner-square{
         background-color:#F2CCAF;
     }
 
-    #picker-1-color-2 .inner-square{
+    #picker-skincolor-color-2 .inner-square{
         background-color:#75595A;
     }
 
-    #picker-1-color-3 .inner-square{
+    #picker-skincolor-color-3 .inner-square{
         background-color:#F7D5A8;
     }
 
-    #picker-1-color-4 .inner-square{
+    #picker-skincolor-color-4 .inner-square{
         background-color:#9B614E;
     }
 
-    #picker-1-color-5 .inner-square{
+    #picker-skincolor-color-5 .inner-square{
         background-color:#846141;
     }
 
-    #picker-1-color-6 .inner-square{
+    #picker-skincolor-color-6 .inner-square{
         background-color:#B17F4C;
     }
 
-    #picker-1-color-7 .inner-square{
+    #picker-skincolor-color-7 .inner-square{
         background-color:#C79B82;
     }
 
-    #picker-1-color-8 .inner-square{
+    #picker-skincolor-color-8 .inner-square{
         background-color:#8D4F4A;
     }
 
-    /* COLOR PICKER 2 */
-    #picker-2-color-1 .inner-square{
-        background-color:#00A5DC;
-    }
-
-    #picker-2-color-2 .inner-square{
-        background-color:#009348;
-    }
-
-    #picker-2-color-3 .inner-square{
-        background-color:#F6B41A;
-    }
-
-    #picker-2-color-4 .inner-square{
-        background-color:#AC7AB5;
-    }
-
-    #picker-2-color-5 .inner-square{
-        background-color:#F37555;
-    }
-
-     /* COLOR PICKER 3 */
-     #picker-3-color-1 .inner-square{
+    
+    /* COLOR PICKER 3 */
+     #picker-haircolor-color-1 .inner-square{
         background-color:black;
     }
 
-    #picker-3-color-2 .inner-square{
+    #picker-haircolor-color-2 .inner-square{
         background-color:#CC9900;
     }
 
-    #picker-3-color-3 .inner-square{
+    #picker-haircolor-color-3 .inner-square{
         background-color:#00698C;
     }
 
-    #picker-3-color-4 .inner-square{
+    #picker-haircolor-color-4 .inner-square{
         background-color:#8D4E49;
     }
 
-    #picker-3-color-5 .inner-square{
+    #picker-haircolor-color-5 .inner-square{
         background-color:#F55F03;
     }
 
     #name-picker {
         border-bottom: 2px dashed #0D4C99;
         margin-top: -20px;
+        margin-bottom: 20px;
     }
 
     #name-input{
-        padding: 10px 0px;
+        padding: 0px 0px;
         width: 100%;
         text-align: center;
         border: none;
@@ -452,7 +407,7 @@ const { step } = Astro.props;
             margin-bottom: -10px;
         }
 
-        #color-picker-1{
+        #color-picker-skincolor{
             width: 100%;
         }
 

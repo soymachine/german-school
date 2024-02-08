@@ -32,11 +32,13 @@ import ContentCongrats from './content/ContentCongrats.js'
 import ContentPointsExplanation from './content/ContentPointsExplanation.js'
 import {currentPunctuation} from './helpers/Punctuation.js'
 import { avatarSelection } from './helpers/AvatarSelection.js'
+import Sound from './helpers/Sound.js'
+import ProgressBar from './helpers/ProgressBar.js'
 
 class Controller {
     constructor(){
 
-
+        this.eventSystem = eventSystem;
         this.avatarSelection = avatarSelection;
         
         this.isFooterShown = false
@@ -180,22 +182,19 @@ class Controller {
 
         // El controlador del questionario
         this.contentPointsExplanation = new ContentPointsExplanation()
-        /*
-        var sound = new Howl({
-            src: ['sound/song.mp3'],
-            autoplay: true,
-            loop: true,
-            volume: 0.5,
-            onend: function() {
-                console.log('Finished!');
-            }
-        });
-        */
+
+        // El controlador del questionario
+        this.settings = new Settings()
+
+        // Progreso del jeugo
+        this.progressBar = new ProgressBar()
+        
+        this.sound = new Sound();
 
         this.currentPunctuation = currentPunctuation
 
         // TESTING */
-        //this.showContent(2) // 16 cinematics done
+        //this.showContent(19) // 16 cinematics done
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event)
         });

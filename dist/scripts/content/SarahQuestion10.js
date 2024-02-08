@@ -76,6 +76,13 @@ class SarahQuestion10 extends Content {
         
         // Translate X info-holder
         this.moveContent()
+
+        const resultTitle = document.querySelector(`#step-${this.contentID} .result-title`)
+        const responseElement = document.getElementById(`step-${this.contentID}-answer-button-${response}`)
+        console.log(resultTitle)
+        console.log(responseElement)
+        console.log(responseElement.innerHTML)
+        resultTitle.innerHTML = responseElement.innerHTML;
         
         if(response == 3){
             // Correct
@@ -141,6 +148,8 @@ class SarahQuestion10 extends Content {
         }else{
             // Vamos a la siguiente sección
             this.gotoNextStep()
+            eventSystem.publish(Events.ON_PROGRESS_UPDATE, 10)
+
         }
     }
     

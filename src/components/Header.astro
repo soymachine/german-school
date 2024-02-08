@@ -7,7 +7,11 @@ const { step,act } = Astro.props;
 ---
 <div class="header">
     <div class="info">
-        <div class="header-title"><span class="big-text">GUARDIANS</span><span class="small-text">OF THE</span><span class="big-text"><strong>RAINFOREST</strong></span></div>        
+        <div class="header-title"><span class="big-text">GUARDIANS</span><span class="small-text">OF THE</span><span class="big-text"><strong>RAINFOREST</strong></span></div>
+        <div class="progress-wrapper">
+            <div class="current-progress"></div>    
+            <img class="progress-wedge" src="./imgs/progress/progress-wedge.png" />
+        </div>        
     </div>
     <div class="settings">
         <a id="settings-button" href="#">
@@ -17,6 +21,34 @@ const { step,act } = Astro.props;
 </div>
 
 <style>
+
+    .progress-wrapper{
+        background-color: #00A5DC;
+        border-radius: 4px;
+        width: 100%;
+        opacity: 0;
+        height:8px;
+    }
+
+    .current-progress{
+        height:inherit;
+        width: 0%;
+        background-color: #6FDB8F;
+        border-radius: 4px;
+    }
+
+    .background-progress{
+        
+        position: relative;
+    }
+
+    .progress-wedge {
+        width: 10px;
+        position: relative;
+        top:-4px;
+        left:-4px;
+    }
+
     .header {
         --color-blue:#064796;
         display: grid;
@@ -31,24 +63,33 @@ const { step,act } = Astro.props;
     }
 
     .info{
-        padding:10px;
+        padding: 10px;
         display: flex;
+        flex-direction: column;
         justify-content: center;
-        /*width: 100%;*/
+        margin: 0 auto;
+        gap:5px;
     }
 
 
 
     .header-title {
         float:left;
-        margin-top: -4px;
-        font-size: 20px;
+        margin-top: 0px;
+        font-size: 18px;
         display: flex;
         gap:7px;
+        transition: all 0.5s ease-out;
+        position: relative;
+        top: 8px;
+    }
+
+    .header-title-up {
+        top: 0px;
     }
 
     .small-text {
-        font-size:15px;
+        font-size:13px;
         margin-top: 4px;
     }
 
@@ -67,7 +108,7 @@ const { step,act } = Astro.props;
 
     @media (max-width: 500px) {
         .header-title {
-            font-size: 15px;            
+            font-size: 13px;            
         }
 
         .small-text{

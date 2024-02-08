@@ -19,6 +19,7 @@ class ContentDraggable extends Content {
         // Draggeo
         this.isActive = false
         this.isDragging = false
+        this.resultSubmitted = false
         this.draggingElement = undefined
         this.draggingElementPos = undefined
         this.draggingElementData = undefined
@@ -453,19 +454,10 @@ class ContentDraggable extends Content {
                 // Ocupamos el lugar en el elemento que le toque del drop
                 this.dropElementsData[nearestDrop].droppedID = dragID
                 
-                if(dragID == dropID){
-                    // Add class "correct" to draggingElement
-                    this.draggingElement.classList.add("correct")     
-                    this.draggingElement.classList.remove("incorrect")     
-
-                }else{
-                    this.draggingElement.classList.add("incorrect")   
-                    this.draggingElement.classList.remove("correct")     
-                }
+                this.draggingElement.classList.add("correct")   
 
                 this.itemsDragged.push(dragID)
             }else{
-                this.draggingElement.classList.remove("incorrect")     
                 this.draggingElement.classList.remove("correct")    
                 
                 
@@ -486,18 +478,10 @@ class ContentDraggable extends Content {
                 // Bien o mal?
                 //this.hideDraggableZone()
                 
-                const correctOrder = this.isOrderCorrect()
-                console.log("correctOrder? " + correctOrder)
-                if(correctOrder){
-                    //this.draggableCorrectElement.style.display = "block"
-                    this.onCorrectOrder()
-                    
-                }else{
-                    // Incorrecto
-                    //this.draggableIncorrectElement.style.display = "block"
-                    this.title.innerHTML = "<strong>Something is off!</strong><br>Please review the diagram."
-                    this.disableNextButton()
-                }
+                this.isCorrectOrder = this.isOrderCorrect()
+                //console.log("correctOrder? " + correctOrder)
+
+                this.prepareForResult()
             }
         }
         
@@ -506,11 +490,42 @@ class ContentDraggable extends Content {
         this.draggingElementData = undefined
     }
 
+    prepareForResult(){
+        this.enableNextButton()
+    }
+
+    submitResult(){
+        if(this.isCorrectOrder){
+            currentPunctuation.addPunctuation(10)
+            this.title.innerHTML = "<strong>Well done, thank you!</strong><br>Let’s quickly check them."
+        }else{
+            this.title.innerHTML = "<strong>Something is off!</strong><br>"
+            document.querySelector(`#result-step-${this.contentID} .business-result-points`).innerHTML = "0"
+        }
+
+        // Enviamos la respuesta
+        eventSystem.publish(Events.ON_RESPONSE_UPDATE, {
+            responseID:this.contentID,
+            response:this.isCorrectOrder
+        })
+
+        // Mostramos el resultado
+        anime({
+            targets: `#result-step-${this.contentID}`,
+            opacity: 1,
+            duration: this.duration,
+            easing:'easeOutQuad'
+        })
+
+        const draggableZone = document.querySelector(".draggable-zone");
+        draggableZone.classList.add("draggable-zone-hidden");
+    }
+
     onCorrectOrder(){
         this.isCorrectOrder = true
         currentPunctuation.addPunctuation(10)
         this.title.innerHTML = "<strong>Well done, thank you!</strong><br>Let’s quickly check them."
-        this.enableNextButton()
+        
 
         // Enviamos la respuesta
         eventSystem.publish(Events.ON_RESPONSE_UPDATE, {
@@ -594,8 +609,16 @@ class ContentDraggable extends Content {
         if(!this.isNextEnabled){
             return
         }
+
+        if(!this.resultSubmitted){
+            this.resultSubmitted = true;
+            this.submitResult()
+            return
+        }
         
         this.gotoNextStep()
+        eventSystem.publish(Events.ON_PROGRESS_UPDATE, 6)
+
     }
 
     setupLines(){
@@ -603,10 +626,10 @@ class ContentDraggable extends Content {
             // linea 1
             this.line1 = document.querySelector(`#line-1`)
             const dropData1 = this.findDropElement("predictiveanalysis")
-            this.line1.style.transform = "rotate(45deg)"
+            this.line1.style.transform = "rotate(-45deg)"
             const line1Rect = this.line1.getBoundingClientRect()
             const x = dropData1.pos.x + (dropData1.width * .5)
-            const y = dropData1.pos.y + (dropData1.height) + (line1Rect.height * .5)
+            const y = dropData1.pos.y - (dropData1.height) + (line1Rect.height * .5) - 6
             this.line1.style.left = x + "px"
             this.line1.style.top = y + "px"
         }
@@ -615,10 +638,10 @@ class ContentDraggable extends Content {
             // linea 2
             this.line2 = document.querySelector(`#line-2`)
             const dropData2 = this.findDropElement("predictiveanalysis")
-            this.line2.style.transform = "rotate(135deg)"
+            this.line2.style.transform = "rotate(-135deg)"
             const line2Rect = this.line2.getBoundingClientRect()
             const x = dropData2.pos.x + (dropData2.width * .5) - line2Rect.width - 10
-            const y = dropData2.pos.y + (dropData2.height) + (line2Rect.height * .5) - 2
+            const y = dropData2.pos.y - (dropData2.height) + (line2Rect.height * .5) - 6
             this.line2.style.left = x + "px"
             this.line2.style.top = y + "px"
         }
@@ -626,77 +649,22 @@ class ContentDraggable extends Content {
         {
             // linea 3
             const line = document.querySelector(`#line-3`)
-            const dropData = this.findDropElement("datamonitoring")
+            const dropData = this.findDropElement("predictiveanalysis")
             line.style.transform = "rotate(90deg)"
             const lineRect = line.getBoundingClientRect()
-            const x = dropData.pos.x + 5
+            const x = dropData.pos.x + (dropData.width * .5) - (lineRect.height * .5)    
+            console.log("lineRect.width: " + lineRect.width)
             const y = dropData.pos.y + (dropData.height) + (lineRect.height * .5) - 2
             line.style.left = x + "px"
             line.style.top = y + "px"
-        }
-
-        {
-            // linea 4
-            const line = document.querySelector(`#line-4`)
-            const dropData = this.findDropElement("imagerecognition")
-            line.style.transform = "rotate(90deg)"
-            const lineRect = line.getBoundingClientRect()
-            const x = dropData.pos.x + dropData.width - 70
-            const y = dropData.pos.y + (dropData.height) + (lineRect.height * .5) - 2
-            line.style.left = x + "px"
-            line.style.top = y + "px"
-        }
-
-        {
-            // linea 5
-            const line = document.querySelector(`#line-5`)
-            const dropData = this.findDropElement("datamonitoring")
-            const dropDataRealtime = this.findDropElement("realtimealert")
-            const lineRect = line.getBoundingClientRect()
-            const x = dropData.pos.x + 38
-            
-            const y = dropData.pos.y + (dropData.height) + 64
-            
-
-            const w = (dropDataRealtime.pos.x) - (dropData.pos.x) - 42
-            const path = document.querySelector(`#path-5`)
-            line.style.left = x + "px"
-            line.style.top = y + "px"
-            line.style.width = w + "px"
-            path.setAttribute("d", `M0,0,${w},0`)
 
             // Wedge-1
             const wedge = document.querySelector(`#wedge-1`)
-            wedge.style.left = (x + w - 9) + "px"
-            wedge.style.top = (y - 5) + "px"
+            const wedgeRect = wedge.getBoundingClientRect()
+            wedge.style.transform = "rotate(90deg)"
+            wedge.style.left = (x + (lineRect.height * .5) - (wedgeRect.width * .5) + 1) + "px"
+            wedge.style.top = (y + (lineRect.height * .5) - (wedgeRect.width * .5 ) - 3) + "px"
         }
-
-        {
-            // linea 6
-            const line = document.querySelector(`#line-6`)
-            const dropData = this.findDropElement("realtimealert")
-            const dropDataImageRecognition = this.findDropElement("imagerecognition")
-            console.log(dropData)
-            const lineRect = line.getBoundingClientRect()
-            const x = dropData.pos.x + dropData.width + 5
-            const y = dropData.pos.y + (dropData.height * .5) + 5
-            const w = (dropDataImageRecognition.pos.x + dropDataImageRecognition.width) - (dropData.pos.x + dropData.width) - 40
-           
-            const path = document.querySelector(`#path-6`)
-
-            line.style.left = x + "px"
-            line.style.top = y + "px"
-            line.style.width = w + "px"
-            // Change attribute d of path
-            path.setAttribute("d", `M0,0,${w},0`)
-
-            // Wedge-2
-            const wedge = document.querySelector(`#wedge-2`)
-            wedge.style.left = (x - 2) + "px"
-            wedge.style.top = (y - 5) + "px"
-            wedge.style.transform = "rotate(180deg)"
-        }
-        
     }
 }
 

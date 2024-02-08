@@ -25,25 +25,7 @@ let selected = ""
 ---
 <div class="act-title-wrapper">
     <div class="act-title-menu">
-        <div class="act-title-title">{actLabel}</div>
-        <div class="act-title-step-menu">
-            {
-                acts.map((currentAct, index) => {
-                    if(index < actPos) {
-                        selected = "act-previous"
-                    }else if(index == actPos) {
-                        selected = "act-selected"
-                    }else{
-                        selected = ""
-                    }
-
-                    return (
-                        <div class=`act ${selected}` id=`act-${(index+1)}`></div>
-                    )
-                })
-            }
-            
-        </div>
+        <div class="act-title-title"><span>{actLabel}</span></div>
     </div>
     <div class="act-title-label">
         {label}
@@ -70,6 +52,10 @@ let selected = ""
     function onClickNext(event) {
         console.log("on click next " + step)
         window.controller.showContent(Number(step) + 1)
+
+        if(step){
+            window.controller.eventSystem.publish("ON_PROGRESS_CHANGE", true)
+        }
     }
 
 </script>
@@ -97,26 +83,10 @@ let selected = ""
         margin:40px 0px 20px 0px;
     }
 
-    .act-title-step-menu {
-        display: flex;
-        flex-direction: row;
-        gap:10px;
-        width: 75%;
-        margin:0 auto;
-    }
-
-    .act {
-        flex-grow: 1;
-        height: 10px;
-        background-color: #CEDFE5;
-    }
-
-    .act-selected {
-        background-color: #054696;
-    }
-
-    .act-previous {
-        background-color: #6FDB8F;
+    .act-title-title span{
+        text-align: center;
+        background-color: #B4C7DF;
+        padding: 5px 10px;
     }
 
     .act-title-label {

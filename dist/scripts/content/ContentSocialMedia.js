@@ -41,6 +41,8 @@ class ContentSocialMedia extends Content {
         this.likeButton = document.getElementById("social-media-button-2");
         this.socialMediaMarginBottom = 10;
         this.linksEnabled = [false, false]
+
+        this.avatarCopier = new AvatarCopier(this.contentID)
        
         // Las posibles respuestas, solo podemos marcar una
         this.reponseUnique = new ResponseUnique(this.contentID)
@@ -128,7 +130,6 @@ class ContentSocialMedia extends Content {
     }
     unblur(id){
         setTimeout(()=>{
-            console.log("unblur")
             const el = document.getElementById(id)
             // remove social-media-blur class
             el.classList.remove("social-media-blur")
@@ -151,15 +152,21 @@ class ContentSocialMedia extends Content {
         const y8 = y7 - this.getHeightAt(7);
 
         this.unblur("social-media-image-6")
+        this.unblur("social-media-image-7")
+        this.unblur("social-media-image-8")
 
         anime({
             targets: `.social-media-stream`,
-            translateY: y5,
-            duration: this.durationStream,
+            translateY: y8,
+            duration: this.durationStream * 2,
             easing:'easeInOutQuad',
             delay:this.waitTime,
             complete: function(anim) {
-                moveSecond();
+                // Directamente activamos el like
+                self.onClickClose(2)
+            },
+            begin: function(anim) {
+                self.unblur("social-media-image-sarah")
             }
         });
 
@@ -214,7 +221,7 @@ class ContentSocialMedia extends Content {
     }
 
     setupAvatar(){
-        this.avatarCopier = new AvatarCopier(this.contentID)
+        
         this.avatarMovement = new AvatarMovement({
             id: `#my-avatar-${this.contentID}`,
             eyesID:"#my-avatar-eyes-image",
@@ -235,7 +242,7 @@ class ContentSocialMedia extends Content {
         /* AVATAR RELATED */
         // Posicionamos al avatar
         this.setupAvatar()
-        this.avatarCopier.update()
+        //this.avatarCopier.update()
         this.avatarMovement.activate()
 
         const foregroundImg = document.querySelector(`.bus-foreground img`)
@@ -272,69 +279,24 @@ class ContentSocialMedia extends Content {
         this.y4 = y3 - this.getHeightAt(3);
         const self = this
 
-        this.unblur("social-media-image-1")
 
         anime({
             targets: `.social-media-stream`,
-            translateY: y1,
-            duration: this.durationStream,
+            translateY: this.y4,
+            duration: this.durationStream * 2,
             easing:'easeInOutQuad',
             delay:this.waitTime,
             complete: function(anim) {
-                moveSecond();
+                self.onClickClose(1)
+                //moveSecond();
             },
             begin: function(anim) {
                 self.unblur("social-media-image-2")
+                self.unblur("social-media-image-3")
+                self.unblur("social-media-image-4")
+                self.unblur("social-media-image-rainforest")
             }
         });
-
-        const moveSecond = () => {
-            anime({
-                targets: `.social-media-stream`,
-                translateY: y2,
-                duration: this.durationStream,
-                easing:'easeInOutQuad',
-                delay:this.waitTime,
-                complete: function(anim) {
-                    moveThird();
-                },
-                begin: function(anim) {
-                    self.unblur("social-media-image-3")
-                }
-            });
-        }
-
-        const moveThird = () => {
-            anime({
-                targets: `.social-media-stream`,
-                translateY: y3,
-                duration: this.durationStream,
-                easing:'easeInOutQuad',
-                delay:this.waitTime,
-                complete: function(anim) {
-                    moveFourth();
-                },
-                begin: function(anim) {
-                    self.unblur("social-media-image-4")
-                }
-            });
-        }
-        
-        const moveFourth = () => {
-            anime({
-                targets: `.social-media-stream`,
-                translateY: this.y4,
-                duration: this.durationStream,
-                easing:'easeInOutQuad',
-                delay:this.waitTime,
-                complete: function(anim) {
-                    self.onClickClose(1)
-                },
-                begin: function(anim) {
-                    self.unblur("social-media-image-rainforest")
-                }
-            });
-        }
     }
 
     onpenLink(id){

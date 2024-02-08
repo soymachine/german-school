@@ -14,8 +14,12 @@ class Content{
         eventSystem.subscribe(Events.ON_CONTENT_BEGIN_HIDE, (content)=>{ this.onContentBeginHide(content)})
     }
 
-    setupAvatar(){
+    createAvatar(){
         this.avatarCopier = new AvatarCopier(this.contentID)
+    }
+
+    setupAvatar(){
+        
         this.avatarMovement = new AvatarMovement({
             id: `#my-avatar-${this.contentID}`,
             eyesID:"#my-avatar-eyes-image",
@@ -30,7 +34,7 @@ class Content{
             contentID:this.contentID,
         })
         this.avatarMovement.updateAvatarSize(150)
-        this.avatarCopier.update()
+        //this.avatarCopier.update()
         this.avatarMovement.activate()
     }
 
