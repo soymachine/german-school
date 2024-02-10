@@ -23,6 +23,7 @@ class ContentSocialMedia extends Content {
         this.isLinkeEnabled = false
         this.yOffset = 20
         this.xOffset = 5
+        this.offset = 10
         this.duration = 250
         this.waitTime = 500
         this.durationStream = 1000//1000
@@ -276,7 +277,7 @@ class ContentSocialMedia extends Content {
         const y1 = - this.getHeightAt(0);
         const y2 = y1 - this.getHeightAt(1);
         const y3 = y2 - this.getHeightAt(2);
-        this.y4 = y3 - this.getHeightAt(3);
+        this.y4 = y3 - this.getHeightAt(3) + (this.offset);
         const self = this
 
 
