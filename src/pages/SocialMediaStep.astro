@@ -17,7 +17,7 @@ const { step } = Astro.props;
         </div>
     </div>  
     <div id="speech-user-avatar">
-        <Avatar isSpeech={true} width={175} step={step} fontSize={25} textCorrection={10} hasText={false}/>
+        <Avatar isSpeech={true} width={160} step={step} fontSize={25} textCorrection={10} hasText={false}/>
     </div>
     <div class="social-media-popups">
         <div id="sm-popup-1" class="sm-popup-holder">
@@ -247,7 +247,7 @@ const { step } = Astro.props;
 
     #speech-user-avatar {
         position: absolute;
-        top: 15px;
+        top: 0px;
         left: 115px;
     }
 
@@ -269,5 +269,12 @@ const { step } = Astro.props;
         left:0;
         opacity: 0;
     }
+
+    @media (max-width: 500px) {
+
+        #speech-user-avatar {
+            top: 30px;
+        }
+    }   
 
 </style>

@@ -34,6 +34,10 @@ import {currentPunctuation} from './helpers/Punctuation.js'
 import { avatarSelection } from './helpers/AvatarSelection.js'
 import Sound from './helpers/Sound.js'
 import ProgressBar from './helpers/ProgressBar.js'
+import IntroMessage from './content/IntroMessage.js'
+import InterviewImage from './content/InterviewImage.js'
+import ContentDialogue1Cinematics from './content/ContentDialogue1Cinematics.js'
+import ContentDialogue2Cinematics from './content/ContentDialogue2Cinematics.js'
 
 class Controller {
     constructor(){
@@ -86,6 +90,14 @@ class Controller {
         
         //- INTRO
         this.intro = new Intro()
+
+        //- INTRO
+        this.introMessage = new IntroMessage()
+
+
+        //- INTRO
+        this.interviewImage = new InterviewImage()
+
 
         // - AVATAR 
         this.contentAvatar = new ContentAvatar()
@@ -149,9 +161,6 @@ class Controller {
         // VALUES
         this.contentValues = new ContentValues();
 
-        // - ACT III CINEMATICS ALEX AFTER IA
-        this.contentAct3AlexAfterIA = new ContentAct3AlexAfterIA()
-
         // - SARAH QUESTION 9
         this.sarahQuestion9 = new SarahQuestion9()
 
@@ -160,9 +169,6 @@ class Controller {
 
         // - SARAH QUESTION 10
         this.sarahQuestion10 = new SarahQuestion10()
-
-        // - SARAH QUESTION 10
-        this.contentPrologueCinematics = new ContentPrologueCinematics()
 
         // - CALL TO ACTION
         this.callToAction = new CallToAction()
@@ -183,6 +189,10 @@ class Controller {
         // El controlador del questionario
         this.contentPointsExplanation = new ContentPointsExplanation()
 
+
+        this.contentDialogue1Cinematics = new ContentDialogue1Cinematics()
+        this.contentDialogue2Cinematics = new ContentDialogue2Cinematics()
+
         // El controlador del questionario
         this.settings = new Settings()
 
@@ -194,7 +204,7 @@ class Controller {
         this.currentPunctuation = currentPunctuation
 
         // TESTING */
-        //this.showContent(2) // 16 cinematics done
+        //this.showContent(3) // 16 cinematics done
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event)
         });

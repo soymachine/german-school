@@ -45,7 +45,7 @@ class Sound {
         {
             this.stopPreviousMusic()
             this.playSonng(this.rainforestSongPath)
-        }else if(content == Steps.ACT_III_CINEMATICS || content == Steps.ACT_III_CINEMATICS_ALEX_AFTER_IA)
+        }else if(content == Steps.ACT_III_CINEMATICS)
         {
             this.stopPreviousMusic()
             this.playSonng(this.laboratorySongPath)

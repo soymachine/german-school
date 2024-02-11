@@ -17,13 +17,13 @@ const { step } = Astro.props;
             <div class="speech">
                 <div class="speech-bubble speech-bubble-element">
                     <div class="speech-bubble-text">
-                        <div id="speech-content-act-3" class="speech-bubble-text-content">
-                           
+                        <div id="speech-content-dialogue-1" class="speech-bubble-text-content">
+                            Nice to meet you Iñaki, I think you can be the perfect addition to the team
                         </div>
                     </div>                    
                 </div>
                 <img class="speech-bubble-element" id="speech-bubble-wedge" src="./imgs/acts/speech/speech-wedge.png">
-                <a id="content-cinematic-act-3-button" class="speech-bubble-button" href="#">
+                <a id="content-cinematic-dialogue-1-button" class="speech-bubble-button" href="#">
                     <div class="speech-loading talking">
                         <img id="loading-gif" src="./imgs/acts/speech/speech-grey-loading.gif">
                         <img id="button-arrow" src="./imgs/acts/speech/speech-arrow.png">
@@ -36,8 +36,8 @@ const { step } = Astro.props;
             <div id="speech-user-avatar">
                 <Avatar isSpeech={true} width={200} step={step} fontSize={25} textCorrection={10}/>
             </div>
-            <img class="character-image" id="sarah-act-3" src="./imgs/characters/sarah-speech.png">
-            <div class="character-name" id="sarah-name-act-3">Sarah</div>
+            <img class="character-image" id="sarah-dialogue-1" src="./imgs/characters/sarah-speech.png">
+            <div class="character-name" id="sarah-dialogue-1-name">Sarah</div>
 
         </div>
     </div>
@@ -152,14 +152,14 @@ const { step } = Astro.props;
         font-weight: bold;
     }
 
-    #sarah-name-act-3 {
+    #sarah-dialogue-1-name {
         top: 112%;
         left: 69%;
         color: #054696;
         font-size: 25px;
     }
 
-    #sarah-act-3 {
+    #sarah-dialogue-1 {
         top: 58%;
         left: 59%;
     }
@@ -201,11 +201,11 @@ const { step } = Astro.props;
             width: 35px;
         }
 
-        #sarah-act-3 {
+        #sarah-dialogue-1 {
             width: 140px;;
         }
 
-        #sarah-name-act-3 {
+        #sarah-dialogue-1-name {
             font-size: 20px;
         }
     }

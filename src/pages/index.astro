@@ -27,12 +27,17 @@ import Act3_Cinematics from './acts/Act3_Cinematics.astro';
 import Act3_AlexAfterIA from './acts/Act3_AlexAfterIA.astro';
 import Act4_Cinematics_After9 from './acts/Act4_Cinematics_After9.astro';
 import Intro from './Intro.astro';
+import IntroMessage from './IntroMessage.astro';
 import Header from '../components/Header.astro';
 import BusinessStep from './BusinessStep.astro';
 import Footer from '../components/Footer.astro';
 import PrologueCinematics from './acts/Prologue_Cinematics.astro';
 import CallToAction from './CallToAction.astro';
 import Settings from '../components/Settings.astro';
+import New from './New.astro';
+import Interview from './Interview.astro';
+import Dialogue1_Cinematics from './acts/Dialogue1_Cinematics.astro';
+import Dialogue2_Cinematics from './acts/Dialogue2_Cinematics.astro';
 ---
 <Layout title="Guardians of the Rainforest | WHU">
 	<div class="container" draggable="false">
@@ -46,97 +51,100 @@ import Settings from '../components/Settings.astro';
 					<Intro step='0'/>
 				</Step>
 				<Step step="1">
-					<AvatarStep step='1'/>
+					<IntroMessage step='1'/>
 				</Step>
 				<Step step="2">
-					<SocialMediaStep step='2'/>
+					<AvatarStep step='2'/>
 				</Step>
 				<Step step="3">
-					<ActTitleStep act={1} label='The Call for Adventure' step="3"/>
+					<SocialMediaStep step='3'/>
 				</Step>
 				<Step step="4">
-					<Act1_Cinematics step='4'/>
+					<ActTitleStep act={1} label='The Call for Adventure' step="4"/>
 				</Step>
 				<Step step="5">
-					<WhyEnterpreneurStep step="5" />
+					<Act1_Cinematics step='5'/>
 				</Step>
 				<Step step="6">
-					<BusinessStep step="6" />
+					<WhyEnterpreneurStep step="6" />
 				</Step>
 				<Step step="7">
-					<Act1_SarahApproves step="7" />
+					<BusinessStep step="7" />
 				</Step>
 				<Step step="8">
-					<ActTitleStep act={2} label='The Journey begins' step="8"/>
+					<FinancialMetric step="8" />
 				</Step>
-				<TravelStep step="9" act="III">
-					<TravelToManausStep step="9" />
-				</TravelStep>
+				<Step step="9">
+					<Act1_SarahApproves step="9" />
+				</Step>
 				<Step step="10">
-					<Act2_Cinematics step='10'/>
+					<ActTitleStep act={2} label='The Journey' step="10"/>
 				</Step>
-				<Step step="11">
-					<StartupsStep step="11"/>
-				</Step>
+				<TravelStep step="11" act="III">
+					<TravelToManausStep step="11" />
+				</TravelStep>
 				<Step step="12">
-					<FinancialMetric step="12" />
+					<Act2_Cinematics step='12'/>
 				</Step>
 				<Step step="13">
-					<Act2_PreQuestion step="13" />
+					<ValuesStep step="13" />
 				</Step>
 				<Step step="14">
-					<ValuesStep step="14" />
+					<PatagoniaStep step="14" />
 				</Step>
 				<Step step="15">
-					<ActTitleStep act={3} label='The Trials' step="15"/>
+					<FlowDiagramStep step='15'/>
 				</Step>
 				<Step step="16">
-					<Act3_Cinematics step='16'/>
+					<Act2_PreQuestion step="16" />
 				</Step>
 				<Step step="17">
-					<FlowDiagramStep step='17'/>
+					<ActTitleStep act={3} label='The Reward' step="17"/>
 				</Step>
 				<Step step="18">
-					<Act3_AlexAfterIA step='18'/>
+					<Act3_Cinematics step='18'/>
 				</Step>
 				<Step step="19">
-					<PatagoniaStep step="19" />
+					<ElevatorPitchStep step="19" />
 				</Step>
 				<Step step="20">
-					<ElevatorPitchStep step="20" />
+					<Interview step='20'/>
 				</Step>
 				<Step step="21">
-					<ActTitleStep act={4} label='The Reward' step="21"/>
+					<Act4_Cinematics step='21'/>
 				</Step>
 				<Step step="22">
-					<Act4_Cinematics step='22'/>
+					<SarahQuestion9 step='22'/>
 				</Step>
 				<Step step="23">
-					<SarahQuestion9 step='23'/>
+					<Act4_Cinematics_After9 step='23'/>
 				</Step>
 				<Step step="24">
-					<Act4_Cinematics_After9 step='24'/>
+					<SarahQuestion10 step='24'/>
 				</Step>
 				<Step step="25">
-					<SarahQuestion10 step='25'/>
+					<ActTitleStep act={5} label='The next chapter' step="25"/>
 				</Step>
 				<Step step="26">
-					<ActTitleStep act={5} label='The next chapter' step="26"/>
+					<Dialogue1_Cinematics step='26'/>
 				</Step>
 				<Step step="27">
-					<PrologueCinematics step='27'/>
-				</Step>
+					<StartupsStep step="27"/>
+				</Step>	
 				<Step step="28">
-					<Congrats step='28'/>
+					<Dialogue2_Cinematics step='28'/>
 				</Step>
 				<Step step="29">
-					<PointsExplanation step='29'/>
+					<Congrats step='29'/>
 				</Step>
 				<Step step="30">
-					<CallToAction step='30'/>
-				</Step>
+					<PointsExplanation step='30'/>
+				</Step>			
 				<Step step="31">
-					<Form step="31"/>
+					<CallToAction step='31'/>
+				</Step>
+				<Step step="32">
+					<Form step="32"/>
 				</Step>
 			</div>
 			<div class="sticky-footer">

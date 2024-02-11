@@ -12,8 +12,9 @@ class ContentAct3Cinematics extends Content {
         const self = this
         this.texts = [
             "to update",
-            "My name is <strong>Alex</strong> and I am responsible for the technology behind our tool.",
-            "First of all, can you help me <strong>design the basic functioning of our AI?</strong>",
+            "While Dr. Rafael keeps working on the AI platform to ensure the sustainability of the rainforest, we can focus on the business side of things.",
+            "The awareness for rainforest protection has grown, and so has our <strong>media attention.</strong>",
+            "A journalist from <strong>National Geographic wants to interview you!</strong>",
         ]
         this.maxSteps = this.texts.length
         this.step = 1
@@ -34,19 +35,7 @@ class ContentAct3Cinematics extends Content {
         this.loadingElement.style.display = "none"
 
         anime.set(`#step-${this.contentID} #sarah-act-3, #step-${this.contentID} #sarah-name-act-3`, {
-            translateX: -this.outPosition,
-        });
-
-        anime.set(`#step-${this.contentID} #sarah-act-3`, {
-            scaleX: -1
-        });
-
-        anime.set(`#step-${this.contentID} #alex-act-3, #step-${this.contentID} #alex-name-act-3`, {
             translateX: this.outPosition,
-        });
-
-        anime.set(`#step-${this.contentID} #speech-user-avatar`, {
-            translateX: -this.outPosition,
         });
 
         this.button.onmousedown = function(event) { //asign a function
@@ -58,7 +47,7 @@ class ContentAct3Cinematics extends Content {
     }
 
     preactivateContent(){
-        this.texts[0] = `Hi there <strong>Sarah</strong> and nice to meet you, <span class='user-name'>${avatarSelection.name}!</span>`
+        this.texts[0] = `The work on the field<br>was fantastic!`
         //this.updateText()
         
         this.centerAvatarName()

@@ -33,6 +33,7 @@ class ContentSocialMedia extends Content {
         this.socialMediaStream = document.querySelector(".social-media-stream");
         this.socialMedias = document.querySelectorAll(".social-media");
         this.retweetButton = document.getElementById("social-media-button-1");
+        this.wrapper = document.querySelector(".social-media-stream-wrapper");
 
         this.retwetImage = document.getElementById("retweet-button");
         this.retwetCompletedImage = document.getElementById("retweet-button-completed");
@@ -71,6 +72,51 @@ class ContentSocialMedia extends Content {
                 self.onClickClose(id)
             })  
         })
+    }
+
+    preactivateContent(){
+        /* AVATAR RELATED */
+        // Posicionamos al avatar
+        this.setupAvatar()
+        //this.avatarCopier.update()
+        this.avatarMovement.activate()
+
+        const foregroundImg = document.querySelector(`.bus-foreground img`)
+        
+        const foregroundImgRect = foregroundImg.getBoundingClientRect();
+        const height = foregroundImgRect.height
+        
+        // Cambiar el alto de las imagenes de background
+        this.w = 0;
+        const self = this;
+        document.querySelectorAll(`.bus-background img`).forEach(backgroundImage => {
+            backgroundImage.style.height = `${height}px`
+            self.w = backgroundImage.getBoundingClientRect().width;    
+        })
+
+        this.startLoop();
+
+        const wrapperRect = this.wrapper.getBoundingClientRect()
+
+        const rootRect = document.querySelector("#root").getBoundingClientRect()
+        
+        const footerHeight = 35
+        const offset = 30;
+        const availHeight = rootRect.height - (wrapperRect.y - rootRect.y) - footerHeight - offset
+        // set height for wrapper
+        this.wrapper.style.height = `${availHeight}px`
+
+        const x = (rootRect.width * .5) - (wrapperRect.width * .5)
+        this.wrapper.style.left = `${x}px`
+
+        const speechAvatarBodyPart = document.querySelector("#speech-user-avatar .my-avatar-body-part")
+        const avatarRect = speechAvatarBodyPart.getBoundingClientRect()
+        const avatarX = (rootRect.width * .5) - (avatarRect.width * .5)
+
+        const speechAvatar = document.querySelector("#speech-user-avatar")
+        speechAvatar.style.left = `${avatarX}px`
+        
+
     }
 
     startLoop(){
@@ -239,32 +285,12 @@ class ContentSocialMedia extends Content {
         this.avatarMovement.updateAvatarSize(150)
     }
 
-    preactivateContent(){
-        /* AVATAR RELATED */
-        // Posicionamos al avatar
-        this.setupAvatar()
-        //this.avatarCopier.update()
-        this.avatarMovement.activate()
-
-        const foregroundImg = document.querySelector(`.bus-foreground img`)
-        
-        const foregroundImgRect = foregroundImg.getBoundingClientRect();
-        const height = foregroundImgRect.height
-        
-        // Cambiar el alto de las imagenes de background
-        this.w = 0;
-        const self = this;
-        document.querySelectorAll(`.bus-background img`).forEach(backgroundImage => {
-            backgroundImage.style.height = `${height}px`
-            self.w = backgroundImage.getBoundingClientRect().width;    
-        })
-
-        this.startLoop();
-    }
+    
 
     activateContent(){
         this.avatarMovement.updateAvatarImgRect()
         this.startMovement();
+
     }
 
     getHeightAt(at){
