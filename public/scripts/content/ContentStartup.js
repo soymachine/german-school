@@ -230,7 +230,7 @@ class ContentStartup extends Content {
                 this.state = "final"
                 // Vamos a la siguiente sección
                 this.gotoNextStep()
-                eventSystem.publish(Events.ON_PROGRESS_UPDATE, 3)
+                eventSystem.publish(Events.ON_PROGRESS_UPDATE, 10)
                 break
         }
     }

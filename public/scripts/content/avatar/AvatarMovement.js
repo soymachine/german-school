@@ -50,8 +50,13 @@ class AvatarMovement {
         
     }
 
-    activate(){
+    activate(isLookingDown = false){
         const self = this
+        this.isLookingDown = isLookingDown
+
+        if(isLookingDown){
+            this.lookDown();
+        }
 
         this.init()
         
@@ -63,6 +68,15 @@ class AvatarMovement {
     deactivate(){
         document.querySelector(`body`).onmousemove = null
         this.isMoving = false
+    }
+
+    lookDown(){
+        const rect = document.getElementById(`root`).getBoundingClientRect()
+        this.xDest = rect.x;
+        this.yDest = rect.height;
+        this.xCurrent = this.xDest;
+        this.yCurrent = this.yDest;
+        console.log("LOOK DOWN")
     }
 
     init(){
@@ -174,8 +188,16 @@ class AvatarMovement {
         var x = 0 + alphaRadius * Math.cos(angle);
         var y = 0 + alphaRadius * Math.sin(angle);
         
-        part.style.transform = `translateX(${x}px) translateY(${y}px)`
 
+        if(this.isLookingDown){
+            const rotation = 16;
+            const yOrigin = 50;
+            const xOrigin = 70;
+            part.style.transformOrigin = `${yOrigin}% ${xOrigin}%`  
+            part.style.transform = `translateX(${x}px) translateY(${y}px) rotate(${rotation}deg)` //  
+        }else{
+            part.style.transform = `translateX(${x}px) translateY(${y}px)` //  rotate(${rotation}deg)
+        }
         /*
         const testX = correctionX
         const testY = correctionY
@@ -184,6 +206,9 @@ class AvatarMovement {
     }
 
     onMouseMove(event){
+        if(this.isLookingDown){
+            return;
+        }
         this.xDest = event.clientX
         this.yDest = event.clientY
 

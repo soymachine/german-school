@@ -79,7 +79,9 @@ class ContentSocialMedia extends Content {
         // Posicionamos al avatar
         this.setupAvatar()
         //this.avatarCopier.update()
-        this.avatarMovement.activate()
+        //this.avatarMovement.lookDown()
+        this.avatarMovement.activate(true)
+        // Que mire abajo?
 
         const foregroundImg = document.querySelector(`.bus-foreground img`)
         
@@ -116,7 +118,33 @@ class ContentSocialMedia extends Content {
         const speechAvatar = document.querySelector("#speech-user-avatar")
         speechAvatar.style.left = `${avatarX}px`
         
+        this.rotateAvatar()
+    }
 
+    rotateAvatar(){
+        
+        const elementsIDs = []
+        const rootElement = "#my-avatar-" + this.contentID + " "
+        elementsIDs.push(rootElement + '#my-avatar-hair-back-preview')
+        elementsIDs.push(rootElement + '#my-avatar-head-preview')
+        elementsIDs.push(rootElement + '#my-avatar-eyebrows-preview')
+        elementsIDs.push(rootElement + '#my-avatar-eyes-preview')
+        elementsIDs.push(rootElement + '#my-avatar-mouth-preview')
+        elementsIDs.push(rootElement + '#my-avatar-nose-preview')
+        elementsIDs.push(rootElement + '#my-avatar-glasses-preview')
+        elementsIDs.push(rootElement + '#my-avatar-moustache-preview')
+        elementsIDs.push(rootElement + '#my-avatar-beard-preview')
+        elementsIDs.push(rootElement + '#my-avatar-hair-preview')
+
+        const elementsString = elementsIDs.join(",")
+
+        const rotation = 16;
+        const yOrigin = 50;
+        const xOrigin = 70;
+        document.querySelectorAll(elementsString).forEach(bodyPart => {
+            bodyPart.style.transform += ` rotate(${rotation}deg)`            
+            bodyPart.style.transformOrigin = `${yOrigin}% ${xOrigin}%`            
+        })
     }
 
     startLoop(){
@@ -268,7 +296,7 @@ class ContentSocialMedia extends Content {
     }
 
     setupAvatar(){
-        
+        //*
         this.avatarMovement = new AvatarMovement({
             id: `#my-avatar-${this.contentID}`,
             eyesID:"#my-avatar-eyes-image",
@@ -283,6 +311,7 @@ class ContentSocialMedia extends Content {
             contentID:this.contentID,
         })
         this.avatarMovement.updateAvatarSize(150)
+        //*/
     }
 
     

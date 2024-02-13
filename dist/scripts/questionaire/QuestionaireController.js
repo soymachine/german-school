@@ -38,6 +38,11 @@ class QuestionaireController{
             "response-23": new Response(Settings.SINGLE_RESPONSE, null, 1),
             "response-24": new Response(Settings.SINGLE_RESPONSE, null, 1),
             "response-25": new Response(Settings.SINGLE_RESPONSE, null, 1),
+            "response-26": new Response(Settings.SINGLE_RESPONSE, null, 1),
+            "response-27": new Response(Settings.SINGLE_RESPONSE, null, 1),
+            "response-28": new Response(Settings.SINGLE_RESPONSE, null, 1),
+            "response-29": new Response(Settings.SINGLE_RESPONSE, null, 1),
+            "response-30": new Response(Settings.SINGLE_RESPONSE, null, 1),
         }
 
         // TODO gestión de la logica de resultado por aqui

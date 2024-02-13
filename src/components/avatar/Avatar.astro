@@ -13,10 +13,10 @@ let { step, width = 150, isSpeech = false, fontSize = 22, hasText = true, textCo
 const height = width * 1.33333
 ---
 <div id=`my-avatar-${step}` class="my-avatar-image">
+    <img class="my-avatar-body-part" id="my-avatar-hair-back-preview" src="./imgs/avatar/parts/hair-style-2-back-black.svg">
     <img class="my-avatar-body-part" class:list={[{ "my-avatar-hide": isSpeech }]} id="my-avatar-base-bg-preview" src="./imgs/avatar/parts/base-bg.png">
     <img class="my-avatar-body-part" class:list={[{ "avatar-circle-mask": !isSpeech }]} id="my-avatar-body-preview" src="./imgs/avatar/parts/body-1.svg">
     <img class="my-avatar-body-part" class:list={[{ "my-avatar-hide": isSpeech }]} id="my-avatar-base-line-preview" src="./imgs/avatar/parts/base-line.png">
-    <img class="my-avatar-body-part" id="my-avatar-hair-back-preview" src="./imgs/avatar/parts/hair-style-2-back-black.svg">
     <img class="my-avatar-body-part" id="my-avatar-neck-preview" src="./imgs/avatar/parts/neck-1.svg">
     <img class="my-avatar-body-part" id="my-avatar-head-preview" src="./imgs/avatar/parts/skin-1.svg">
     <img class="my-avatar-body-part" id="my-avatar-eyebrows-preview" src="./imgs/avatar/parts/eyebrows-skin-1.svg">

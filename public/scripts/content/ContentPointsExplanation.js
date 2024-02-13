@@ -34,10 +34,13 @@ class ContentPointsExplanation extends Content {
 
     preactivateContent(){
         this.setupAvatar();
-        const punctuation = currentPunctuation.getPunctuation()
+        let punctuation = currentPunctuation.getPunctuation()
+
+        //punctuation = 201
 
         let explanationTitle = ""
         let explanationDescription = ""
+
         if(punctuation >= 85 && punctuation <= 100){
             explanationTitle = "Environmental Awareness Advocate"
             explanationDescription = `Congrats on <strong>completing the game!</strong><br>You've secured the position of Sustainability Project Coordinator. Your participation and enthusiasm showcase your willingness to learn and grow. Every journey begins with a single step, and your dedication is a testament to your potential.<br><br>

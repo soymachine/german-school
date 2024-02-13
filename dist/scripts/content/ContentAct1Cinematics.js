@@ -137,7 +137,7 @@ class ContentAct1Cinematics extends Content {
         
         this.typewriter = new Typewriter(this.label, {
             loop: false,
-            delay: 25,
+            delay: 250000,
             cursor:''
         });
 

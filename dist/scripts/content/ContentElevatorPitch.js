@@ -185,7 +185,7 @@ class ContentElevatorPitch extends Content {
             this.showFinalResult(isCorrect);
         }else{
             this.gotoNextStep()
-            eventSystem.publish(Events.ON_PROGRESS_UPDATE, 8)
+            eventSystem.publish(Events.ON_PROGRESS_UPDATE, 7)
         }
         
     }

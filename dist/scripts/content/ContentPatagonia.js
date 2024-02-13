@@ -36,6 +36,12 @@ class ContentPatagonia extends Content {
         this.itemHeight = 77
         this.duration = 500
 
+        this.dashedLines = document.getElementById("patagonia-dashed-line")
+        console.log(this.dashedLines)
+        this.parpadeoTime = 0
+        this.parpadeoShown = true
+        this.maxParpadeoTime = 6
+
         // Evento general para el release
         
         /*
@@ -459,6 +465,18 @@ class ContentPatagonia extends Content {
             
             this.draggingElement.style.left = `${x}px`
             this.draggingElement.style.top = `${y}px`
+
+            // parpadear
+            this.parpadeoTime += 1;
+            if(this.parpadeoTime > this.maxParpadeoTime){
+                this.dashedLines.style.opacity = this.parpadeoShown? 1: 0
+                this.parpadeoTime = 0
+                this.parpadeoShown = !this.parpadeoShown
+            }
+        }else{
+            // Dejamos de parpadear
+            this.dashedLines.style.opacity = 1
+            this.parpadeoTime = 0
         }
     }
 
@@ -472,7 +490,7 @@ class ContentPatagonia extends Content {
         }
         
         this.gotoNextStep()
-        eventSystem.publish(Events.ON_PROGRESS_UPDATE, 7)
+        eventSystem.publish(Events.ON_PROGRESS_UPDATE, 5)
     }
 
     

@@ -132,7 +132,7 @@ class ContentFinancial extends Content {
         }else{
             // Vamos a la siguiente sección
             this.gotoNextStep()
-            eventSystem.publish(Events.ON_PROGRESS_UPDATE, 4)
+            eventSystem.publish(Events.ON_PROGRESS_UPDATE, 3)
 
         }
     }

@@ -15,7 +15,7 @@ const { step } = Astro.props;
             <div id="avatar">
                 <Avatar width={140} step={step} hasText={false} isSpeech={true}/>
             </div>
-            <div class="punctuation-description">Eco-Enterpreneur</div>
+            
         </div>
         <div class="header-points">
             <div class="score-points">
@@ -23,6 +23,9 @@ const { step } = Astro.props;
                 <div class="score-points-label">points</div>
             </div>
         </div>
+    </div>
+    <div class="header-explanation-label">
+        <div class="punctuation-description">Eco-Enterpreneur</div>
     </div>
     <div class="explanation">
         <div class="explanation-label">
@@ -122,6 +125,7 @@ const { step } = Astro.props;
         font-size: 18px;
         position: relative;
         z-index: 100;
+        display: inline;
     }
 
     .explanation {
@@ -161,6 +165,36 @@ const { step } = Astro.props;
         top:0;
         left:0;
         opacity: 0;
+    }
+
+    .header-explanation-label {
+        margin-left: 13px;
+        margin-right: 13px;
+        margin-top: 30px;
+    }
+
+    .explanation-description{
+        font-size: 15px;
+    }
+
+
+    @media (max-width: 500px) {
+
+        .explanation-label{
+            padding: 10px;            
+        }
+
+        .header-explanation-label {
+            margin-top: 0px;
+        }
+
+        .explanation-description{
+            font-size: 13px;
+        }
+
+        .explanation{
+            margin: 20px 10px 10px 10px;
+        }
     }
 
 </style>
