@@ -25,7 +25,12 @@ const { step } = Astro.props;
                         <img id="button-arrow" src="./imgs/acts/speech/speech-arrow.png">
                     </div>
             </div>
+            <!--
             <img class="act-cinematics-background-image" src="./imgs/acts/titles/act-II-Background.png">
+            -->
+            <div class="wrapper">
+                <img id="rainforest-gif" class="hide act-cinematics-background-image act-cinematics-background-image-1" src="./imgs/acts/titles/rainforest-animated.gif">
+            </div>
         </div>
         <div class="characters">
             <div id="speech-user-avatar">
@@ -40,11 +45,39 @@ const { step } = Astro.props;
     </div>
 </div>
 <style>
+
+    .show {
+        opacity: 1 !important;
+        transition: opacity 1s;
+    }
+
+    .hide {
+        opacity: 0;
+        transition: opacity 0s;
+    }
+
+    .wrapper{
+        height: 404px;
+        width: 448px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .act-cinematics-background-image{
+        position: absolute;
+        top:0px;
+        left:0px;
+        height: 310px;
+        opacity: 0;
+        margin:auto 0;
+    }
+
     /* SPEECH */
     .speech {
         position: absolute;
         width: 100%;
         top: -16%;
+        z-index: 1;
     }
 
     .speech-bubble {
@@ -130,7 +163,7 @@ const { step } = Astro.props;
     }
 
     .act-cinematics-background-image{
-        width: 100%;
+        /*width: 100%;*/
     }
 
     .characters {
@@ -174,6 +207,18 @@ const { step } = Astro.props;
         left: 66%;
     }
 
+    .speech-loading #loading-gif{
+        width: 40px;
+        margin-top: 12px;
+        margin-bottom: 6px;
+    }
+
+    .speech-loading #button-arrow{
+        width: 17px;
+        margin-top: 9px;
+        margin-bottom: 6px;
+    }
+
     @media (max-width: 500px) {
         .act-cinematics-wrapper {
             font-size: 18px;
@@ -189,19 +234,11 @@ const { step } = Astro.props;
             padding: 10px 0px;
         }
 
+        .characters > #speech-user-avatar {
+            left: 8%;
+        }
+
         
-
-        .speech-loading #loading-gif{
-            width: 40px;
-            margin-top: 12px;
-            margin-bottom: 6px;
-        }
-
-        .speech-loading #button-arrow{
-            width: 17px;
-            margin-top: 9px;
-            margin-bottom: 6px;
-        }
 
         #speech-bubble-wedge {
             width: 35px;
@@ -209,6 +246,7 @@ const { step } = Astro.props;
 
         #sarah-act-2 {
             width: 110px;
+            left: 31%;
         }
 
         #rafael-act-2 {
@@ -218,6 +256,7 @@ const { step } = Astro.props;
         #sarah-name-act-2 {
             font-size: 17px;
             top:104%;
+            left:39%;
         }
 
         #rafael-name-act-2 {

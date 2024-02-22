@@ -75,7 +75,7 @@ class ContentDialogue1Cinematics extends Content {
 
     preactivateContent(){
         this.label.innerHTML = ""
-        this.texts[0] = ` ${avatarSelection.name}, the RSAI is up and running and it couldn't be possible without you, thanks for your commitment to this project!`
+        this.texts[0] = `<span class='user-name'>${avatarSelection.name}</span>, the RSAI is up and running and it couldn't be possible without you, thanks for your commitment to this project!`
         this.centerAvatarName()
     }
 

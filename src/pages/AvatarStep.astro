@@ -8,6 +8,7 @@ const { step } = Astro.props;
 ---
 
 <div class="avatar-wrapper">
+    <div class="disclaimer">First of all, <strong>create your avatar</strong></div>
     <div class="avatar-controllers">
         <a id="avatar-controller-left" href="#"><img src="./imgs/avatar/controllers/avatar-controller-left.png"></a>
         <div class="avatar-current-wrapper">
@@ -133,6 +134,10 @@ const { step } = Astro.props;
 
 </div>
 <style>
+    .disclaimer {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
     .avatar-wrapper {
 
         --size-items:60px;

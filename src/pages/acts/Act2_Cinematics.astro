@@ -27,7 +27,15 @@ const { step } = Astro.props;
                     </div>
                 </a>
             </div>
+            <!--
             <img class="act-cinematics-background-image" src="./imgs/acts/titles/act-II-Background.png">
+            -->
+            <div class="wrapper">
+                <img class="act-cinematics-background-image act-cinematics-background-image-1" src="./imgs/acts/parallax/forest-background.jpg">
+                <img class="act-cinematics-background-image act-cinematics-background-image-2" src="./imgs/acts/parallax/forest-foreground.png">
+                <img class="act-cinematics-background-image act-cinematics-background-image-3" src="./imgs/acts/parallax/forest-tucan.png">
+            </div>
+
         </div>
         <div class="characters">
             <div id="speech-user-avatar">
@@ -49,11 +57,30 @@ const { step } = Astro.props;
     </div>
 </div>
 <style>
+
+    .wrapper{
+        height: 404px;
+        width: 448px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .act-cinematics-background-image{
+        position: absolute;
+        top:0px;
+        left:0px;
+        height: 310px;
+        margin:auto 0;
+        opacity: 0;
+    }
+
+
     /* SPEECH */
     .speech {
         position: absolute;
         width: 100%;
         top: -16%;
+        z-index: 1;
     }
 
     .speech-bubble {
@@ -139,7 +166,7 @@ const { step } = Astro.props;
     }
 
     .act-cinematics-background-image{
-        width: 100%;
+        /*width: 100%;*/
     }
 
     .characters {
@@ -183,6 +210,18 @@ const { step } = Astro.props;
         left: 66%;
     }
 
+    .speech-loading #loading-gif{
+        width: 40px;
+        margin-top: 12px;
+        margin-bottom: 6px;
+    }
+
+    .speech-loading #button-arrow{
+        width: 17px;
+        margin-top: 9px;
+        margin-bottom: 6px;
+    }
+
     @media (max-width: 500px) {
         .act-cinematics-wrapper {
             font-size: 18px;
@@ -199,17 +238,7 @@ const { step } = Astro.props;
         }
 
 
-        .speech-loading #loading-gif{
-            width: 40px;
-            margin-top: 12px;
-            margin-bottom: 6px;
-        }
-
-        .speech-loading #button-arrow{
-            width: 17px;
-            margin-top: 9px;
-            margin-bottom: 6px;
-        }
+        
 
         #speech-bubble-wedge {
             width: 35px;

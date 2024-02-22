@@ -2,6 +2,7 @@
 import NextButton from '../components/buttons/NextButton.astro';
 import QuestionHeader from '../components/QuestionHeader.astro';
 import Avatar from '../components/avatar/Avatar.astro';
+import Punctuation from '../components/Punctuation.astro';
 interface Props {
 	step: string;
 }
@@ -44,6 +45,7 @@ const { step } = Astro.props;
     <div class="answer-description">
         To solve an existing problem in the market
     </div>
+    <Punctuation step={step}/>
     <NextButton step={step}/>
 </div>
 <style >

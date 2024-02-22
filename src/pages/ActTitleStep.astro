@@ -22,6 +22,22 @@ if(act > 4) {
 }
 let selected = ""
 // , "Epilogue"
+
+const isAct2 = false;
+/*
+{isAct2 && <div class="wrapper">
+                <div class="line line-upper upper-line-1"></div>
+                <div class="line line-upper upper-line-2"></div>
+                <div class="parallax-wrapper">
+                    <img class="act-cinematics-background-image act-cinematics-background-image-1" src="./imgs/acts/parallax/forest-background.png">
+                    <img class="act-cinematics-background-image act-cinematics-background-image-2" src="./imgs/acts/parallax/forest-foreground.png">
+                </div>
+                <div class="line lower-line lower-line-1"></div>
+                <div class="line lower-line lower-line-2"></div>
+            </div>
+    }
+
+    */
 ---
 <div class="act-title-wrapper">
     <div class="act-title-menu">
@@ -30,9 +46,12 @@ let selected = ""
     <div class="act-title-label">
         {label}
     </div>
+    
+    
     <div class="act-title-img">
         <img src=`./imgs/acts/titles/${actImg}`>
     </div>
+
     <div class="act-title-button">
         <NextButton step={step}/>
     </div>
@@ -52,6 +71,7 @@ let selected = ""
     function onClickNext(event) {
         console.log("on click next " + step)
         window.controller.showContent(Number(step) + 1)
+        window.controller.eventSystem.publish(window.controller.Events.ON_SFX_PLAY, "sfx_UI_buttons_01")        
 
         if(step){
             window.controller.eventSystem.publish("ON_PROGRESS_CHANGE", true)
@@ -59,7 +79,60 @@ let selected = ""
     }
 
 </script>
+
 <style>
+
+    .wrapper {
+    	--line-h-big: 15px;
+    	--line-h-small: 5px;
+
+        --margin-big: 15px;
+    	--margin-small: 5px;
+	}
+
+    .line {
+        width: 100%;
+        opacity: 0;
+    }
+
+    .upper-line-1{
+        background-color: #C0D1E5;
+        height: var(--line-h-big);
+        margin-bottom: var(--margin-small);
+    }
+
+    .upper-line-2{
+        background-color: #82A2CA;
+        height: var(--line-h-small);
+        margin-bottom: var(--margin-big);
+    }
+
+    .lower-line-1{
+        background-color: #82A2CA;
+        height: var(--line-h-small);
+        margin-top: var(--margin-big);
+        margin-bottom: var(--margin-small);
+
+    }
+    
+    .lower-line-2{
+        background-color: #C0D1E5;
+        height: var(--line-h-big);
+    }
+
+    .act-cinematics-background-image {
+        height: 310px;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        opacity: 0;
+    }
+
+    .parallax-wrapper {
+        position: relative;
+        height: 310px;
+        width: 448px;
+    }
 
     .act-title-wrapper {
         display: flex;

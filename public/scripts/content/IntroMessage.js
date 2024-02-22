@@ -12,7 +12,7 @@ class IntroMessage extends Content {
         const self = this
         // this.$answerCorrectIcon = document.querySelector(`#answer-correct-icon`)
         const contentRect = document.querySelector(`#step-${this.contentID}`).getBoundingClientRect()
-        this.$bgImage = document.querySelector(".bg-image")
+        this.$bgImage = document.querySelector(".bg-image-message")
         // this.$bgImage width as contentRect width
         this.$bgImage.style.width = `${contentRect.width}px`
 

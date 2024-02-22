@@ -12,7 +12,7 @@ class ContentAct4Cinematics extends Content {
         const self = this
         this.texts = [
             "to update",
-            "A journalist from <strong>National Geographic wants to interview you!</strong>"
+            "You are highlighting the issue of <strong>climate change</strong> and <strong>illegal activities in the rainforest</strong> and its impacts on the environment."
         ]
         this.maxSteps = 2
         this.step = 1
@@ -74,7 +74,7 @@ class ContentAct4Cinematics extends Content {
 
     preactivateContent(){
         this.label.innerHTML = ""
-        this.texts[0] = `<span class='user-name'>${avatarSelection.name}</span>, the awareness for rainforest protection has grown, and so has our <strong>media attention.</strong>`
+        this.texts[0] = `Congrats! The interview has been a <strong>big success</strong>, <span class='user-name'>${avatarSelection.name}!</span>`
         
         this.centerAvatarName()
     }

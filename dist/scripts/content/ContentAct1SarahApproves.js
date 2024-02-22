@@ -10,7 +10,7 @@ class ContentAct1SarahApproves extends Content {
         super(Steps.SARAH_APPROVES)
         
         const self = this
-        this.greetingsText = `I'm happy to bring you in! You're ready to meet the rest of the team`,
+        this.greetingsText = `I'm happy to bring you in! You're ready to meet the rest of the team <strong>on the field. We're going to the Amazon forest!</strong>`,
         this.label = document.getElementById("speech-content-act-sarah-approves")
         this.button = document.getElementById("content-cinematic-act-sarah-approves-button")
         this.isWriting = false

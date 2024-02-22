@@ -30,7 +30,7 @@ const { step } = Astro.props;
                     </div>
                 </a>
             </div>
-            <img class="act-cinematics-background-image" src="./imgs/acts/titles/act-I-Background.png">
+            <img class="act-cinematics-background-image" src="./imgs/acts/titles/epilogue-Background.png">
         </div>
         <div class="characters">
             <div id="speech-user-avatar">
@@ -84,6 +84,7 @@ const { step } = Astro.props;
         height: 100%;
         margin: auto;
         display: flex;
+        padding: 0 10px;
     }
 
     .speech-bubble-text-content {
@@ -164,6 +165,18 @@ const { step } = Astro.props;
         left: 59%;
     }
 
+    .speech-loading #loading-gif{
+        width: 40px;
+        margin-top: 12px;
+        margin-bottom: 6px;
+    }
+
+    .speech-loading #button-arrow{
+        width: 17px;
+        margin-top: 9px;
+        margin-bottom: 6px;
+    }
+
     @media (max-width: 500px) {
         .act-cinematics-wrapper {
             font-size: 18px;
@@ -187,17 +200,7 @@ const { step } = Astro.props;
         }
         */
 
-        .speech-loading #loading-gif{
-            width: 40px;
-            margin-top: 12px;
-            margin-bottom: 6px;
-        }
-
-        .speech-loading #button-arrow{
-            width: 17px;
-            margin-top: 9px;
-            margin-bottom: 6px;
-        }
+        
 
         #speech-bubble-wedge {
             width: 35px;

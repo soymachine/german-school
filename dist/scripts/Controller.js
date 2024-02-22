@@ -38,11 +38,13 @@ import IntroMessage from './content/IntroMessage.js'
 import InterviewImage from './content/InterviewImage.js'
 import ContentDialogue1Cinematics from './content/ContentDialogue1Cinematics.js'
 import ContentDialogue2Cinematics from './content/ContentDialogue2Cinematics.js'
+import ContentAct2Title from './content/ContentAct2Title.js'
 
 class Controller {
     constructor(){
 
         this.eventSystem = eventSystem;
+        this.Events = Events;
         this.avatarSelection = avatarSelection;
         
         this.isFooterShown = false
@@ -179,6 +181,9 @@ class Controller {
         // HEADER
         this.header = new Header()
 
+        // ACTI 2 TITLE
+        //this.contentAct2Title = new ContentAct2Title()
+
         
         // - FORM
         this.from = new ContentForm()
@@ -204,7 +209,7 @@ class Controller {
         this.currentPunctuation = currentPunctuation
 
         // TESTING */
-        //this.showContent(3) // 16 cinematics done
+        //this.showContent(10) // 16 cinematics done
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event)
         });

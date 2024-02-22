@@ -22,6 +22,7 @@ class ContentWhyEnterpreuner extends Content {
         this.xOffset = 5
         this.duration = 250
         this.currentReponseSelected = undefined
+        
 
         // Data
         this.responses = [
@@ -80,6 +81,9 @@ class ContentWhyEnterpreuner extends Content {
             glasses:this.avatarCopier.glasses,
             beard:this.avatarCopier.beard,
             moustache:this.avatarCopier.moustache,
+            peloFront: this.avatarCopier.hair,
+            peloBack: this.avatarCopier.hairBack,
+            head: this.avatarCopier.head,
             avatarImgRect: document.getElementById(`my-avatar-${this.contentID}`).getBoundingClientRect(),
             contentID:this.contentID,
         })
@@ -120,6 +124,10 @@ class ContentWhyEnterpreuner extends Content {
     }
 
     onResponseUpdate(responseObj){
+        if(this.isScoreShown){
+            return
+        }
+
         if(responseObj.responseID ==  this.contentID){
             // Scope
             const self = this
@@ -233,15 +241,38 @@ class ContentWhyEnterpreuner extends Content {
             return
         }
 
-        currentPunctuation.addPunctuation(25)
+        if(!this.isScoreShown){
+            this.reponseUnique.isEnabled = false
+            this.isScoreShown = true
+            currentPunctuation.addPunctuation(25)
+
+            anime({
+                targets: `#result-step-${this.contentID}`,
+                opacity: 1,
+                duration: this.duration,
+                easing:'easeOutQuad'
+            })
+
+            anime({
+                targets: `#step-${this.contentID} .answer-description`,
+                opacity: 0,
+                duration: this.duration,
+                easing:'easeOutQuad'
+            })
+
+
+             
+            document.querySelector(`#result-step-${this.contentID} .business-result-points`).innerHTML = "+25"
+
+        }else{
+            // Vamos a la siguiente sección
+            this.gotoNextStep()
+
+            eventSystem.publish(Events.ON_PROGRESS_UPDATE, 1)
+            this.isNextEnabled = false;
+        }
         
-        // Vamos a la siguiente sección
-        this.gotoNextStep()
-
-        eventSystem.publish(Events.ON_PROGRESS_UPDATE, 1)
-
-
-        this.isNextEnabled = false;
+        
     }
     
 }

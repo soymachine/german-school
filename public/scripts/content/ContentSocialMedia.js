@@ -197,10 +197,12 @@ class ContentSocialMedia extends Content {
            return
         }
 
+        eventSystem.publish(Events.ON_SFX_PLAY, "sfx_social_media_like")        
+
         this.changeLike();
         const self = this
         setTimeout(()=>{
-            self.gotoNextStep()
+            self.gotoNextStep(true)
         }, this.waitTime) 
     }
     unblur(id){
@@ -220,6 +222,9 @@ class ContentSocialMedia extends Content {
         const self = this
         this.isRetweetClicked = true
         this.changeRetweet();
+
+        eventSystem.publish(Events.ON_SFX_PLAY, "sfx_social_media_like")        
+
         
         const y5 = this.y4 - this.getHeightAt(4);
         const y6 = y5 - this.getHeightAt(5);
@@ -242,6 +247,8 @@ class ContentSocialMedia extends Content {
             },
             begin: function(anim) {
                 self.unblur("social-media-image-sarah")
+                //eventSystem.publish(Events.ON_SFX_PLAY, "sfx_social_media_swipe")        
+
             }
         });
 
@@ -351,6 +358,7 @@ class ContentSocialMedia extends Content {
                 self.unblur("social-media-image-3")
                 self.unblur("social-media-image-4")
                 self.unblur("social-media-image-rainforest")
+                //eventSystem.publish(Events.ON_SFX_PLAY, "sfx_social_media_swipe")        
             }
         });
     }

@@ -11,6 +11,9 @@ class AvatarMovement {
         this.glasses = parts.glasses
         this.beard = parts.beard
         this.moustache = parts.moustache
+        this.peloFront = parts.peloFront
+        this.peloBack = parts.peloBack
+        this.head = parts.head
         this.contentID = parts.contentID
         this.avatarImgRect = parts.avatarImgRect
         this.xDest = 0
@@ -30,6 +33,9 @@ class AvatarMovement {
         this.eyebrowsCorrection = {x: 0.605, y:0.334}
         this.beardCorrection = {x: 0.605, y:0.549}
         this.moustacheCorrection = {x: 0.605, y:0.549}
+        this.peloFrontCorrection = {x: 0.605, y:0.549}
+        this.peloBackCorrection = {x: 0.605, y:0.549}
+        this.headCorrection = {x: 0.605, y:0.549}
 
         /* Parpadeo */
         this.currentParpadeo = 0
@@ -43,6 +49,9 @@ class AvatarMovement {
             "glasses": 3,
             "beard": 3,
             "moustache": 3,
+            "pelo-front": 3,
+            "pelo-back": 3,
+            "head": 3,
         }
 
         this.isMoving = true
@@ -157,10 +166,22 @@ class AvatarMovement {
 
         /* MOUSTACHE */
         this.movePart("moustache", this.moustache, this.moustacheCorrection, this.radius["moustache"], "7")
+
+        /* PELO - FRONT */
+        this.movePart("pelo-front", this.peloFront, this.peloFrontCorrection, this.radius["pelo-front"], "8")
+
+        /* PELO - BACK */
+        this.movePart("pelo-back", this.peloBack, this.peloBackCorrection, this.radius["pelo-back"], "9")
+        
+        /* HEAD */
+        this.movePart("head", this.head, this.headCorrection, this.radius["head"], "10")
     }
 
     movePart(id, part, correction, radius, testID){
         
+        if(part == undefined){
+            return
+        }
 
         const correctionX = correction.x * this.avatarWidth
         const correctionY = correction.y * this.avatarHeight

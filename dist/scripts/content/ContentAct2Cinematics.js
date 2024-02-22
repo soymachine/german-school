@@ -13,9 +13,8 @@ class ContentAct2Cinematics extends Content {
         this.texts = [
             "to update",
             "More than <strong>half of Earth's rain forests have already been lost</strong> due to the human demand for wood and arable land.",
-            "if current deforestation rates continue, these critical habitats could <strong>disappear from the planet completely</strong>",
-            "Projects like this are really important to make an impact and change this trend. I'm excited to have you here!",
-            "To become a successful enterpreneur and develop initiatives like this, it is very important to be <strong>well-connected</strong>"
+            "If current deforestation rates continue, these critical habitats could <strong>disappear from the planet completely</strong>",
+            "Projects like this are really important to <strong>make an impact</strong> and change this trend. I'm excited to have you here!"
         ]
         this.maxSteps = this.texts.length
         this.step = 1
@@ -36,6 +35,10 @@ class ContentAct2Cinematics extends Content {
         this.outPosition = this.W * .75
         this.inPosition = 0
 
+        this.wrapper = document.querySelector(`#step-${this.contentID} .wrapper`);
+        const wrapperH = this.W * 0.90185; // 0.90185 es la relación que tenia la imagen anterior para que se acomoden los personajes
+        this.wrapper.style.height = `${wrapperH}px`;
+        
         anime.set(`#step-${this.contentID} #sarah-act-2, #step-${this.contentID} #sarah-name-act-2`, {
             translateX: -this.outPosition,
         });
@@ -52,6 +55,7 @@ class ContentAct2Cinematics extends Content {
             translateX: -this.outPosition,
         });
 
+
         this.button.onmousedown = function(event) { //asign a function
             self.onClickSpeechBubble()
         }
@@ -65,6 +69,92 @@ class ContentAct2Cinematics extends Content {
     }
 
     activateContent(){
+        const self = this
+
+        this.animateParallax();
+
+        /*
+        this.showCharacter("rafael", 0, 200, ()=>{
+            anime({
+                targets:`#step-${this.contentID} .speech-bubble-element`,
+                opacity: 1,
+                duration: 500,
+                complete: function(anim) {
+                    self.updateText()
+                  }
+            });
+        })
+
+        this.showCharacter("sarah", 0, 0)
+        this.showAvatar(0, 100)
+        */
+    }
+
+    animateParallax(){
+        const rect = document.getElementById("root").getBoundingClientRect();
+        const w = rect.width;
+        const duration = 6000;
+        const imageEasings = "easeInOutQuart"
+        const self = this
+
+        const image1Offset = -50;
+        anime.set(`#step-${this.contentID} .act-cinematics-background-image-1`, {
+            translateX: image1Offset,
+            opacity: 0,
+        });
+
+        const image2Offset = -100;
+        anime.set(`#step-${this.contentID} .act-cinematics-background-image-2`, {
+            translateX: image2Offset,
+            opacity: 0,
+        });
+
+        const image3Offset = -120;
+        anime.set(`#step-${this.contentID} .act-cinematics-background-image-3`, {
+            translateX: image3Offset,
+            opacity: 0,
+        });
+
+        // translate
+        anime({
+            targets: `#step-${this.contentID} .act-cinematics-background-image-1`,
+            translateX: 0,
+            duration: duration,
+            delay: 10,
+            easing:imageEasings
+        });
+
+        anime({
+            targets: `#step-${this.contentID} .act-cinematics-background-image-2`,
+            translateX: 0,
+            duration: duration,
+            delay: 10,
+            easing:imageEasings,
+            complete: function(anim) {
+              self.showCharacters()
+            }
+        });
+
+        anime({
+            targets: `#step-${this.contentID} .act-cinematics-background-image-3`,
+            translateX: -20,
+            duration: duration,
+            delay: 10,
+            easing:imageEasings
+        });
+
+
+        // opacity
+        anime({
+            targets: `#step-${this.contentID} .act-cinematics-background-image`,
+            opacity: 1,
+            duration: 1000,
+            delay: 10,
+            easing:'linear'
+        });
+    }
+
+    showCharacters(){
         const self = this
 
         this.showCharacter("rafael", 0, 200, ()=>{
@@ -81,6 +171,7 @@ class ContentAct2Cinematics extends Content {
         this.showCharacter("sarah", 0, 0)
         this.showAvatar(0, 100)
     }
+
 
     showCharacter(name, posX, delay = 0, callback = undefined){
         anime({

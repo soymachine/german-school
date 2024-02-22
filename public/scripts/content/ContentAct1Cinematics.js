@@ -13,7 +13,7 @@ class ContentAct1Cinematics extends Content {
         this.greetingsText = `Nice to meet you <span class='user-name'>${avatarSelection.name}!</span><p style='margin-top:20px'>I think you can be the perfect addition to the team</p>`,
         this.texts = [
             "to update",
-            "But first I need to test your enterpreneurship skills!"
+            "But first I need to test your enterpreneurship skills. <strong>Ready for some questions?</strong>"
         ]
         this.maxSteps = 2
         this.step = 1
@@ -137,7 +137,7 @@ class ContentAct1Cinematics extends Content {
         
         this.typewriter = new Typewriter(this.label, {
             loop: false,
-            delay: 250000,
+            delay: 25,
             cursor:''
         });
 

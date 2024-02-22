@@ -35,6 +35,10 @@ class ContentAct2PreQuestion extends Content {
         this.outPosition = this.W * .75
         this.inPosition = 0
 
+        this.wrapper = document.querySelector(`#step-${this.contentID} .wrapper`);
+        const wrapperH = this.W * 0.90185; // 0.90185 es la relación que tenia la imagen anterior para que se acomoden los personajes
+        this.wrapper.style.height = `${wrapperH}px`;
+
         anime.set(`#step-${this.contentID} #sarah-act-2, #step-${this.contentID} #sarah-name-act-2`, {
             translateX: -this.outPosition,
         });
@@ -60,11 +64,111 @@ class ContentAct2PreQuestion extends Content {
 
     preactivateContent(){
         //this.updateText()
-        
         this.centerAvatarName()
     }
-
     activateContent(){
+        this.animateParallax();
+        /*
+        const self = this
+
+        this.showCharacter("rafael", 0, 200, ()=>{
+            anime({
+                targets:`#step-${this.contentID} .speech-bubble-element`,
+                opacity: 1,
+                duration: 500,
+                complete: function(anim) {
+                    self.updateText()
+                  }
+            });
+        })
+
+        this.showCharacter("sarah", 0, 0)
+        this.showAvatar(0, 100)
+        */
+    }
+
+    animateParallax(){
+        const rect = document.getElementById("root").getBoundingClientRect();
+        const w = rect.width;
+        const duration = 6000;
+        const imageEasings = "easeInOutQuart"
+        const self = this
+
+        const image1Offset = -50;
+        /*
+        anime.set(`#rainforest-gif`, {
+            translateX: image1Offset,
+            opacity: 0,
+            complete: function(anim) {
+                self.showCharacters()
+              }
+        });
+        */
+
+        document.getElementById("rainforest-gif").classList.remove("hide")
+        
+        // call a function after 1 second
+        setTimeout(function() {
+            document.getElementById("rainforest-gif").classList.add("show")
+            self.showCharacters()
+        }, 100);
+
+        /*
+        const image2Offset = -100;
+        anime.set(`#step-${this.contentID} .act-cinematics-background-image-2`, {
+            translateX: image2Offset,
+            opacity: 0,
+        });
+
+        const image3Offset = -120;
+        anime.set(`#step-${this.contentID} .act-cinematics-background-image-3`, {
+            translateX: image3Offset,
+            opacity: 0,
+        });
+        */
+
+        // translate
+        /*
+        anime({
+            targets: `#step-${this.contentID} .act-cinematics-background-image-1`,
+            translateX: 0,
+            duration: duration,
+            delay: 10,
+            easing:imageEasings
+        });
+
+        anime({
+            targets: `#step-${this.contentID} .act-cinematics-background-image-2`,
+            translateX: 0,
+            duration: duration,
+            delay: 10,
+            easing:imageEasings,
+            complete: function(anim) {
+              self.showCharacters()
+            }
+        });
+
+        anime({
+            targets: `#step-${this.contentID} .act-cinematics-background-image-3`,
+            translateX: -20,
+            duration: duration,
+            delay: 10,
+            easing:imageEasings
+        });
+
+
+        // opacity
+        anime({
+            targets: `#step-${this.contentID} .act-cinematics-background-image`,
+            opacity: 1,
+            duration: 1000,
+            delay: 10,
+            easing:'linear'
+        });
+        */
+    }
+
+    showCharacters(){
         const self = this
 
         this.showCharacter("rafael", 0, 200, ()=>{

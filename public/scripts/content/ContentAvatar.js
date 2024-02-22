@@ -66,18 +66,19 @@ class ContentAvatar extends Content {
         this.contentRect = document.querySelector("#content").getBoundingClientRect()
         const W = this.contentRect.width
         const H = this.contentRect.height
-        const sizeBig = W * 0.74
-        const sizeSmall = W * 0.50
+        const sizeBig = (W * 0.74) * .9
+        const sizeSmall = (W * 0.50) * .75
         const yOffset = sizeSmall * 0.05
         const xSmall = (sizeBig - sizeSmall) * .5
+        const xOffset = 13;
         this.adjustments = {
             "big":{
                 size: sizeBig, // 350
-                x:0, y:0
+                x:xOffset, y:0
             },
             "small":{
                 size:sizeSmall, // 300
-                x:xSmall, y:0 - yOffset
+                x:xSmall + xOffset, y:0 - yOffset
             },
         }       
 
@@ -186,6 +187,9 @@ class ContentAvatar extends Content {
             glasses:this.glasses,
             beard:this.beard,
             moustache:this.moustache,
+            peloFront: this.hair,
+            peloBack: this.hairBack,
+            head: this.head,
             avatarImgRect: document.querySelector("#avatar-image").getBoundingClientRect(),
             contentID:this.contentID,
         })
@@ -632,6 +636,7 @@ class ContentAvatar extends Content {
         document.querySelectorAll(".avatar-display-button").forEach(button => button.style.opacity = 0) // mostramos los avatar-display-button
 
         document.querySelector(".avatar-greetings").style.opacity = "1"
+        document.querySelector(".disclaimer").style.opacity = "0"
         
     }
     

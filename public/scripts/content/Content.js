@@ -30,6 +30,9 @@ class Content{
             glasses:this.avatarCopier.glasses,
             beard:this.avatarCopier.beard,
             moustache:this.avatarCopier.moustache,
+            peloFront: this.avatarCopier.hair,
+            peloBack: this.avatarCopier.hairBack,
+            head: this.avatarCopier.head,
             avatarImgRect: document.getElementById(`my-avatar-${this.contentID}`).getBoundingClientRect(),
             contentID:this.contentID,
         })
@@ -113,7 +116,11 @@ class Content{
         this.$nextButton.style.opacity = 1
     }
 
-    gotoNextStep(){
+    gotoNextStep(isAutomatic = false){
+        if(!isAutomatic){
+            eventSystem.publish(Events.ON_SFX_PLAY, "sfx_UI_buttons_01")        
+        }
+
         eventSystem.publish(Events.ON_REQUEST_STEP, this.contentID + 1)
     }
 

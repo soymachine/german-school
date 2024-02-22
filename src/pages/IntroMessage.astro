@@ -1,22 +1,24 @@
 <div class="intro-wrapper">
-    <div class="first-sentence">Intro</div>
-    <div class="second-sentence">Message</div>
     <div class="middle-zone">
-        <img class="bg-image" src="./imgs/intro/intro-background.png">
+        <img class="bg-image-message" src="./imgs/postcover.png">
         <a id="intro-message-button" class="button-start" href="#">
-            Continue            
+            Next            
         </a>
-        <div id="loading" class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
     </div>
 </div>
 <style>
+
+    #intro-message-button {
+        top:-150px;
+    }
+
     .intro-wrapper {
         text-align: center;
         font-family: 'Roboto', sans-serif;
         font-size: 80px;
         color: #064796;
         position:relative;
-        margin-top:25px;
+        margin-top:-35px;
     }
     .first-sentence{
         font-size:30px;
@@ -30,25 +32,26 @@
 
     .middle-zone {
         position:relative;
-        margin-top: 40px;
+        /*margin-top: 40px;*/
     }
 
     .bg-image {
         position: absolute;
         top:0;
         left:0;
-        width: 337px;
+        /*width: 337px;
         height: 400px;
+        */
     }
 
     .button-start {
         position: relative;
         z-index: 1;
-        top: 120px;
+        /*top: 120px;*/
         color:white;
         font-size:25px;
         background-color:#00A5DC;
-        border:2px solid white;
+        border-color:2px solid white;
         border-radius:10px;
         padding: 15px 50px;
         text-decoration: none;
@@ -60,7 +63,7 @@
         position: relative;
         width: 80px;
         height: 80px;
-        top: 10px;
+        top: 130px;
         left: calc(50% - 40px);
     }
 
@@ -162,13 +165,13 @@
     }
 
     #intro-button {
-        top:250px;
+        top:435px;
     }
 
     @media (max-width: 500px) {
         .bg-image {
-            width: 337px;
-            height: 261px;
+            /*width: 337px;*/
+            /*height: 261px;*/
         }
 
         .middle-zone{

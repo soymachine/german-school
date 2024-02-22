@@ -11,10 +11,7 @@ class ContentAct4Cinematics_After9 extends Content {
         
         const self = this
         this.texts = [
-            "to update",
-            "You are highlighting the issue of <strong>climate change</strong> and <strong>illegal activities in the rainforest</strong> and its impacts on the environment.",
-            "More and more <strong>investors are interested</strong> and we have some first talks to plan an expansion strategy.",
-            "You have done a great job so far, but I have a <strong>final question for you.</strong>",
+            "More and more <strong>investors are interested</strong> and we have some first talks to plan an expansion strategy."
         ]
         this.maxSteps =  this.texts.length
         this.step = 1
@@ -76,8 +73,6 @@ class ContentAct4Cinematics_After9 extends Content {
 
     preactivateContent(){
         this.label.innerHTML = ""
-        this.texts[0] = `Congrats! The interview has been a <strong>big success</strong>, <span class='user-name'>${avatarSelection.name}!</span>`
-        
         this.centerAvatarName()
     }
 
