@@ -12,7 +12,7 @@ class ContentAct2PreQuestion extends Content {
         const self = this
         this.texts = [
             "We must <strong>minimize false alarms</strong> and ensure the accuracy and <strong>effectiveness of the AI.</strong>",
-            "Local communities are skeptical, but have earned their <strong>support</strong> and <strong>trust.</strong>"
+            "Local communities are skeptical but your dedication and visible results are starting to gain their <strong>support</strong> and <strong>trust</strong> in RSAI"
         ]
         this.maxSteps = this.texts.length
         this.step = 1

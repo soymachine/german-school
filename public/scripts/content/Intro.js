@@ -3,6 +3,7 @@ import {eventSystem, Events} from '../helpers/EventSystem.js'
 import ResponseUnique from '../helpers/ResponseUnique.js'
 import Settings from '../helpers/Settings.js'
 import Steps from '../helpers/Steps.js'
+import MovingPoints from '../intro/MovingPoints.js'
 
 class Intro extends Content {
     constructor(){
@@ -20,7 +21,9 @@ class Intro extends Content {
 
         // El botón de NEXT
         this.$nextButton = document.querySelector(`#intro-button`)
-        this.$nextButton.style.opacity = 0
+
+        this.$nextButtonWrapper = document.querySelector(`.button-wrapper`)
+        this.$nextButtonWrapper.style.opacity = 0
         
 
         this.$nextButton.onmousedown = function(e) { //asign a function
@@ -30,6 +33,8 @@ class Intro extends Content {
             event.preventDefault();
             self.onClickNext()
         }, false);
+
+        
 
         //this.disableNextButton()
         /*
@@ -45,6 +50,7 @@ class Intro extends Content {
             duration: duration,
             easing:'easeOutQuad'
         });
+        self.MovingPoints = new MovingPoints();
 
         const imagesArray = Array.from(document.images)
         Promise.all(imagesArray.filter(img => !img.complete).map(img => new Promise(resolve => { img.onload = img.onerror = resolve; })))
@@ -59,7 +65,7 @@ class Intro extends Content {
                 easing:'linear',
                 complete: function(anim) {
                     anime({
-                        targets: `#intro-button`,
+                        targets: `.button-wrapper`,
                         opacity: 1,
                         duration: duration,
                         easing:'linear',

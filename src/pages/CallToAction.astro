@@ -15,7 +15,7 @@ const { step } = Astro.props;
     <div class="avatar-explanation">
         <div class="header-avatar">
             <div id="avatar">
-                <Avatar width={140} step={step} hasText={false} isSpeech={true}/>
+                <Avatar width={110} step={step} hasText={false} isSpeech={true}/>
             </div>            
         </div>
         <div class="header-text">
@@ -130,8 +130,8 @@ const { step } = Astro.props;
         width: 113%;
         height: 118px;
         position: relative;
-        top: 0px;
-        left: -7px;
+        top: -7px;
+        left: 6px;
     }
 
     #avatar img {
@@ -152,5 +152,14 @@ const { step } = Astro.props;
         left:0;
         opacity: 0;
     }
+
+    @media (max-width: 500px) {
+
+        #avatar {
+            top: 13px !important;
+            left: 11px !important;
+            transform: scale(1.2);
+        }
+    } 
 
 </style>

@@ -100,7 +100,7 @@ class ContentValues extends Content {
             }
 
             // Change Text
-            this.$titleText.innerHTML = `<strong>That's incorrect</strong>, unfortunately!<br> ${avatarSelection.name},the right answer was Impact investing.`
+            this.$titleText.innerHTML = `<strong>That's incorrect</strong>, unfortunately!<br> ${avatarSelection.name}, the right answer was Impact investing.`
 
             this.pointsElement.innerHTML = "0"
         }

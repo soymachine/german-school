@@ -204,6 +204,29 @@ class ContentAvatar extends Content {
             this.checkNextButtonForFinish()
         }
 
+        this.isFocus = false;
+        document.getElementById("name-input").onfocus = (e)=>{
+            self.isFocus = true;
+        }
+
+
+        // get the event for the name-input that triggers when focus out
+        document.getElementById("name-input").onblur = (e)=>{
+            self.isFocus = false;
+        }
+
+        // Get the event for the name-input that triggers after user press any key
+        document.getElementById("name-input").onkeyup = (e)=>{
+            console.log(self.isFocus)
+            if(self.isFocus){
+                const name = document.getElementById("name-input").value
+                console.log(name)
+                self.avatarSelection.setName(name)
+                self.checkNextButtonForFinish();
+            }
+        }
+
+
         eventSystem.subscribe(Events.ON_PICKER_UPDATE, (pickerResponseObj)=>{
             this.onPickerUpdate(pickerResponseObj)
         })

@@ -1,8 +1,17 @@
+---
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+
+const year = new Date().getFullYear();
+---
 <div class="footer">
     <div class="footer-separator"></div>
     <div class="footer-content">
         <div class="footer-text">
-            © WHU 2023. Privacy policy
+            © WHU {year}. <a href="https://www.whu.edu/en/privacy-policy/" target="_blank">Privacy policy</a>
         </div>
     </div>
 </div>
@@ -35,5 +44,10 @@
 
     .footer-text {
         margin-top: 8px;
+    }
+
+    .footer-text a {
+        color: white;
+        text-decoration: underline;
     }
 </style>

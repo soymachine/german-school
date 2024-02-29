@@ -5,6 +5,33 @@ interface Props {
 }
 
 const { step } = Astro.props;
+
+const total = 11;
+const tipos = ["black", "blonde", "blue", "brown", "redhair"];
+
+let hairs = [];
+for (let i = 1; i <= total; i++) {
+    tipos.forEach((tipo, index) => {
+        //hairs.push(`<img src="./imgs/avatar/parts/hair-style-${i}-${tipo}.svg">`);
+        hairs.push({
+            i, tipo
+        });
+    });
+}
+
+const backs = ["2", "3", "4", "5", "6", "8"];
+let backHairs = [];
+for (let i = 0; i < backs.length; i++) {
+    const backNum = backs[i];
+    tipos.forEach((tipo, index) => {
+        //hairs.push(`<img src="./imgs/avatar/parts/hair-style-${i}-${tipo}.svg">`);
+        backHairs.push({
+           i:backNum, tipo
+        });
+    });
+}
+
+                
 ---
 
 <div class="avatar-wrapper">
@@ -22,6 +49,15 @@ const { step } = Astro.props;
     </div>
     <div class="avatar-display">
         <a id="avatar-display-left" class="avatar-display-button" href="#"><img src="./imgs/avatar/controllers/avatar-slider-left.png"></a>
+        <div class="hidden">
+            {hairs.map((item, index) => (
+                <img src={`./imgs/avatar/parts/hair-style-${item.i}-${item.tipo}.svg`}>
+            ))}
+
+            {backHairs.map((item, index) => (
+                <img src={`./imgs/avatar/parts/hair-style-${item.i}-back-${item.tipo}.svg`}>
+            ))}
+        </div>
         <div class="avatar-display-wrapper">
             <img class="avatar-ref" id="avatar-ref" src="./imgs/avatar/parts/neck-1.svg">
             <div class="avatar-image" id="avatar-image">
@@ -134,8 +170,11 @@ const { step } = Astro.props;
 
 </div>
 <style>
+    .hidden {
+        display: none;
+    }
     .disclaimer {
-        font-size: 22px;
+        font-size: 18px;
         margin-bottom: 10px;
     }
     .avatar-wrapper {

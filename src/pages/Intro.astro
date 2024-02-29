@@ -1,20 +1,46 @@
+---
+const totalPoints = 25
+---
 <div class="intro-wrapper">
     <div class="middle-zone">
+        <div class="points-wrapper">
+            {
+                Array(totalPoints).fill(0).map((_, index) => (
+                    <img class="point" id={`point-${index+1}`} src="./imgs/intro/point.png">
+                ))
+            }
+        </div>
         <img class="bg-image" src="./imgs/cover.png">
-        <a id="intro-button" class="button-start" href="#">
-            Start            
-        </a>
+        <div class="button-wrapper">
+            <img class="left-line" src="./imgs/intro/line.png">
+            <a id="intro-button" class="button-start" href="#">Start</a>
+            <img class="right-line" src="./imgs/intro/line.png">
+        </div>
+        
         <div id="loading" class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
     </div>
 </div>
 <style>
+
+    .points-wrapper {
+        position: absolute;
+        z-index: 2;
+    }
+
+    .point {
+        position: absolute;
+        top:0px;
+        left: 0px;
+        filter: blur(3.5px);
+    }
+
     .intro-wrapper {
         text-align: center;
         font-family: 'Roboto', sans-serif;
         font-size: 80px;
         color: #064796;
         position:relative;
-        margin-top:-35px;
+        /*margin-top:-65px;*/
     }
     .first-sentence{
         font-size:30px;
@@ -40,26 +66,79 @@
         */
     }
 
+    .button-wrapper {
+        position: relative;
+        z-index: 1;
+        top:502px;
+    }
+
+    .left-line {
+        transform: translateX(21px) translateY(-5px);
+    }
+
+    .right-line {
+        transform: scale(-1) translateX(21px) translateY(8px);
+    }
+    
+
+
+    #intro-button {
+        /*top:502px;*/
+    }
+
     .button-start {
         position: relative;
         z-index: 1;
         /*top: 120px;*/
         color:white;
         font-size:25px;
-        background-color:#FF9326;
+        /* background color gradient from two colors */
+        background: linear-gradient(to bottom, #FF9326, #C16100);
+        
+        border:2px solid white;
         border-radius:10px;
         padding: 15px 50px;
         text-decoration: none;
         font-weight:bold;
+        /* drop shadow */
+        -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     }
+
+    @keyframes lds-roller {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    
 
     .lds-roller {
         display: block;
         position: relative;
-        width: 80px;
-        height: 80px;
-        top: 130px;
+        width: 70px;
+        height: 70px;
+        top: 439px;
         left: calc(50% - 40px);
+        transform: scale(0.8);
+    }
+
+    @media (max-width: 500px) {
+        #intro-button {
+            /*top:410px;*/
+
+        }
+
+        .button-wrapper {
+            top:410px;
+        }
+
+        .lds-roller {
+            top: 348px;
+            transform: scale(0.7);
+        }
     }
 
     .lds-roller div {
@@ -148,46 +227,6 @@
     .lds-roller div:nth-child(8):after {
         top: 56px;
         left: 12px;
-    }
-
-    @keyframes lds-roller {
-        0% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-
-    #intro-button {
-        top:435px;
-    }
-
-    @media (max-width: 500px) {
-        .bg-image {
-            /*width: 337px;*/
-            /*height: 261px;*/
-        }
-
-        .middle-zone{
-            /*margin-top: 10px;*/
-        }
-
-        .intro-wrapper{
-            /*margin-top: -25px;*/
-        }
-
-        #intro-button {
-            /*top:150px;*/
-        }
-
-        .lds-roller {
-            /*
-            top: 50px;
-            left: 150px;
-            */
-        }
-
     }
 
 </style>

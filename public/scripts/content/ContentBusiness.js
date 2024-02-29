@@ -159,13 +159,13 @@ class ContentBusiness extends Content {
         
         let points = "0"
         if(userCorrect){
-            this.firstParagraph.innerHTML = `<strong>Well done, <span class='user-name'>${avatarSelection.name}</span>.</strong>`
-            this.secondParagraph.innerHTML = `That is correct!`
+            this.firstParagraph.innerHTML = `<strong>Well done, <span class='user-name'>${avatarSelection.name}</span>.</strong><br>That is correct!`
+           // this.secondParagraph.innerHTML = `That is correct!`
             points = "+10"
             currentPunctuation.addPunctuation(10)
         }else{
-            this.firstParagraph.innerHTML = `<strong>Oops, <span class='user-name'>${avatarSelection.name}</span>.</strong>`
-            this.secondParagraph.innerHTML = `The correct answer was...`
+            this.firstParagraph.innerHTML = `<strong>Oops, <span class='user-name'>${avatarSelection.name}</span>.</strong><br>The correct answer was...`
+            //this.secondParagraph.innerHTML = `The correct answer was...`
         }
 
 

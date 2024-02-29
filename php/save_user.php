@@ -15,15 +15,19 @@ if (isset($headers['Authorization'])) {
 
 		//*
 		$email = $_POST["email"];
-		$name = "dani"; //$_POST["name"];
-		$score = 90; // $_POST["score"];
-		$avatar = "1-1-1-1"; // $_POST["avatar"];
+		$name = $_POST["name"];
+		$surname = $_POST["surname"];
+		$phone = $_POST["phone"];
+		$score = $_POST["score"];
+		$avatar = $_POST["avatar"];
 
-		$sql="insert into users (name, email, score, avatar) values(";
+		$sql="insert into users (name, surname, email, score, avatar, phone) values(";
 		$sql.="'".$name."',";
+		$sql.="'".$surname."',";
 		$sql.="'".$email."',";
 		$sql.="'".$score."',";
-		$sql.="'".$avatar."')";
+		$sql.="'".$avatar."',";
+		$sql.="'".$phone."')";
 
 		//echo $sql;
 

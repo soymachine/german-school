@@ -16,7 +16,7 @@ const { step } = Astro.props;
         <div class="business-titles">
             <div class="business-title" id="title-plan"><p>BUSINESS</p><p>PLAN</p></div>
             <div class="title-separation"></div>
-            <div class="business-title" id="title-model">BUSINESS MODEL CANVAS</div>
+            <div class="business-title" id="title-model"><p>BUSINESS</p><p>MODEL CANVAS</p></div>
         </div>
         <div class="answers-buttons">
             <a  class=`btn-step-${step}-option business-answer-button` href="#" id=`step-${step}-answer-button-1`>
@@ -85,17 +85,18 @@ const { step } = Astro.props;
 
     .answer-correct-icon {
         position: absolute;
-        left:100%;
-        top:0px;
+        left: 97%;
+        top: 6px;
         opacity: 0;
+        width: 45px;
     }
 
     .answer-incorrect-icon {
         position: absolute;
-        left:100%;
-        top:0px;
+        left:97%;
+        top:6px;
         opacity: 0;
-
+        width: 45px;
     }
 
     .holder-business {
@@ -122,7 +123,7 @@ const { step } = Astro.props;
     }
 
     .business-title {
-        width: 37%;
+        /*width: 37%;*/
     }
 
     /*
@@ -188,7 +189,7 @@ const { step } = Astro.props;
     }
 
     #title-plan {
-        margin: 0 50px;
+        margin: 0 0px;
     }
 
     /*

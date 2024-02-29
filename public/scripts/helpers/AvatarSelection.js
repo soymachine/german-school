@@ -12,6 +12,11 @@ class AvatarSelection {
         this.name = "" 
     }
 
+
+    getAvatarID(){
+      return `${this.hair}-${this.eyes}-${this.skinColor}-${this.hairColor}-${this.bodyColor}-${this.hairStyle}-${this.beard}-${this.glasses}-${this.moustache}`;
+    }
+
     setName(name){
       this.name = name
     }

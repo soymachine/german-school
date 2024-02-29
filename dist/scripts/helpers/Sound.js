@@ -9,8 +9,8 @@ class Sound {
     planeSongPath = "sound/sfx_plane_flight.mp3"
     rainforestSongPath = "sound/sfx_amb_rainforest.mp3"
     laboratorySongPath = "sound/sfx_amb_laboratory.mp3"
-    backgruondMusicPath = "sound/tropical_world.mp3"
-    questionsMusicPath = "sound/questions_music.mp3"
+    backgruondMusicPath = "sound/whu_gameplay.mp3"
+    questionsMusicPath = "sound/clock_lp.mp3"
 
     musics = {}
     loops = {}
@@ -50,12 +50,11 @@ class Sound {
     }
 
     onContentShown(content){
-        console.log("Sound, content "+ content);
+        console.log("WTF Sound, content "+ content);
 
 
         switch(content){
-            case 1:
-                break;
+            case Steps.INTRO_MESSAGE:
             case Steps.AVATAR:
             case Steps.ACT_I_CINEMATICS:
             case Steps.SARAH_APPROVES:

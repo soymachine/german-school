@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Step from '../components/Step.astro';
+import HeadlessStep from '../components/HeadlessStep.astro';
 import TravelStep from '../components/TravelStep.astro';
 import AvatarStep from './AvatarStep.astro';
 import FlowDiagramStep from './FlowDiagramStep.astro';
@@ -39,7 +40,7 @@ import Interview from './Interview.astro';
 import Dialogue1_Cinematics from './acts/Dialogue1_Cinematics.astro';
 import Dialogue2_Cinematics from './acts/Dialogue2_Cinematics.astro';
 ---
-<Layout title="Guardians of the Rainforest | WHU">
+<Layout title="The Rainforest Quest">
 	<div class="container" draggable="false">
 		<div id="root" class="holder">
 			<Settings />
@@ -47,9 +48,9 @@ import Dialogue2_Cinematics from './acts/Dialogue2_Cinematics.astro';
 				<Header step={"0"} act={"I"}/>
 			</div>
 			<div id="content" class="content">
-				<Step step="0">
+				<HeadlessStep step="0">
 					<Intro step='0'/>
-				</Step>
+				</HeadlessStep>
 				<Step step="1">
 					<IntroMessage step='1'/>
 				</Step>
@@ -99,7 +100,7 @@ import Dialogue2_Cinematics from './acts/Dialogue2_Cinematics.astro';
 					<Act2_PreQuestion step="16" />
 				</Step>
 				<Step step="17">
-					<ActTitleStep act={3} label='The Reward' step="17"/>
+					<ActTitleStep act={3} label='Raising Awareness' step="17"/>
 				</Step>
 				<Step step="18">
 					<Act3_Cinematics step='18'/>
@@ -123,7 +124,7 @@ import Dialogue2_Cinematics from './acts/Dialogue2_Cinematics.astro';
 					<SarahQuestion10 step='24'/>
 				</Step>
 				<Step step="25">
-					<ActTitleStep act={5} label='The next chapter' step="25"/>
+					<ActTitleStep act={5} label='The Next Chapter' step="25"/>
 				</Step>
 				<Step step="26">
 					<Dialogue1_Cinematics step='26'/>

@@ -244,7 +244,7 @@ class ContentWhyEnterpreuner extends Content {
         if(!this.isScoreShown){
             this.reponseUnique.isEnabled = false
             this.isScoreShown = true
-            currentPunctuation.addPunctuation(25)
+            currentPunctuation.addPunctuation(10)
 
             anime({
                 targets: `#result-step-${this.contentID}`,
@@ -262,7 +262,7 @@ class ContentWhyEnterpreuner extends Content {
 
 
              
-            document.querySelector(`#result-step-${this.contentID} .business-result-points`).innerHTML = "+25"
+            document.querySelector(`#result-step-${this.contentID} .business-result-points`).innerHTML = "+10"
 
         }else{
             // Vamos a la siguiente sección

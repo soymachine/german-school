@@ -2,9 +2,13 @@ import Content from './Content.js'
 import {eventSystem, Events} from '../helpers/EventSystem.js'
 import Steps from '../helpers/Steps.js'
 import { currentPunctuation } from '../helpers/Punctuation.js'
+import { avatarSelection } from '../helpers/AvatarSelection.js'
 
 const ACCESS_TOKEN = "1234567890"
 class ContentForm extends Content {
+
+    URL_BASE = "https://www.appnormals.com/whu/";
+
     constructor(){
       super(Steps.FORM)
         
@@ -19,10 +23,16 @@ class ContentForm extends Content {
 
         this.$form = document.querySelector("#formulario")
 
-        this.$emailInput = document.getElementById("email-input")
-        this.$nameInput = document.getElementById("name-input")
-        this.$surnameInput = document.getElementById("surname-input")
-        this.$phoneInput = document.getElementById("phone-input")
+        this.$emailInput = document.getElementById("form-email-input")
+        this.$nameInput = document.getElementById("form-name-input")
+        this.$surnameInput = document.getElementById("form-surname-input")
+        this.$phoneInput = document.getElementById("form-phone-input")
+
+        // next-button-link
+        this.button = document.getElementById(`next-button-${this.contentID}`)
+        this.button.onmousedown = function(event) { //asign a function
+            that.onSubmit()
+        }
 
         //  Formulario
         this.$form.addEventListener("submit", (e) => {
@@ -42,6 +52,8 @@ class ContentForm extends Content {
     }
 
     onSubmit(){
+        // Aquí validar el formulario
+        console.log("onSubmit")
         let email = this.$emailInput.value;
         let name = this.$nameInput.value;
         let surname = this.$surnameInput.value;
@@ -56,7 +68,7 @@ class ContentForm extends Content {
             surname:surname,
             email:email,
             score:currentPunctuation.getPunctuation(),
-            avatar:"2-1-1-2",
+            avatar:avatarSelection.getAvatarID(),
             phone:phone
           })
         }
@@ -64,10 +76,9 @@ class ContentForm extends Content {
 
     sendData(data) {
         console.error("enviando formulario")  
+        console.log(data)
 
         const xhr = new XMLHttpRequest();
-
-        
 
         const urlEncodedDataPairs = [];
       
@@ -99,7 +110,7 @@ class ContentForm extends Content {
         });
       
         // Set up our request
-        xhr.open("POST", "https://www.appnormals.com/german_school/save_user.php");
+        xhr.open("POST", `${this.URL_BASE}save_user.php`);
       
         // Add the required HTTP header for form data POST requests
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
