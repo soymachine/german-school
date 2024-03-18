@@ -13,7 +13,7 @@ class ContentAct2Cinematics extends Content {
         this.texts = [
             "to update",
             "More than <strong>half of Earth's rainforests have already been lost</strong> due to the human demand for wood and arable land.",
-            "If current deforestation rates continue, these critical habitats could <strong>disappear from the planet completely</strong>",
+            "If current deforestation rates continue, these critical habitats could <strong>disappear from the planet completely.</strong>",
             "Projects like this are really important to <strong>make an impact</strong> and change this trend. I'm excited to have you here!"
         ]
         this.maxSteps = this.texts.length

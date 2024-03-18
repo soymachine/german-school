@@ -118,7 +118,7 @@ class Content{
 
     gotoNextStep(isAutomatic = false){
         if(!isAutomatic){
-            eventSystem.publish(Events.ON_SFX_PLAY, "sfx_UI_buttons_01")        
+            eventSystem.publish(Events.ON_SFX_PLAY, "sfx_UI_buttons_02")        
         }
 
         eventSystem.publish(Events.ON_REQUEST_STEP, this.contentID + 1)

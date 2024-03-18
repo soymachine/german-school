@@ -11,6 +11,11 @@ class Sound {
     laboratorySongPath = "sound/sfx_amb_laboratory.mp3"
     backgruondMusicPath = "sound/whu_gameplay.mp3"
     questionsMusicPath = "sound/clock_lp.mp3"
+    effect_1_Path = "sound/sfx_UI_buttons_01.mp3"
+    effect_2_Path = "sound/sfx_UI_buttons_02.mp3"
+    effect_3_Path = "sound/sfx_UI_buttons_03.mp3"
+    effect_4_Path = "sound/sfx_UI_buttons_04.mp3"
+    effect_5_Path = "sound/sfx_UI_buttons_05.mp3"
 
     musics = {}
     loops = {}
@@ -34,6 +39,7 @@ class Sound {
 
     onSFXPlay(id){
         if(this.isSoundFXOn){
+            console.log("playSoundFX " + id);
             this.playSoundFX("sound/" + id + ".mp3")
         }
     }
@@ -131,8 +137,10 @@ class Sound {
 
     changeMusicVolume(newVolume){
         console.log("Cambio de volumen de " + this.currentMusicVolume + " a " + newVolume);
-        this.musics[this.currentMusicPath].fade(this.currentMusicVolume, newVolume, 2000);
-        this.currentMusicVolume = newVolume;
+        if(this.musics[this.currentMusicPath] != undefined){
+            this.musics[this.currentMusicPath].fade(this.currentMusicVolume, newVolume, 2000);
+            this.currentMusicVolume = newVolume;
+        }
     }
 
 

@@ -235,6 +235,9 @@ class ContentAvatar extends Content {
     }
 
     onPickerUpdate({parent, id}){
+
+        eventSystem.publish(Events.ON_SFX_PLAY, "sfx_UI_buttons_01") 
+
         if(parent == "extras"){
             this.onExtraButtonClicked(id)
         }else{
@@ -363,6 +366,8 @@ class ContentAvatar extends Content {
         this.currentDisplay = nextDisplay
 
         this.updateCurrentDisplay()
+
+        eventSystem.publish(Events.ON_SFX_PLAY, "sfx_social_media_swipe") 
         
     }
 
@@ -375,6 +380,8 @@ class ContentAvatar extends Content {
         this.currentDisplay = nextDisplay
 
         this.updateCurrentDisplay()
+
+        eventSystem.publish(Events.ON_SFX_PLAY, "sfx_social_media_swipe") 
     }
 
     updateCurrentDisplay(){
@@ -544,6 +551,8 @@ class ContentAvatar extends Content {
 
         this.updateSection()
         this.updateDisplayNumber()
+
+        eventSystem.publish(Events.ON_SFX_PLAY, "sfx_social_media_swipe") 
     }
 
     onPrevSectionButtonClicked(event){
@@ -557,6 +566,8 @@ class ContentAvatar extends Content {
 
         this.updateSection()
         this.updateDisplayNumber()
+
+        eventSystem.publish(Events.ON_SFX_PLAY, "sfx_social_media_swipe") 
     }
     
     updateSection(){

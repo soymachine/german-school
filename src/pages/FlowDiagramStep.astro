@@ -20,8 +20,6 @@ const datamonitoringURL = imageURL("imgs/flow-diagram/datamonitoring.png")
 const imagerecognitionURL = imageURL("imgs/flow-diagram/imagerecognition.png")
 const predictiveanalysisURL = imageURL("imgs/flow-diagram/predictiveanalysis.png")
 const realtimealertURL = imageURL("imgs/flow-diagram/realtimealert.png")
-
-
 ---
 <div class=`draggable-holder`>
     <div class="info">
@@ -180,8 +178,13 @@ const realtimealertURL = imageURL("imgs/flow-diagram/realtimealert.png")
     }
 
     .draggable-zone .incorrect{
-        border-color: var(--color-alternate)  !important; 
-        color:var(--color-alternate) !important;
+        background-color: var(--color-alternate)  !important; 
+        /*color:var(--color-alternate) !important;*/
+    }
+
+    .draggable-zone .final-correct{
+        background-color: #1CAD4B !important; 
+        /*color:var(--color-alternate) !important;*/
     }
 
     .alternate-color {

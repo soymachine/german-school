@@ -131,8 +131,10 @@ class Sound {
 
     changeMusicVolume(newVolume){
         console.log("Cambio de volumen de " + this.currentMusicVolume + " a " + newVolume);
-        this.musics[this.currentMusicPath].fade(this.currentMusicVolume, newVolume, 2000);
-        this.currentMusicVolume = newVolume;
+        if(this.musics[this.currentMusicPath] != undefined){
+            this.musics[this.currentMusicPath].fade(this.currentMusicVolume, newVolume, 2000);
+            this.currentMusicVolume = newVolume;
+        }
     }
 
 

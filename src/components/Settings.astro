@@ -1,6 +1,6 @@
 ---
-
 ---
+
 <div id="settings-panel" class="settings-hide">
     <div class="settings-wrapper">
         <div class="header">
@@ -27,10 +27,28 @@
                     <div class="reset-description">All progress will be lost</div>
                 </a>
             </div>
+            <div id="version"></div>
+            <div id="stored-version"></div>
         </div>
     </div>
     
 </div>
+<script>
+    const version = "0.0.1";
+    const storedVersion = localStorage.getItem("version");
+   
+    console.log("version " + version)
+    if(storedVersion !== version){
+        localStorage.clear();
+        localStorage.setItem("version", version);
+
+        // Aquí el flush y carga de nuevo
+        // console.log("Aquí el flush y carga de nuevo");
+        // window.location.reload(true)
+    }
+
+    document.getElementById("version").innerHTML = "Version: " + version;
+</script>
 <style>
     #settings-panel {
         position: absolute;

@@ -9,6 +9,7 @@ const { title } = Astro.props;
 <!doctype html>
 <html lang="en">
 	<head>
+		<meta http-equiv="Cache-control" content="no-cache">
 		<meta charset="UTF-8" />
 		<meta name="description" content="WHU description" />
 		<meta name="viewport" content="width=device-width, user-scalable=no" />
@@ -22,6 +23,14 @@ const { title } = Astro.props;
 		<style>
 			@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 		</style>
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-VJWX9LC1DN"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-VJWX9LC1DN');
+		</script>
 	</head>
 	<body>
 		<slot />

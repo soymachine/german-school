@@ -297,6 +297,8 @@ class ContentDraggable extends Content {
             item.style.left = `${x}px`
             item.style.top = `${y}px`
 
+            console.log("x: " + x + " y: " + y + " para " + elementID)
+
             // Incremento de posiciones
             col += 1
             if(col >= maxCol){
@@ -495,13 +497,26 @@ class ContentDraggable extends Content {
     }
 
     submitResult(){
+
+        const totalAcertadas = this.totalAcertadas()
+        console.log("totalAcertadas: " + totalAcertadas)
+        currentPunctuation.addPunctuation(totalAcertadas)
+
         if(this.isCorrectOrder){
-            currentPunctuation.addPunctuation(10)
+
             this.title.innerHTML = "<strong>Well done, thank you!</strong><br>Let’s quickly check them."
+            document.querySelector(`#result-step-${this.contentID} .business-result-points`).innerHTML = "+40"
         }else{
             this.title.innerHTML = "<strong>Something is off!</strong><br>"
-            document.querySelector(`#result-step-${this.contentID} .business-result-points`).innerHTML = "0"
+
+            if(totalAcertadas == 0){
+                document.querySelector(`#result-step-${this.contentID} .business-result-points`).innerHTML = "0"
+            }else{
+                document.querySelector(`#result-step-${this.contentID} .business-result-points`).innerHTML = "+" + totalAcertadas;
+            }
         }
+
+        this.repositionOptions();
 
         // Enviamos la respuesta
         eventSystem.publish(Events.ON_RESPONSE_UPDATE, {
@@ -520,6 +535,42 @@ class ContentDraggable extends Content {
         const draggableZone = document.querySelector(".draggable-zone");
         draggableZone.classList.add("draggable-zone-hidden");
     }
+
+    repositionOptions(){    
+        const delay = 2000;
+        this.dropElementsData.forEach((item, i) => {
+            // const el = document.getElementById(item.id);
+            const droppedID = item.droppedID
+            const correctID = item.id
+            const pos = item.pos;
+
+            if(droppedID != correctID){
+                document.getElementById(droppedID).classList.add("incorrect")
+
+                setInterval(() => {
+                    document.getElementById(droppedID).classList.remove("incorrect")
+                }, delay)
+
+            }else{
+                document.getElementById(droppedID).classList.add("final-correct")
+            }
+            /*
+            el.style.left = `${pos.x}px`
+            el.style.top = `${pos.y}px`
+            */
+
+            anime({
+                targets: `#${correctID}`,
+                left: pos.x,
+                top: pos.y,
+                duration: this.duration,
+                easing:'easeOutQuad',
+                delay:delay
+            })
+           
+        })
+    }
+
 
     onCorrectOrder(){
         this.isCorrectOrder = true
@@ -566,6 +617,17 @@ class ContentDraggable extends Content {
         }, true)
         
         return correct
+    }
+
+    totalAcertadas(){
+        const total = this.dropElementsData.reduce((acc, drop) => {
+            if(drop.id == drop.droppedID){
+                acc += 10;
+            }
+            return acc
+        }, 0)
+        
+        return total
     }
 
     startLoop() {

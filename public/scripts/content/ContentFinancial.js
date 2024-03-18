@@ -94,8 +94,10 @@ class ContentFinancial extends Content {
             // Change Text
             if(response == 2){
                 this.$titleText.innerHTML = "<strong>No,</strong> P/E is the Price-to-earnings ratio. The right answer was <strong>ROE (Return of Equity)</strong>"
+                this.$resultTitle.innerHTML = "P/E"
             }else{
                 this.$titleText.innerHTML = "<strong>No,</strong> ROI is the Return on Investment. The right answer was <strong>ROE (Return of Equity)</strong>"
+                this.$resultTitle.innerHTML = "ROI"
             }
 
             this.pointsElement.innerHTML = "0"

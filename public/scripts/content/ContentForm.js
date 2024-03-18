@@ -7,7 +7,7 @@ import { avatarSelection } from '../helpers/AvatarSelection.js'
 const ACCESS_TOKEN = "1234567890"
 class ContentForm extends Content {
 
-    URL_BASE = "https://www.appnormals.com/whu/";
+    URL_BASE = "";
 
     constructor(){
       super(Steps.FORM)
@@ -27,6 +27,24 @@ class ContentForm extends Content {
         this.$nameInput = document.getElementById("form-name-input")
         this.$surnameInput = document.getElementById("form-surname-input")
         this.$phoneInput = document.getElementById("form-phone-input")
+        this.$acceptance = document.getElementById("acceptance")
+        this.$close = document.getElementById("close-message")
+        this.$message = document.getElementById("message-wrapper-div")
+        this.$messageContent = document.getElementById("message-content")
+        this.$buttonHolder = document.querySelector(".sending-area .button-holder")
+        this.$infoArea = document.querySelector(".info-area")
+        this.$formulario = document.getElementById("formulario")
+        this.$sending = document.querySelector(".form-sending")
+        this.$sucess = document.querySelector(".form-sucess")
+        this.$resendButtonHolder = document.querySelector(".resend-button-holder")
+        this.$sendingLabel = document.querySelector(".sending-label")
+        this.$waitLabel = document.querySelector(".wait-label")
+        this.$formatErrorLabel = document.querySelector(".format-error-label")
+        this.$incorrectFormImage = document.getElementById("incorrect-form")
+
+        this.$emailInput.onchange = this.$nameInput.onchange = this.$surnameInput.onchange = this.$phoneInput.onchange = this.$acceptance.onchange = function(event) { //asign a function
+            that.onChangeInput();
+        }
 
         // next-button-link
         this.button = document.getElementById(`next-button-${this.contentID}`)
@@ -34,14 +52,101 @@ class ContentForm extends Content {
             that.onSubmit()
         }
 
+        // resend button after error
+        this.resendButton = document.getElementById(`next-resend-button-${this.contentID}`)
+        this.$resendButtonHolder.style.display = "none"
+        this.resendButton.onmousedown = function(event) { //asign a function
+            that.onSubmit()
+        }
+
+        this.$close.onmousedown = function(event) { //asign a function
+          that.onClickClose()
+      }
+
         //  Formulario
         this.$form.addEventListener("submit", (e) => {
             console.log("submit del form")
             e.preventDefault()
-            
             that.onSubmit()
-           
         });
+
+        this.rootRect = document.getElementById("root").getBoundingClientRect()
+        this.$close.style.left = (this.rootRect.width *.5) - 40 + "px";
+
+        // this.onFormSuccess();
+    }
+
+    removeErrorsFromFields(){
+      this.$emailInput.classList.remove("field-format-error")
+      this.$nameInput.classList.remove("field-format-error")
+      this.$surnameInput.classList.remove("field-format-error")
+      this.$phoneInput.classList.remove("field-format-error")
+    }
+
+    onChangeInput(){
+        this.removeErrorsFromFields();
+
+        let email = this.$emailInput.value;
+        let name = this.$nameInput.value;
+        let surname = this.$surnameInput.value;
+        let phone = this.$phoneInput.value;
+        const accepted = this.$acceptance.checked;
+
+        // Check si todo está lleno y aceptado
+        if(name != "" && surname != "" && email != "" && phone != "" && accepted){
+
+          // Todo lleno
+          // Check for format errors first
+          let passChecks = true;
+          const isValidEmail = this.checkValidEmail(email);
+          if(!isValidEmail){
+              this.$emailInput.classList.add("field-format-error")
+              passChecks = false;
+          }
+
+          if(passChecks) {
+              this.$buttonHolder.style.display = "block"
+              this.$infoArea.style.display= "none"
+
+               // Quitar el mensaje de mal formateado
+               this.$formatErrorLabel.style.opacity = 0
+          }else{
+              this.$buttonHolder.style.display = "none"
+              this.$infoArea.style.display= "block"
+
+              // Mostrar el mensaje de mal formateado
+              this.$formatErrorLabel.style.opacity = 1
+          }
+        }else{
+            this.$buttonHolder.style.display = "none"
+            this.$infoArea.style.display= "block"
+            this.$formatErrorLabel.style.opacity = 0
+        }
+    }
+
+    onClickClose(){
+      this.hideMessage();
+    }
+    
+    showMessage(message){
+      this.$message.style.display = "flex"
+      this.$messageContent.innerHTML = message
+    }
+
+    hideMessage(){
+      this.$message.style.display = "none"
+    }
+
+
+    checkValidEmail(email){
+
+      let regex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+
+      if (regex.test(email)) {
+          return true;
+      } else {
+          return false;
+      }
     }
 
     activateContent(){
@@ -59,19 +164,75 @@ class ContentForm extends Content {
         let surname = this.$surnameInput.value;
         let phone = this.$phoneInput.value;
         
-        if (email.value == "") {
-          // throw error
-        } else {
-          // perform operation with form input
-          this.sendData({
-            name:name,
-            surname:surname,
-            email:email,
-            score:currentPunctuation.getPunctuation(),
-            avatar:avatarSelection.getAvatarID(),
-            phone:phone
-          })
-        }
+        this.sendNewData({
+          name:name,
+          surname:surname,
+          email:email,
+          score:currentPunctuation.getPunctuation(),
+          avatar:avatarSelection.getAvatarID(),
+          phone:phone
+        })
+    }
+
+    sendNewData(data){
+      const t = this;
+      // Quitamos acceptance wrapper
+      document.querySelector(".acceptance-wrapper").style.display = "none"
+      document.getElementById("form-title").style.opacity = 0;
+
+      this.$resendButtonHolder.style.display = "none"
+      this.$incorrectFormImage.style.display = "none"
+
+      this.$sendingLabel.innerHTML = "<strong>Sending...</strong>"
+      this.$waitLabel.innerHTML = "Please wait"
+
+      // Show Loading
+      this.$formulario.style.display = "none"
+      this.$sending.style.display = "flex"
+      
+      // Wait 2 seconds before fetching
+      setTimeout(function(){
+        fetch(`${t.URL_BASE}save_user.php`, {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {"Content-type": "application/json; charset=UTF-8"}
+        })
+        .then(response => response.json()) 
+        .then(json => {
+            console.log(json)
+            t.onFormSuccess()
+        })
+        .catch(err => {
+            t.onFormError()
+        });
+      }, 2000)
+      
+    }
+
+    onFormError(){
+      console.log("onFormError")
+      this.$sendingLabel.innerHTML = "<strong>Submission error!</strong>"
+      this.$waitLabel.innerHTML = "Please try again"
+      this.$resendButtonHolder.style.display = "block"
+      this.$incorrectFormImage.style.display = "block"
+    }
+
+    onFormSuccess(){
+        console.log("onFormSuccess")
+        this.clearFields()
+        this.$form.classList.add("hide")
+
+        this.$sending.style.display = "none"
+        this.$sucess.style.display = "flex"
+        document.getElementById("form-title").innerHTML = "<strong>Thank you!</strong>";
+        document.getElementById("form-title").style.opacity = 1;
+    }
+
+    clearFields(){
+        this.$emailInput.value = ""
+        this.$nameInput.value = ""
+        this.$surnameInput.value = ""
+        this.$phoneInput.value = ""
     }
 
     sendData(data) {
@@ -98,14 +259,14 @@ class ContentForm extends Content {
             console.log("form regresa con éxito")
             console.log(event.target.responseText);
             
-            this.$emailInput.value = ""
+            this.clearFields()
             this.$form.classList.remove("hide")
         });
       
         // Define what happens in case of an error
         xhr.addEventListener("error", (event) => {
             console.log("Oops! Something went wrong.");
-            this.$emailInput.value = ""
+            this.clearFields()
             this.$form.classList.remove("hide")
         });
       
