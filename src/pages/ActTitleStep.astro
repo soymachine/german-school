@@ -1,26 +1,26 @@
 ---
-import NextButton from '../components/buttons/NextButton.astro';
+import NextButton from "../components/buttons/NextButton.astro";
 
 interface Props {
-	act: number,
-	label: string,
-    step:string
+  act: number;
+  label: string;
+  step: string;
 }
 
 let { act, label, step } = Astro.props;
-act = Number(act)
-let actPos = act - 1
-const acts = ["I", "II", "III", "IV"]
-let actImg
-let actLabel
-if(act > 4) {
-    actLabel = "Epilogue"
-    actImg = `act-title-epilogue-img.png` 
-}else{
-    actLabel = "Act " + acts[act-1]
-    actImg = `act-title-${acts[act-1]}-img.png` 
+act = Number(act);
+let actPos = act - 1;
+const acts = ["I", "II", "III", "IV"];
+let actImg;
+let actLabel;
+if (act > 4) {
+  actLabel = "Epilogue";
+  actImg = `act-title-epilogue-img.png`;
+} else {
+  actLabel = "Act " + acts[act - 1];
+  actImg = `act-title-${acts[act - 1]}-img.png`;
 }
-let selected = ""
+let selected = "";
 // , "Epilogue"
 
 const isAct2 = false;
@@ -39,158 +39,176 @@ const isAct2 = false;
 
     */
 ---
-<div class="act-title-wrapper">
-    <div class="act-title-menu">
-        <div class="act-title-title"><span>{actLabel}</span></div>
-    </div>
-    <div class="act-title-label">
-        {label}
-    </div>
-    
-    
-    <div class="act-title-img">
-        <img src=`./imgs/acts/titles/${actImg}`>
-    </div>
 
-    <div class="act-title-button">
-        <NextButton step={step}/>
+<div class="act-title-wrapper">
+  <div class="act-title-menu">
+    <div class="act-title-title"><span>{actLabel}</span></div>
+  </div>
+  <div class="act-title-label">
+    {label}
+  </div>
+
+<div class="wrapper">
+    <div class="line line-upper upper-line-1"></div>
+    <div class="line line-upper upper-line-2"></div>
+    <div class="parallax-wrapper">
+        <img class="single-img" src=`./imgs/acts/titles/${actImg}` />
     </div>
+    <div class="line lower-line lower-line-1"></div>
+    <div class="line lower-line lower-line-2"></div>
+</div>
+  <!--
+  <div class="act-title-img">
+    <img src=`./imgs/acts/titles/${actImg}` />
+  </div>
+   -->
+
+  <div class="act-title-button">
+    <NextButton step={step} />
+  </div>
 </div>
 <script define:vars={{ step }}>
+  const nextButton = document.getElementById(`next-button-${step}`);
+  nextButton.onmousedown = function (event) {
+    //asign a function
+    onClickNext(event);
+  };
 
-    const nextButton = document.getElementById(`next-button-${step}`)
-    nextButton.onmousedown = function(event) { //asign a function
-        onClickNext(event)
+  nextButton.addEventListener(
+    "touchstart",
+    function (event) {
+      event.preventDefault();
+      onClickNext(event.touches[0]);
+    },
+    false
+  );
+
+  function onClickNext(event) {
+    console.log("on click next " + step);
+    window.controller.showContent(Number(step) + 1);
+    window.controller.eventSystem.publish(
+      window.controller.Events.ON_SFX_PLAY,
+      "sfx_UI_buttons_01"
+    );
+
+    if (step) {
+      window.controller.eventSystem.publish("ON_PROGRESS_CHANGE", true);
     }
-        
-    nextButton.addEventListener('touchstart', function(event){
-        event.preventDefault();
-        onClickNext(event.touches[0])
-    }, false); 
-
-    function onClickNext(event) {
-        console.log("on click next " + step)
-        window.controller.showContent(Number(step) + 1)
-        window.controller.eventSystem.publish(window.controller.Events.ON_SFX_PLAY, "sfx_UI_buttons_01")        
-
-        if(step){
-            window.controller.eventSystem.publish("ON_PROGRESS_CHANGE", true)
-        }
-    }
-
+  }
 </script>
 
 <style>
+  .wrapper {
+    --line-h-big: 15px;
+    --line-h-small: 5px;
 
-    .wrapper {
-    	--line-h-big: 15px;
-    	--line-h-small: 5px;
+    --margin-big: 15px;
+    --margin-small: 5px;
+  }
 
-        --margin-big: 15px;
-    	--margin-small: 5px;
-	}
+  .line {
+    width: 100%;
+    opacity: 0;
+  }
 
-    .line {
-        width: 100%;
-        opacity: 0;
-    }
+  .upper-line-1 {
+    background-color: #c0d1e5;
+    height: var(--line-h-big);
+    margin-bottom: var(--margin-small);
+  }
 
-    .upper-line-1{
-        background-color: #C0D1E5;
-        height: var(--line-h-big);
-        margin-bottom: var(--margin-small);
-    }
+  .upper-line-2 {
+    background-color: #82a2ca;
+    height: var(--line-h-small);
+    margin-bottom: var(--margin-big);
+  }
 
-    .upper-line-2{
-        background-color: #82A2CA;
-        height: var(--line-h-small);
-        margin-bottom: var(--margin-big);
-    }
+  .lower-line-1 {
+    background-color: #82a2ca;
+    height: var(--line-h-small);
+    margin-top: var(--margin-big);
+    margin-bottom: var(--margin-small);
+  }
 
-    .lower-line-1{
-        background-color: #82A2CA;
-        height: var(--line-h-small);
-        margin-top: var(--margin-big);
-        margin-bottom: var(--margin-small);
+  .lower-line-2 {
+    background-color: #c0d1e5;
+    height: var(--line-h-big);
+  }
 
-    }
-    
-    .lower-line-2{
-        background-color: #C0D1E5;
-        height: var(--line-h-big);
-    }
+  .act-cinematics-background-image {
+    height: 310px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    opacity: 0;
+  }
 
-    .act-cinematics-background-image {
-        height: 310px;
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        opacity: 0;
-    }
+  .parallax-wrapper {
+    position: relative;
+    height: 241px;
+    width: 448px;
+  }
 
-    .parallax-wrapper {
-        position: relative;
-        height: 310px;
-        width: 448px;
-    }
+  .single-img{
+    width: 100%;
+    opacity: 0;
+  }
 
-    .act-title-wrapper {
-        display: flex;
-        flex-direction: column;
-        height: 100%;;
-        color:#054696;
-        text-align: center;
-        font-size: 18px;
-        /*margin:20px 0px;*/
-        font-family: 'Roboto', sans-serif;
-    }
+  .act-title-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: #054696;
+    text-align: center;
+    font-size: 18px;
+    /*margin:20px 0px;*/
+    font-family: "Roboto", sans-serif;
+  }
 
-    .act-title-menu {
-        display: flex;
-        flex-direction: column;
-    }
+  .act-title-menu {
+    display: flex;
+    flex-direction: column;
+  }
 
+  .act-title-title {
+    text-align: center;
+    font-weight: bold;
+    margin: 40px 0px 20px 0px;
+  }
+
+  .act-title-title span {
+    text-align: center;
+    background-color: #b4c7df;
+    padding: 5px 10px;
+  }
+
+  .act-title-label {
+    font-size: 35px;
+    font-weight: bold;
+    margin: 30px auto 30px auto;
+    width: 70%;
+  }
+
+  .act-title-img img {
+    width: 100%;
+  }
+
+  .act-title-button {
+    align-self: center;
+    flex-grow: 1;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 500px) {
     .act-title-title {
-        text-align: center;
-        font-weight: bold;
-        margin:40px 0px 20px 0px;
+      margin: 20px 0px 10px 0px;
     }
-
-    .act-title-title span{
-        text-align: center;
-        background-color: #B4C7DF;
-        padding: 5px 10px;
-    }
-
     .act-title-label {
-        font-size: 35px;
-        font-weight: bold;
-        margin: 30px auto 30px auto;
-        width: 70%;
+      font-size: 28px;
+      margin: 10px auto;
+      width: 65%;
     }
-
-    .act-title-img img{
-       width:100%;
-    }
-
-    .act-title-button{
-        align-self: center;
-        flex-grow: 1;
-        display: flex;
-        align-items: flex-end;
-        margin-bottom: 20px;
-    }
-
-    @media (max-width: 500px) {
-
-        .act-title-title {
-            margin: 20px 0px 20px 0px;
-        }
-        .act-title-label {
-            font-size: 28px;
-            margin:20px auto;
-            width: 65%;
-        }
-    }
-
+  }
 </style>

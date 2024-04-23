@@ -5,6 +5,7 @@ import Steps from '../helpers/Steps.js'
 
 class ContentTravelToManaus extends Content {
     
+    _travelDuration = 3000;
     constructor(){
         super(Steps.TRAVEL_TO_MANAUS)
         const $plane = document.getElementById("travel-manaus-plane-img")
@@ -53,11 +54,16 @@ class ContentTravelToManaus extends Content {
     beginTravel(){
         // movimiento traslación
         var path = anime.path('#plane-path path');
-        const duration = 6000
+        const duration = this._travelDuration
         const delay = 1000
         const target = '#travel-manaus-plane'
         const easingType = "easeInOutQuad"
         const self = this
+
+        setTimeout(()=>{
+            eventSystem.publish(Events.ON_SFX_PLAY, "sfx_plane_flight")    
+        }, delay)
+
 
         anime({
             targets: target,

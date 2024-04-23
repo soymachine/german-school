@@ -24,7 +24,7 @@ const timersURL = [
     <div class="info">
         <div class=`title-step-${step}`>
             <QuestionHeader character="sarah">
-                You’ll have to explain this project, short and clearly,<br>like an <strong>elevator pitch!</strong>
+                You’ll have to give a short and clear explanation of the project, <br>like an <strong>elevator pitch!</strong>
             </QuestionHeader>   
         </div>
     </div>
@@ -34,21 +34,21 @@ const timersURL = [
         </p>
 	</div>
     <div class="watch">
-        <a href="#" class="watch-anchor">
+        <a draggable="false" href="#" class="watch-anchor">
             <!--<img id="watch-image" src="./imgs/elevator-pitch/watch-test.png"> -->
-            <img id="watch-image" src="./imgs/elevator-pitch/watch.png">
+            <img draggable="false" id="watch-image" src="./imgs/elevator-pitch/watch.png">
             <div id="watch-images-container">
-                <img class="watch-timer-static" id="watch-timer-upper" src="./imgs/elevator-pitch/watch-over.png" />
+                <img draggable="false" class="watch-timer-static" id="watch-timer-upper" src="./imgs/elevator-pitch/watch-over.png" />
             {
                 timersURL.map((timer, index) => (
-                    <img class="watch-timer" id={`watch-timer-${index}`} src={`./imgs/elevator-pitch/${timer}`} />
+                    <img draggable="false" class="watch-timer" id={`watch-timer-${index}`} src={`./imgs/elevator-pitch/${timer}`} />
                 ))
             }
             
 
             </div>
         </a>
-        <img id="watch-center-piece" src="./imgs/elevator-pitch/watch-center-piece.png">
+        <img draggable="false" id="watch-center-piece" src="./imgs/elevator-pitch/watch-center-piece.png">
         <div class="time-selected-text"> 30''</div>
         
     </div>
@@ -60,7 +60,7 @@ const timersURL = [
     .holder-elevator-pitch {
         color:darkblue;
         text-align: center;
-        font-size: 14px;
+        font-size: 16px;
         margin:0px 20px;
         font-family: 'Roboto', sans-serif;
         overflow: hidden;
@@ -83,7 +83,7 @@ const timersURL = [
     .elevator-first-sentence{
         color:#054696;
         text-align: left;
-        margin:0px 40px 10px 20px !important;
+        margin:0px 40px 40px 20px !important;
     }
 
     .second-sentence{
@@ -154,5 +154,19 @@ const timersURL = [
         width: 5px;
         z-index: 100;
     }
+
+
+    @media (max-width: 500px) {
+
+        .holder-elevator-pitch {
+        font-size: 14px;
+        }
+
+        .elevator-first-sentence{
+            margin:0px 40px 10px 20px !important;
+        }
+
+    } 
+
 
 </style>

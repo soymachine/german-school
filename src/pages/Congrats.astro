@@ -59,7 +59,7 @@ const { step } = Astro.props;
         flex-direction: row;
         border-bottom: 2px solid #82A2CA;
         align-items: flex-end;
-        margin: 0 20px 50px 20px;
+        margin: 50px 20px 90px 20px;
     }
 
     .score-label{
@@ -113,7 +113,7 @@ const { step } = Astro.props;
         width: 113%;
         height: 118px;
         position: relative;
-        top: -30px;
+        top: -60px;
         left: -16px;
 
     }
@@ -136,5 +136,16 @@ const { step } = Astro.props;
         left:0;
         opacity: 0;
     }
+
+    @media (max-width: 500px) {
+
+        .characters {
+            margin: 0 20px 50px 20px;
+        }
+
+        #avatar {
+            top: -30px;
+        }
+    } 
 
 </style>

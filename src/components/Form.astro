@@ -55,11 +55,11 @@ const { step } = Astro.props;
 </div>
 <div class="acceptance-wrapper">
     <div><input id="acceptance" type="checkbox"></div>
-    <div>I accept (policies WHU) - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ut mi viverra, porttitor dolor ornare, cursus lectus. Praesent nec mi et eros porttitor aliquam. </div>
+    <div>I have read and I accept the WHU privacy policy</div>
 </div>
 <div id="message-wrapper-div" class="message-wrapper" style="display:none;">
     <div class="close" id="close-message"><img width="40px" src="/imgs/settings/closeSettings.png"></div>
-    <div id="message-content" class="message">hola que pacha</div>
+    <div id="message-content" class="message"></div>
 </div>
 <style>
 
@@ -190,10 +190,11 @@ const { step } = Astro.props;
     }
 
     .acceptance-wrapper{
-        display: grid;
-        grid-template-columns: auto auto;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
         margin: 10px 20px 10px 20px;
-        font-size: 10px;
+        font-size: 12px;
         font-family: 'Roboto', sans-serif;
         color:#999999;
         gap:5px;
@@ -266,5 +267,14 @@ const { step } = Astro.props;
 		font-weight:bold;
 		display:block;
 	}
+
+    @media (max-width: 500px) {
+        .acceptance-wrapper{
+             font-size: 10px;
+        }
+
+
+    } 
+
     
 </style>

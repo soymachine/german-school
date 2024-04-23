@@ -65,7 +65,7 @@ class ContentAct2Title extends Content {
 
 
         anime({
-            targets: `#step-${this.contentID} .act-cinematics-background-image`,
+            targets: `#step-${this.contentID} .single-img`,
             translateX: 0,
             opacity: 1,
             duration: 1000,
