@@ -105,7 +105,7 @@ const items = [
                         <img src={item.src}>
                     </div>
                     <div class="item-text-wrapper">
-                        {item.isWHU && <div class=`item-label company-label ${classWHU} hide-label`>{item.label}</div>}
+                        {<div class=`item-label company-label`>{item.label}</div>}
                     </div>
                     
                     <img id=`startup-option-${i+1}-correct` class="company-result-image company-correct-image" src="./imgs/companies/correct.png">
@@ -125,8 +125,8 @@ const items = [
     .company-result-image{
         width: 40px;
         position:absolute;
-        top: 65%;
-        left: 65%;
+        top: 61%;
+        left: 72%;
         transition: all .5s;
         opacity: 0;
     }
@@ -178,7 +178,7 @@ const items = [
         background-image: var(--companiesBorderURL);
         background-repeat: repeat-y;
         background-position-x: right;
-        padding: 13px 8px;
+        padding: 13px 8px 20px 8px;
         position: relative;
     }
 
@@ -191,7 +191,7 @@ const items = [
     }
 
     .company-label{
-        margin-top: -30px;
+        margin-top: -20px;
         text-align: center;
         /*width: 25%;*/
         font-size: 14px;

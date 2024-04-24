@@ -1,4 +1,6 @@
 ---
+import Countries from './Countries.astro';
+
 interface Props {
 	step: string;
 }
@@ -9,14 +11,69 @@ const { step } = Astro.props;
     <div id="form-title" class="title">Let’s <strong>get in touch!</strong></div>
     <div class="form-wrapper">
         <form action="" id="formulario">
+            <div class="form-label">Title *</div>
+            <select id="title-select" data-width="100%" class="selectpicker">
+                <option>Mr</option>
+                <option>Ms</option>
+                <option>Mx</option>
+            </select>
             <div class="form-label">Name *</div>
             <input type="text" id="form-name-input">
             <div class="form-label">Surname *</div>
             <input type="text" id="form-surname-input">
+            <div class="form-label">Country of Residence *</div>
+            <Countries />
+            <!--
+            <select id="country-select" data-width="100%" data-size="5" data-dropup-auto="false" data-live-search="true" class="selectpicker dropdown">
+                <option>Spain</option>
+                <option>USA</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+                <option>Mexico</option>
+            </select>
+             -->
             <div class="form-label">Email *</div>
             <input type="text" id="form-email-input">
-            <div class="form-label">Phone *</div>
-            <input type="number" id="form-phone-input">
+            <div class="form-label">Which WHU Program you are interested in *</div>
+            <select id="program-select" data-width="100%" data-dropup-auto="false" class="selectpicker dropup">
+                <option>Bachelor of Science</option>
+                <option>Master of Science</option>
+                <option>MBA</option>
+                <option>EMBA</option>
+                <option>Executive Education</option>
+            </select>
             <div class="format-error-label">Format error! Please check the highlighted fields</div>
             <div class="sending-area">
                 <div class="button-holder">
@@ -55,13 +112,21 @@ const { step } = Astro.props;
 </div>
 <div class="acceptance-wrapper">
     <div><input id="acceptance" type="checkbox"></div>
-    <div>I have read and I accept the WHU privacy policy</div>
+    <div>I have read and I accept the WHU privacy policy.</div>
+</div>
+<div class="acceptance-wrapper">
+    <div><input id="acceptance-info" type="checkbox"></div>
+    <div>I agree to receive further information about courses, admissions, and events tailored to my interests.</div>
 </div>
 <div id="message-wrapper-div" class="message-wrapper" style="display:none;">
     <div class="close" id="close-message"><img width="40px" src="/imgs/settings/closeSettings.png"></div>
     <div id="message-content" class="message"></div>
 </div>
 <style>
+
+    .selectpicker {
+        margin-top:10px;
+    }
 
     #form-wedge {
         position: absolute;
@@ -228,13 +293,13 @@ const { step } = Astro.props;
         margin:10px 20px 10px 20px;
         border-radius: 5px;
         padding:20px 20px;
-        font-size: 16px;
+        font-size: 14px;
         min-height: 360px;
     }
 
     .form-label {
         font-style: italic;
-        margin-bottom: 5px;
+        margin-top: 5px;
     }
 
     
@@ -243,7 +308,7 @@ const { step } = Astro.props;
         border:1px solid #054696;
         padding:10px;
         margin-bottom: 10px;
-        font-size: 14px;
+        font-size: 12px;
     }
 
     .button-holder {
