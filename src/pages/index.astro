@@ -39,9 +39,17 @@ import New from './New.astro';
 import Interview from './Interview.astro';
 import Dialogue1_Cinematics from './acts/Dialogue1_Cinematics.astro';
 import Dialogue2_Cinematics from './acts/Dialogue2_Cinematics.astro';
+import { imageURL } from '../../public/scripts/helpers/ImageURL';
 
+const backgroundURL = imageURL("imgs/cover_background.jpg")
+console.log("backgroundURL")
+console.log(backgroundURL)
 ---
 <Layout title="The Rainforest Quest">
+	<!--<div class="cover-background">
+		<img src="/imgs/cover_background.jpg" draggable="false"/>
+	</div>
+	 -->
 	<div class="container" draggable="false">
 		<div id="root" class="holder">
 			<Settings />
@@ -156,13 +164,17 @@ import Dialogue2_Cinematics from './acts/Dialogue2_Cinematics.astro';
 		
 	</div>
 </Layout>
-<style is:global>
+<style is:global define:vars={{backgroundURL}}>
 	
 	:root {
     	--radius: 15px;
     	--marginGeneral: 0%;
     	--color-alternate: orange;
     	--color-correct: green;
+	}
+
+	#root{
+		box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 	}
 
 	p {
@@ -178,6 +190,10 @@ import Dialogue2_Cinematics from './acts/Dialogue2_Cinematics.astro';
 		touch-action: none;
 		margin: 0;
 		padding:0;
+		/*background-image: var(--backgroundURL);*/
+		background-image: url("/imgs/cover_background.jpg");
+		background-size: cover;
+    	background-position: center;
 	}
 
 	@font-face {
@@ -206,10 +222,17 @@ import Dialogue2_Cinematics from './acts/Dialogue2_Cinematics.astro';
 		height: 100vh;
 		height: 100svh;
 		width: 100vw;
-		background-color: black;
+		/*background-color: black;*/
 		overflow:hidden;
-
+		position:relative;
+		z-index:2;
 	}
+
+	.cover-background {
+		position: absolute;
+		z-index:1;
+	}
+
 
 	.holder {
 		position: relative;

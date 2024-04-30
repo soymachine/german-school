@@ -214,7 +214,7 @@ class Controller {
         this.currentPunctuation = currentPunctuation;
 
         // TESTING */
-        this.showContent(32); // 16 cinematics done
+        //this.showContent(32); // 16 cinematics done
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event);
         });
