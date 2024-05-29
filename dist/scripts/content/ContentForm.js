@@ -27,7 +27,6 @@ class ContentForm extends Content {
         this.$emailInput = document.getElementById("form-email-input");
         this.$nameInput = document.getElementById("form-name-input");
         this.$surnameInput = document.getElementById("form-surname-input");
-        this.$phoneInput = document.getElementById("form-phone-input");
         this.$acceptance = document.getElementById("acceptance");
         this.$close = document.getElementById("close-message");
         this.$message = document.getElementById("message-wrapper-div");
@@ -46,7 +45,6 @@ class ContentForm extends Content {
         this.$emailInput.onchange =
             this.$nameInput.onchange =
             this.$surnameInput.onchange =
-            this.$phoneInput.onchange =
             this.$acceptance.onchange =
                 function (event) {
                     //asign a function
@@ -83,14 +81,15 @@ class ContentForm extends Content {
         this.rootRect = document.getElementById("root").getBoundingClientRect();
         this.$close.style.left = this.rootRect.width * 0.5 - 40 + "px";
 
-        // this.onFormSuccess();
+        $("#title-select").on("changed.bs.select", function (e, clickedIndex, isSelected, previousValue) {
+            //$("#title-select").val();
+        });
     }
 
     removeErrorsFromFields() {
         this.$emailInput.classList.remove("field-format-error");
         this.$nameInput.classList.remove("field-format-error");
         this.$surnameInput.classList.remove("field-format-error");
-        this.$phoneInput.classList.remove("field-format-error");
     }
 
     onChangeInput() {
@@ -99,11 +98,15 @@ class ContentForm extends Content {
         let email = this.$emailInput.value;
         let name = this.$nameInput.value;
         let surname = this.$surnameInput.value;
-        let phone = this.$phoneInput.value;
+        let titleSelect = $("#title-select").val();
+        let countrySelect = $("#country-select").val();
+        let programSelect = $("#program-select").val();
         const accepted = this.$acceptance.checked;
 
+        console.log("onChangeInput", email, name, surname, titleSelect, countrySelect, programSelect, accepted);
+
         // Check si todo está lleno y aceptado
-        if (name != "" && surname != "" && email != "" && phone != "" && accepted) {
+        if (name != "" && surname != "" && email != "" && accepted) {
             // Todo lleno
             // Check for format errors first
             let passChecks = true;
@@ -156,14 +159,7 @@ class ContentForm extends Content {
         }
     }
 
-    activateContent() {
-        console.error("Entramos en Form");
-        $(".select").each(function () {
-            console.log("select");
-        });
-
-        $("#formulario").css("display", "none");
-    }
+    activateContent() {}
 
     onDataUpdated(data) {}
 
@@ -173,7 +169,9 @@ class ContentForm extends Content {
         let email = this.$emailInput.value;
         let name = this.$nameInput.value;
         let surname = this.$surnameInput.value;
-        let phone = this.$phoneInput.value;
+        let titleSelect = $("#title-select").val();
+        let countrySelect = $("#country-select").val();
+        let programSelect = $("#program-select").val();
 
         this.sendNewData({
             name: name,
@@ -181,11 +179,14 @@ class ContentForm extends Content {
             email: email,
             score: currentPunctuation.getPunctuation(),
             avatar: avatarSelection.getAvatarID(),
-            phone: phone,
+            title: titleSelect,
+            country: countrySelect,
+            program: programSelect,
         });
     }
 
     sendNewData(data) {
+        console.log(data);
         const t = this;
         // Quitamos acceptance wrapper
         document.querySelector(".acceptance-wrapper").style.display = "none";

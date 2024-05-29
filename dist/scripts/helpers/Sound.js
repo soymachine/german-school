@@ -25,6 +25,8 @@ class Sound {
     currentMusicVolume = 1;
     fadeOutVolume = 0.1;
     fadeInVolume = 1;
+    soundFXVolume = 0.35;
+    loopVolume = 0.35;
 
     constructor(src) {
         eventSystem.subscribe(Events.ON_CONTENT_BEGIN_SHOWN, (content) => {
@@ -39,6 +41,13 @@ class Sound {
         });
         eventSystem.subscribe(Events.ON_SFX_PLAY, (id) => {
             this.onSFXPlay(id);
+        });
+
+        eventSystem.subscribe(Events.ON_STOP_TICK_TACK_LOOP, (id) => {
+            this.stopPreviousLoop();
+            this.currentLoopPath = null;
+            this.playSong(this.backgruondMusicPath);
+            this.changeMusicVolume(this.fadeInVolume);
         });
     }
 
@@ -112,6 +121,7 @@ class Sound {
             case Steps.SARAH_QUESTION_9:
             case Steps.SARAH_QUESTION_10:
             case Steps.STARTUPS:
+                console.log("Entramos en play sfx tic toc");
                 this.stopPreviousLoop(this.questionsMusicPath);
                 //this.stopPreviousMusic(this.questionsMusicPath)
                 this.playLoop(this.questionsMusicPath);
@@ -155,7 +165,7 @@ class Sound {
             src: [soundPath],
             autoplay: true,
             loop: false,
-            volume: 1,
+            volume: this.soundFXVolume,
         });
     }
 
@@ -195,7 +205,7 @@ class Sound {
             src: [loopPath],
             autoplay: true,
             loop: true,
-            volume: 1,
+            volume: this.loopVolume,
         });
 
         this.loops[loopPath].fade(0, 1, 2000).onfade = () => {

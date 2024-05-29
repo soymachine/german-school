@@ -1,203 +1,191 @@
-import Content from './Content.js'
-import {eventSystem, Events} from '../helpers/EventSystem.js'
-import ResponseUnique from '../helpers/ResponseUnique.js'
-import Settings from '../helpers/Settings.js'
-import Steps from '../helpers/Steps.js'
-import {avatarSelection} from '../helpers/AvatarSelection.js'
-import {currentPunctuation} from '../helpers/Punctuation.js'
-
-
+import Content from "./Content.js";
+import { eventSystem, Events } from "../helpers/EventSystem.js";
+import ResponseUnique from "../helpers/ResponseUnique.js";
+import Settings from "../helpers/Settings.js";
+import Steps from "../helpers/Steps.js";
+import { avatarSelection } from "../helpers/AvatarSelection.js";
+import { currentPunctuation } from "../helpers/Punctuation.js";
 
 class ContentBusiness extends Content {
-    constructor(){
-        super(Steps.BUSINESS)
+    constructor() {
+        super(Steps.BUSINESS);
 
         // Scope
-        const self = this
-        this.isScoreShown = false
-        this.yOffset = 20
-        this.xOffset = 5
-        this.duration = 250
-        this.responseID = undefined
-        this.correctResponseID = 1
+        const self = this;
+        this.isScoreShown = false;
+        this.yOffset = 20;
+        this.xOffset = 5;
+        this.duration = 250;
+        this.responseID = undefined;
+        this.correctResponseID = 1;
         // Data
-        this.responses = [
-            "To solve an existing problem in the market",
-            "To explore my creativiy to its full potential",
-            "To be my own boss and and lead a team",
-            "To make an impact in society"
-        ]
-        this.$answerDescription = document.querySelector(`#step-${this.contentID} .answer-description`)
-        this.$answerCorrectIcon = document.querySelector(`#step-${this.contentID} #answer-correct-icon`)
+        this.responses = ["To solve an existing problem in the market", "To explore my creativiy to its full potential", "To be my own boss and and lead a team", "To make an impact in society"];
+        this.$answerDescription = document.querySelector(`#step-${this.contentID} .answer-description`);
+        this.$answerCorrectIcon = document.querySelector(`#step-${this.contentID} #answer-correct-icon`);
 
-        this.firstParagraph = document.querySelector(`#step-${this.contentID} .first-paragraph`)
-        this.secondParagraph = document.querySelector(`#step-${this.contentID} .second-paragraph`)
-        
-        this.$holder
-        this.buttonsData = []
-        
+        this.firstParagraph = document.querySelector(`#step-${this.contentID} .first-paragraph`);
+        this.secondParagraph = document.querySelector(`#step-${this.contentID} .second-paragraph`);
+
+        this.$holder;
+        this.buttonsData = [];
+
         // El botón de NEXT
-        this.$nextButton = document.querySelector(`#next-button-${this.contentID}`)
+        this.$nextButton = document.querySelector(`#next-button-${this.contentID}`);
 
         // Los botones de las respuestas
-        this.$answerButtons = []
-        document.querySelectorAll(`.business-answer-button`).forEach((button)=>{
-            this.$answerButtons.push(button)
-        })
-        
-        this.yOffset = this.$answerButtons[1].getBoundingClientRect().top - this.$answerButtons[0].getBoundingClientRect().top
-        
-        
+        this.$answerButtons = [];
+        document.querySelectorAll(`.business-answer-button`).forEach((button) => {
+            this.$answerButtons.push(button);
+        });
 
-        this.$nextButton.onmousedown = function(e) { //asign a function
-            self.onClickNext()
-        }
-        this.$nextButton.addEventListener('touchend', function(event){
-            event.preventDefault();
-            self.onClickNext()
-        }, false);
+        this.yOffset = this.$answerButtons[1].getBoundingClientRect().top - this.$answerButtons[0].getBoundingClientRect().top;
 
-        this.disableNextButton()
+        this.$nextButton.onmousedown = function (e) {
+            //asign a function
+            self.onClickNext();
+        };
+        this.$nextButton.addEventListener(
+            "touchend",
+            function (event) {
+                event.preventDefault();
+                self.onClickNext();
+            },
+            false
+        );
 
-        eventSystem.subscribe(Events.ON_RESPONSE_UPDATE, (responseObj)=>{
-            this.onResponseUpdate(responseObj)
-        })
+        this.disableNextButton();
+
+        eventSystem.subscribe(Events.ON_RESPONSE_UPDATE, (responseObj) => {
+            this.onResponseUpdate(responseObj);
+        });
 
         // Las posibles respuestas, solo podemos marcar una
-        this.reponseUnique = new ResponseUnique(this.contentID)
+        this.reponseUnique = new ResponseUnique(this.contentID);
     }
 
-    preactivateContent(){
-        
-    }
+    preactivateContent() {}
 
-    activateContent(){
+    activateContent() {
         //console.log(this.correctIconRect)
     }
 
-    deactivateContent(){
-        
-    }
+    deactivateContent() {}
 
-    onResponseUpdate(responseObj){
-        if(responseObj.responseID ==  this.contentID){
-            this.enableNextButton()
-            this.processResponse()
+    onResponseUpdate(responseObj) {
+        if (responseObj.responseID == this.contentID) {
+            this.enableNextButton();
+            this.processResponse();
         }
     }
 
-    processResponse(){
+    processResponse() {
         //console.log("processResponse")
         // Is the response correct or incorrect?
-        this.responseID = this.reponseUnique.currentButtonSelected
+        this.responseID = this.reponseUnique.currentButtonSelected;
     }
 
-    hideResponse(responseID){
+    hideResponse(responseID) {
         anime({
             targets: `#${responseID}`,
             opacity: 0,
             easing: Settings.ease,
-            duration:500,            
+            duration: 500,
         });
     }
 
-    showScore(){
-        this.reponseUnique.isEnabled = false
-        let userCorrect = false
-        const responseID = this.responseID - 1
-        this.$answerButtons.forEach((button, index)=>{
-            console.log(index)
-            const buttonID = button.getAttribute("id")
+    showScore() {
+        this.reponseUnique.isEnabled = false;
+        let userCorrect = false;
+        const responseID = this.responseID - 1;
+        this.$answerButtons.forEach((button, index) => {
+            console.log(index);
+            const buttonID = button.getAttribute("id");
 
             // Es la que tenemos seleccionada?
-            if(index == responseID){
+            if (index == responseID) {
                 anime({
                     targets: `#${buttonID}`,
                     translateY: this.yOffset * index * -1,
                     easing: Settings.ease,
-                    duration:500,
-                    delay:0            
+                    duration: 500,
+                    delay: 0,
                 });
-                
+
                 // Marcado de correcto o incorrecto
-                let icon =`#${buttonID} .answer-incorrect-icon`
+                let icon = `#${buttonID} .answer-incorrect-icon`;
                 // es la eleigida por el usuario?
-                if(index == this.correctResponseID){
-                    // Es la elegida por usuario   
+                if (index == this.correctResponseID) {
+                    // Es la elegida por usuario
                     // AAA
-                    userCorrect = true
-                    icon =`#${buttonID} .answer-correct-icon`
-                }else{
+                    userCorrect = true;
+                    icon = `#${buttonID} .answer-correct-icon`;
+                } else {
                     // No es la elegida por usuario
-                   
                 }
 
                 anime({
-                    targets:icon,
+                    targets: icon,
                     opacity: 1,
                     easing: Settings.ease,
-                    duration:500,
-                    delay:0            
+                    duration: 500,
+                    delay: 0,
                 });
-            }else if(index == this.correctResponseID){
+            } else if (index == this.correctResponseID) {
                 // La correcta!
-                if(index == responseID){
-                    // Es la elegida por usuario   
+                if (index == responseID) {
+                    // Es la elegida por usuario
                     // AAA
-                }else{
+                } else {
                     // No es la elegida por usuario
                     // La marcamos de verde
-                    console.log("Marcamos algo de verde!")
-                    button.classList.add("btn-step-option-correct")
+                    console.log("Marcamos algo de verde!");
+                    button.classList.add("btn-step-option-correct");
                 }
-            }else{
+            } else {
                 // Cualquiera de las otras
                 // Get the id of button html element
-                this.hideResponse(buttonID)
+                this.hideResponse(buttonID);
             }
-        })
-        
-        let points = "0"
-        if(userCorrect){
-            this.firstParagraph.innerHTML = `<strong>Well done, <span class='user-name'>${avatarSelection.name}</span>.</strong><br>That is correct!`
-           // this.secondParagraph.innerHTML = `That is correct!`
-            points = "+10"
-            currentPunctuation.addPunctuation(10)
-        }else{
-            this.firstParagraph.innerHTML = `<strong>Oops, <span class='user-name'>${avatarSelection.name}</span>.</strong><br>The correct answer was...`
+        });
+
+        let points = "0";
+        if (userCorrect) {
+            this.firstParagraph.innerHTML = `<strong>Well done, <span class='user-name'>${avatarSelection.name}</span>.</strong><br>That is correct!`;
+            // this.secondParagraph.innerHTML = `That is correct!`
+            points = "+10";
+            currentPunctuation.addPunctuation(10);
+        } else {
+            this.firstParagraph.innerHTML = `<strong>Oops, <span class='user-name'>${avatarSelection.name}</span>.</strong><br>The correct answer was...`;
             //this.secondParagraph.innerHTML = `The correct answer was...`
         }
 
-
         anime({
-            targets:`#step-${this.contentID} .business-result`,
+            targets: `#step-${this.contentID} .business-result`,
             opacity: 1,
             easing: Settings.ease,
-            duration:500,
-            delay:0            
+            duration: 500,
+            delay: 0,
         });
-        
-        document.querySelector(`#step-${this.contentID} .business-result-points`).innerHTML = points
-       
-    }
-    
 
-    onClickNext(){
-        if(!this.isNextEnabled){
-            return
-        }
-        
-        if(!this.isScoreShown){
-            this.isScoreShown = true
-            this.showScore()
-        }else{
-            // Vamos a la siguiente sección
-            this.gotoNextStep()
-            eventSystem.publish(Events.ON_PROGRESS_UPDATE, 2)
-        }
-        
+        document.querySelector(`#step-${this.contentID} .business-result-points`).innerHTML = points;
     }
-    
+
+    onClickNext() {
+        if (!this.isNextEnabled) {
+            return;
+        }
+
+        if (!this.isScoreShown) {
+            this.isScoreShown = true;
+            this.showScore();
+
+            eventSystem.publish(Events.ON_STOP_TICK_TACK_LOOP);
+        } else {
+            // Vamos a la siguiente sección
+            this.gotoNextStep();
+            eventSystem.publish(Events.ON_PROGRESS_UPDATE, 2);
+        }
+    }
 }
 
-export default ContentBusiness
+export default ContentBusiness;

@@ -12,6 +12,7 @@ class ContentStartup extends Content {
         const self = this;
 
         this.isMobile = true;
+        console.log(window.innerWidth);
         if (window.innerWidth > 768) {
             console.log("Probably a desktop device");
             this.isMobile = false;
@@ -131,7 +132,7 @@ class ContentStartup extends Content {
 
         const delayDesplazamiento = 1000;
 
-        let yDesplazamiento = -105;
+        let yDesplazamiento = -115;
         let xDesplazamiento = -105; // Zalando, al final
 
         if (!this.isMobile) {
@@ -166,7 +167,7 @@ class ContentStartup extends Content {
             delay: delayDesplazamiento + 100,
         });
 
-        // Flixbus a la izquierda
+        // Zalando a la izquierda
         anime({
             targets: `#btn-step-${this.contentID}-option-6`,
             translateX: xDesplazamiento,
@@ -234,6 +235,8 @@ class ContentStartup extends Content {
                 this.showScore();
                 //this.hideTitle()
                 this.freezeCompanies();
+                eventSystem.publish(Events.ON_STOP_TICK_TACK_LOOP);
+
                 break;
             case "score":
                 this.state = "result";

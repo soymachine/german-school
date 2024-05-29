@@ -247,6 +247,8 @@ class ContentWhyEnterpreuner extends Content {
                 easing: "easeOutQuad",
             });
 
+            eventSystem.publish(Events.ON_STOP_TICK_TACK_LOOP);
+
             document.querySelector(`#result-step-${this.contentID} .business-result-points`).innerHTML = "+10";
         } else {
             // Vamos a la siguiente sección

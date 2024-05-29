@@ -11,7 +11,7 @@ const { step } = Astro.props;
 const timersURL = [
     "watch-timer-1.png",
     "watch-timer-2.png",
-    "watch-timer-3.png",
+    "watch-timer-4.png",
     "watch-timer-4.png",
     "watch-timer-5.png",
     "watch-timer-6.png",
@@ -49,7 +49,7 @@ const timersURL = [
             </div>
         </a>
         <img draggable="false" id="watch-center-piece" src="./imgs/elevator-pitch/watch-center-piece.png">
-        <div class="time-selected-text"> 30''</div>
+        <div class="time-selected-text"></div>
         
     </div>
     <Punctuation step={step}/>
@@ -92,7 +92,7 @@ const timersURL = [
 
     .watch {
         margin: 0px 0px;
-        margin-bottom: 30px;
+        margin-bottom: 90px;
         position: relative;
     }
 
@@ -164,6 +164,10 @@ const timersURL = [
 
         .elevator-first-sentence{
             margin:0px 40px 10px 20px !important;
+        }
+
+        .watch {
+            margin-bottom: 40px;
         }
 
     } 

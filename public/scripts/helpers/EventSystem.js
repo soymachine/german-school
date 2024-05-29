@@ -1,55 +1,55 @@
 class EventSystem {
     constructor() {
-      // Initialize an empty map to store event subscriptions
-      this.subscribers = new Map();
+        // Initialize an empty map to store event subscriptions
+        this.subscribers = new Map();
     }
-  
+
     // Subscribe a callback function to an event
     subscribe(event, callback) {
-      if (!this.subscribers.has(event)) {
-        this.subscribers.set(event, []);
-      }
-      this.subscribers.get(event).push(callback);
+        if (!this.subscribers.has(event)) {
+            this.subscribers.set(event, []);
+        }
+        this.subscribers.get(event).push(callback);
     }
-  
+
     // Publish a message to all subscribers of an event
     publish(event, message) {
-      if (this.subscribers.has(event)) {
-        const subscribers = this.subscribers.get(event);
-        subscribers.forEach(callback => callback(message));
-      }
+        if (this.subscribers.has(event)) {
+            const subscribers = this.subscribers.get(event);
+            subscribers.forEach((callback) => callback(message));
+        }
     }
-  
+
     // Example usage:
     // eventSystem.subscribe('userLoggedIn', (user) => {
     //   console.log(`User ${user} logged in.`);
     // });
     // eventSystem.publish('userLoggedIn', 'Alice');
-  }
-  
-class Events {
 }
 
-Events.ON_PROGRESS_LOADING = "ON_PROGRESS_LOADING"
-Events.ON_LOADING_COMPLETED = "ON_LOADING_COMPLETED"
-Events.ON_DATA_UPDATED = "ON_DATA_UPDATED"
-Events.ON_CONTENT_BEGIN_SHOWN = "ON_CONTENT_BEGIN_SHOWN"
-Events.ON_CONTENT_BEGIN_HIDE = "ON_CONTENT_BEGIN_HIDE"
-Events.ON_CONTENT_SHOWN = "ON_CONTENT_SHOWN"
-Events.ON_CONTENT_HIDE = "ON_CONTENT_HIDE"
-Events.ON_QUESTIONAIRE_UPDATE = "ON_QUESTIONAIRE_UPDATE"
-Events.ON_RESPONSE_UPDATE = "ON_RESPONSE_UPDATE"
-Events.ON_REQUEST_STEP = "ON_REQUEST_STEP"
-Events.ON_REQUEST_NEXT_STEP = "ON_REQUEST_NEXT_STEP"
-Events.ON_PICKER_UPDATE = "ON_PICKER_UPDATE"
-Events.ON_AVATAR_COMPLETED = "ON_AVATAR_COMPLETED"
-Events.ON_MUSIC_CHANGED = "ON_MUSIC_CHANGED"
-Events.ON_SFX_CHANGED = "ON_SFX_CHANGED"
-Events.ON_SFX_PLAY = "ON_SFX_PLAY"
-Events.ON_PROGRESS_UPDATE = "ON_PROGRESS_UPDATE"
-Events.ON_PROGRESS_CHANGE = "ON_PROGRESS_CHANGE"
+class Events {}
+
+Events.ON_PROGRESS_LOADING = "ON_PROGRESS_LOADING";
+Events.ON_LOADING_COMPLETED = "ON_LOADING_COMPLETED";
+Events.ON_DATA_UPDATED = "ON_DATA_UPDATED";
+Events.ON_CONTENT_BEGIN_SHOWN = "ON_CONTENT_BEGIN_SHOWN";
+Events.ON_CONTENT_BEGIN_HIDE = "ON_CONTENT_BEGIN_HIDE";
+Events.ON_CONTENT_SHOWN = "ON_CONTENT_SHOWN";
+Events.ON_CONTENT_HIDE = "ON_CONTENT_HIDE";
+Events.ON_QUESTIONAIRE_UPDATE = "ON_QUESTIONAIRE_UPDATE";
+Events.ON_RESPONSE_UPDATE = "ON_RESPONSE_UPDATE";
+Events.ON_REQUEST_STEP = "ON_REQUEST_STEP";
+Events.ON_REQUEST_NEXT_STEP = "ON_REQUEST_NEXT_STEP";
+Events.ON_PICKER_UPDATE = "ON_PICKER_UPDATE";
+Events.ON_AVATAR_COMPLETED = "ON_AVATAR_COMPLETED";
+Events.ON_MUSIC_CHANGED = "ON_MUSIC_CHANGED";
+Events.ON_SFX_CHANGED = "ON_SFX_CHANGED";
+Events.ON_SFX_PLAY = "ON_SFX_PLAY";
+Events.ON_PROGRESS_UPDATE = "ON_PROGRESS_UPDATE";
+Events.ON_PROGRESS_CHANGE = "ON_PROGRESS_CHANGE";
+Events.ON_STOP_TICK_TACK_LOOP = "ON_STOP_TICK_TACK_LOOP";
 
 const eventSystem = new EventSystem();
-  
+
 // Export the singleton instance
-export {eventSystem, Events};
+export { eventSystem, Events };
