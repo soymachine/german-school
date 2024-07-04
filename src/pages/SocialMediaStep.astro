@@ -29,8 +29,10 @@ const { step } = Astro.props;
             <a class="close-button" id="close-button-2" href="#"><img src="./imgs/intro/bus/social-media-stream/close-button.png"></a>
         </div>
     </div>
-    
+
         <div class="social-media-stream-wrapper">
+
+            
             <div class="social-media-background">
                 <div class="phone-bar">
                     <img src="./imgs/intro/bus/social-media-stream/icons.png">
@@ -70,7 +72,9 @@ const { step } = Astro.props;
                 </div>
             </div>
         </div>
-    
+        <div class="social-media-border">
+
+        </div>
 </div>
 <style >
     .phone-bar {
@@ -125,7 +129,7 @@ const { step } = Astro.props;
         filter: blur(0px);
     }
 
-    .social-media-stream-wrapper {
+    .social-media-border{
         position: absolute;
         width: 65%;
         top: 170px;
@@ -135,16 +139,30 @@ const { step } = Astro.props;
         background-color: #CECEBF;
         /*outline:8px solid #CECEBF;*/
         border-radius: 10px;
-        z-index: 100;
+        z-index:110;
         box-shadow: 0px 2px 5px 3px rgb(0 0 0 / 50%);
+    }
+
+    .social-media-stream-wrapper {
+        position: absolute;
+        width: 65%;
+        top: 180px;
+        overflow: hidden;
+        /*outline:8px solid #CECEBF;*/
+       
+        z-index: 120;
     }
 
     .social-media-background {
         background-color: white;
         border-radius: 10px;
-        height: calc(100% - 12px);
-        margin:6px;
+        height: calc(100%);
+        width: 95%;
+        margin: auto;
+        position: relative;
     }	
+
+
 
     .social-media-stream {
         position: absolute;

@@ -1,0 +1,1 @@
+import"https://consent.cookiefirst.com/sites/rainforest.whu.edu-c93e96ad-d2ff-4ca5-b13b-da8f00fa3683/consent.js";import"https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js";const o="0.0.1",e=localStorage.getItem("version");console.log("version "+o);e!==o&&(localStorage.clear(),localStorage.setItem("version",o));

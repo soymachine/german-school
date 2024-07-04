@@ -15,7 +15,7 @@ const { step } = Astro.props;
     <div class="avatar-explanation">
         <div class="header-avatar">
             <div id="avatar">
-                <Avatar width={110} step={step} hasText={false} isSpeech={true}/>
+                <Avatar width={130} hasShadow={false} step={step} hasText={false} isSpeech={true}/>
             </div>            
         </div>
         <div class="header-text">
@@ -23,7 +23,7 @@ const { step } = Astro.props;
         </div>
     </div>
     <div class="call-to-action">
-        <strong>Join us</strong> to unleash your full potential and create the next big thing with us!   
+        Uncover your future with WHU - <br><strong>join us and get your exclusive reward!</strong> 
     </div>
     <NextButton step={step}/>
 </div>
@@ -84,7 +84,7 @@ const { step } = Astro.props;
     }
 
     .header-text{
-        font-size: 15px;
+        font-size: 18px;
         text-align: left;
         line-height: 1.5em;
     }
@@ -122,7 +122,7 @@ const { step } = Astro.props;
     }
 
     .call-to-action{
-        font-size: 15px; 
+        font-size: 18px; 
         margin:10px 30px;
     }
 
@@ -159,6 +159,16 @@ const { step } = Astro.props;
             top: 13px !important;
             left: 11px !important;
             transform: scale(1.2);
+        }
+
+        .header-text{
+            font-size: 15px;
+            line-height: 1.5em;
+        }
+
+        .call-to-action{
+            font-size: 15px; 
+            margin:10px 30px;
         }
     } 
 

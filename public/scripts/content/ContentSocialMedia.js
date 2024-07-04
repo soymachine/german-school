@@ -33,6 +33,7 @@ class ContentSocialMedia extends Content {
         this.socialMedias = document.querySelectorAll(".social-media");
         this.retweetButton = document.getElementById("social-media-button-1");
         this.wrapper = document.querySelector(".social-media-stream-wrapper");
+        this.wrapperBorder = document.querySelector(".social-media-border");
 
         this.retwetImage = document.getElementById("retweet-button");
         this.retwetCompletedImage = document.getElementById("retweet-button-completed");
@@ -105,10 +106,12 @@ class ContentSocialMedia extends Content {
         const offset = 10;
         const availHeight = rootRect.height - (wrapperRect.y - rootRect.y) - footerHeight - offset;
         // set height for wrapper
-        this.wrapper.style.height = `${availHeight}px`;
+        this.wrapper.style.height = `${availHeight - 20}px`;
+        this.wrapperBorder.style.height = `${availHeight}px`;
 
         const x = rootRect.width * 0.5 - wrapperRect.width * 0.5;
         this.wrapper.style.left = `${x}px`;
+        this.wrapperBorder.style.left = `${x}px`;
 
         const speechAvatarBodyPart = document.querySelector("#speech-user-avatar .my-avatar-body-part");
         const avatarRect = speechAvatarBodyPart.getBoundingClientRect();

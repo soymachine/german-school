@@ -32,6 +32,8 @@ import IntroMessage from './IntroMessage.astro';
 import Header from '../components/Header.astro';
 import BusinessStep from './BusinessStep.astro';
 import Footer from '../components/Footer.astro';
+import FooterDesktop from '../components/FooterDesktop.astro';
+import FlowersDesktop from '../components/FlowersDesktop.astro';
 import PrologueCinematics from './acts/Prologue_Cinematics.astro';
 import CallToAction from './CallToAction.astro';
 import Settings from '../components/Settings.astro';
@@ -153,16 +155,16 @@ console.log(backgroundURL)
 				<Step step="31">
 					<CallToAction step='31'/>
 				</Step>
-				<Step step="32">
-					<Form step="32"/>
-				</Step>
 			</div>
 			<div class="sticky-footer">
 				<Footer />
 			</div>
 		</div>
-		
+		<FlowersDesktop />
+		<FooterDesktop />
 	</div>
+	<!-- add a footer -->
+	
 </Layout>
 <style is:global define:vars={{backgroundURL}}>
 	
@@ -240,7 +242,7 @@ console.log(backgroundURL)
 		height: calc(100% - var(--marginGeneral));
 		width: calc(100% - var(--marginGeneral));
 		max-width: 448px;
-		max-height: 800px;
+		max-height: 800px; /* 800 */
 		overflow:hidden;
 		background-color: white;
 	}

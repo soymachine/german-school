@@ -1,0 +1,38 @@
+---
+const year = new Date().getFullYear();
+---
+<div class="footer-desktop">
+    <div class="footer-separator"></div>
+    <div class="footer-content">
+        <div class="footer-desktop-text">
+            © WHU {year}. <a href="https://www.whu.edu/en/privacy-policy/" target="_blank">Privacy policy</a>
+        </div>
+    </div>
+</div>
+
+<style>
+   .footer-desktop{
+    /* align this element at the bottom of the page */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #76A4B3;
+    padding: 20px 0 40px 0px;
+    text-align: center;
+    font-size: 12px;
+    color: white;
+    z-index: 1000;
+    border-top: 10px solid #e0e0e0;
+    display: none;
+    /*  */
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    /* border-top: 1px solid #e0e0e0; */
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+   }
+
+   .footer-desktop-text a {
+        color: white;
+        text-decoration: underline;
+    }
+
+</style>

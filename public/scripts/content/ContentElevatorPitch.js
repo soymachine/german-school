@@ -189,6 +189,12 @@ class ContentElevatorPitch extends Content {
             //this.firstSentence.innerHTML = "<strong>That's incorrect!</strong>"
         }
 
+        let marginBotton = 70;
+        const rootRect = document.getElementById("root").getBoundingClientRect();
+        if (rootRect.height >= 800) {
+            marginBotton = 100;
+        }
+
         anime({
             targets: `#result-step-${this.contentID}`,
             opacity: 1,
@@ -200,7 +206,7 @@ class ContentElevatorPitch extends Content {
             targets: `.watch`,
             scale: 0.9,
             translateY: 0,
-            marginBottom: 70,
+            marginBottom: marginBotton,
             duration: this.duration,
             easing: "easeOutQuad",
         });

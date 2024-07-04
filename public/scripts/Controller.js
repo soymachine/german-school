@@ -43,7 +43,9 @@ import ContentAct3Title from "./content/ContentAct3Title.js";
 import ContentAct4Title from "./content/ContentAct4Title.js";
 
 class Controller {
+    agent;
     constructor() {
+        this.checkDeviceType();
         this.eventSystem = eventSystem;
         this.Events = Events;
         this.avatarSelection = avatarSelection;
@@ -52,6 +54,10 @@ class Controller {
 
         // Valores generales del contenedor
         this.$content = document.querySelector("#content");
+
+        // this.checkRootDimensions();
+        this.adjustFooter();
+        this.positionDesktopFlowers();
 
         // Si esto cambia a causa de un resize del navegador, hay que recalcular la posición del content según el contenido
         this.contentWidth = this.$content.getBoundingClientRect().width;
@@ -191,9 +197,6 @@ class Controller {
         // ACTI 4 TITLE
         this.contentAct4Title = new ContentAct4Title();
 
-        // - FORM
-        this.from = new ContentForm();
-
         // El controlador del questionario
         this.questionaireController = new QuestionaireController();
 
@@ -214,7 +217,7 @@ class Controller {
         this.currentPunctuation = currentPunctuation;
 
         // TESTING */
-        this.showContent(3); // 16 cinematics done
+        //this.showContent(28); // 16 cinematics done
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event);
         });
@@ -225,6 +228,80 @@ class Controller {
         eventSystem.subscribe(Events.ON_REQUEST_NEXT_STEP, () => {
             this.onNextContentRequested();
         }); // this.showContent(this.currentSection)
+
+        // listen to an on resize window event
+        window.addEventListener("resize", () => {
+            this.positionDesktopFlowers();
+        });
+    }
+
+    checkDeviceType() {
+        const userAgent = navigator.userAgent;
+
+        // Patterns to identify mobile devices
+        const mobilePatterns = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+
+        // Check if the userAgent matches any of the mobile patterns
+        if (mobilePatterns.test(userAgent)) {
+            console.log("On mobile device");
+            this.agent = "mobile";
+        } else {
+            console.log("On desktop");
+            this.agent = "desktop";
+        }
+    }
+
+    adjustFooter() {
+        if (this.agent === "mobile") {
+            document.querySelector(".sticky-footer").style.display = "none";
+        } else {
+            document.querySelector(".sticky-footer").style.display = "none";
+            document.querySelector(".footer-desktop").style.display = "block";
+        }
+    }
+
+    positionDesktopFlowers() {
+        // check if we are on desktop or on mobile
+        if (this.agent === "mobile") {
+            return;
+        }
+
+        const containerRect = document.querySelector(".container").getBoundingClientRect();
+        const rootRect = document.getElementById("root").getBoundingClientRect();
+        const leftFlowers = document.getElementById("flower-left");
+        const rightFlowers = document.getElementById("flower-right");
+
+        leftFlowers.style.display = `block`;
+        rightFlowers.style.display = `block`;
+
+        const leftFlowersRect = leftFlowers.getBoundingClientRect();
+        const rightFlowersRect = rightFlowers.getBoundingClientRect();
+
+        const leftFlowrsX = containerRect.width * 0.5 - leftFlowersRect.width - rootRect.width * 0.5;
+        const leftFlowrsY = containerRect.height * 0.5 - leftFlowersRect.height * 0.5;
+
+        const rightFlowrsX = containerRect.width * 0.5 + rootRect.width * 0.5;
+        const rightFlowrsY = containerRect.height * 0.5 - rightFlowersRect.height * 0.5;
+
+        leftFlowers.style.top = `${leftFlowrsY}px`;
+        leftFlowers.style.left = `${leftFlowrsX}px`;
+
+        rightFlowers.style.top = `${rightFlowrsY}px`;
+        rightFlowers.style.left = `${rightFlowrsX}px`;
+    }
+
+    checkRootDimensions() {
+        this.rootRect = document.getElementById("root").getBoundingClientRect();
+        console.log("this.rootRect");
+
+        if (this.rootRect.height < 800) {
+            const h = 560;
+            const w = h * 0.56;
+            // add style width equals to w
+            document.getElementById("root").style.maxHeight = `${h}px`;
+            document.getElementById("root").style.maxWidth = `${w}px`;
+            console.log("Ajuste");
+        }
     }
 
     onkeydown = (event) => {
