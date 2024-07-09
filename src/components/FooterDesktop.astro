@@ -23,7 +23,7 @@ const year = new Date().getFullYear();
     color: white;
     z-index: 1000;
     border-top: 10px solid #e0e0e0;
-    display: none;
+    display: block;
     /*  */
     /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
     /* border-top: 1px solid #e0e0e0; */
@@ -35,4 +35,13 @@ const year = new Date().getFullYear();
         text-decoration: underline;
     }
 
+
+	@media (max-height: 970px) {
+		.footer-desktop{
+            padding: 5px 0 5px 0px;
+            display: none;
+            
+        }
+
+	}
 </style>

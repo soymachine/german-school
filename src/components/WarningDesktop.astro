@@ -1,0 +1,26 @@
+---
+const year = new Date().getFullYear();
+---
+<div class="warning-desktop">
+    Warning desktop minimum 800px height
+</div>
+
+<style>
+
+    .warning-desktop{
+        display: none;
+    }
+	@media (max-height: 900px) {
+        .warning-desktop{
+            /*
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #f1f1f1;
+            color: #000;
+            */
+        }
+	}
+</style>

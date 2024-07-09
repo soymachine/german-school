@@ -57,6 +57,8 @@ class ContentElevatorPitch extends Content {
         });
 
         this.disableNextButton();
+
+        window.addEventListener("resize", this.calculateCenterPositions.bind(this));
     }
 
     processMovement() {
@@ -64,7 +66,7 @@ class ContentElevatorPitch extends Content {
 
         if (this.isPressingWatch) {
             this.angle = this.calculateAngle();
-            console.log(this.angle);
+            //console.log(this.angle);
             this.processAngle();
         }
     }
@@ -74,7 +76,17 @@ class ContentElevatorPitch extends Content {
 
         this.setMousePosition(event.clientX, event.clientY);
 
-        this.distanceFromCenter = this.calculateDistance(this.xCenter, this.yCenter, this.mouseX, this.mouseY);
+        this.yCenterReal = this.yCenter;
+
+        if (window.innerHeight < 800) {
+            const rootRect = document.getElementById("root").getBoundingClientRect();
+            //console.log("rootRect.top" + rootRect.top);
+            this.yCenterReal = this.yCenterReal + rootRect.top;
+        }
+
+        this.distanceFromCenter = this.calculateDistance(this.xCenter, this.yCenterReal, this.mouseX, this.mouseY);
+        //console.log("distanceFromCenter", this.distanceFromCenter, "radius", this.radius);
+        //console.log("xCenter", this.xCenter, "yCenter", this.yCenterReal, "mouseX", this.mouseX, "mouseY", this.mouseY);
 
         if (this.distanceFromCenter < this.radius) {
             this.isPressingWatch = true;
@@ -102,7 +114,7 @@ class ContentElevatorPitch extends Content {
 
     calculateAngle() {
         const x1 = this.xCenter;
-        const y1 = this.yCenter;
+        const y1 = this.yCenterReal;
         const x2 = this.mouseX;
         const y2 = this.mouseY;
         var dx = x2 - x1;
@@ -132,13 +144,18 @@ class ContentElevatorPitch extends Content {
         });
     }
 
-    activateContent() {
-        // Contenido ya está mostrado
+    calculateCenterPositions() {
         this.watchRect = this.$watchImage.getBoundingClientRect();
         const watchWidth = this.watchRect.width;
         const watchHeight = this.watchRect.height;
         this.xCenter = this.watchRect.left + watchWidth / 2;
         this.yCenter = this.watchRect.top + watchHeight / 2;
+    }
+
+    activateContent() {
+        // Contenido ya está mostrado
+        this.watchRect = this.$watchImage.getBoundingClientRect();
+        this.calculateCenterPositions();
 
         // 0.684 es el pòrcentaje de la imagen del círculo respecto del total de la imagen
         this.radius = (this.watchRect.width * 0.52898) / 2; // 0.684

@@ -44,6 +44,8 @@ import ContentAct4Title from "./content/ContentAct4Title.js";
 
 class Controller {
     agent;
+    minPosY;
+
     constructor() {
         this.checkDeviceType();
         this.eventSystem = eventSystem;
@@ -54,10 +56,13 @@ class Controller {
 
         // Valores generales del contenedor
         this.$content = document.querySelector("#content");
+        this.rootElement = document.getElementById("root");
+        this.rootRect = this.rootElement.getBoundingClientRect();
 
-        // this.checkRootDimensions();
+        this.checkRootDimensions();
         this.adjustFooter();
         this.positionDesktopFlowers();
+        this.setupScroll();
 
         // Si esto cambia a causa de un resize del navegador, hay que recalcular la posición del content según el contenido
         this.contentWidth = this.$content.getBoundingClientRect().width;
@@ -217,7 +222,7 @@ class Controller {
         this.currentPunctuation = currentPunctuation;
 
         // TESTING */
-        //this.showContent(28); // 16 cinematics done
+        //this.showContent(19); // 16 cinematics done
         document.addEventListener("keydown", (event) => {
             that.onkeydown(event);
         });
@@ -232,7 +237,11 @@ class Controller {
         // listen to an on resize window event
         window.addEventListener("resize", () => {
             this.positionDesktopFlowers();
+            that.positionStickyFooter();
         });
+
+        // Force the onResize event of the window
+        window.dispatchEvent(new Event("resize"));
     }
 
     checkDeviceType() {
@@ -251,12 +260,28 @@ class Controller {
         }
     }
 
+    positionStickyFooter() {
+        if (this.agent !== "mobile") {
+            const containerRect = document.querySelector(".container").getBoundingClientRect();
+            //console.log("containerRect.height", containerRect.height);
+            if (containerRect.height < 970) {
+                document.querySelector(".sticky-footer").style.display = "block";
+            } else {
+                document.querySelector(".sticky-footer").style.display = "none";
+            }
+        }
+    }
+
     adjustFooter() {
+        console.log("this.agent", this.agent);
         if (this.agent === "mobile") {
-            document.querySelector(".sticky-footer").style.display = "none";
+            //document.querySelector(".sticky-footer").style.display = "none";
+            document.querySelector(".footer-desktop").style.display = "none";
+            document.getElementById("scrollbar-container").style.display = "none";
         } else {
             document.querySelector(".sticky-footer").style.display = "none";
-            document.querySelector(".footer-desktop").style.display = "block";
+            //document.querySelector(".footer-desktop").style.display = "none";
+            //document.getElementById("scrollbar-container").style.display = "none";
         }
     }
 
@@ -283,6 +308,9 @@ class Controller {
         const rightFlowrsX = containerRect.width * 0.5 + rootRect.width * 0.5;
         const rightFlowrsY = containerRect.height * 0.5 - rightFlowersRect.height * 0.5;
 
+        //console.log("leftFlowrsX", leftFlowrsX);
+        //console.log("containerRect.width", containerRect.width);
+
         leftFlowers.style.top = `${leftFlowrsY}px`;
         leftFlowers.style.left = `${leftFlowrsX}px`;
 
@@ -291,16 +319,22 @@ class Controller {
     }
 
     checkRootDimensions() {
-        this.rootRect = document.getElementById("root").getBoundingClientRect();
-        console.log("this.rootRect");
+        console.log("this.rootRect", this.rootRect.height);
 
-        if (this.rootRect.height < 800) {
+        if (this.rootRect.height < 970) {
             const h = 560;
             const w = h * 0.56;
+            //console.log("W", w);
+            //console.log("H", h);
+
             // add style width equals to w
-            document.getElementById("root").style.maxHeight = `${h}px`;
-            document.getElementById("root").style.maxWidth = `${w}px`;
-            console.log("Ajuste");
+            //this.rootElement.style.minHeight = `800px`;
+            //this.rootElement.style.width = `${w}px`;
+            //document.querySelector("body").style.transform = `scale(0.75)`;
+            //document.querySelector(".container").style.transform = `scale(0.75)`;
+            //document.getElementById("root").style.transform = `scale(0.75)`;
+            //document.getElementById("content").style.transform = `scale(0.7)`;
+            //console.log("Ajuste");
         }
     }
 
@@ -374,6 +408,107 @@ class Controller {
                 duration: Settings.duration,
             });
         }
+    }
+
+    moveContent(percent) {
+        this.rootRect = this.rootElement.getBoundingClientRect();
+        const rootH = this.rootRect.height;
+        const windowH = window.innerHeight;
+
+        let y = (windowH - rootH) * percent;
+        y += this.minPosY;
+        //console.log("moveContent:", percent, "y", y, "window", windowH, "root", rootH);
+        this.rootElement.style.top = `${y}px`;
+    }
+
+    setupScroll() {
+        const that = this;
+        const container = document.getElementById("scrollbar-container");
+        const tracker = document.getElementById("scrollbar-tracker");
+
+        function updateTrackerHeight() {
+            const thirdOfWindowHeight = window.innerHeight / 3;
+            tracker.style.height = `${thirdOfWindowHeight}px`;
+
+            // Recalculamos la posición mínima en Y
+            if (window.innerHeight < 800) {
+                that.minPosY = (800 - window.innerHeight) / 2;
+                that.moveContent(0);
+                tracker.style.top = `0px`;
+                //
+                container.style.display = "block";
+            } else {
+                that.minPosY = 0;
+                // make container display none
+                container.style.display = "none";
+                that.rootElement.style.top = `0px`;
+            }
+        }
+
+        function moveTracker(e) {
+            const containerRect = container.getBoundingClientRect();
+            const trackerHeight = tracker.offsetHeight;
+            let newY = e.clientY - containerRect.top - trackerHeight / 2;
+
+            // Prevent the tracker from going out of bounds
+            newY = Math.max(newY, 0);
+            newY = Math.min(newY, window.innerHeight - trackerHeight);
+            //console.log("newY", newY, "clientY", e.clientY, "containerRect.top", containerRect.top, "trackerHeight", trackerHeight);
+            tracker.style.top = `${newY}px`;
+
+            // Scroll the window based on tracker position
+            const totalScrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercentage = newY / (window.innerHeight - trackerHeight);
+            //that.scrollPercentage = scrollPercentage;
+            that.moveContent(scrollPercentage);
+            window.scrollTo(0, totalScrollableHeight * scrollPercentage);
+        }
+
+        function scrollWithWheel(e) {
+            if (window.innerHeight < 800) {
+                const trackerHeight = tracker.offsetHeight;
+                const containerRect = container.getBoundingClientRect();
+                let newY = parseInt(tracker.style.top, 10) || 0; // Get current tracker position, default to 0 if not set
+                const scrollAmount = e.deltaY * 0.1; // Positive for scroll down, negative for scroll up
+
+                // Calculate new Y position based on scroll direction
+                newY += scrollAmount;
+
+                // Prevent the tracker from going out of bounds
+                newY = Math.max(newY, 0);
+                newY = Math.min(newY, window.innerHeight - trackerHeight - containerRect.top);
+
+                tracker.style.top = `${newY}px`;
+
+                // Scroll the window based on tracker position
+                const totalScrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercentage = newY / (window.innerHeight - trackerHeight - containerRect.top);
+                that.moveContent(scrollPercentage);
+                window.scrollTo(0, totalScrollableHeight * scrollPercentage);
+            }
+        }
+
+        // Update the tracker height on load and window resize
+        updateTrackerHeight();
+        window.addEventListener("resize", updateTrackerHeight);
+
+        // Add dragging functionality to the tracker
+        tracker.addEventListener("mousedown", function (event) {
+            document.addEventListener("mousemove", moveTracker);
+
+            if (event.target === document.getElementById("scrollbar-tracker") || event.target.closest("#scrollbar-tracker")) {
+                // Add the no-select class to the body
+                document.body.classList.add("no-select");
+            }
+        });
+
+        // Listen for wheel event on the window or a specific container
+        window.addEventListener("wheel", scrollWithWheel);
+
+        document.addEventListener("mouseup", function () {
+            document.removeEventListener("mousemove", moveTracker);
+            document.body.classList.remove("no-select");
+        });
     }
 }
 export default Controller;

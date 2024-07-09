@@ -38,7 +38,7 @@ class CallToAction extends Content {
 
     onClickNext() {
         //this.gotoNextStep()
-        window.open("https://go.whu.edu/l/877492/2024-06-19/5xl6pj", "_blank");
+        window.open("https://www.whu.edu/en/programs/lp/the-rainforest-quest/contact/", "_blank");
     }
 }
 

@@ -9,7 +9,6 @@ import StartupsStep from './StartupsStep.astro'
 import FinancialMetric from './FinancialMetric.astro'
 import TravelToManausStep from './TravelToManausStep.astro'
 import WhyEnterpreneurStep from './WhyEnterpreneurStep.astro'
-import Form from '../components/Form.astro';
 import ElevatorPitchStep from './ElevatorPitchStep.astro';
 import PatagoniaStep from './PatagoniaStep.astro';
 import SocialMediaStep from './SocialMediaStep.astro';
@@ -25,7 +24,6 @@ import Act1_SarahApproves from './acts/Act1_SarahApproves.astro';
 import Act2_Cinematics from './acts/Act2_Cinematics.astro';
 import Act2_PreQuestion from './acts/Act2_PreQuestion.astro';
 import Act3_Cinematics from './acts/Act3_Cinematics.astro';
-import Act3_AlexAfterIA from './acts/Act3_AlexAfterIA.astro';
 import Act4_Cinematics_After9 from './acts/Act4_Cinematics_After9.astro';
 import Intro from './Intro.astro';
 import IntroMessage from './IntroMessage.astro';
@@ -33,11 +31,10 @@ import Header from '../components/Header.astro';
 import BusinessStep from './BusinessStep.astro';
 import Footer from '../components/Footer.astro';
 import FooterDesktop from '../components/FooterDesktop.astro';
+import ScrollDesktop from '../components/ScrollDesktop.astro';
 import FlowersDesktop from '../components/FlowersDesktop.astro';
-import PrologueCinematics from './acts/Prologue_Cinematics.astro';
 import CallToAction from './CallToAction.astro';
 import Settings from '../components/Settings.astro';
-import New from './New.astro';
 import Interview from './Interview.astro';
 import Dialogue1_Cinematics from './acts/Dialogue1_Cinematics.astro';
 import Dialogue2_Cinematics from './acts/Dialogue2_Cinematics.astro';
@@ -162,12 +159,19 @@ console.log(backgroundURL)
 		</div>
 		<FlowersDesktop />
 		<FooterDesktop />
+		<ScrollDesktop />
 	</div>
 	<!-- add a footer -->
 	
 </Layout>
 <style is:global define:vars={{backgroundURL}}>
-	
+	.no-select {
+		-webkit-user-select: none; /* Safari */
+		-moz-user-select: none; /* Firefox */
+		-ms-user-select: none; /* IE10+/Edge */
+		user-select: none; /* Standard */
+	}
+
 	:root {
     	--radius: 15px;
     	--marginGeneral: 0%;
@@ -291,6 +295,18 @@ console.log(backgroundURL)
 		bottom: 0px;
 		height: 35px;
 		opacity:1;
+	}
+
+	@media (max-height: 900px) {
+        #root{
+            /*opacity:0;*/
+        }
+	}
+
+	@media (min-width: 800px) {
+        .holder{
+			height: 800px;
+		}
 	}
 
 </style>
